@@ -1,2 +1,3 @@
-system/storage/
+system/storage/cache
+system/storage/vendor
 .idea/
