@@ -1,18 +1,19 @@
 <?php
 // HTTP
-define('HTTP_SERVER', 'http://localhost/opencart/admin/');
-define('HTTP_CATALOG', 'http://localhost/opencart/');
+define('HTTP_SERVER', 'http://localhost/Shop/admin/');
+define('HTTP_CATALOG', 'http://localhost/Shop/');
 
 // HTTPS
-define('HTTPS_SERVER', 'http://localhost/opencart/admin/');
-define('HTTPS_CATALOG', 'http://localhost/opencart/');
+define('HTTPS_SERVER', 'http://localhost/Shop/admin/');
+define('HTTPS_CATALOG', 'http://localhost/Shop/');
 
 // DIR
-define('DIR_APPLICATION', '/var/www/html/opencart/admin/');
-define('DIR_SYSTEM', '/var/www/html/opencart/system/');
-define('DIR_IMAGE', '/var/www/html/opencart/image/');
+$DIR = substr(__DIR__,0,strlen(__DIR__)-6);
+define('DIR_APPLICATION', $DIR.'/admin/');
+define('DIR_SYSTEM', $DIR.'/system/');
+define('DIR_IMAGE', $DIR.'/image/');
 define('DIR_STORAGE', DIR_SYSTEM . 'storage/');
-define('DIR_CATALOG', '/var/www/html/opencart/catalog/');
+define('DIR_CATALOG', $DIR.'/catalog/');
 define('DIR_LANGUAGE', DIR_APPLICATION . 'language/');
 define('DIR_TEMPLATE', DIR_APPLICATION . 'view/template/');
 define('DIR_CONFIG', DIR_SYSTEM . 'config/');
