@@ -14,7 +14,7 @@ class ControllerEventTheme extends Controller {
 			$config = array('autoescape' => false);
 			
 			if ($this->config->get('template_cache')) {
-				$config['cache'] = DIR_CACHE;
+				$config['cache'] = false; //DIR_CACHE
 			}
 			
 			// initialize Twig environment
