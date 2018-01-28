@@ -353,7 +353,7 @@ class ModelCatalogProduct extends Model {
 			$sql .= " AND p.status = '" . (int)$data['filter_status'] . "'";
 		}
 
-		$sql .= " GROUP BY p.product_id";
+		$sql .= " GROUP BY p.product_id,pd.product_id,pd.language_id";
 
 		$sort_data = array(
 			'pd.name',
@@ -571,11 +571,11 @@ class ModelCatalogProduct extends Model {
 		}
 
 		if (!empty($data['filter_model'])) {
-			$sql .= " AND p.model LIKE '" . $this->db->escape((string)$data['filter_model']) . "%'";
+			$sql .= " AND cast(p.model as text) LIKE '" . $this->db->escape((string)$data['filter_model']) . "%'";
 		}
 
 		if (isset($data['filter_price']) && !is_null($data['filter_price'])) {
-			$sql .= " AND p.price LIKE '" . $this->db->escape((string)$data['filter_price']) . "%'";
+			$sql .= " AND cast(p.price as text) LIKE '" . $this->db->escape((string)$data['filter_price']) . "%'";
 		}
 
 		if (isset($data['filter_quantity']) && $data['filter_quantity'] !== '') {
