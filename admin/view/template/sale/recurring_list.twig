@@ -78,7 +78,7 @@
                 <table class="table table-bordered table-hover">
                   <thead>
                   <tr>
-                    <td class="text-right">{% if sort == 'or.order_recurring_id' %} <a href="{{ sort_order_recurring }}" class="{{ order|lower }}">{{ column_order_recurring_id }}</a> {% else %} <a href="{{ sort_order_recurring }}">{{ column_order_recurring_id }}</a> {% endif %}</td>
+                    <td class="text-right">{% if sort == 'ort.order_recurring_id' %} <a href="{{ sort_order_recurring }}" class="{{ order|lower }}">{{ column_order_recurring_id }}</a> {% else %} <a href="{{ sort_order_recurring }}">{{ column_order_recurring_id }}</a> {% endif %}</td>
                     <td class="text-right">{% if sort == 'or.order_id' %} <a href="{{ sort_order }}" class="{{ order|lower }}">{{ column_order_id }}</a> {% else %} <a href="{{ sort_order }}">{{ column_order_id }}</a> {% endif %}</td>
                     <td class="text-left">{% if sort == 'or.reference' %} <a href="{{ sort_reference }}" class="{{ order|lower }}">{{ column_reference }}</a> {% else %} <a href="{{ sort_reference }}">{{ column_reference }}</a> {% endif %}</td>
                     <td class="text-left">{% if sort == 'customer' %} <a href="{{ sort_customer }}" class="{{ order|lower }}">{{ column_customer }}</a> {% else %} <a href="{{ sort_customer }}">{{ column_customer }}</a> {% endif %}</td>

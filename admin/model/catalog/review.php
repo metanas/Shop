@@ -76,7 +76,7 @@ class ModelCatalogReview extends Model {
 				$data['limit'] = 20;
 			}
 
-			$sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
+			$sql .= " LIMIT " . (int)$data['limit'] . " OFFSET " . (int)$data['start'];
 		}
 
 		$query = $this->db->query($sql);

@@ -10,7 +10,7 @@ class ModelExtensionReportCustomer extends Model {
 			);
 		}
 
-		$query = $this->db->query("SELECT COUNT(*) AS total, HOUR(date_added) AS hour FROM `" . DB_PREFIX . "customer` WHERE DATE(date_added) = DATE(NOW()) GROUP BY HOUR(date_added) ORDER BY date_added ASC");
+		$query = $this->db->query("SELECT COUNT(*) AS total, date_part('hour',date_added) AS hour FROM `" . DB_PREFIX . "customer` WHERE DATE(date_added) = DATE(NOW()) GROUP BY date_added, date_part('hour' ,date_added) ORDER BY date_added ASC");
 
 		foreach ($query->rows as $result) {
 			$customer_data[$result['hour']] = array(
@@ -36,7 +36,7 @@ class ModelExtensionReportCustomer extends Model {
 			);
 		}
 
-		$query = $this->db->query("SELECT COUNT(*) AS total, date_added FROM `" . DB_PREFIX . "customer` WHERE DATE(date_added) >= DATE('" . $this->db->escape(date('Y-m-d', $date_start)) . "') GROUP BY DAYNAME(date_added)");
+		$query = $this->db->query("SELECT COUNT(*) AS total, date_added FROM `" . DB_PREFIX . "customer` WHERE DATE(date_added) >= DATE('" . $this->db->escape(date('Y-m-d', $date_start)) . "') GROUP BY date_added");
 
 		foreach ($query->rows as $result) {
 			$customer_data[date('w', strtotime($result['date_added']))] = array(
@@ -60,7 +60,7 @@ class ModelExtensionReportCustomer extends Model {
 			);
 		}
 
-		$query = $this->db->query("SELECT COUNT(*) AS total, date_added FROM `" . DB_PREFIX . "customer` WHERE DATE(date_added) >= '" . $this->db->escape(date('Y') . '-' . date('m') . '-1') . "' GROUP BY DATE(date_added)");
+		$query = $this->db->query("SELECT COUNT(*) AS total, date_added FROM `" . DB_PREFIX . "customer` WHERE DATE(date_added) >= '" . $this->db->escape(date('Y') . '-' . date('m') . '-1') . "' GROUP BY date_added,DATE(date_added)");
 
 		foreach ($query->rows as $result) {
 			$customer_data[date('j', strtotime($result['date_added']))] = array(
@@ -82,7 +82,7 @@ class ModelExtensionReportCustomer extends Model {
 			);
 		}
 
-		$query = $this->db->query("SELECT COUNT(*) AS total, date_added FROM `" . DB_PREFIX . "customer` WHERE YEAR(date_added) = YEAR(NOW()) GROUP BY MONTH(date_added)");
+		$query = $this->db->query("SELECT COUNT(*) AS total, date_added FROM `" . DB_PREFIX . "customer` WHERE date_part('year',date_added) = date_part('year', NOW()) GROUP BY date_added, date_part('month' ,date_added)");
 
 		foreach ($query->rows as $result) {
 			$customer_data[date('n', strtotime($result['date_added']))] = array(
@@ -115,9 +115,9 @@ class ModelExtensionReportCustomer extends Model {
 			$sql .= " AND o.order_status_id > '0'";
 		}
 
-		$sql .= " GROUP BY o.order_id";
+		$sql .= " GROUP BY c.customer_id,customer, c.email, cgd.name, o.order_id";
 
-		$sql = "SELECT t.customer_id, t.customer, t.email, t.customer_group, t.status, COUNT(DISTINCT t.order_id) AS orders, SUM(t.products) AS products, SUM(t.total) AS total FROM (" . $sql . ") AS t GROUP BY t.customer_id ORDER BY total DESC";
+		$sql = "SELECT t.customer_id, t.customer, t.email, t.customer_group, t.status, COUNT(DISTINCT t.order_id) AS orders, SUM(t.products) AS products, SUM(t.total) AS total FROM (" . $sql . ") AS t GROUP BY t.customer_id, t.email, t.customer_group, t.status, t.customer ORDER BY total DESC";
 
 		if (isset($data['start']) || isset($data['limit'])) {
 			if ($data['start'] < 0) {
@@ -128,7 +128,7 @@ class ModelExtensionReportCustomer extends Model {
 				$data['limit'] = 20;
 			}
 
-			$sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
+			$sql .= " LIMIT " . (int)$data['limit'] . " OFFSET " . (int)$data['start'];
 		}
 
 		$query = $this->db->query($sql);
@@ -177,7 +177,7 @@ class ModelExtensionReportCustomer extends Model {
 			$sql .= " AND CONCAT(c.firstname, ' ', c.lastname) LIKE '" . $this->db->escape((string)$data['filter_customer']) . "'";
 		}
 
-		$sql .= " GROUP BY cr.customer_id ORDER BY points DESC";
+		$sql .= " GROUP BY customer,  c.email, cgd.name, cr.customer_id, c.status ORDER BY points DESC";
 
 		if (isset($data['start']) || isset($data['limit'])) {
 			if ($data['start'] < 0) {
@@ -188,7 +188,7 @@ class ModelExtensionReportCustomer extends Model {
 				$data['limit'] = 20;
 			}
 
-			$sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
+			$sql .= " LIMIT " . (int)$data['limit'] . " OFFSET " . (int)$data['start'];
 		}
 
 		$query = $this->db->query($sql);
@@ -258,7 +258,7 @@ class ModelExtensionReportCustomer extends Model {
 				$data['limit'] = 20;
 			}
 
-			$sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
+			$sql .= " LIMIT " . (int)$data['limit'] . " OFFSET " . (int)$data['start'];
 		}
 
 		$query = $this->db->query($sql);
@@ -336,7 +336,7 @@ class ModelExtensionReportCustomer extends Model {
 				$data['limit'] = 20;
 			}
 
-			$sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
+			$sql .= " LIMIT " . (int)$data['limit'] . " OFFSET " . (int)$data['start'];
 		}
 
 		$query = $this->db->query($sql);

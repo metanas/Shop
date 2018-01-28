@@ -1,19 +1,23 @@
 <?php
 class ModelMarketingCoupon extends Model {
 	public function addCoupon($data) {
-		$this->db->query("INSERT INTO " . DB_PREFIX . "coupon SET name = '" . $this->db->escape((string)$data['name']) . "', code = '" . $this->db->escape((string)$data['code']) . "', discount = '" . (float)$data['discount'] . "', type = '" . $this->db->escape((string)$data['type']) . "', total = '" . (float)$data['total'] . "', logged = '" . (int)$data['logged'] . "', shipping = '" . (int)$data['shipping'] . "', date_start = '" . $this->db->escape((string)$data['date_start']) . "', date_end = '" . $this->db->escape((string)$data['date_end']) . "', uses_total = '" . (int)$data['uses_total'] . "', uses_customer = '" . (int)$data['uses_customer'] . "', status = '" . (int)$data['status'] . "', date_added = NOW()");
+		$this->db->query("INSERT INTO " . DB_PREFIX . "coupon (name, code, discount, type, total, logged, shipping, date_start, date_end, uses_total,uses_customer, status, date_added)
+		VALUES('" . $this->db->escape((string)$data['name']) . "','" . $this->db->escape((string)$data['code']) . "','" . (float)$data['discount'] . "','" . $this->db->escape((string)$data['type']) . "','"
+            . (float)$data['total'] . "','" . (int)$data['logged'] . "', '" . (int)$data['shipping'] . "','" . $this->db->escape((string)$data['date_start']) . "','" . $this->db->escape((string)$data['date_end']) . "','"
+            . (int)$data['uses_total'] . "','" . (int)$data['uses_customer'] . "','" . (int)$data['status'] . "', NOW())");
 
 		$coupon_id = $this->db->getLastId();
 
 		if (isset($data['coupon_product'])) {
 			foreach ($data['coupon_product'] as $product_id) {
-				$this->db->query("INSERT INTO " . DB_PREFIX . "coupon_product SET coupon_id = '" . (int)$coupon_id . "', product_id = '" . (int)$product_id . "'");
+				$this->db->query("INSERT INTO " . DB_PREFIX . "coupon_product (coupon_id, product_id) VALUES('" . (int)$coupon_id . "','" . (int)$product_id . "')");
 			}
 		}
 
 		if (isset($data['coupon_category'])) {
 			foreach ($data['coupon_category'] as $category_id) {
-				$this->db->query("INSERT INTO " . DB_PREFIX . "coupon_category SET coupon_id = '" . (int)$coupon_id . "', category_id = '" . (int)$category_id . "'");
+				$this->db->query("INSERT INTO " . DB_PREFIX . "coupon_category (coupon_id,  category_id) 
+				VALUES('" . (int)$coupon_id . "','" . (int)$category_id . "')");
 			}
 		}
 
@@ -27,7 +31,7 @@ class ModelMarketingCoupon extends Model {
 
 		if (isset($data['coupon_product'])) {
 			foreach ($data['coupon_product'] as $product_id) {
-				$this->db->query("INSERT INTO " . DB_PREFIX . "coupon_product SET coupon_id = '" . (int)$coupon_id . "', product_id = '" . (int)$product_id . "'");
+				$this->db->query("INSERT INTO " . DB_PREFIX . "coupon_product (coupon_id,  product_id) VALUES('" . (int)$coupon_id . "','" . (int)$product_id . "')");
 			}
 		}
 
@@ -35,7 +39,7 @@ class ModelMarketingCoupon extends Model {
 
 		if (isset($data['coupon_category'])) {
 			foreach ($data['coupon_category'] as $category_id) {
-				$this->db->query("INSERT INTO " . DB_PREFIX . "coupon_category SET coupon_id = '" . (int)$coupon_id . "', category_id = '" . (int)$category_id . "'");
+				$this->db->query("INSERT INTO " . DB_PREFIX . "coupon_category (coupon_id, category_id) VALUES('" . (int)$coupon_id . "','" . (int)$category_id . "')   ");
 			}
 		}
 	}
@@ -92,7 +96,7 @@ class ModelMarketingCoupon extends Model {
 				$data['limit'] = 20;
 			}
 
-			$sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
+			$sql .= " LIMIT " . (int)$data['limit'] . " OFFSET " . (int)$data['start'];
 		}
 
 		$query = $this->db->query($sql);
@@ -139,7 +143,7 @@ class ModelMarketingCoupon extends Model {
 			$limit = 10;
 		}
 
-		$query = $this->db->query("SELECT ch.order_id, CONCAT(c.firstname, ' ', c.lastname) AS customer, ch.amount, ch.date_added FROM " . DB_PREFIX . "coupon_history ch LEFT JOIN " . DB_PREFIX . "customer c ON (ch.customer_id = c.customer_id) WHERE ch.coupon_id = '" . (int)$coupon_id . "' ORDER BY ch.date_added ASC LIMIT " . (int)$start . "," . (int)$limit);
+		$query = $this->db->query("SELECT ch.order_id, CONCAT(c.firstname, ' ', c.lastname) AS customer, ch.amount, ch.date_added FROM " . DB_PREFIX . "coupon_history ch LEFT JOIN " . DB_PREFIX . "customer c ON (ch.customer_id = c.customer_id) WHERE ch.coupon_id = '" . (int)$coupon_id . "' ORDER BY ch.date_added ASC LIMIT " . (int)$start . " OFFSET " . (int)$limit);
 
 		return $query->rows;
 	}

@@ -15,7 +15,7 @@ class ModelExtensionReportCustomerTransaction extends Model {
 			$sql .= " AND CONCAT(c.firstname, ' ', c.lastname) LIKE '" . $this->db->escape((string)$data['filter_customer']) . "'";
 		}
 
-		$sql .= " GROUP BY ct.customer_id ORDER BY total DESC";
+		$sql .= " GROUP BY customer ,c.email, customer_group,c.status,ct.customer_id ORDER BY total DESC";
 
 		if (isset($data['start']) || isset($data['limit'])) {
 			if ($data['start'] < 0) {
@@ -26,7 +26,7 @@ class ModelExtensionReportCustomerTransaction extends Model {
 				$data['limit'] = 20;
 			}
 
-			$sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
+			$sql .= " LIMIT " . (int)$data['limit'] . " OFFSET " . (int)$data['start'];
 		}
 
 		$query = $this->db->query($sql);

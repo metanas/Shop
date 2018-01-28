@@ -21,10 +21,10 @@ define('DIR_SESSION', DIR_STORAGE . 'session/');
 define('DIR_UPLOAD', DIR_STORAGE . 'upload/');
 
 // DB
-define('DB_DRIVER', 'mysqli');
+define('DB_DRIVER', 'postgre');
 define('DB_HOSTNAME', 'localhost');
-define('DB_USERNAME', 'opencart');
-define('DB_PASSWORD', 'metanas@');
+define('DB_USERNAME', 'postgres');
+define('DB_PASSWORD', 'root');
 define('DB_DATABASE', 'opencart');
-define('DB_PORT', '3306');
+define('DB_PORT', '5432');
 define('DB_PREFIX', 'oc_');

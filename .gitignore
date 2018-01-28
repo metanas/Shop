@@ -61,3 +61,4 @@
 # IDE Project files
 /.idea
 /vendor/
+composer.lock

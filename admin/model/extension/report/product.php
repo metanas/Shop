@@ -12,7 +12,7 @@ class ModelExtensionReportProduct extends Model {
 				$data['limit'] = 20;
 			}
 
-			$sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
+			$sql .= " LIMIT " . (int)$data['limit'] . " OFFSET " . (int)$data['start'];
 		}
 
 		$query = $this->db->query($sql);
@@ -53,7 +53,7 @@ class ModelExtensionReportProduct extends Model {
 			$sql .= " AND DATE(o.date_added) <= '" . $this->db->escape((string)$data['filter_date_end']) . "'";
 		}
 
-		$sql .= " GROUP BY op.product_id ORDER BY total DESC";
+		$sql .= " GROUP BY op.name, op.model, op.product_id ORDER BY total DESC";
 
 		if (isset($data['start']) || isset($data['limit'])) {
 			if ($data['start'] < 0) {
@@ -64,7 +64,7 @@ class ModelExtensionReportProduct extends Model {
 				$data['limit'] = 20;
 			}
 
-			$sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
+			$sql .= " LIMIT " . (int)$data['limit'] . " OFFSET " . (int)$data['start'];
 		}
 
 		$query = $this->db->query($sql);

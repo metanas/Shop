@@ -25,17 +25,17 @@ class ModelExtensionReportReturn extends Model {
 
 		switch($group) {
 			case 'day';
-				$sql .= " GROUP BY YEAR(r.date_added), MONTH(r.date_added), DAY(r.date_added)";
+				$sql .= " GROUP BY DATE_PART('year' ,r.date_added), DATE_PART('month' ,r.date_added), DATE_PART('day' ,r.date_added)";
 				break;
 			default:
 			case 'week':
-				$sql .= " GROUP BY YEAR(r.date_added), WEEK(r.date_added)";
+				$sql .= " GROUP BY DATE_PART('year', r.date_added), DATE_PART('week' ,r.date_added)";
 				break;
 			case 'month':
-				$sql .= " GROUP BY YEAR(r.date_added), MONTH(r.date_added)";
+				$sql .= " GROUP BY DATE_PART('year', r.date_added), DATE_PART('month', r.date_added)";
 				break;
 			case 'year':
-				$sql .= " GROUP BY YEAR(r.date_added)";
+				$sql .= " GROUP BY DATE_PART('year' ,r.date_added)";
 				break;
 		}
 
@@ -48,7 +48,7 @@ class ModelExtensionReportReturn extends Model {
 				$data['limit'] = 20;
 			}
 
-			$sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
+			$sql .= " LIMIT " . (int)$data['limit'] . " OFFSET " . (int)$data['start'];
 		}
 
 		$query = $this->db->query($sql);
@@ -65,17 +65,17 @@ class ModelExtensionReportReturn extends Model {
 
 		switch($group) {
 			case 'day';
-				$sql = "SELECT COUNT(DISTINCT YEAR(date_added), MONTH(date_added), DAY(date_added)) AS total FROM `" . DB_PREFIX . "return`";
+				$sql = "SELECT COUNT(DISTINCT date_part('day' ,date_added)) AS total FROM `" . DB_PREFIX . "return`";
 				break;
 			default:
 			case 'week':
-				$sql = "SELECT COUNT(DISTINCT YEAR(date_added), WEEK(date_added)) AS total FROM `" . DB_PREFIX . "return`";
+				$sql = "SELECT COUNT(DISTINCT date_part('week' ,date_added)) AS total FROM `" . DB_PREFIX . "return`";
 				break;
 			case 'month':
-				$sql = "SELECT COUNT(DISTINCT YEAR(date_added), MONTH(date_added)) AS total FROM `" . DB_PREFIX . "return`";
+				$sql = "SELECT COUNT(DISTINCT date_part('month' ,date_added)) AS total FROM `" . DB_PREFIX . "return`";
 				break;
 			case 'year':
-				$sql = "SELECT COUNT(DISTINCT YEAR(date_added)) AS total FROM `" . DB_PREFIX . "return`";
+				$sql = "SELECT COUNT(DISTINCT date_part('year' ,date_added)) AS total FROM `" . DB_PREFIX . "return`";
 				break;
 		}
 

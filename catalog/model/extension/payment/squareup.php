@@ -347,7 +347,7 @@ class ModelExtensionPaymentSquareup extends Model {
     }
 
     private function getLastSuccessfulRecurringPaymentDate($order_recurring_id) {
-        return $this->db->query("SELECT date_added FROM `" . DB_PREFIX . "order_recurring_transaction` WHERE order_recurring_id='" . (int)$order_recurring_id . "' AND type='" . self::TRANSACTION_PAYMENT . "' ORDER BY date_added DESC LIMIT 0,1")->row['date_added'];
+        return $this->db->query("SELECT date_added FROM `" . DB_PREFIX . "order_recurring_transaction` WHERE order_recurring_id='" . (int)$order_recurring_id . "' AND type='" . self::TRANSACTION_PAYMENT . "' ORDER BY date_added DESC LIMIT 0 OFFSET 1")->row['date_added'];
     }
 
     private function getRecurring($order_recurring_id) {

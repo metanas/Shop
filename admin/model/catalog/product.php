@@ -334,15 +334,15 @@ class ModelCatalogProduct extends Model {
 		$sql = "SELECT * FROM " . DB_PREFIX . "product p LEFT JOIN " . DB_PREFIX . "product_description pd ON (p.product_id = pd.product_id) WHERE pd.language_id = '" . (int)$this->config->get('config_language_id') . "'";
 
 		if (!empty($data['filter_name'])) {
-			$sql .= " AND pd.name LIKE '" . $this->db->escape((string)$data['filter_name']) . "%'";
+			$sql .= " AND cast(pd.name as text) LIKE '" . $this->db->escape((string)$data['filter_name']) . "%'";
 		}
 
 		if (!empty($data['filter_model'])) {
-			$sql .= " AND p.model LIKE '" . $this->db->escape((string)$data['filter_model']) . "%'";
+			$sql .= " AND cast(p.model as text) LIKE '" . $this->db->escape((string)$data['filter_model']) . "%'";
 		}
 
 		if (!empty($data['filter_price'])) {
-			$sql .= " AND p.price LIKE '" . $this->db->escape((string)$data['filter_price']) . "%'";
+			$sql .= " AND cast(p.price as text) LIKE '" . $this->db->escape((string)$data['filter_price']) . "%'";
 		}
 
 		if (isset($data['filter_quantity']) && $data['filter_quantity'] !== '') {
@@ -385,7 +385,7 @@ class ModelCatalogProduct extends Model {
 				$data['limit'] = 20;
 			}
 
-			$sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
+			$sql .= " LIMIT " . (int)$data['limit'] . " OFFSET " . (int)$data['start'];
 		}
 
 		$query = $this->db->query($sql);
