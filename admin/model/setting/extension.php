@@ -16,7 +16,8 @@ class ModelSettingExtension extends Model {
 		$extensions = $this->getInstalled($type);
 
 		if (!in_array($code, $extensions)) {
-			$this->db->query("INSERT INTO `" . DB_PREFIX . "extension` SET `type` = '" . $this->db->escape($type) . "', `code` = '" . $this->db->escape($code) . "'");
+			$this->db->query("INSERT INTO `" . DB_PREFIX . "extension` (`type`,`code`) 
+			VALUES('" . $this->db->escape($type) . "','" . $this->db->escape($code) . "')");
 		}
 	}
 
@@ -26,7 +27,8 @@ class ModelSettingExtension extends Model {
 	}	
 
 	public function addExtensionInstall($filename, $extension_id = 0, $extension_download_id = 0) {
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "extension_install` SET `filename` = '" . $this->db->escape($filename) . "', `extension_id` = '" . (int)$extension_id . "', `extension_download_id` = '" . (int)$extension_download_id . "', `date_added` = NOW()");
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "extension_install` (`filename`,`extension_id`, `extension_download_id`,`date_added`) 
+		VALUES('" . $this->db->escape($filename) . "', '" . (int)$extension_id . "','" . (int)$extension_download_id . "', NOW())");
 	
 		return $this->db->getLastId();
 	}
@@ -62,7 +64,8 @@ class ModelSettingExtension extends Model {
 	}
 		
 	public function addExtensionPath($extension_install_id, $path) {
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "extension_path` SET `extension_install_id` = '" . (int)$extension_install_id . "', `path` = '" . $this->db->escape($path) . "', `date_added` = NOW()");
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "extension_path` (`extension_install_id`, `path`, `date_added`) 
+		VALUES('" . (int)$extension_install_id . "','" . $this->db->escape($path) . "', NOW())");
 	}
 		
 	public function deleteExtensionPath($extension_path_id) {
