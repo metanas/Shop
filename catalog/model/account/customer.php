@@ -80,7 +80,7 @@ class ModelAccountCustomer extends Model {
 	}
 
 	public function addTransaction($customer_id, $description, $amount = '', $order_id = 0) {
-		$this->db->query("INSERT INTO " . DB_PREFIX . "customer_transaction SET customer_id = '" . (int)$customer_id . "', order_id = '" . (float)$order_id . "', description = '" . $this->db->escape($description) . "', amount = '" . (float)$amount . "', date_added = NOW()");
+		$this->db->query("INSERT INTO " . DB_PREFIX . "customer_transaction (customer_id, order_id, description, amount, date_added) VALUES('" . (int)$customer_id . "','" . (float)$order_id . "','" . $this->db->escape($description) . "','" . (float)$amount . "', NOW())");
 	}
 
 	public function deleteTransactionByOrderId($order_id) {
@@ -120,7 +120,8 @@ class ModelAccountCustomer extends Model {
 		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "customer_login WHERE email = '" . $this->db->escape(utf8_strtolower((string)$email)) . "' AND ip = '" . $this->db->escape($this->request->server['REMOTE_ADDR']) . "'");
 
 		if (!$query->num_rows) {
-			$this->db->query("INSERT INTO " . DB_PREFIX . "customer_login SET email = '" . $this->db->escape(utf8_strtolower((string)$email)) . "', ip = '" . $this->db->escape($this->request->server['REMOTE_ADDR']) . "', total = 1, date_added = '" . $this->db->escape(date('Y-m-d H:i:s')) . "', date_modified = '" . $this->db->escape(date('Y-m-d H:i:s')) . "'");
+			$this->db->query("INSERT INTO " . DB_PREFIX . "customer_login (email,ip, total,date_added,date_modified) VALUES(
+			'" . $this->db->escape(utf8_strtolower((string)$email)) . "','" . $this->db->escape($this->request->server['REMOTE_ADDR']) . "',1, '" . $this->db->escape(date('Y-m-d H:i:s')) . "','" . $this->db->escape(date('Y-m-d H:i:s')) . "')");
 		} else {
 			$this->db->query("UPDATE " . DB_PREFIX . "customer_login SET total = (total + 1), date_modified = '" . $this->db->escape(date('Y-m-d H:i:s')) . "' WHERE customer_login_id = '" . (int)$query->row['customer_login_id'] . "'");
 		}
