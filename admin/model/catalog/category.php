@@ -4,7 +4,7 @@ class ModelCatalogCategory extends Model
 {
     public function addCategory($data)
     {
-        $this->db->query("INSERT INTO " . DB_PREFIX . "category (parent_id,`top`, `column`, sort_order, status, date_modified ,date_added) 
+        $this->db->query("INSERT INTO " . DB_PREFIX . "category (parent_id,`top`, \"column\", sort_order, status, date_modified ,date_added) 
         VALUES('" . (int)$data['parent_id'] . "','" . (isset($data['top']) ? (int)$data['top'] : 0) . "','" . (int)$data['column'] . "', '" . (int)$data['sort_order'] . "','" . (int)$data['status'] . "',  NOW(), NOW())");
 
         $category_id = $this->db->getLastId();
