@@ -111,7 +111,7 @@ class ModelCatalogCategory extends Model
                 $level = 0;
 
                 foreach ($path as $path_id) {
-                    $this->db->query("Insert INTO `" . DB_PREFIX . "category_path` (category_id, `path_id`, level) Values(" . (int)$category_path['category_id'] . "','" . (int)$path_id . "','" . (int)$level . ")
+                    $this->db->query("Insert INTO `" . DB_PREFIX . "category_path` (category_id, `path_id`, level) Values('" . (int)$category_path['category_id'] . "','" . (int)$path_id . "','" . (int)$level . "')
 					ON CONFLICT (category_id) DO UPDATE SET  `path_id` = '" . (int)$path_id . "', level = '" . (int)$level . "'");
 
                     $level++;
