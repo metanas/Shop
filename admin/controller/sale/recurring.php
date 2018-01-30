@@ -207,7 +207,7 @@ class ControllerSaleRecurring extends Controller {
 			$url .= '&page=' . $this->request->get['page'];
 		}
 
-		$data['sort_order_recurring'] = $this->url->link('sale/recurring', 'user_token=' . $this->session->data['user_token'] . '&sort=or.order_recurring_id' . $url);
+		$data['sort_order_recurring'] = $this->url->link('sale/recurring', 'user_token=' . $this->session->data['user_token'] . '&sort=ort.order_recurring_id' . $url);
 		$data['sort_order'] = $this->url->link('sale/recurring', 'user_token=' . $this->session->data['user_token'] . '&sort=or.order_id' . $url);
 		$data['sort_reference'] = $this->url->link('sale/recurring', 'user_token=' . $this->session->data['user_token'] . '&sort=or.reference' . $url);
 		$data['sort_customer'] = $this->url->link('sale/recurring', 'user_token=' . $this->session->data['user_token'] . '&sort=customer' . $url);

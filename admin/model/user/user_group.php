@@ -1,7 +1,7 @@
 <?php
 class ModelUserUserGroup extends Model {
 	public function addUserGroup($data) {
-		$this->db->query("INSERT INTO " . DB_PREFIX . "user_group SET name = '" . $this->db->escape((string)$data['name']) . "', permission = '" . (isset($data['permission']) ? $this->db->escape(json_encode($data['permission'])) : '') . "'");
+		$this->db->query("INSERT INTO " . DB_PREFIX . "user_group (name,permission)  VALUES('" . $this->db->escape((string)$data['name']) . "','" . (isset($data['permission']) ? $this->db->escape(json_encode($data['permission'])) : '') . "')");
 	
 		return $this->db->getLastId();
 	}
@@ -45,7 +45,7 @@ class ModelUserUserGroup extends Model {
 				$data['limit'] = 20;
 			}
 
-			$sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
+			$sql .= " LIMIT " . (int)$data['limit'] . " OFFSET " . (int)$data['start'];
 		}
 
 		$query = $this->db->query($sql);

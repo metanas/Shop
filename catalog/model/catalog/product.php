@@ -137,13 +137,13 @@ class ModelCatalogProduct extends Model {
 			}
 
 			if (!empty($data['filter_name'])) {
-				$sql .= " OR LCASE(p.model) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
-				$sql .= " OR LCASE(p.sku) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
-				$sql .= " OR LCASE(p.upc) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
-				$sql .= " OR LCASE(p.ean) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
-				$sql .= " OR LCASE(p.jan) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
-				$sql .= " OR LCASE(p.isbn) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
-				$sql .= " OR LCASE(p.mpn) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
+				$sql .= " OR LOWER(p.model) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
+				$sql .= " OR LOWER(p.sku) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
+				$sql .= " OR LOWER(p.upc) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
+				$sql .= " OR LOWER(p.ean) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
+				$sql .= " OR LOWER(p.jan) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
+				$sql .= " OR LOWER(p.isbn) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
+				$sql .= " OR LOWER(p.mpn) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
 			}
 
 			$sql .= ")";
@@ -153,7 +153,7 @@ class ModelCatalogProduct extends Model {
 			$sql .= " AND p.manufacturer_id = '" . (int)$data['filter_manufacturer_id'] . "'";
 		}
 
-		$sql .= " GROUP BY p.product_id";
+		$sql .= " GROUP BY p.product_id, pd.name";
 
 		$sort_data = array(
 			'pd.name',
@@ -167,9 +167,10 @@ class ModelCatalogProduct extends Model {
 
 		if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
 			if ($data['sort'] == 'pd.name' || $data['sort'] == 'p.model') {
-				$sql .= " ORDER BY LCASE(" . $data['sort'] . ")";
+				$sql .= " ORDER BY LOWER(" . $data['sort'] . ")";
 			} elseif ($data['sort'] == 'p.price') {
 				$sql .= " ORDER BY (CASE WHEN special IS NOT NULL THEN special WHEN discount IS NOT NULL THEN discount ELSE p.price END)";
+				die($sql);
 			} else {
 				$sql .= " ORDER BY " . $data['sort'];
 			}
@@ -178,9 +179,9 @@ class ModelCatalogProduct extends Model {
 		}
 
 		if (isset($data['order']) && ($data['order'] == 'DESC')) {
-			$sql .= " DESC, LCASE(pd.name) DESC";
+			$sql .= " DESC, LOWER(pd.name) DESC";
 		} else {
-			$sql .= " ASC, LCASE(pd.name) ASC";
+			$sql .= " ASC, LOWER(pd.name) ASC";
 		}
 
 		if (isset($data['start']) || isset($data['limit'])) {
@@ -192,7 +193,7 @@ class ModelCatalogProduct extends Model {
 				$data['limit'] = 20;
 			}
 
-			$sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
+			$sql .= " LIMIT " . (int)$data['limit'] . " OFFSET " . (int)$data['start'];
 		}
 
 		$product_data = array();
@@ -222,7 +223,7 @@ class ModelCatalogProduct extends Model {
 
 		if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
 			if ($data['sort'] == 'pd.name' || $data['sort'] == 'p.model') {
-				$sql .= " ORDER BY LCASE(" . $data['sort'] . ")";
+				$sql .= " ORDER BY LOWER(" . $data['sort'] . ")";
 			} else {
 				$sql .= " ORDER BY " . $data['sort'];
 			}
@@ -231,9 +232,9 @@ class ModelCatalogProduct extends Model {
 		}
 
 		if (isset($data['order']) && ($data['order'] == 'DESC')) {
-			$sql .= " DESC, LCASE(pd.name) DESC";
+			$sql .= " DESC, LOWER(pd.name) DESC";
 		} else {
-			$sql .= " ASC, LCASE(pd.name) ASC";
+			$sql .= " ASC, LOWER(pd.name) ASC";
 		}
 
 		if (isset($data['start']) || isset($data['limit'])) {
@@ -245,7 +246,7 @@ class ModelCatalogProduct extends Model {
 				$data['limit'] = 20;
 			}
 
-			$sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
+			$sql .= " LIMIT " . (int)$data['limit'] . " OFFSET " . (int)$data['start'];
 		}
 
 		$product_data = array();
@@ -312,7 +313,7 @@ class ModelCatalogProduct extends Model {
 	public function getProductAttributes($product_id) {
 		$product_attribute_group_data = array();
 
-		$product_attribute_group_query = $this->db->query("SELECT ag.attribute_group_id, agd.name FROM " . DB_PREFIX . "product_attribute pa LEFT JOIN " . DB_PREFIX . "attribute a ON (pa.attribute_id = a.attribute_id) LEFT JOIN " . DB_PREFIX . "attribute_group ag ON (a.attribute_group_id = ag.attribute_group_id) LEFT JOIN " . DB_PREFIX . "attribute_group_description agd ON (ag.attribute_group_id = agd.attribute_group_id) WHERE pa.product_id = '" . (int)$product_id . "' AND agd.language_id = '" . (int)$this->config->get('config_language_id') . "' GROUP BY ag.attribute_group_id ORDER BY ag.sort_order, agd.name");
+		$product_attribute_group_query = $this->db->query("SELECT ag.attribute_group_id, agd.name FROM " . DB_PREFIX . "product_attribute pa LEFT JOIN " . DB_PREFIX . "attribute a ON (pa.attribute_id = a.attribute_id) LEFT JOIN " . DB_PREFIX . "attribute_group ag ON (a.attribute_group_id = ag.attribute_group_id) LEFT JOIN " . DB_PREFIX . "attribute_group_description agd ON (ag.attribute_group_id = agd.attribute_group_id) WHERE pa.product_id = '" . (int)$product_id . "' AND agd.language_id = '" . (int)$this->config->get('config_language_id') . "' GROUP BY ag.attribute_group_id, agd.name ORDER BY ag.sort_order, agd.name");
 
 		foreach ($product_attribute_group_query->rows as $product_attribute_group) {
 			$product_attribute_data = array();
@@ -497,13 +498,13 @@ class ModelCatalogProduct extends Model {
 			}
 
 			if (!empty($data['filter_name'])) {
-				$sql .= " OR LCASE(p.model) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
-				$sql .= " OR LCASE(p.sku) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
-				$sql .= " OR LCASE(p.upc) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
-				$sql .= " OR LCASE(p.ean) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
-				$sql .= " OR LCASE(p.jan) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
-				$sql .= " OR LCASE(p.isbn) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
-				$sql .= " OR LCASE(p.mpn) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
+				$sql .= " OR LOWER(p.model) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
+				$sql .= " OR LOWER(p.sku) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
+				$sql .= " OR LOWER(p.upc) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
+				$sql .= " OR LOWER(p.ean) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
+				$sql .= " OR LOWER(p.jan) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
+				$sql .= " OR LOWER(p.isbn) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
+				$sql .= " OR LOWER(p.mpn) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
 			}
 
 			$sql .= ")";

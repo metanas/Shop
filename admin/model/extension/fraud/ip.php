@@ -31,7 +31,7 @@ class ModelExtensionFraudIp extends Model {
 			$limit = 10;
 		}
 
-        $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "fraud_ip` ORDER BY `ip` ASC LIMIT " . (int)$start . "," . (int)$limit);
+        $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "fraud_ip` ORDER BY `ip` ASC LIMIT " . (int)$start . " OFFSET " . (int)$limit);
 
 		return $query->rows;
 	}

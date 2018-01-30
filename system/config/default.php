@@ -14,12 +14,12 @@ $_['language_autoload']    = array('en-gb');
 $_['date_timezone']        = 'UTC';
 
 // Database
-$_['db_engine']            = 'mysqli'; // mpdo, mssql, mysql, mysqli or postgre
+$_['db_engine']            = 'postgre'; // mpdo, mssql, mysql, mysqli or postgre
 $_['db_hostname']          = 'localhost';
 $_['db_username']          = 'root';
 $_['db_password']          = '';
 $_['db_database']          = '';
-$_['db_port']              = 3306;
+$_['db_port']              = 5432;
 $_['db_autostart']         = false;
 
 // Mail

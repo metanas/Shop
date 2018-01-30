@@ -1,13 +1,13 @@
 <?php
 class ModelCustomerCustomer extends Model {
 	public function addCustomer($data) {
-		$this->db->query("INSERT INTO " . DB_PREFIX . "customer SET customer_group_id = '" . (int)$data['customer_group_id'] . "', firstname = '" . $this->db->escape((string)$data['firstname']) . "', lastname = '" . $this->db->escape((string)$data['lastname']) . "', email = '" . $this->db->escape((string)$data['email']) . "', telephone = '" . $this->db->escape((string)$data['telephone']) . "', custom_field = '" . $this->db->escape(isset($data['custom_field']) ? json_encode($data['custom_field']) : json_encode(array())) . "', newsletter = '" . (int)$data['newsletter'] . "', salt = '', password = '" . $this->db->escape(password_hash($data['password'], PASSWORD_DEFAULT)) . "', status = '" . (int)$data['status'] . "', safe = '" . (int)$data['safe'] . "', date_added = NOW()");
+		$this->db->query("INSERT INTO " . DB_PREFIX . "customer (customer_group_id, firstname, lastname, email, telephone, custom_field, newsletter, salt, password, status,  safe, date_added) VALUES('" . (int)$data['customer_group_id'] . "','" . $this->db->escape((string)$data['firstname']) . "','" . $this->db->escape((string)$data['lastname']) . "','" . $this->db->escape((string)$data['email']) . "','" . $this->db->escape((string)$data['telephone']) . "','" . $this->db->escape(isset($data['custom_field']) ? json_encode($data['custom_field']) : json_encode(array())) . "','" . (int)$data['newsletter'] . "','','" . $this->db->escape(password_hash($data['password'], PASSWORD_DEFAULT)) . "','" . (int)$data['status'] . "','" . (int)$data['safe'] . "', NOW())");
 
 		$customer_id = $this->db->getLastId();
 
 		if (isset($data['address'])) {
 			foreach ($data['address'] as $address) {
-				$this->db->query("INSERT INTO " . DB_PREFIX . "address SET customer_id = '" . (int)$customer_id . "', firstname = '" . $this->db->escape($address['firstname']) . "', lastname = '" . $this->db->escape($address['lastname']) . "', company = '" . $this->db->escape($address['company']) . "', address_1 = '" . $this->db->escape($address['address_1']) . "', address_2 = '" . $this->db->escape($address['address_2']) . "', city = '" . $this->db->escape($address['city']) . "', postcode = '" . $this->db->escape($address['postcode']) . "', country_id = '" . (int)$address['country_id'] . "', zone_id = '" . (int)$address['zone_id'] . "', custom_field = '" . $this->db->escape(isset($address['custom_field']) ? json_encode($address['custom_field']) : json_encode(array())) . "'");
+				$this->db->query("INSERT INTO " . DB_PREFIX . "address (customer_id, firstname, lastname,  address_1, address_2, city, postcode, country_id, zone_id, custom_field) VALUES('" . (int)$customer_id . "','" . $this->db->escape($address['firstname']) . "','" . $this->db->escape($address['lastname']) . "','" . $this->db->escape($address['company']) . "','" . $this->db->escape($address['address_1']) . "','" . $this->db->escape($address['address_2']) . "','" . $this->db->escape($address['city']) . "','" . $this->db->escape($address['postcode']) . "','" . (int)$address['country_id'] . "','" . (int)$address['zone_id'] . "','" . $this->db->escape(isset($address['custom_field']) ? json_encode($address['custom_field']) : json_encode(array())) . "')");
 
 				if (isset($address['default'])) {
 					$address_id = $this->db->getLastId();
@@ -71,7 +71,7 @@ class ModelCustomerCustomer extends Model {
 	}
 	
 	public function getCustomers($data = array()) {
-		$sql = "SELECT *, CONCAT(c.firstname, ' ', c.lastname) AS name, cgd.name AS customer_group FROM " . DB_PREFIX . "customer c LEFT JOIN " . DB_PREFIX . "customer_group_description cgd ON (c.customer_group_id = cgd.customer_group_id) WHERE cgd.language_id = '" . (int)$this->config->get('config_language_id') . "'";
+		$sql = "SELECT *, CONCAT(c.firstname, ' ', c.lastname) AS fullname, cgd.name AS customer_group FROM " . DB_PREFIX . "customer c LEFT JOIN " . DB_PREFIX . "customer_group_description cgd ON (c.customer_group_id = cgd.customer_group_id) WHERE cgd.language_id = '" . (int)$this->config->get('config_language_id') . "'";
 
 		if (!empty($data['filter_name'])) {
 			$sql .= " AND CONCAT(c.firstname, ' ', c.lastname) LIKE '%" . $this->db->escape((string)$data['filter_name']) . "%'";
@@ -102,7 +102,7 @@ class ModelCustomerCustomer extends Model {
 		}
 
 		$sort_data = array(
-			'name',
+			'fullname',
 			'c.email',
 			'customer_group',
 			'c.status',
@@ -113,7 +113,7 @@ class ModelCustomerCustomer extends Model {
 		if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
 			$sql .= " ORDER BY " . $data['sort'];
 		} else {
-			$sql .= " ORDER BY name";
+			$sql .= " ORDER BY fullname";
 		}
 
 		if (isset($data['order']) && ($data['order'] == 'DESC')) {
@@ -131,7 +131,7 @@ class ModelCustomerCustomer extends Model {
 				$data['limit'] = 20;
 			}
 
-			$sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
+			$sql .= " LIMIT " . (int)$data['limit'] . " OFFSET " . (int)$data['start'];
 		}
 
 		$query = $this->db->query($sql);
@@ -273,7 +273,7 @@ class ModelCustomerCustomer extends Model {
 	}
 
 	public function addHistory($customer_id, $comment) {
-		$this->db->query("INSERT INTO " . DB_PREFIX . "customer_history SET customer_id = '" . (int)$customer_id . "', comment = '" . $this->db->escape(strip_tags($comment)) . "', date_added = NOW()");
+		$this->db->query("INSERT INTO " . DB_PREFIX . "customer_history (customer_id, comment, date_added) VALUES('" . (int)$customer_id . "','" . $this->db->escape(strip_tags($comment)) . "',NOW())");
 	}
 
 	public function getHistories($customer_id, $start = 0, $limit = 10) {
@@ -285,7 +285,7 @@ class ModelCustomerCustomer extends Model {
 			$limit = 10;
 		}
 
-		$query = $this->db->query("SELECT comment, date_added FROM " . DB_PREFIX . "customer_history WHERE customer_id = '" . (int)$customer_id . "' ORDER BY date_added DESC LIMIT " . (int)$start . "," . (int)$limit);
+		$query = $this->db->query("SELECT comment, date_added FROM " . DB_PREFIX . "customer_history WHERE customer_id = '" . (int)$customer_id . "' ORDER BY date_added DESC LIMIT " . (int)$start . " OFFSET " . (int)$limit);
 
 		return $query->rows;
 	}
@@ -297,7 +297,7 @@ class ModelCustomerCustomer extends Model {
 	}
 
 	public function addTransaction($customer_id, $description = '', $amount = '', $order_id = 0) {
-		$this->db->query("INSERT INTO " . DB_PREFIX . "customer_transaction SET customer_id = '" . (int)$customer_id . "', order_id = '" . (int)$order_id . "', description = '" . $this->db->escape($description) . "', amount = '" . (float)$amount . "', date_added = NOW()");
+		$this->db->query("INSERT INTO " . DB_PREFIX . "customer_transaction (customer_id, order_id, description, amount, date_added) VALUES '" . (int)$customer_id . "','" . (int)$order_id . "','" . $this->db->escape($description) . "','" . (float)$amount . "', NOW())");
 	}
 
 	public function deleteTransactionByOrderId($order_id) {
@@ -313,7 +313,7 @@ class ModelCustomerCustomer extends Model {
 			$limit = 10;
 		}
 
-		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "customer_transaction WHERE customer_id = '" . (int)$customer_id . "' ORDER BY date_added DESC LIMIT " . (int)$start . "," . (int)$limit);
+		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "customer_transaction WHERE customer_id = '" . (int)$customer_id . "' ORDER BY date_added DESC LIMIT " . (int)$start . " OFFSET " . (int)$limit);
 
 		return $query->rows;
 	}
@@ -338,7 +338,7 @@ class ModelCustomerCustomer extends Model {
 	}
 
 	public function addReward($customer_id, $description = '', $points = '', $order_id = 0) {
-		$this->db->query("INSERT INTO " . DB_PREFIX . "customer_reward SET customer_id = '" . (int)$customer_id . "', order_id = '" . (int)$order_id . "', points = '" . (int)$points . "', description = '" . $this->db->escape($description) . "', date_added = NOW()");
+		$this->db->query("INSERT INTO " . DB_PREFIX . "customer_reward (customer_id, order_id, points ,description, date_added) values('" . (int)$customer_id . "','" . (int)$order_id . "','" . (int)$points . "','" . $this->db->escape($description) . "', NOW())");
 	}
 
 	public function deleteReward($order_id) {
@@ -354,7 +354,7 @@ class ModelCustomerCustomer extends Model {
 			$limit = 10;
 		}
 
-		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "customer_reward WHERE customer_id = '" . (int)$customer_id . "' ORDER BY date_added DESC LIMIT " . (int)$start . "," . (int)$limit);
+		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "customer_reward WHERE customer_id = '" . (int)$customer_id . "' ORDER BY date_added DESC LIMIT " . (int)$start . " OFFSET " . (int)$limit);
 
 		return $query->rows;
 	}
@@ -385,7 +385,7 @@ class ModelCustomerCustomer extends Model {
 			$limit = 10;
 		}
 
-		$query = $this->db->query("SELECT ip, store_id, country, date_added FROM " . DB_PREFIX . "customer_ip WHERE customer_id = '" . (int)$customer_id . "' ORDER BY date_added DESC LIMIT " . (int)$start . "," . (int)$limit);
+		$query = $this->db->query("SELECT ip, store_id, country, date_added FROM " . DB_PREFIX . "customer_ip WHERE customer_id = '" . (int)$customer_id . "' ORDER BY date_added DESC LIMIT " . (int)$start . " OFFSET " . (int)$limit);
 		
 		return $query->rows;
 	}
