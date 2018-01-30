@@ -111,11 +111,13 @@ class ModelCatalogCategory extends Model
                 $level = 0;
 
                 foreach ($path as $path_id) {
-                    $this->db->query("Insert INTO `" . DB_PREFIX . "category_path` (category_id, `path_id`, level) Values('" . (int)$category_path['category_id'] . "','" . (int)$path_id . "','" . (int)$level . "')
-					ON CONFLICT (category_id) DO UPDATE SET  `path_id` = '" . (int)$path_id . "', level = '" . (int)$level . "'");
-
-                    $level++;
+                    try{
+                    $this->db->query("Insert INTO `" . DB_PREFIX . "category_path` (category_id, `path_id`, level) Values('" . (int)$category_path['category_id'] . "','" . (int)$path_id . "','" . (int)$level . "')");
+                    } catch(Exception $e) {
+                        $this->db->query("UPDATE `" . DB_PREFIX . "category_path` SET `path_id` = '" . (int)$path_id . "', level = '" . (int)$level . "' where category_id='". (int)$category_path['category_id'] . "'");
+                    }
                 }
+                    $level++;
             }
         } else {
             // Delete the path below the current one
@@ -131,10 +133,13 @@ class ModelCatalogCategory extends Model
 
                 $level++;
             }
+            try{
+                $this->db->query("INSERT INTO `" . DB_PREFIX . "category_path` (category_id, `path_id`, level) VALUES('" . (int)$category_id . "','" . (int)$category_id . "','" . (int)$level . "')");
+            }catch (Exception $e){
 
-            $this->db->query("INSERT INTO `" . DB_PREFIX . "category_path` (category_id, `path_id`, level) VALUES('" . (int)$category_id . "','" . (int)$category_id . "','" . (int)$level . "')
-			ON CONFLICT (category_id) DO UPDATE SET `path_id` = '" . (int)$category_id .
-                "', level = '" . (int)$level . "'");
+            }
+            $this->db->query("UPDATE `" . DB_PREFIX . "category_path` SET `path_id` = '" . (int)$category_id .
+                "', level = '" . (int)$level . "' where category_id='" . (int)$category_id . "'");
         }
 
         $this->db->query("DELETE FROM " . DB_PREFIX . "category_filter WHERE category_id = '" . (int)$category_id . "'");

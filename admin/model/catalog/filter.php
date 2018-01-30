@@ -1,7 +1,7 @@
 <?php
 class ModelCatalogFilter extends Model {
 	public function addFilter($data) {
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "filter_group` (sort_order) values('" . (int)$data['sort_order'] . "'");
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "filter_group` (sort_order) values('" . (int)$data['sort_order'] . "')");
 
 		$filter_group_id = $this->db->getLastId();
 
