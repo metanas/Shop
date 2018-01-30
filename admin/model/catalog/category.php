@@ -67,7 +67,7 @@ class ModelCatalogCategory extends Model
 
     public function editCategory($category_id, $data)
     {
-        $this->db->query("UPDATE " . DB_PREFIX . "category SET parent_id = '" . (int)$data['parent_id'] . "', `top` = '" . (isset($data['top']) ? (int)$data['top'] : 0) . "', `column` = '" . (int)$data['column'] . "', sort_order = '" . (int)$data['sort_order'] . "', status = '" . (int)$data['status'] . "', date_modified = NOW() WHERE category_id = '" . (int)$category_id . "'");
+        $this->db->query("UPDATE " . DB_PREFIX . "category SET parent_id = '" . (int)$data['parent_id'] . "', `top` = '" . (isset($data['top']) ? (int)$data['top'] : 0) . "', \"column\" = '" . (int)$data['column'] . "', sort_order = '" . (int)$data['sort_order'] . "', status = '" . (int)$data['status'] . "', date_modified = NOW() WHERE category_id = '" . (int)$category_id . "'");
 
         if (isset($data['image'])) {
             $this->db->query("UPDATE " . DB_PREFIX . "category SET image = '" . $this->db->escape((string)$data['image']) . "' WHERE category_id = '" . (int)$category_id . "'");
@@ -111,7 +111,7 @@ class ModelCatalogCategory extends Model
                 $level = 0;
 
                 foreach ($path as $path_id) {
-                    $this->db->query("Insert INTO `" . DB_PREFIX . "category_path` Values(" . (int)$category_path['category_id'] . "','" . (int)$path_id . "','" . (int)$level . ")
+                    $this->db->query("Insert INTO `" . DB_PREFIX . "category_path` (category_id, `path_id`, level) Values(" . (int)$category_path['category_id'] . "','" . (int)$path_id . "','" . (int)$level . ")
 					ON CONFLICT (category_id) DO UPDATE SET  `path_id` = '" . (int)$path_id . "', level = '" . (int)$level . "'");
 
                     $level++;
@@ -132,7 +132,7 @@ class ModelCatalogCategory extends Model
                 $level++;
             }
 
-            $this->db->query("INSERT INTO `" . DB_PREFIX . "category_path` VALUES('" . (int)$category_id . "','" . (int)$category_id . "','" . (int)$level . "')
+            $this->db->query("INSERT INTO `" . DB_PREFIX . "category_path` (category_id, `path_id`, level) VALUES('" . (int)$category_id . "','" . (int)$category_id . "','" . (int)$level . "')
 			ON CONFLICT (category_id) DO UPDATE SET `path_id` = '" . (int)$category_id .
                 "', level = '" . (int)$level . "'");
         }
@@ -223,8 +223,7 @@ class ModelCatalogCategory extends Model
 
                 $level++;
             }
-
-            $this->db->query("INSERT INTO `" . DB_PREFIX . "category_path` VALUES('" . (int)$category['category_id'] . "','" . (int)$category['category_id'] . "','" . (int)$level . "')
+            $this->db->query("INSERT INTO `" . DB_PREFIX . "category_path` (category_id, `path_id`, level) VALUES('" . (int)$category['category_id'] . "','" . (int)$category['path_id'] . "','" . (int)$level . "')
 			ON CONFLICT (category_id) DO UPDATE SET `path_id` = '" . (int)$category['category_id'] . "', level = '" . (int)$level . "'");
 
             $this->repairCategories($category['category_id']);
