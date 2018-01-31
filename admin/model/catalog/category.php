@@ -154,7 +154,7 @@ class ModelCatalogCategory extends Model
 
         if (isset($data['category_store'])) {
             foreach ($data['category_store'] as $store_id) {
-                $this->db->query("INSERT INTO " . DB_PREFIX . "category_to_store SET category_id = '" . (int)$category_id . "', store_id = '" . (int)$store_id . "'");
+                $this->db->query("INSERT INTO " . DB_PREFIX . "category_to_store (category_id, store_id) VALUES('" . (int)$category_id . "','" . (int)$store_id . "')");
             }
         }
 
