@@ -228,8 +228,12 @@ class ModelCatalogCategory extends Model
 
                 $level++;
             }
-            $this->db->query("INSERT INTO `" . DB_PREFIX . "category_path` (category_id, `path_id`, level) VALUES('" . (int)$category['category_id'] . "','" . (int)$category['path_id'] . "','" . (int)$level . "')
-			ON CONFLICT (category_id) DO UPDATE SET `path_id` = '" . (int)$category['category_id'] . "', level = '" . (int)$level . "'");
+            try{
+                $this->db->query("INSERT INTO `" . DB_PREFIX . "category_path` (category_id, `path_id`, level) VALUES('" . (int)$category['category_id'] . "','" . (int)$category['path_id'] . "','" . (int)$level . "')");
+            }catch (Exception $e){
+                $this->db->query("UPDATE `" . DB_PREFIX . "category_path` SET `path_id` = '" . (int)$category['category_id'] . "', level = '" . (int)$level . "' where category_id='" . (int)$category['category_id'] . "'");
+
+            }
 
             $this->repairCategories($category['category_id']);
         }
