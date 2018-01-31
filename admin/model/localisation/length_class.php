@@ -1,12 +1,12 @@
 <?php
 class ModelLocalisationLengthClass extends Model {
 	public function addLengthClass($data) {
-		$this->db->query("INSERT INTO " . DB_PREFIX . "length_class SET value = '" . (float)$data['value'] . "'");
+		$this->db->query("INSERT INTO " . DB_PREFIX . "length_class (value) VALUES('" . (float)$data['value'] . "')");
 
 		$length_class_id = $this->db->getLastId();
 
 		foreach ($data['length_class_description'] as $language_id => $value) {
-			$this->db->query("INSERT INTO " . DB_PREFIX . "length_class_description SET length_class_id = '" . (int)$length_class_id . "', language_id = '" . (int)$language_id . "', title = '" . $this->db->escape($value['title']) . "', unit = '" . $this->db->escape($value['unit']) . "'");
+			$this->db->query("INSERT INTO " . DB_PREFIX . "length_class_description (length_class_id, language_id, title, unit)  VALUES('" . (int)$length_class_id . "','" . (int)$language_id . "','" . $this->db->escape($value['title']) . "','" . $this->db->escape($value['unit']) . "')");
 		}
 
 		$this->cache->delete('length_class');
@@ -20,7 +20,7 @@ class ModelLocalisationLengthClass extends Model {
 		$this->db->query("DELETE FROM " . DB_PREFIX . "length_class_description WHERE length_class_id = '" . (int)$length_class_id . "'");
 
 		foreach ($data['length_class_description'] as $language_id => $value) {
-			$this->db->query("INSERT INTO " . DB_PREFIX . "length_class_description SET length_class_id = '" . (int)$length_class_id . "', language_id = '" . (int)$language_id . "', title = '" . $this->db->escape($value['title']) . "', unit = '" . $this->db->escape($value['unit']) . "'");
+			$this->db->query("INSERT INTO " . DB_PREFIX . "length_class_description (length_class_id, language_id, title, unit) VALUES('" . (int)$length_class_id . "','" . (int)$language_id . "','" . $this->db->escape($value['title']) . "','" . $this->db->escape($value['unit']) . "')");
 		}
 
 		$this->cache->delete('length_class');

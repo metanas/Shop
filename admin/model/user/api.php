@@ -1,14 +1,14 @@
 <?php
 class ModelUserApi extends Model {
 	public function addApi($data) {
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "api` SET username = '" . $this->db->escape((string)$data['username']) . "', `key` = '" . $this->db->escape((string)$data['key']) . "', status = '" . (int)$data['status'] . "', date_added = NOW(), date_modified = NOW()");
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "api` (username, `key`, status, date_added, date_modified) VALUES('" . $this->db->escape((string)$data['username']) . "','" . $this->db->escape((string)$data['key']) . "','" . (int)$data['status'] . "', NOW(), NOW())");
 
 		$api_id = $this->db->getLastId();
 
 		if (isset($data['api_ip'])) {
 			foreach ($data['api_ip'] as $ip) {
 				if ($ip) {
-					$this->db->query("INSERT INTO `" . DB_PREFIX . "api_ip` SET api_id = '" . (int)$api_id . "', ip = '" . $this->db->escape($ip) . "'");
+					$this->db->query("INSERT INTO `" . DB_PREFIX . "api_ip` (api_id, ip) VALUES('" . (int)$api_id . "','" . $this->db->escape($ip) . "')");
 				}
 			}
 		}
@@ -24,7 +24,7 @@ class ModelUserApi extends Model {
 		if (isset($data['api_ip'])) {
 			foreach ($data['api_ip'] as $ip) {
 				if ($ip) {
-					$this->db->query("INSERT INTO `" . DB_PREFIX . "api_ip` SET api_id = '" . (int)$api_id . "', ip = '" . $this->db->escape($ip) . "'");
+					$this->db->query("INSERT INTO `" . DB_PREFIX . "api_ip` (api_id, ip) VALUES('" . (int)$api_id . "','" . $this->db->escape($ip) . "')");
 				}
 			}
 		}
@@ -86,7 +86,7 @@ class ModelUserApi extends Model {
 	}
 
 	public function addApiIp($api_id, $ip) {
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "api_ip` SET api_id = '" . (int)$api_id . "', ip = '" . $this->db->escape($ip) . "'");
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "api_ip` (api_id,ip) VALUES( '" . (int)$api_id . "','" . $this->db->escape($ip) . "')");
 	}
 
 	public function getApiIps($api_id) {

@@ -1,8 +1,8 @@
 <?php
 class ModelUserUser extends Model {
 	public function addUser($data) {
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "user` SET username = '" . $this->db->escape((string)$data['username']) . "', user_group_id = '" . (int)$data['user_group_id'] . "', salt = '', password = '" . $this->db->escape(password_hash($data['password'], PASSWORD_DEFAULT)) . "', firstname = '" . $this->db->escape((string)$data['firstname']) . "', lastname = '" . $this->db->escape((string)$data['lastname']) . "', email = '" . $this->db->escape((string)$data['email']) . "', image = '" . $this->db->escape((string)$data['image']) . "', status = '" . (int)$data['status'] . "', date_added = NOW()");
-	
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "user` (username, user_group_id, salt, password, firstname, lastname, email, image, status, date_added) VALUES('" . $this->db->escape((string)$data['username']) . "','" . (int)$data['user_group_id'] . "','','" . $this->db->escape(password_hash($data['password'], PASSWORD_DEFAULT)) . "','" . $this->db->escape((string)$data['firstname']) . "','" . $this->db->escape((string)$data['lastname']) . "','" . $this->db->escape((string)$data['email']) . "','" . $this->db->escape((string)$data['image']) . "','" . (int)$data['status'] . "', NOW())");
+
 		return $this->db->getLastId();
 	}
 

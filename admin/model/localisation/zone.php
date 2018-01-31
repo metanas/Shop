@@ -1,7 +1,7 @@
 <?php
 class ModelLocalisationZone extends Model {
 	public function addZone($data) {
-		$this->db->query("INSERT INTO " . DB_PREFIX . "zone SET status = '" . (int)$data['status'] . "', name = '" . $this->db->escape((string)$data['name']) . "', code = '" . $this->db->escape((string)$data['code']) . "', country_id = '" . (int)$data['country_id'] . "'");
+		$this->db->query("INSERT INTO " . DB_PREFIX . "zone (status, name, code, country_id) VALUES('" . (int)$data['status'] . "','" . $this->db->escape((string)$data['name']) . "','" . $this->db->escape((string)$data['code']) . "','" . (int)$data['country_id'] . "')");
 
 		$this->cache->delete('zone');
 		

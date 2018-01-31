@@ -28,25 +28,30 @@ final class Postgre
 
         return $sql;
     }
-
+    public $resource;
     public function query($sql)
     {
         $sql = $this->verifierPostgresSyntax($sql);
-
-        $resource = pg_query($this->link, $sql);
-        if ($resource) {
-            if (is_resource($resource)) {
+        if(strpos($sql, "INSERT INTO")){
+            $sql.= " RETURNING ID";
+            $flage= false;
+        }else{
+            $flage = true;
+        }
+        $this->resource = pg_query($this->link, $sql);
+        if ($this->resource && $flage) {
+            if (is_resource($this->resource)) {
                 $i = 0;
 
                 $data = array();
 
-                while ($result = pg_fetch_assoc($resource)) {
+                while ($result = pg_fetch_assoc($this->resource)) {
                     $data[$i] = $result;
 
                     $i++;
                 }
 
-                pg_free_result($resource);
+                pg_free_result($this->resource);
 
                 $query = new \stdClass();
                 $query->row = isset($data[0]) ? $data[0] : array();
@@ -62,6 +67,7 @@ final class Postgre
         } else {
             throw new \Exception('Error: ' . pg_result_error($this->link) . '<br />' . $sql);
         }
+
     }
 
     public function escape($value)
@@ -76,9 +82,7 @@ final class Postgre
 
     public function getLastId()
     {
-        $query = $this->query("SELECT LASTVAL() AS id");
-
-        return $query->row['id'];
+        return $this->resource;
     }
 
     public function __destruct()

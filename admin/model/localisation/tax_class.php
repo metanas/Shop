@@ -1,13 +1,13 @@
 <?php
 class ModelLocalisationTaxClass extends Model {
 	public function addTaxClass($data) {
-		$this->db->query("INSERT INTO " . DB_PREFIX . "tax_class SET title = '" . $this->db->escape((string)$data['title']) . "', description = '" . $this->db->escape((string)$data['description']) . "', date_added = NOW()");
+		$this->db->query("INSERT INTO " . DB_PREFIX . "tax_class (title, description, date_added) VALUES('" . $this->db->escape((string)$data['title']) . "','" . $this->db->escape((string)$data['description']) . "', NOW())");
 
 		$tax_class_id = $this->db->getLastId();
 
 		if (isset($data['tax_rule'])) {
 			foreach ($data['tax_rule'] as $tax_rule) {
-				$this->db->query("INSERT INTO " . DB_PREFIX . "tax_rule SET tax_class_id = '" . (int)$tax_class_id . "', tax_rate_id = '" . (int)$tax_rule['tax_rate_id'] . "', based = '" . $this->db->escape($tax_rule['based']) . "', priority = '" . (int)$tax_rule['priority'] . "'");
+				$this->db->query("INSERT INTO " . DB_PREFIX . "tax_rule (tax_class_id , tax_rate_id, based, priority) VALUES('" . (int)$tax_class_id . "', '" . (int)$tax_rule['tax_rate_id'] . "','" . $this->db->escape($tax_rule['based']) . "','" . (int)$tax_rule['priority'] . "')");
 			}
 		}
 
@@ -23,7 +23,8 @@ class ModelLocalisationTaxClass extends Model {
 
 		if (isset($data['tax_rule'])) {
 			foreach ($data['tax_rule'] as $tax_rule) {
-				$this->db->query("INSERT INTO " . DB_PREFIX . "tax_rule SET tax_class_id = '" . (int)$tax_class_id . "', tax_rate_id = '" . (int)$tax_rule['tax_rate_id'] . "', based = '" . $this->db->escape($tax_rule['based']) . "', priority = '" . (int)$tax_rule['priority'] . "'");
+				$this->db->query("INSERT INTO " . DB_PREFIX . "tax_rule (tax_class_id,tax_rate_id, based, priority) VALUES('"
+                    . (int)$tax_class_id . "','" . (int)$tax_rule['tax_rate_id'] . "','" . $this->db->escape($tax_rule['based']) . "','" . (int)$tax_rule['priority'] . "')");
 			}
 		}
 

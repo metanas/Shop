@@ -1,13 +1,13 @@
 	<?php
 class ModelCatalogProductOption extends Model {
 	public function addProductOption($data) {
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "product_option` SET product_id = '" . (int)$data['product_id'] . "', option_id = '" . (int)$data['option_id'] . "', value = '" . $this->db->escape(isset($data['value']) ? $data['value'] : '') . "', required = '" . (int)$data['required'] . "'");
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "product_option` (product_id , option_id, value, required) VALUES('" . (int)$data['product_id'] . "','" . (int)$data['option_id'] . "','" . $this->db->escape(isset($data['value']) ? $data['value'] : '') . "','" . (int)$data['required'] . "')");
 
 		$product_option_id = $this->db->getLastId();
 
 		if (isset($data['product_option_value'])) {
 			foreach ($data['product_option_value'] as $product_option_value) {
-				$this->db->query("INSERT INTO `" . DB_PREFIX . "product_option_value` SET product_option_id = '" . (int)$product_option_id . "', product_id = '" . (int)$data['product_id'] . "', option_id = '" . (int)$data['option_id'] . "', option_value_id = '" . (int)$product_option_value['option_value_id'] . "', quantity = '" . (int)$product_option_value['quantity'] . "', subtract = '" . (int)$product_option_value['subtract'] . "', price = '" . (float)$product_option_value['price'] . "', price_prefix = '" . $this->db->escape($product_option_value['price_prefix']) . "', points = '" . (int)$product_option_value['points'] . "', points_prefix = '" . $this->db->escape($product_option_value['points_prefix']) . "', weight = '" . (float)$product_option_value['weight'] . "', weight_prefix = '" . $this->db->escape($product_option_value['weight_prefix']) . "'");
+				$this->db->query("INSERT INTO `" . DB_PREFIX . "product_option_value` (product_option_id,  product_id, option_id, option_value_id, quantity, subtract, price, price_prefix, points , points_prefix, weight, weight_prefix) VALUES('" . (int)$product_option_id . "','" . (int)$data['product_id'] . "','" . (int)$data['option_id'] . "','" . (int)$product_option_value['option_value_id'] . "','" . (int)$product_option_value['quantity'] . "','" . (int)$product_option_value['subtract'] . "','" . (float)$product_option_value['price'] . "','" . $this->db->escape($product_option_value['price_prefix']) . "','" . (int)$product_option_value['points'] . "','" . $this->db->escape($product_option_value['points_prefix']) . "','" . (float)$product_option_value['weight'] . "','" . $this->db->escape($product_option_value['weight_prefix']) . "')");
 			}
 		}
 
@@ -21,7 +21,9 @@ class ModelCatalogProductOption extends Model {
 
 		if (isset($data['product_option_value'])) {
 			foreach ($data['product_option_value'] as $product_option_value) {
-				$this->db->query("INSERT INTO " . DB_PREFIX . "product_option_value SET product_option_value_id = '" . (int)$product_option_value['product_option_value_id'] . "', product_option_id = '" . (int)$product_option_id . "', product_id = '" . (int)$data['product_id'] . "', option_id = '" . (int)$data['option_id'] . "', option_value_id = '" . (int)$product_option_value['option_value_id'] . "', quantity = '" . (int)$product_option_value['quantity'] . "', subtract = '" . (int)$product_option_value['subtract'] . "', price = '" . (float)$product_option_value['price'] . "', price_prefix = '" . $this->db->escape($product_option_value['price_prefix']) . "', points = '" . (int)$product_option_value['points'] . "', points_prefix = '" . $this->db->escape($product_option_value['points_prefix']) . "', weight = '" . (float)$product_option_value['weight'] . "', weight_prefix = '" . $this->db->escape($product_option_value['weight_prefix']) . "'");
+				$this->db->query("INSERT INTO " . DB_PREFIX . "product_option_value (product_option_value_id, product_option_id, product_id, option_id, option_value_id, quantity, subtract, price, price_prefix, points, points_prefix, weight, weight_prefix) 
+				VALUES('" . (int)$product_option_value['product_option_value_id'] . "','" . (int)$product_option_id . "','" . (int)$data['product_id'] . "','" . (int)$data['option_id'] . "','" . (int)$product_option_value['option_value_id'] . "','" . (int)$product_option_value['quantity'] . "','"
+                    . (int)$product_option_value['subtract'] . "','" . (float)$product_option_value['price'] . "','" . $this->db->escape($product_option_value['price_prefix']) . "','" . (int)$product_option_value['points'] . "','" . $this->db->escape($product_option_value['points_prefix']) . "','" . (float)$product_option_value['weight'] . "','" . $this->db->escape($product_option_value['weight_prefix']) . "')");
 			}
 		}
 

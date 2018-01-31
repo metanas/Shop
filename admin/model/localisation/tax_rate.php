@@ -1,13 +1,14 @@
 <?php
 class ModelLocalisationTaxRate extends Model {
 	public function addTaxRate($data) {
-		$this->db->query("INSERT INTO " . DB_PREFIX . "tax_rate SET name = '" . $this->db->escape((string)$data['name']) . "', rate = '" . (float)$data['rate'] . "', `type` = '" . $this->db->escape((string)$data['type']) . "', geo_zone_id = '" . (int)$data['geo_zone_id'] . "', date_added = NOW(), date_modified = NOW()");
+		$this->db->query("INSERT INTO " . DB_PREFIX . "tax_rate (name, rate,`type`, geo_zone_id, date_added, date_modified) VALUES('" . $this->db->escape((string)$data['name'])
+            . "','" . (float)$data['rate'] . "','" . $this->db->escape((string)$data['type']) . "','" . (int)$data['geo_zone_id'] . "', NOW(), NOW())");
 
 		$tax_rate_id = $this->db->getLastId();
 
 		if (isset($data['tax_rate_customer_group'])) {
 			foreach ($data['tax_rate_customer_group'] as $customer_group_id) {
-				$this->db->query("INSERT INTO " . DB_PREFIX . "tax_rate_to_customer_group SET tax_rate_id = '" . (int)$tax_rate_id . "', customer_group_id = '" . (int)$customer_group_id . "'");
+				$this->db->query("INSERT INTO " . DB_PREFIX . "tax_rate_to_customer_group (tax_rate_id, customer_group_id) VALUES('" . (int)$tax_rate_id . "','" . (int)$customer_group_id . "')");
 			}
 		}
 		
@@ -21,7 +22,8 @@ class ModelLocalisationTaxRate extends Model {
 
 		if (isset($data['tax_rate_customer_group'])) {
 			foreach ($data['tax_rate_customer_group'] as $customer_group_id) {
-				$this->db->query("INSERT INTO " . DB_PREFIX . "tax_rate_to_customer_group SET tax_rate_id = '" . (int)$tax_rate_id . "', customer_group_id = '" . (int)$customer_group_id . "'");
+				$this->db->query("INSERT INTO " . DB_PREFIX . "tax_rate_to_customer_group (tax_rate_id,  customer_group_id) VALUES('"
+                    . (int)$tax_rate_id . "','" . (int)$customer_group_id . "')");
 			}
 		}
 	}

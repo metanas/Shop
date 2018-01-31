@@ -1,7 +1,7 @@
 <?php
 class ModelCatalogManufacturer extends Model {
 	public function addManufacturer($data) {
-		$this->db->query("INSERT INTO " . DB_PREFIX . "manufacturer SET name = '" . $this->db->escape((string)$data['name']) . "', sort_order = '" . (int)$data['sort_order'] . "'");
+		$this->db->query("INSERT INTO " . DB_PREFIX . "manufacturer (name, sort_order) VALUES('" . $this->db->escape((string)$data['name']) . "','" . (int)$data['sort_order'] . "')");
 
 		$manufacturer_id = $this->db->getLastId();
 
@@ -11,7 +11,7 @@ class ModelCatalogManufacturer extends Model {
 
 		if (isset($data['manufacturer_store'])) {
 			foreach ($data['manufacturer_store'] as $store_id) {
-				$this->db->query("INSERT INTO " . DB_PREFIX . "manufacturer_to_store SET manufacturer_id = '" . (int)$manufacturer_id . "', store_id = '" . (int)$store_id . "'");
+				$this->db->query("INSERT INTO " . DB_PREFIX . "manufacturer_to_store (manufacturer_id, store_id)  VALUES('" . (int)$manufacturer_id . "','" . (int)$store_id . "')");
 			}
 		}
 				
@@ -20,7 +20,7 @@ class ModelCatalogManufacturer extends Model {
 			foreach ($data['manufacturer_seo_url'] as $store_id => $language) {
 				foreach ($language as $language_id => $keyword) {
 					if (!empty($keyword)) {
-						$this->db->query("INSERT INTO " . DB_PREFIX . "seo_url SET store_id = '" . (int)$store_id . "', language_id = '" . (int)$language_id . "', query = 'manufacturer_id=" . (int)$manufacturer_id . "', keyword = '" . $this->db->escape($keyword) . "', push = '" . $this->db->escape('route=product/manufacturer/info&manufacturer_id=' . (int)$manufacturer_id) . "'");
+						$this->db->query("INSERT INTO " . DB_PREFIX . "seo_url (store_id, language_id, query, keyword, push) VALUES('" . (int)$store_id . "','" . (int)$language_id . "','manufacturer_id=" . (int)$manufacturer_id . "','" . $this->db->escape($keyword) . "','" . $this->db->escape('route=product/manufacturer/info&manufacturer_id=' . (int)$manufacturer_id) . "')");
 					}
 				}
 			}
@@ -42,7 +42,7 @@ class ModelCatalogManufacturer extends Model {
 
 		if (isset($data['manufacturer_store'])) {
 			foreach ($data['manufacturer_store'] as $store_id) {
-				$this->db->query("INSERT INTO " . DB_PREFIX . "manufacturer_to_store SET manufacturer_id = '" . (int)$manufacturer_id . "', store_id = '" . (int)$store_id . "'");
+				$this->db->query("INSERT INTO " . DB_PREFIX . "manufacturer_to_store (manufacturer_id, store_id) VALUES('" . (int)$manufacturer_id . "','" . (int)$store_id . "')");
 			}
 		}
 
@@ -52,7 +52,7 @@ class ModelCatalogManufacturer extends Model {
 			foreach ($data['manufacturer_seo_url'] as $store_id => $language) {
 				foreach ($language as $language_id => $keyword) {
 					if (!empty($keyword)) {
-						$this->db->query("INSERT INTO `" . DB_PREFIX . "seo_url` SET store_id = '" . (int)$store_id . "', language_id = '" . (int)$language_id . "', query = 'manufacturer_id=" . (int)$manufacturer_id . "', keyword = '" . $this->db->escape($keyword) . "', push = '" . $this->db->escape('route=product/manufacturer/info&manufacturer_id=' . (int)$manufacturer_id) . "'");
+						$this->db->query("INSERT INTO `" . DB_PREFIX . "seo_url` (store_id, language_id, query, keyword, push) VALUES('" . (int)$store_id . "','" . (int)$language_id . "','manufacturer_id=" . (int)$manufacturer_id . "','" . $this->db->escape($keyword) . "','" . $this->db->escape('route=product/manufacturer/info&manufacturer_id=' . (int)$manufacturer_id) . "')");
 					}
 				}
 			}

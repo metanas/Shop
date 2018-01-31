@@ -1,30 +1,30 @@
 <?php
 class ModelCustomerCustomField extends Model {
 	public function addCustomField($data) {
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "custom_field` SET type = '" . $this->db->escape((string)$data['type']) . "', value = '" . $this->db->escape((string)$data['value']) . "', validation = '" . $this->db->escape((string)$data['validation']) . "', location = '" . $this->db->escape((string)$data['location']) . "', status = '" . (int)$data['status'] . "', sort_order = '" . (int)$data['sort_order'] . "'");
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "custom_field` (type, value, validation, location, status, sort_order) VALUES('" . $this->db->escape((string)$data['type']) . "','" . $this->db->escape((string)$data['value']) . "', '" . $this->db->escape((string)$data['validation']) . "','" . $this->db->escape((string)$data['location']) . "', '" . (int)$data['status'] . "','" . (int)$data['sort_order'] . "')");
 
 		$custom_field_id = $this->db->getLastId();
 
 		foreach ($data['custom_field_description'] as $language_id => $value) {
-			$this->db->query("INSERT INTO " . DB_PREFIX . "custom_field_description SET custom_field_id = '" . (int)$custom_field_id . "', language_id = '" . (int)$language_id . "', name = '" . $this->db->escape($value['name']) . "'");
+			$this->db->query("INSERT INTO " . DB_PREFIX . "custom_field_description (custom_field_id, language_id,  name) VALUES('" . (int)$custom_field_id . "','" . (int)$language_id . "','" . $this->db->escape($value['name']) . "')");
 		}
 
 		if (isset($data['custom_field_customer_group'])) {
 			foreach ($data['custom_field_customer_group'] as $custom_field_customer_group) {
 				if (isset($custom_field_customer_group['customer_group_id'])) {
-					$this->db->query("INSERT INTO " . DB_PREFIX . "custom_field_customer_group SET custom_field_id = '" . (int)$custom_field_id . "', customer_group_id = '" . (int)$custom_field_customer_group['customer_group_id'] . "', required = '" . (int)(isset($custom_field_customer_group['required']) ? 1 : 0) . "'");
+					$this->db->query("INSERT INTO " . DB_PREFIX . "custom_field_customer_group (custom_field_id, customer_group_id, required) VALUES('" . (int)$custom_field_id . "','" . (int)$custom_field_customer_group['customer_group_id'] . "','" . (int)(isset($custom_field_customer_group['required']) ? 1 : 0) . "')");
 				}
 			}
 		}
 
 		if (isset($data['custom_field_value'])) {
 			foreach ($data['custom_field_value'] as $custom_field_value) {
-				$this->db->query("INSERT INTO " . DB_PREFIX . "custom_field_value SET custom_field_id = '" . (int)$custom_field_id . "', sort_order = '" . (int)$custom_field_value['sort_order'] . "'");
+				$this->db->query("INSERT INTO " . DB_PREFIX . "custom_field_value (custom_field_id, sort_order) VALUES('" . (int)$custom_field_id . "','" . (int)$custom_field_value['sort_order'] . "')");
 
 				$custom_field_value_id = $this->db->getLastId();
 
 				foreach ($custom_field_value['custom_field_value_description'] as $language_id => $custom_field_value_description) {
-					$this->db->query("INSERT INTO " . DB_PREFIX . "custom_field_value_description SET custom_field_value_id = '" . (int)$custom_field_value_id . "', language_id = '" . (int)$language_id . "', custom_field_id = '" . (int)$custom_field_id . "', name = '" . $this->db->escape($custom_field_value_description['name']) . "'");
+					$this->db->query("INSERT INTO " . DB_PREFIX . "custom_field_value_description (custom_field_value_id, language_id, custom_field_id, name) VALUES('" . (int)$custom_field_value_id . "','" . (int)$language_id . "','" . (int)$custom_field_id . "','" . $this->db->escape($custom_field_value_description['name']) . "')");
 				}
 			}
 		}
@@ -38,7 +38,7 @@ class ModelCustomerCustomField extends Model {
 		$this->db->query("DELETE FROM " . DB_PREFIX . "custom_field_description WHERE custom_field_id = '" . (int)$custom_field_id . "'");
 
 		foreach ($data['custom_field_description'] as $language_id => $value) {
-			$this->db->query("INSERT INTO " . DB_PREFIX . "custom_field_description SET custom_field_id = '" . (int)$custom_field_id . "', language_id = '" . (int)$language_id . "', name = '" . $this->db->escape($value['name']) . "'");
+			$this->db->query("INSERT INTO " . DB_PREFIX . "custom_field_description (custom_field_id, language_id, name) VALUES('" . (int)$custom_field_id . "','" . (int)$language_id . "','" . $this->db->escape($value['name']) . "')");
 		}
 
 		$this->db->query("DELETE FROM " . DB_PREFIX . "custom_field_customer_group WHERE custom_field_id = '" . (int)$custom_field_id . "'");
@@ -46,7 +46,7 @@ class ModelCustomerCustomField extends Model {
 		if (isset($data['custom_field_customer_group'])) {
 			foreach ($data['custom_field_customer_group'] as $custom_field_customer_group) {
 				if (isset($custom_field_customer_group['customer_group_id'])) {
-					$this->db->query("INSERT INTO " . DB_PREFIX . "custom_field_customer_group SET custom_field_id = '" . (int)$custom_field_id . "', customer_group_id = '" . (int)$custom_field_customer_group['customer_group_id'] . "', required = '" . (int)(isset($custom_field_customer_group['required']) ? 1 : 0) . "'");
+					$this->db->query("INSERT INTO " . DB_PREFIX . "custom_field_customer_group (custom_field_id, customer_group_id, required) VALUES('" . (int)$custom_field_id . "','" . (int)$custom_field_customer_group['customer_group_id'] . "','" . (int)(isset($custom_field_customer_group['required']) ? 1 : 0) . "')");
 				}
 			}
 		}
@@ -57,15 +57,15 @@ class ModelCustomerCustomField extends Model {
 		if (isset($data['custom_field_value'])) {
 			foreach ($data['custom_field_value'] as $custom_field_value) {
 				if ($custom_field_value['custom_field_value_id']) {
-					$this->db->query("INSERT INTO " . DB_PREFIX . "custom_field_value SET custom_field_value_id = '" . (int)$custom_field_value['custom_field_value_id'] . "', custom_field_id = '" . (int)$custom_field_id . "', sort_order = '" . (int)$custom_field_value['sort_order'] . "'");
+					$this->db->query("INSERT INTO " . DB_PREFIX . "custom_field_value (custom_field_value_id, custom_field_id, sort_order) VALUES('" . (int)$custom_field_value['custom_field_value_id'] . "','" . (int)$custom_field_id . "','" . (int)$custom_field_value['sort_order'] . "')");
 				} else {
-					$this->db->query("INSERT INTO " . DB_PREFIX . "custom_field_value SET custom_field_id = '" . (int)$custom_field_id . "', sort_order = '" . (int)$custom_field_value['sort_order'] . "'");
+					$this->db->query("INSERT INTO " . DB_PREFIX . "custom_field_value (custom_field_id, sort_order) VALUES('" . (int)$custom_field_id . "','" . (int)$custom_field_value['sort_order'] . "')");
 				}
 
 				$custom_field_value_id = $this->db->getLastId();
 
 				foreach ($custom_field_value['custom_field_value_description'] as $language_id => $custom_field_value_description) {
-					$this->db->query("INSERT INTO " . DB_PREFIX . "custom_field_value_description SET custom_field_value_id = '" . (int)$custom_field_value_id . "', language_id = '" . (int)$language_id . "', custom_field_id = '" . (int)$custom_field_id . "', name = '" . $this->db->escape($custom_field_value_description['name']) . "'");
+					$this->db->query("INSERT INTO " . DB_PREFIX . "custom_field_value_description (custom_field_value_id, language_id, custom_field_id, name) VALUES('" . (int)$custom_field_value_id . "','" . (int)$language_id . "','" . (int)$custom_field_id . "','" . $this->db->escape($custom_field_value_description['name']) . "')");
 				}
 			}
 		}
