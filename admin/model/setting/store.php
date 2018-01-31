@@ -1,7 +1,7 @@
 <?php
 class ModelSettingStore extends Model {
 	public function addStore($data) {
-		$this->db->query("INSERT INTO " . DB_PREFIX . "store SET name = '" . $this->db->escape((string)$data['config_name']) . "', `url` = '" . $this->db->escape((string)$data['config_url']) . "'");
+		$this->db->query("INSERT INTO " . DB_PREFIX . "store (name,`url`) VALUES('" . $this->db->escape((string)$data['config_name']) . "','" . $this->db->escape((string)$data['config_url']) . "')");
 
 		$store_id = $this->db->getLastId();
 
@@ -9,7 +9,7 @@ class ModelSettingStore extends Model {
 		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "layout_route WHERE store_id = '0'");
 
 		foreach ($query->rows as $layout_route) {
-			$this->db->query("INSERT INTO " . DB_PREFIX . "layout_route SET layout_id = '" . (int)$layout_route['layout_id'] . "', route = '" . $this->db->escape($layout_route['route']) . "', store_id = '" . (int)$store_id . "'");
+			$this->db->query("INSERT INTO " . DB_PREFIX . "layout_route (layout_id, route, store_id) VALUES('" . (int)$layout_route['layout_id'] . "','" . $this->db->escape($layout_route['route']) . "',  '" . (int)$store_id . "')");
 		}
 
 		$this->cache->delete('store');
