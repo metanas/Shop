@@ -33,7 +33,7 @@ class ModelCatalogCategory extends Model
 
         if (isset($data['category_filter'])) {
             foreach ($data['category_filter'] as $filter_id) {
-                $this->db->query("INSERT INTO " . DB_PREFIX . "category_filter SET category_id = '" . (int)$category_id . "', filter_id = '" . (int)$filter_id . "'");
+                $this->db->query("INSERT INTO " . DB_PREFIX . "category_filter (category_id,filter_id) VALUES('" . (int)$category_id . "', '" . (int)$filter_id . "')");
             }
         }
 
