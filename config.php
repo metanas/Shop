@@ -8,7 +8,7 @@ define('HTTPS_SERVER', 'http://localhost/Shop/');
 // DIR
 define('DIR_APPLICATION', __DIR__.'/catalog/');
 define('DIR_SYSTEM', __DIR__.'/system/');
-define('DIR_IMAGE', DIR_SYSTEM . 'storage/image/');
+define('DIR_IMAGE', __DIR__ . '/image/');
 define('DIR_STORAGE', DIR_SYSTEM . 'storage/');
 define('DIR_LANGUAGE', DIR_APPLICATION . 'language/');
 define('DIR_TEMPLATE', DIR_APPLICATION . 'view/theme/');

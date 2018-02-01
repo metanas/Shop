@@ -11,7 +11,7 @@ define('HTTPS_CATALOG', 'http://localhost/Shop/');
 $DIR = substr(__DIR__,0,strlen(__DIR__)-6);
 define('DIR_APPLICATION', $DIR.'/admin/');
 define('DIR_SYSTEM', $DIR.'/system/');
-define('DIR_IMAGE', DIR_SYSTEM . 'storage/image/');
+define('DIR_IMAGE', $DIR . '/image/');
 define('DIR_STORAGE', DIR_SYSTEM . 'storage/');
 define('DIR_CATALOG', $DIR.'/catalog/');
 define('DIR_LANGUAGE', DIR_APPLICATION . 'language/');
