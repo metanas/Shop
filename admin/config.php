@@ -11,8 +11,8 @@ define('HTTPS_CATALOG', 'http://localhost/Shop/');
 $DIR = substr(__DIR__,0,strlen(__DIR__)-6);
 define('DIR_APPLICATION', $DIR.'/admin/');
 define('DIR_SYSTEM', $DIR.'/system/');
-define('DIR_IMAGE', $DIR.'/image/');
-define('DIR_STORAGE', '/var/www/storage/');
+define('DIR_IMAGE', DIR_SYSTEM . 'storage/image/');
+define('DIR_STORAGE', DIR_SYSTEM . 'storage/');
 define('DIR_CATALOG', $DIR.'/catalog/');
 define('DIR_LANGUAGE', DIR_APPLICATION . 'language/');
 define('DIR_TEMPLATE', DIR_APPLICATION . 'view/template/');
@@ -27,9 +27,9 @@ define('DIR_UPLOAD', DIR_STORAGE . 'upload/');
 // DB
 define('DB_DRIVER', 'mysqli');
 define('DB_HOSTNAME', 'localhost');
-define('DB_USERNAME', 'opencart');
-define('DB_PASSWORD', 'metanas@');
-define('DB_DATABASE', 'opencart');
+define('DB_USERNAME', 'main');
+define('DB_PASSWORD', '0000');
+define('DB_DATABASE', 'shoes');
 define('DB_PORT', '3306');
 define('DB_PREFIX', 'oc_');
 

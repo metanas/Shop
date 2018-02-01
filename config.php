@@ -8,8 +8,8 @@ define('HTTPS_SERVER', 'http://localhost/Shop/');
 // DIR
 define('DIR_APPLICATION', __DIR__.'/catalog/');
 define('DIR_SYSTEM', __DIR__.'/system/');
-define('DIR_IMAGE', __DIR__.'/image/');
-define('DIR_STORAGE', '/var/www/storage/');
+define('DIR_IMAGE', DIR_SYSTEM . 'storage/image/');
+define('DIR_STORAGE', DIR_SYSTEM . 'storage/');
 define('DIR_LANGUAGE', DIR_APPLICATION . 'language/');
 define('DIR_TEMPLATE', DIR_APPLICATION . 'view/theme/');
 define('DIR_CONFIG', DIR_SYSTEM . 'config/');
@@ -23,8 +23,8 @@ define('DIR_UPLOAD', DIR_STORAGE . 'upload/');
 // DB
 define('DB_DRIVER', 'mysqli');
 define('DB_HOSTNAME', 'localhost');
-define('DB_USERNAME', 'opencart');
-define('DB_PASSWORD', 'metanas@');
-define('DB_DATABASE', 'opencart');
+define('DB_USERNAME', 'main');
+define('DB_PASSWORD', '0000');
+define('DB_DATABASE', 'shoes');
 define('DB_PORT', '3306');
 define('DB_PREFIX', 'oc_');
