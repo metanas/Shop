@@ -2,7 +2,7 @@
 
 // Heading
 
-$_['heading_title'] ='Dernier';
+$_['heading_title'] ='Dernières tendances';
 
 
 // Text
