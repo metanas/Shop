@@ -22,9 +22,9 @@ define('DIR_UPLOAD', DIR_STORAGE . 'upload/');
 
 // DB
 define('DB_DRIVER', 'mysqli');
-define('DB_HOSTNAME', 'localhost');
+define('DB_HOSTNAME', '173.249.0.216');
 define('DB_USERNAME', 'main');
-define('DB_PASSWORD', '0000');
+define('DB_PASSWORD', 'X1CarbonPro');
 define('DB_DATABASE', 'shoes');
 define('DB_PORT', '3306');
 define('DB_PREFIX', 'oc_');
