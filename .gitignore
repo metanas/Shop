@@ -12,7 +12,6 @@ system/storage/vendor
 /tests/phpunit/composer.lock
 /tests/phpunit/bootstrap.php
 composer.lock
-config.php
 admin/config.php
 system/storage/logs/*
 
