@@ -13,7 +13,9 @@ system/storage/vendor
 /tests/phpunit/bootstrap.php
 composer.lock
 config.php
+f.php
 admin/config.php
+/admin/f.php
 
 # IDE Project files
 /.idea
