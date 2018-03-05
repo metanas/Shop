@@ -130,8 +130,11 @@ class ControllerCommonCart extends Controller {
 			);
 		}
 
+		$data['logged'] = $this->customer->isLogged();
 		$data['cart'] = $this->url->link('checkout/cart', 'language=' . $this->config->get('config_language'));
 		$data['checkout'] = $this->url->link('checkout/checkout', 'language=' . $this->config->get('config_language'));
+        $data['wishlist'] = $this->url->link('account/wishlist', 'language=' . $this->config->get('config_language'));
+        $data['login'] = $this->url->link('account/login', 'language=' . $this->config->get('config_language'));
 
 		return $this->load->view('common/cart', $data);
 	}
