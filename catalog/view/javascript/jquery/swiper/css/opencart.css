@@ -1,18 +1,24 @@
 /* CSS Document */
 .swiper-viewport {
-	margin: 0 0 60px;
+	margin: 0 0 5px;
 	background: #fff;
 	z-index: 1;
-	border: 4px solid #fff;
-	border-radius: 4px;
-	box-shadow: 0 1px 4px rgba(0,0,0,.2);
+	/*border: 4px solid #fff;*/
+	/*border-radius: 4px;*/
+	/*box-shadow: 0 1px 4px rgba(0,0,0,.2);*/
 	width: 100%;
 	position: relative;
 	overflow: visible;
 }
+.titleSlide{
+	font-weight: bold;
+	padding-top: 30px;
+}
 /* OpenCart Code */
 .swiper-container {
 	direction: ltr !important;
+	margin-left: 40px;
+	margin-right: 40px;
 }
 .swiper-pager {
 	width: 100%;

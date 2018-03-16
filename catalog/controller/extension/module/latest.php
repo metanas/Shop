@@ -56,7 +56,7 @@ class ControllerExtensionModuleLatest extends Controller {
 
                 foreach ($results as $r) {
                     $simulate[] = array(
-                        'popup' => $this->model_tool_image->resize($r['image'], $this->config->get('theme_' . $this->config->get('config_theme') . '_image_popup_width'), $this->config->get('theme_' . $this->config->get('config_theme') . '_image_popup_height'))
+                        'popup' => $this->model_tool_image->resize($r['image'], $setting['width'], $setting['height'])
                     );
                 }
 				$data['products'][] = array(

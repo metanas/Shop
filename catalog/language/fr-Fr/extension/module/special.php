@@ -2,7 +2,7 @@
 
 // Heading
 
-$_['heading_title'] ='Promotions';
+$_['heading_title'] ='OFFRES';
 
 
 // Text

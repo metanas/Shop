@@ -29,8 +29,6 @@ class ControllerCommonFooter extends Controller {
 		$data['wishlist'] = $this->url->link('account/wishlist', 'language=' . $this->config->get('config_language'));
 		$data['newsletter'] = $this->url->link('account/newsletter', 'language=' . $this->config->get('config_language'));
 
-		$data['powered'] = sprintf($this->language->get('text_powered'), $this->config->get('config_name'), date('Y', time()));
-
 		$data['address'] = $this->config->get('config_address');
 		$data['open'] = $this->config->get('config_open');
 		$data['telephone'] = $this->config->get('config_telephone');

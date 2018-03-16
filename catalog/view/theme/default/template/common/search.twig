@@ -1,16 +1,21 @@
-<div style="margin: 0 15px 0 1px;">
-    <div class="row">
-        <div>
-            <div id="imaginary_container">
-                <div id="search" class="input-group stylish-input-group input-append">
-                    <input type="text" name="search" class="form-control" value="{{ search }}" placeholder="{{ text_search }}">
-                    <span class="input-group-addon">
-                        <button type="button">
-                            <span class="glyphicon glyphicon-search"></span>
-                        </button>
-                    </span>
-                </div>
-            </div>
-        </div>
+<div id="imaginary_container">
+    <div id="search" class="field input-group stylish-input-group input-append">
+        <input class="field-input" id="autoCompInput" placeholder="{{ text_search }}" name="search" value="{{ search }}">
+        <span class="input-group-addon" style="border: none">
+        <button id="sub" type="button">
+            <img class="terms" src="catalog/view/theme/default/image/loupe.png">
+        </button>
+    </span>
     </div>
 </div>
+<script>
+    $("#autoCompInput").bind("keypress", {}, keypressInBox);
+
+    function keypressInBox(e) {
+        var code = (e.keyCode ? e.keyCode : e.which);
+        if (code == 13) { //Enter keycode
+            e.preventDefault();
+            $("#sub").click();
+        }
+    }
+</script>
