@@ -5,7 +5,7 @@ $_['heading_title']                  ='Check-out';
 // Text
 $_['text_cart']                      ='Chariot';
 $_['text_checkout_option']           ='Étape %s: options de paiement';
-$_['text_checkout_account']          ='Étape %s: Détails de facturation et de facturation';
+$_['text_checkout_account']          ='Étape %s: Détails de facturation';
 $_['text_checkout_payment_address']  ='Étape %s: Détails de facturation';
 $_['text_checkout_shipping_address'] ='Étape %s: Détails de la livraison';
 $_['text_checkout_shipping_method']  ='Étape %s: Méthode de livraison';

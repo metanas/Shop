@@ -42,7 +42,13 @@ class ControllerExtensionModuleBestSeller extends Controller {
 				} else {
 					$rating = false;
 				}
+                $results = $this->model_catalog_product->getProductImages($result['product_id']);
 
+                foreach ($results as $r) {
+                    $simulate[] = array(
+                        'popup' => $this->model_tool_image->resize($r['image'], $this->config->get('theme_' . $this->config->get('config_theme') . '_image_popup_width'), $this->config->get('theme_' . $this->config->get('config_theme') . '_image_popup_height'))
+                    );
+                }
 				$data['products'][] = array(
 					'product_id'  => $result['product_id'],
 					'thumb'       => $image,
@@ -52,8 +58,10 @@ class ControllerExtensionModuleBestSeller extends Controller {
 					'special'     => $special,
 					'tax'         => $tax,
 					'rating'      => $rating,
-					'href'        => $this->url->link('product/product', 'language=' . $this->config->get('config_language') . '&product_id=' . $result['product_id'])
-				);
+					'href'        => $this->url->link('product/product', 'language=' . $this->config->get('config_language') . '&product_id=' . $result['product_id']),
+                    'simulate'    => $simulate
+                );
+
 			}
 
 			return $this->load->view('extension/module/bestseller', $data);

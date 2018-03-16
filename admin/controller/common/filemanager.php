@@ -255,7 +255,7 @@ class ControllerCommonFileManager extends Controller {
 
 				if (!$json) {
 					move_uploaded_file($file['tmp_name'], $directory . '/' . $filename);
-				}
+                }
 			}
 		}
 

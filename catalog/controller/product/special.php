@@ -110,6 +110,15 @@ class ControllerProductSpecial extends Controller {
 			} else {
 				$rating = false;
 			}
+            $simulate = array();
+
+            $results = $this->model_catalog_product->getProductImages($result['product_id']);
+
+            foreach ($results as $r) {
+                $simulate[] = array(
+                    'popup' => $this->model_tool_image->resize($r['image'], $this->config->get('theme_' . $this->config->get('config_theme') . '_image_popup_width'), $this->config->get('theme_' . $this->config->get('config_theme') . '_image_popup_height'))
+                );
+            }
 
 			$data['products'][] = array(
 				'product_id'  => $result['product_id'],
@@ -121,7 +130,8 @@ class ControllerProductSpecial extends Controller {
 				'tax'         => $tax,
 				'minimum'     => $result['minimum'] > 0 ? $result['minimum'] : 1,
 				'rating'      => $result['rating'],
-				'href'        => $this->url->link('product/product', 'language=' . $this->config->get('config_language') . '&product_id=' . $result['product_id'] . $url)
+				'href'        => $this->url->link('product/product', 'language=' . $this->config->get('config_language') . '&product_id=' . $result['product_id'] . $url),
+                'simulate'    => $simulate
 			);
 		}
 

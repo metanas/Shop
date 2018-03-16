@@ -1,3 +1,5 @@
 {% for module in modules %}
-{{ module }}
+    <div class="container-fluid module" style="background-color: {% if loop.index in [1] %} #f7f7f7 {% else %} white {% endif %}">
+        {{ module }}
+    </div>
 {% endfor %}

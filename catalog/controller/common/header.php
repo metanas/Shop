@@ -49,6 +49,10 @@ class ControllerCommonHeader extends Controller {
 		}
 
 		$data['text_logged'] = sprintf($this->language->get('text_logged'), $this->url->link('account/account', 'language=' . $this->config->get('config_language')), $this->customer->getFirstName(), $this->url->link('account/logout', 'language=' . $this->config->get('config_language')));
+		$data['text_expedition'] = $this->language->get('text_expedition');
+        $data['text_login'] = $this->language->get('text_login');
+        $data['text_profile'] = $this->language->get('text_profile');
+        $data['text_service'] = $this->language->get('text_service');
 
 		$data['home'] = $this->url->link('common/home', 'language=' . $this->config->get('config_language'));
 		$data['wishlist'] = $this->url->link('account/wishlist', 'language=' . $this->config->get('config_language'));

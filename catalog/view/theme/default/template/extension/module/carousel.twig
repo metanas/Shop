@@ -1,24 +1,89 @@
-<div class="swiper-viewport">
-  <div id="carousel{{ module }}" class="swiper-container">
-    <div class="swiper-wrapper">{% for banner in banners %}
-      <div class="swiper-slide text-center">{% if banner.link %}<a href="{{ banner.link }}"><img src="{{ banner.image }}" alt="{{ banner.title }}" class="img-responsive" /></a>{% else %}<img src="{{ banner.image }}" alt="{{ banner.title }}" class="img-responsive" />{% endif %}</div>
-      {% endfor %}</div>
-  </div>
-  <div class="swiper-pagination carousel{{ module }}"></div>
-  <div class="swiper-pager">
-    <div class="swiper-button-next"></div>
-    <div class="swiper-button-prev"></div>
-  </div>
+{% if products %}
+    <div class="container">
+        <h1>{{ heading_title }}</h1>
+        <div class="swiper-viewport">
+            <div id="carousel{{ module }}" class="swiper-container" >
+                <div class="swiper-wrapper">
+                    {% for product in products %}
+                        <div class="product-layout col-lg-3 col-md-3 col-sm-4 col-xs-4 swiper-slide">
+                            <div class="product-thumb transition">
+                                <div class="image">
+                                    <a href="{{ product.href }}">
+                                        <img src="{{ product.thumb }}"
+                                             alt="{{ product.name }}"
+                                             title="{{ product.name }}"
+                                             class="img-responsive"
+                                        /></a>
+                                </div>
+                                <div class="caption">
+                                    <div class="desctip col-sm-12 col-xs-12">
+                                        <h4 class="SheosName"><a href="{{ product.href }}">{{ product.name }}</a></h4>
+                                        {% if product.price %}
+                                            {% if not product.special %}
+                                                <p class="SheosPrice">{{ product.price }}</p>
+                                            {% else %}
+                                                <span class="price-old SheosPrice">{{ product.price }}</span><br>
+                                                <span class="price-new SheosPrice">{{ product.special }}</span>
+                                            {% endif %}
+                                        {% endif %}
+                                        <div class="same">
+                                            {% if product.simulate %}
+                                                <img class="smallSame img-default" src="{{ product.thumb }}">
+                                                {% for same in product.simulate %}
+                                                    <img class="smallSame" src="{{ same.popup }}">
+                                                {% endfor %}
+                                            {% endif %}
+                                            {#<p>Disponible en plusieurs tailles</p>#}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div><img src="catalog/view/theme/default/image/favoris.png" style=" margin-right:20px;margin-top: 10px; position: absolute; top: 0;right: 0;width: 20px"></div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="swiper-pagination carousel{{ module }}"></div>
+            <div class="swiper-pager">
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+            </div>
+        </div>
+    </div>
+{% endif %}
+<div align="center">
+    <button type="button" class="decouvrir">DECOUVRIR</button>
 </div>
 <script type="text/javascript"><!--
-$('#carousel{{ module }}').swiper({
-	mode: 'horizontal',
-	slidesPerView: 5,
-	pagination: '.carousel{{ module }}',
-	paginationClickable: true,
-	nextButton: '.swiper-button-next',
-    prevButton: '.swiper-button-prev',
-	autoplay: 2500,
-	loop: true
-});
---></script>
+    $('#carousel{{ module }}').swiper({
+        mode: 'horizontal',
+        slidesPerView: 5,
+        pagination: '.carousel{{ module }}',
+        paginationClickable: true,
+        nextButton: '.swiper-button-next',
+        prevButton: '.swiper-button-prev',
+        autoplay: 2500,
+        loop: false,
+        paginationType: 'costum'
+
+    });
+    --></script>
+<script> $(function () {
+        $(".product-layout").hover(
+            function () {
+                $('.same', this).show(400)
+            }, function () {
+                $('.same', this).hide(400)
+            })
+    });
+    $(function () {
+        $(".smallSame").hover(
+            function () {
+                $(this).css('border', '1px solid black');
+                this.parentNode.parentNode.parentNode.parentNode.children[0].children[0].children[0].src = this.src;
+            }, function () {
+                $(this).css('border', 'none');
+                this.parentNode.parentNode.parentNode.parentNode.children[0].children[0].children[0].src = this.parentNode.children[0].src;
+            });
+    });
+</script>

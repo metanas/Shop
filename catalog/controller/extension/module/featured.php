@@ -56,7 +56,15 @@ class ControllerExtensionModuleFeatured extends Controller {
 				} else {
 					$rating = false;
 				}
+                $simulate = array();
 
+                $results = $this->model_catalog_product->getProductImages($product['product_id']);
+
+                foreach ($results as $r) {
+                    $simulate[] = array(
+                        'popup' => $this->model_tool_image->resize($r['image'], $this->config->get('theme_' . $this->config->get('config_theme') . '_image_popup_width'), $this->config->get('theme_' . $this->config->get('config_theme') . '_image_popup_height'))
+                    );
+                }
 				$data['products'][] = array(
 					'product_id'  => $product['product_id'],
 					'thumb'       => $image,
@@ -66,8 +74,9 @@ class ControllerExtensionModuleFeatured extends Controller {
 					'special'     => $special,
 					'tax'         => $tax,
 					'rating'      => $rating,
-					'href'        => $this->url->link('product/product', 'language=' . $this->config->get('config_language') . '&product_id=' . $product['product_id'])
-				);
+					'href'        => $this->url->link('product/product', 'language=' . $this->config->get('config_language') . '&product_id=' . $product['product_id']),
+                    'simulate'    => $simulate
+                );
 			}
 		}
 
