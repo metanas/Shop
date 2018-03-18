@@ -1162,3 +1162,11 @@ h2.price {
 .module {
     margin-bottom: 40px;
 }
+
+.verticalim {
+    list-style: none;
+}
+
+.verticalim > li > a > img {
+    border-width: 0;
+}

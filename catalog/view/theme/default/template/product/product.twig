@@ -1,13 +1,6 @@
 {{ header }}
 <div id="product-product" class="container">
-  <ul class="breadcrumb">
-    {% for breadcrumb in breadcrumbs %}
-        {% if loop.index not in [1] %}
-        <span> > </span>
-        {% endif %}
-        <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
-    {% endfor %}
-  </ul>
+  
   <div class="row">{{ column_left }}
     {% if column_left and column_right %}
       {% set class = 'col-sm-6' %}
@@ -23,16 +16,19 @@
           {% set class = 'col-sm-8' %}
         {% endif %}
         <div class="{{ class }}"> {% if thumb or images %}
-            <ul class="thumbnails">
-              {% if thumb %}
-                <li><a class="thumbnail" href="{{ popup }}" title="{{ heading_title }}"><img src="{{ thumb }}" title="{{ heading_title }}" alt="{{ heading_title }}"/></a></li>
-              {% endif %}
+            <div class="thumbnails">
               {% if images %}
+              <ul class="verticalim col-sm-2">
                 {% for image in images %}
                   <li class="image-additional"><a class="thumbnail" href="{{ image.popup }}" title="{{ heading_title }}"> <img src="{{ image.thumb }}" title="{{ heading_title }}" alt="{{ heading_title }}"/></a></li>
                 {% endfor %}
+              </ul>
               {% endif %}
-            </ul>
+              {% if thumb %}
+                <div class="col-sm-10"><a class="thumbnail" href="{{ popup }}" title="{{ heading_title }}"><img src="{{ thumb }}" title="{{ heading_title }}" alt="{{ heading_title }}"/></a></div>
+              {% endif %}
+              
+            </div>
           {% endif %}
           <ul class="nav nav-tabs">
             <li class="active"><a href="#tab-description" data-toggle="tab">{{ tab_description }}</a></li>
