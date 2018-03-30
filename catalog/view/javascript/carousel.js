@@ -5,7 +5,6 @@ class Carousel{
             slidesToScroll: 1,
             slidesVisible: 1
         }, options);
-    debugger
     }
 
 }

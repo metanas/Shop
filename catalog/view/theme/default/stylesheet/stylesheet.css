@@ -24,6 +24,7 @@ body {
     font-size: 12px;
     line-height: 20px;
     width: 100%;
+    background-color: #f7f7f7;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -1167,6 +1168,33 @@ h2.price {
     list-style: none;
 }
 
-.verticalim > li > a > img {
-    border-width: 0;
+.verticalim > li > a {
+    border: 0;
+    margin-bottom: 5px;
 }
+
+.verticalim > li > a > img {
+    margin-bottom: 0px;
+}
+
+.btn-pink{
+    font-size: 12px;
+    padding: 13px;
+    font-weight: normal;
+    background: #ff1b5e;
+    border: 0px;
+    margin: 10px 0px;
+    border-radius: 0px;
+    text-transform: uppercase;
+}
+
+.btn-wish{
+    width: 100%;
+    padding: 12px;
+    background: white;
+    border-radius: 0px;
+    border: 2px solid black;
+    color: black;
+    text-transform: uppercase;
+}
+
