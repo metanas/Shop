@@ -1,14 +1,22 @@
 <?php
 class ControllerCommonMenu extends Controller {
-	public function index() {
-		$this->load->language('common/menu');
+	public function index()
+    {
+        $this->load->language('common/menu');
 
-		// Menu
-		$this->load->model('catalog/category');
+        // Menu
+        $this->load->model('catalog/category');
 
-		$this->load->model('catalog/product');
+        $this->load->model('catalog/product');
 
-		$data['categories'] = array();
+        if (isset($this->request->get['path'])){
+            $parts = explode('_', (string)$this->request->get['path']);
+            $category_id = (int)array_pop($parts);
+        }else{
+            $category_id=0;
+        }
+
+        $data['categories'] = array();
 
 		$categories = $this->model_catalog_category->getCategories(0);
 
@@ -36,7 +44,8 @@ class ControllerCommonMenu extends Controller {
 					'name'     => $category['name'],
 					'children' => $children_data,
 					'column'   => $category['column'] ? $category['column'] : 1,
-					'href'     => $this->url->link('product/category', 'language=' . $this->config->get('config_language') . '&path=' . $category['category_id'])
+					'href'     => $this->url->link('product/category', 'language=' . $this->config->get('config_language') . '&path=' . $category['category_id']),
+                    'isActive' => ($category['category_id'] == $category_id) ? "actif" : ""
 				);
 			}
 		}
