@@ -14,21 +14,21 @@
 @font-face {
     font-family: "Helvetica Neue";
     src: url('../fonts/HelveticaNeue-Light.otf');
-    font-weight: lighter;
+    font-weight: 300;
 }
 
 body {
     font-family: Helvetica Neue;
-    font-weight: bold;
-    color: #666;
-    font-size: 12px;
+    font-weight: normal;
+    color: #000000;
+    font-size: 13px;
     line-height: 20px;
     width: 100%;
-    background-color: #f7f7f7;
 }
 
 h1, h2, h3, h4, h5, h6 {
-    color: #444;
+    color: #000000;
+    font-weight: bold;
 }
 
 /* default font size */
@@ -341,15 +341,16 @@ header {
     margin: 0 2px 0 2px;
 }
 
-.inscription {
-    color: black;
-}
-
 /* menu */
 .menu-default {
-    text-decoration: underline;
     font-weight: lighter;
     font-size: 16px;
+}
+
+.subline {
+    padding-bottom: 1px;
+    border-bottom: 2px;
+    border-bottom-style: ridge;
 }
 
 #menu {
@@ -491,6 +492,27 @@ header {
 /* content */
 #content {
     min-height: 600px;
+}
+
+/*.list-group{*/
+/*position: fixed;*/
+/*}*/
+.dropdownFilter {
+    background-color: white;
+    cursor: pointer;
+}
+
+.product-layout {
+    z-index: 1;
+}
+
+.selectpicker {
+    cursor: pointer;
+}
+
+.dropdown-filter {
+    display: none;
+    background-color: white;
 }
 
 /* footer */
@@ -805,6 +827,14 @@ footer h4 {
 .product-thumb {
     background-color: #f5f5f5;
     /*border: 1px solid #ddd;*/
+    height: 400px;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+.swiper-wrapper .product-layout .product-thumb {
+    background-color: #f5f5f5;
+    height: 350px;
     margin-bottom: 20px;
     overflow: hidden;
 }
@@ -812,6 +842,7 @@ footer h4 {
 .same {
     padding-bottom: 4px;
     display: none;
+    max-height: 85px;
 }
 
 .smallSame {
@@ -836,6 +867,7 @@ footer h4 {
 .product-thumb .image img {
     margin-left: auto;
     margin-right: auto;
+    margin-top: 25px;
 }
 
 .product-grid .product-thumb .image {
@@ -856,7 +888,9 @@ footer h4 {
 .product-thumb .caption {
     /*padding: 0 20px;*/
     min-height: 100px;
-    position: relative;
+    position: absolute;
+    width: 90%;
+    bottom: 0;
     padding: 0;
     margin: 0;
 }
@@ -1163,7 +1197,6 @@ h2.price {
 .module {
     margin-bottom: 40px;
 }
-
 .verticalim {
     list-style: none;
 }
@@ -1197,4 +1230,30 @@ h2.price {
     color: black;
     text-transform: uppercase;
 }
+.actif {
+    font-weight: bold;
+}
 
+ul {
+    list-style-type: none;
+}
+
+.groupe_list div a {
+    font-size: 14px;
+    line-height: 30px;
+}
+
+.model-filter {
+    width: 100%
+}
+
+.model {
+    width: 100%;
+    vertical-align: middle;
+}
+
+.model label {
+    font-size: 15px;
+    text-align: center;
+    vertical-align: middle;
+}
