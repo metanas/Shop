@@ -1197,7 +1197,39 @@ h2.price {
 .module {
     margin-bottom: 40px;
 }
+.verticalim {
+    list-style: none;
+}
 
+.verticalim > li > a {
+    border: 0;
+    margin-bottom: 5px;
+}
+
+.verticalim > li > a > img {
+    margin-bottom: 0px;
+}
+
+.btn-pink{
+    font-size: 12px;
+    padding: 13px;
+    font-weight: normal;
+    background: #ff1b5e;
+    border: 0px;
+    margin: 10px 0px;
+    border-radius: 0px;
+    text-transform: uppercase;
+}
+
+.btn-wish{
+    width: 100%;
+    padding: 12px;
+    background: white;
+    border-radius: 0px;
+    border: 2px solid black;
+    color: black;
+    text-transform: uppercase;
+}
 .actif {
     font-weight: bold;
 }
