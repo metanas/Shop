@@ -15,7 +15,7 @@ composer.lock
 config.php
 admin/config.php
 system/storage/logs/*
-
+image/cache/catalog
 # IDE Project files
 /.idea
 /vendor/
