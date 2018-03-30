@@ -1,4 +1,5 @@
 {{ header }}
+<div class="hidden-md-dowm" style="height:15px; background-color: #f7f7f7; width:100%"></div>
 <div id="product-product" class="container" >
   
   <div class="row">{{ column_left }}
@@ -13,9 +14,9 @@
       <div class="row"> {% if column_left or column_right %}
           {% set class = 'col-sm-6' %}
         {% else %}
-          {% set class = 'col-sm-8' %}
+          {% set class = 'col-sm-7' %}
         {% endif %}
-        <div class="hidden-md-dowm" style="height:15px; background-color: #f7f7f7;"></div>
+        
         <div class="{{ class }}"> {% if thumb or images %}
             <div class="thumbnails-hover">
               {% if images %}
@@ -112,7 +113,7 @@
         {% if column_left or column_right %}
           {% set class = 'col-sm-6' %}
         {% else %}
-          {% set class = 'col-sm-4' %}
+          {% set class = 'col-sm-5' %}
         {% endif %}
         <div class="{{ class }}">
           
