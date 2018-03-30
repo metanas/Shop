@@ -347,24 +347,21 @@ class ControllerCatalogOption extends Controller {
 		$data['option_values'] = array();
 
 		foreach ($option_values as $option_value) {
-			if (is_file(DIR_IMAGE . $option_value['image'])) {
-				$image = $option_value['image'];
-				$thumb = $option_value['image'];
-			} else {
-				$image = '';
-				$thumb = 'no_image.png';
-			}
-
+//			if (is_file(DIR_IMAGE . $option_value['image'])) {
+//				$image = $option_value['image'];
+//				$thumb = $option_value['image'];
+//			} else {
+//				$image = '';
+//				$thumb = 'no_image.png';
+//			}
 			$data['option_values'][] = array(
 				'option_value_id'          => $option_value['option_value_id'],
 				'option_value_description' => $option_value['option_value_description'],
-				'image'                    => $image,
-				'thumb'                    => $this->model_tool_image->resize($thumb, 100, 100),
 				'sort_order'               => $option_value['sort_order']
 			);
 		}
 
-		$data['placeholder'] = $this->model_tool_image->resize('no_image.png', 100, 100);
+//		$data['placeholder'] = $this->model_tool_image->resize('no_image.png', 100, 100);
 
 		$data['header'] = $this->load->controller('common/header');
 		$data['column_left'] = $this->load->controller('common/column_left');
@@ -444,16 +441,16 @@ class ControllerCatalogOption extends Controller {
 					$option_values = $this->model_catalog_option->getOptionValues($option['option_id']);
 
 					foreach ($option_values as $option_value) {
-						if (is_file(DIR_IMAGE . $option_value['image'])) {
-							$image = $this->model_tool_image->resize($option_value['image'], 50, 50);
-						} else {
-							$image = $this->model_tool_image->resize('no_image.png', 50, 50);
-						}
+//						if (is_file(DIR_IMAGE . $option_value['image'])) {
+//							$image = $this->model_tool_image->resize($option_value['image'], 50, 50);
+//						} else {
+//							$image = $this->model_tool_image->resize('no_image.png', 50, 50);
+//						}
 
 						$option_value_data[] = array(
 							'option_value_id' => $option_value['option_value_id'],
-							'name'            => strip_tags(html_entity_decode($option_value['name'], ENT_QUOTES, 'UTF-8')),
-							'image'           => $image
+							'name'            => strip_tags(html_entity_decode($option_value['name'], ENT_QUOTES, 'UTF-8'))
+//							'image'           => $image
 						);
 					}
 

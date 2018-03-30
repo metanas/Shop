@@ -31,6 +31,7 @@ $_['entry_name']         = 'Option Name';
 $_['entry_type']         = 'Type';
 $_['entry_option_value'] = 'Option Value Name';
 $_['entry_image']        = 'Image';
+$_['entry_equivalent']   = 'Equivalent';
 $_['entry_sort_order']   = 'Sort Order';
 
 // Error
