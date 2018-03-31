@@ -360,6 +360,7 @@ class ControllerCatalogOption extends Controller {
 				'option_value_description' => $option_value['option_value_description'],
 				'image'                    => $image,
 				'thumb'                    => $this->model_tool_image->resize($thumb, 100, 100),
+				'equivalent'               => $option_value['equivalent'],
 				'sort_order'               => $option_value['sort_order']
 			);
 		}
@@ -453,6 +454,7 @@ class ControllerCatalogOption extends Controller {
 						$option_value_data[] = array(
 							'option_value_id' => $option_value['option_value_id'],
 							'name'            => strip_tags(html_entity_decode($option_value['name'], ENT_QUOTES, 'UTF-8')),
+							'equivalent'      => $option_value['equivalent'],
 							'image'           => $image
 						);
 					}
