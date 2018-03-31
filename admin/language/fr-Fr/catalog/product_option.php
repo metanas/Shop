@@ -38,6 +38,7 @@ $_['entry_subtract']     = 'Subtract Stock';
 $_['entry_price']        = 'Price';
 $_['entry_points']       = 'Points';
 $_['entry_weight']       = 'Weight';
+$_['entry_color']        = 'Coleur';
 
 // Error
 $_['error_permission']   = 'Warning: You do not have permission to modify product options!';

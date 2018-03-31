@@ -127,8 +127,8 @@ div.required .control-label:before {
     border-bottom: 1px solid RGB(229, 33, 92);
     min-height: 30px;
     height: 30px;
-    padding-left: 100px;
-    padding-right: 100px;
+    padding-left: 80px;
+    padding-right: 80px;
     font-weight: bold;
 
 }
@@ -235,6 +235,7 @@ div.required .control-label:before {
     width: 100%;
     background: transparent;
     border: none;
+    -moz-appearance: none;
     -webkit-appearance: none;
     outline: none;
 }
