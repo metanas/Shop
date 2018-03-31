@@ -367,6 +367,7 @@ class ControllerCatalogProduct extends Controller {
 				'image'      => $image,
 				'name'       => $result['name'],
 				'model'      => $result['model'],
+				'color'      => $result['color'],
 				'price'      => $this->currency->format($result['price'], $this->config->get('config_currency')),
 				'special'    => $special,
 				'quantity'   => $result['quantity'],
@@ -621,6 +622,14 @@ class ControllerCatalogProduct extends Controller {
 		} else {
 			$data['model'] = '';
 		}
+
+        if (isset($this->request->post['color'])) {
+            $data['color'] = $this->request->post['color'];
+        } elseif (!empty($product_info)) {
+            $data['color'] = $product_info['color'];
+        } else {
+            $data['color'] = '';
+        }
 
 		if (isset($this->request->post['sku'])) {
 			$data['sku'] = $this->request->post['sku'];
