@@ -1095,6 +1095,27 @@ class ControllerCatalogProduct extends Controller {
 			}
 		}
 
+        if (isset($this->request->post['product_similar'])) {
+            $products = $this->request->post['product_similar'];
+        } elseif (isset($this->request->get['product_id'])) {
+            $products = $this->model_catalog_product->getProductSimilar($this->request->get['product_id']);
+        } else {
+            $products = array();
+        }
+
+        $data['product_similars'] = array();
+
+        foreach ($products as $product_id) {
+            $related_info = $this->model_catalog_product->getProduct($product_id);
+
+            if ($related_info) {
+                $data['product_similars'][] = array(
+                    'product_id' => $related_info['product_id'],
+                    'name'       => $related_info['name']
+                );
+            }
+        }
+
 		if (isset($this->request->post['points'])) {
 			$data['points'] = $this->request->post['points'];
 		} elseif (!empty($product_info)) {

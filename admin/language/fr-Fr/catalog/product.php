@@ -70,6 +70,7 @@ $_['entry_category']         = 'Categories';
 $_['entry_filter']           = 'Filters';
 $_['entry_download']         = 'Downloads';
 $_['entry_related']          = 'Related Products';
+$_['entry_similar']          = 'Similar Products';
 $_['entry_tag']              = 'Product Tags';
 $_['entry_reward']           = 'Reward Points';
 $_['entry_layout']           = 'Layout Override';
