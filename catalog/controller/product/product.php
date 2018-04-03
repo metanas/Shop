@@ -158,6 +158,10 @@ class ControllerProductProduct extends Controller {
 
 		$product_info = $this->model_catalog_product->getProduct($product_id);
 
+		$product_similar = $this->model_catalog_product->getSimilarProduct($product_id);
+
+        $data['product_similar'] = $product_similar;
+
 		if ($product_info) {
 			$url = '';
 

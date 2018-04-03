@@ -12,6 +12,14 @@ class ControllerProductCategory extends Controller
 
         $this->load->model('tool/image');
 
+        $models = $this->model_catalog_product->getModelsProducts();
+
+        $data['models'] = $models;
+
+        $colors = $this->model_catalog_product->getColorsProducts();
+
+        $data['colors'] = $colors;
+
         if (isset($this->request->get['filter'])) {
             $filter = $this->request->get['filter'];
         } else {
@@ -169,6 +177,9 @@ class ControllerProductCategory extends Controller
 
             $results = $this->model_catalog_product->getProducts($filter_data);
 
+            $products_colors = array();
+            $products_models = array();
+
             foreach ($results as $result) {
                 if ($result['image']) {
                     $image = $this->model_tool_image->resize($result['image'], $this->config->get('theme_' . $this->config->get('config_theme') . '_image_product_width'), $this->config->get('theme_' . $this->config->get('config_theme') . '_image_product_height'));
@@ -201,10 +212,6 @@ class ControllerProductCategory extends Controller
                 }
                 $simulate = array();
 
-                $models = $this->model_catalog_product->getModelsProducts();
-
-                $data['models'] = $models;
-
                 $results = $this->model_catalog_product->getProductImages($result['product_id']);
 
                 foreach ($results as $r) {
@@ -212,6 +219,10 @@ class ControllerProductCategory extends Controller
                         'popup' => $this->model_tool_image->resize($r['image'], $this->config->get('theme_' . $this->config->get('config_theme') . '_image_product_width'), $this->config->get('theme_' . $this->config->get('config_theme') . '_image_product_height'))
                     );
                 }
+                $products_colors[] = $result['color'];
+
+                $products_models[] = $result['model'];
+
                 $data['products'][] = array(
                     'product_id' => $result['product_id'],
                     'thumb' => $image,
@@ -226,6 +237,8 @@ class ControllerProductCategory extends Controller
                     'href' => $this->url->link('product/product', 'language=' . $this->config->get('config_language') . '&path=' . $this->request->get['path'] . '&product_id=' . $result['product_id'] . $url)
                 );
             }
+            $data['products_colors'] = $products_colors;
+            $data['products_models'] = $products_models;
 
             $url = '';
 
