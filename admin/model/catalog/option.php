@@ -14,9 +14,10 @@ class ModelCatalogOption extends Model
 
         if (isset($data['option_value'])) {
             foreach ($data['option_value'] as $option_value) {
-                $this->db->query("INSERT INTO " . DB_PREFIX . "option_value SET option_id = '" . (int)$option_id . "', image = '" . $this->db->escape(html_entity_decode($option_value['image'], ENT_QUOTES, 'UTF-8')) . "', sort_order = '" . (int)$option_value['sort_order'] . "'");
+                $this->db->query("INSERT INTO " . DB_PREFIX . "option_value SET option_id = '" . (int)$option_id . "', image = '" . ((isset($option_value['image'])) ? $this->db->escape(html_entity_decode($option_value['image'], ENT_QUOTES, 'UTF-8')) : "") . "', sort_order = '" . (int)$option_value['sort_order'] . "'");
                 $option_value_id = $this->db->getLastId();
-                $this->db->query("INSERT INTO " . DB_PREFIX . "option_value_equivalent SET option_value_id= '" . $option_value_id . "' option_id = '" . (int)$option_id . "', equivalent = '" . (int)$option_value['equivalent'] . "'");
+                if(isset($option_value['equivalent']))
+                    $this->db->query("INSERT INTO " . DB_PREFIX . "option_value_equivalent SET option_value_id= '" . $option_value_id . "', option_id = '" . (int)$option_id . "', equivalent = '" . (int)$option_value['equivalent'] . "'");
 
 
                 foreach ($option_value['option_value_description'] as $language_id => $option_value_description) {
@@ -45,12 +46,14 @@ class ModelCatalogOption extends Model
         if (isset($data['option_value'])) {
             foreach ($data['option_value'] as $option_value) {
                 if ($option_value['option_value_id']) {
-                    $this->db->query("INSERT INTO " . DB_PREFIX . "option_value SET option_value_id = '" . (int)$option_value['option_value_id'] . "', option_id = '" . (int)$option_id . "', image = '" . $this->db->escape(html_entity_decode($option_value['image'], ENT_QUOTES, 'UTF-8')) . "', sort_order = '" . (int)$option_value['sort_order'] . "'");
-                    $this->db->query("INSERT INTO " . DB_PREFIX . "option_value_equivalent SET option_value_id = '" . (int)$option_value['option_value_id'] . "', option_id = '" . (int)$option_id . "', equivalent = '" . (int)$option_value['equivalent'] . "'");
+                    $this->db->query("INSERT INTO " . DB_PREFIX . "option_value SET option_value_id = '" . (int)$option_value['option_value_id'] . "', option_id = '" . (int)$option_id . "', image = '" . ((isset($option_value['image'])) ? $this->db->escape(html_entity_decode($option_value['image'], ENT_QUOTES, 'UTF-8')) : "" ) . "', sort_order = '" . (int)$option_value['sort_order'] . "'");
+                    if(isset($option_value['equivalent']))
+                        $this->db->query("INSERT INTO " . DB_PREFIX . "option_value_equivalent SET option_value_id = '" . (int)$option_value['option_value_id'] . "', option_id = '" . (int)$option_id . "', equivalent = '" . (int)$option_value['equivalent'] . "'");
                 } else {
-                    $this->db->query("INSERT INTO " . DB_PREFIX . "option_value SET option_id = '" . (int)$option_id . "', image = '" . $this->db->escape(html_entity_decode($option_value['image'], ENT_QUOTES, 'UTF-8')) . "', sort_order = '" . (int)$option_value['sort_order'] . "'");
+                    $this->db->query("INSERT INTO " . DB_PREFIX . "option_value SET option_id = '" . (int)$option_id . "', image = '" . ((isset($option_value['image'])) ? $this->db->escape(html_entity_decode($option_value['image'], ENT_QUOTES, 'UTF-8')) : '') . "', sort_order = '" . (int)$option_value['sort_order'] . "'");
                     $option_value_id = $this->db->getLastId();
-                    $this->db->query("INSERT INTO " . DB_PREFIX . "option_value_equivalent SET option_value_id='" . $option_value_id . "' option_id = '" . (int)$option_id . "', equivalent = '" . (int)$option_value['equivalent'] . "'");
+                    if(isset($option_value['equivalent']))
+                        $this->db->query("INSERT INTO " . DB_PREFIX . "option_value_equivalent SET option_value_id='" . $option_value_id . "', option_id = '" . (int)$option_id . "', equivalent = '" . (int)$option_value['equivalent'] . "'");
                 }
 
                 $option_value_id = $this->db->getLastId();
@@ -152,7 +155,7 @@ class ModelCatalogOption extends Model
                 'option_value_id' => $option_value['option_value_id'],
                 'name' => $option_value['name'],
                 'image' => $option_value['image'],
-                'equivalent' => $option_value['equivalent'],
+                'equivalent' => (isset($option_value['equivalent']))? $option_value['equivalent'] : "" ,
                 'sort_order' => $option_value['sort_order']
             );
         }
@@ -179,7 +182,7 @@ class ModelCatalogOption extends Model
                 'option_value_id' => $option_value['option_value_id'],
                 'option_value_description' => $option_value_description_data,
                 'image' => $option_value['image'],
-                'equivalent' => $option_value['equivalent'],
+                'equivalent' => (isset($option_value['equivalent'])) ? $option_value['equivalent'] : '',
                 'sort_order' => $option_value['sort_order']
             );
         }

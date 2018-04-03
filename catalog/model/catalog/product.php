@@ -22,7 +22,7 @@ class ModelCatalogProduct extends Model {
 				'ean'              => $query->row['ean'],
 				'jan'              => $query->row['jan'],
 				'isbn'             => $query->row['isbn'],
-				'mpn'              => $query->row['mpn'],
+				'color'            => $query->row['color'],
 				'location'         => $query->row['location'],
 				'quantity'         => $query->row['quantity'],
 				'stock_status'     => $query->row['stock_status'],
@@ -530,13 +530,40 @@ class ModelCatalogProduct extends Model {
 		return $query->rows;
 	}
 
+	public function getSimilarProduct($product_id){
+	    $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "product_similar ps LEFT JOIN " . DB_PREFIX . "product p ON (ps.product_id = p.product_id) WHERE ps.product_id= '" . (int)$product_id . "'");
+
+        return $query->rows;
+    }
+
+	public function getModelProduct($product_id){
+        $query = $this->db->query("SELECT DISTINCT model FROM " . DB_PREFIX . "product WHERE product_id = '". (int)$product_id . "'");
+        return $query->rows;
+    }
+
 	public function getModelsProducts(){
 	    $query = $this->db->query("SELECT DISTINCT model FROM " . DB_PREFIX . "product");
 	    $model = array();
+
 	    foreach ($query->rows as $result){
-	        $model[] = $result;
+	        $model[] = $result['model'];
         }
         return $model;
+    }
+
+    public function getColorProduct($product_id){
+        $query = $this->db->query("SELECT DISTINCT color FROM " . DB_PREFIX . "product WHERE product_id = '". (int)$product_id . "'");
+        return $query->rows;
+    }
+
+    public function getColorsProducts(){
+	    $query = $this->db->query("SELECT DISTINCT color FROM " .DB_PREFIX . "product");
+	    $color = array();
+
+	    foreach ($query->rows as $result){
+	        $color[] = $result['color'];
+        }
+        return $color;
     }
 
 	public function getTotalProductSpecials() {

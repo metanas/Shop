@@ -345,21 +345,23 @@ class ControllerCatalogOption extends Controller {
 		$this->load->model('tool/image');
 
 		$data['option_values'] = array();
-
 		foreach ($option_values as $option_value) {
-//			if (is_file(DIR_IMAGE . $option_value['image'])) {
-//				$image = $option_value['image'];
-//				$thumb = $option_value['image'];
-//			} else {
-//				$image = '';
-//				$thumb = 'no_image.png';
-//			}
+            if(isset($option_value['image'])){
+                if (is_file(DIR_IMAGE . $option_value['image'])) {
+                    $image = $option_value['image'];
+                    $thumb = $option_value['image'];
+                } else {
+                    $image = '';
+                    $thumb = 'no_image.png';
+                }
+            }
+
 			$data['option_values'][] = array(
 				'option_value_id'          => $option_value['option_value_id'],
 				'option_value_description' => $option_value['option_value_description'],
-				'image'                    => $image,
-				'thumb'                    => $this->model_tool_image->resize($thumb, 100, 100),
-				'equivalent'               => $option_value['equivalent'],
+				'image'                    => (isset($image))? $image : "",
+				'thumb'                    => (isset($thumb)) ? $this->model_tool_image->resize($thumb, 100, 100) : "",
+				'equivalent'               => (isset($option_value['equivalent'])) ? $option_value['equivalent']: '' ,
 				'sort_order'               => $option_value['sort_order']
 			);
 		}

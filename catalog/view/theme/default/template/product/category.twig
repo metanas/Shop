@@ -34,8 +34,13 @@
                                 </div>
                                 <div class="dropdown-filter">
                                     {% for model in models %}
-                                        <div class="model">
-                                            <input type="checkbox" name="model[]"><label>{{ model.model }}</label>
+                                        {% if model not in products_models %}
+                                            {% set class = 'disabled' %}
+                                        {% else %}
+                                            {% set class = '' %}
+                                        {% endif %}
+                                        <div class="model checkbox {{ class }}">
+                                            <label><input type="checkbox" name="model[]" {{ class }}>{{ model }}</label>
                                         </div>
                                     {% endfor %}
                                 </div>
@@ -49,9 +54,14 @@
 
                                 </div>
                                 <div class="dropdown-filter">
-                                    {% for model in models %}
-                                        <div class="model">
-                                            <input type="checkbox" name="model[]"><label>{{ model.model }}</label>
+                                    {% for color in colors %}
+                                        {% if color not in products_colors %}
+                                            {% set class = 'disabled' %}
+                                        {% else %}
+                                            {% set class = '' %}
+                                        {% endif %}
+                                        <div class="model checkbox {{ class }}">
+                                            <label><input type="checkbox" name="color[]" {{ class }}>{{ color }}</label>
                                         </div>
                                     {% endfor %}
                                 </div>
