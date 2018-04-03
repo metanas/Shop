@@ -1,5 +1,6 @@
 {{ header }}
-<div id="product-product" class="container">
+<div class="hidden-md-dowm" style="height:15px; background-color: #f7f7f7; width:100%"></div>
+<div id="product-product" class="container" >
   
   <div class="row">{{ column_left }}
     {% if column_left and column_right %}
@@ -13,12 +14,13 @@
       <div class="row"> {% if column_left or column_right %}
           {% set class = 'col-sm-6' %}
         {% else %}
-          {% set class = 'col-sm-8' %}
+          {% set class = 'col-sm-7' %}
         {% endif %}
+        
         <div class="{{ class }}"> {% if thumb or images %}
             <div class="thumbnails-hover">
               {% if images %}
-              <ul class="verticalim col-sm-2 hidden-md-dowm">
+              <ul class="verticalim col-sm-2 hidden-sm-dowm">
                 <li class="image-additional"><a class="thumbnail" href="{{ popup }}" title="{{ heading_title }}"> <img src="{{ thumb }}" title="{{ heading_title }}" alt="{{ heading_title }}"/></a></li>
                 {% for image in images %}
                   <li class="image-additional"><a class="thumbnail" href="{{ image.popup }}" title="{{ heading_title }}"> <img src="{{ image.thumb }}" title="{{ heading_title }}" alt="{{ heading_title }}"/></a></li>
@@ -26,7 +28,7 @@
               </ul>
               {% endif %}
               {% if thumb %}
-                <div class="col-sm-10"><a style="border:0px" class="thumbnail previeus-hover" href="{{ popup }}" title="{{ heading_title }}"><img style="width:75%" src="{{ thumb }}" title="{{ heading_title }}" alt="{{ heading_title }}"/></a></div>
+                <div class="col-sm-10"><a style="border:0px" class="thumbnail previeus-hover" href="{{ popup }}" title="{{ heading_title }}"><img src="{{ thumb }}" title="{{ heading_title }}" alt="{{ heading_title }}"/></a></div>
               {% endif %}
               
             </div>
@@ -111,7 +113,7 @@
         {% if column_left or column_right %}
           {% set class = 'col-sm-6' %}
         {% else %}
-          {% set class = 'col-sm-4' %}
+          {% set class = 'col-sm-5' %}
         {% endif %}
         <div class="{{ class }}">
           
