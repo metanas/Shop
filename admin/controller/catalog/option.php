@@ -366,7 +366,7 @@ class ControllerCatalogOption extends Controller {
 			);
 		}
 
-		$data['placeholder'] = $this->model_tool_image->resize('no_image.png', 100, 100);
+//		$data['placeholder'] = $this->model_tool_image->resize('no_image.png', 100, 100);
 
 		$data['header'] = $this->load->controller('common/header');
 		$data['column_left'] = $this->load->controller('common/column_left');
@@ -446,11 +446,11 @@ class ControllerCatalogOption extends Controller {
 					$option_values = $this->model_catalog_option->getOptionValues($option['option_id']);
 
 					foreach ($option_values as $option_value) {
-						if (is_file(DIR_IMAGE . $option_value['image'])) {
-							$image = $this->model_tool_image->resize($option_value['image'], 50, 50);
-						} else {
-							$image = $this->model_tool_image->resize('no_image.png', 50, 50);
-						}
+//						if (is_file(DIR_IMAGE . $option_value['image'])) {
+//							$image = $this->model_tool_image->resize($option_value['image'], 50, 50);
+//						} else {
+//							$image = $this->model_tool_image->resize('no_image.png', 50, 50);
+//						}
 
 						$option_value_data[] = array(
 							'option_value_id' => $option_value['option_value_id'],
