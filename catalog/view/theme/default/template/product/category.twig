@@ -30,7 +30,7 @@
                             <div class="col-md-11 dropdownFilter"
                                  style="position: absolute;border: 1px solid #e7e7e7; line-height: 30px;font-weight: normal;">
                                 <div class="model-filter">
-                                    Marque<i class="fa fa-angle-down" style="float: right; line-height: 30px"></i>
+                                    {{ text_filter_marque }}<i class="fa fa-angle-down" style="float: right; line-height: 30px"></i>
                                 </div>
                                 <div class="dropdown-filter">
                                     {% for model in models %}
@@ -42,44 +42,52 @@
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <div class="col-md-11 dropdownFilter dropup"
-                                 style="position: absolute; border: 1px solid #e7e7e7; line-height: 30px;font-weight: normal;">
-                                Marque<i class="fa fa-angle-down" style="float: right; line-height: 30px"></i>
+                            <div class="col-md-11 dropdownFilter"
+                                 style="position: absolute;border: 1px solid #e7e7e7; line-height: 30px;font-weight: normal;">
+                                <div class="model-filter">
+                                   {{ text_filter_color }}<i class="fa fa-angle-down" style="float: right; line-height: 30px"></i>
+
+                                </div>
                                 <div class="dropdown-filter">
-                                    <p>jjj</p>
-                                    <p>jjj</p>
-                                    <p>jjj</p>
-                                    <p>jjj</p>
-                                    <p>jjj</p>
+                                    {% for model in models %}
+                                        <div class="model">
+                                            <input type="checkbox" name="model[]"><label>{{ model.model }}</label>
+                                        </div>
+                                    {% endfor %}
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <div class="col-md-11 dropdownFilter dropup"
-                                 style="position: absolute; border: 1px solid #e7e7e7; line-height: 30px;font-weight: normal;">
-                                Marque<i class="fa fa-angle-down" style="float: right; line-height: 30px"></i>
+                            <div class="col-md-11 dropdownFilter"
+                                 style="position: absolute;border: 1px solid #e7e7e7; line-height: 30px;font-weight: normal;">
+                                <div class="model-filter">
+                                    {{ text_filter_price }}<i class="fa fa-angle-down" style="float: right; line-height: 30px"></i>
+                                </div>
                                 <div class="dropdown-filter">
-                                    <p>jjj</p>
-                                    <p>jjj</p>
-                                    <p>jjj</p>
-                                    <p>jjj</p>
-                                    <p>jjj</p>
+                                    {% for model in models %}
+                                        <div class="model">
+                                            <input type="checkbox" name="model[]"><label>{{ model.model }}</label>
+                                        </div>
+                                    {% endfor %}
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <div class="col-md-11 dropdownFilter dropup"
-                                 style="position: absolute; border: 1px solid #e7e7e7; line-height: 30px;font-weight: normal;">
-                                Marque<i class="fa fa-angle-down" style="float: right; line-height: 30px"></i>
+                            <div class="col-md-11 dropdownFilter"
+                                 style="position: absolute;border: 1px solid #e7e7e7; line-height: 30px;font-weight: normal;">
+                                <div class="model-filter">
+                                    {{ text_filter_size }}<i class="fa fa-angle-down" style="float: right; line-height: 30px"></i>
+                                </div>
                                 <div class="dropdown-filter">
-                                    <p>jjj</p>
-                                    <p>jjj</p>
-                                    <p>jjj</p>
-                                    <p>jjj</p>
-                                    <p>jjj</p>
+                                    {% for model in models %}
+                                        <div class="model">
+                                            <input type="checkbox" name="model[]"><label>{{ model.model }}</label>
+                                        </div>
+                                    {% endfor %}
                                 </div>
                             </div>
                         </div>
+
                     </div>
                     <div style="position:relative; z-index: 1; margin-top: 30px;">
                         <div class="col-md-6 col-xs-6" style="color: #9da7af">

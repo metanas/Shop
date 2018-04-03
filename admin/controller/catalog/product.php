@@ -367,6 +367,7 @@ class ControllerCatalogProduct extends Controller {
 				'image'      => $image,
 				'name'       => $result['name'],
 				'model'      => $result['model'],
+				'color'      => $result['color'],
 				'price'      => $this->currency->format($result['price'], $this->config->get('config_currency')),
 				'special'    => $special,
 				'quantity'   => $result['quantity'],
@@ -621,6 +622,14 @@ class ControllerCatalogProduct extends Controller {
 		} else {
 			$data['model'] = '';
 		}
+
+        if (isset($this->request->post['color'])) {
+            $data['color'] = $this->request->post['color'];
+        } elseif (!empty($product_info)) {
+            $data['color'] = $product_info['color'];
+        } else {
+            $data['color'] = '';
+        }
 
 		if (isset($this->request->post['sku'])) {
 			$data['sku'] = $this->request->post['sku'];
@@ -1094,6 +1103,27 @@ class ControllerCatalogProduct extends Controller {
 				);
 			}
 		}
+
+        if (isset($this->request->post['product_similar'])) {
+            $products = $this->request->post['product_similar'];
+        } elseif (isset($this->request->get['product_id'])) {
+            $products = $this->model_catalog_product->getProductSimilar($this->request->get['product_id']);
+        } else {
+            $products = array();
+        }
+
+        $data['product_similars'] = array();
+
+        foreach ($products as $product_id) {
+            $related_info = $this->model_catalog_product->getProduct($product_id);
+
+            if ($related_info) {
+                $data['product_similars'][] = array(
+                    'product_id' => $related_info['product_id'],
+                    'name'       => $related_info['name']
+                );
+            }
+        }
 
 		if (isset($this->request->post['points'])) {
 			$data['points'] = $this->request->post['points'];
