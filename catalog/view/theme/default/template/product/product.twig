@@ -117,22 +117,21 @@
         {% endif %}
         <div class="{{ class }}">
           
-          <h1>{{ heading_title }}</h1>
+         <!--  <h1>{{ heading_title }}</h1> -->
+
+          <img src="{{ manufacturer_img }}">
           <ul class="list-unstyled">
-            {% if manufacturer %}
-              <li>{{ text_manufacturer }} <a href="{{ manufacturers }}">{{ manufacturer }}</a></li>
-            {% endif %}
-            <li>{{ text_model }} {{ model }}</li>
+            <li><h3>{{ model }} - {{ category }}</h3></li>
             {% if reward %}
               <li>{{ text_reward }} {{ reward }}</li>
             {% endif %}
-            <li>{{ text_stock }} {{ stock }}</li>
+            <!-- <li>{{ text_stock }} {{ stock }}</li> -->
           </ul>
           {% if price %}
             <ul class="list-unstyled">
               {% if not special %}
                 <li>
-                  <h2>{{ price }}</h2>
+                  <h4 class="prix-product-page">{{ price }}</h4>
                 </li>
               {% else %}
                 <li><span style="text-decoration: line-through;">{{ price }}</span></li>
@@ -158,7 +157,7 @@
           {% endif %}
           <div id="product"> {% if options %}
               <hr>
-              <h3>{{ text_option }}</h3>
+              <!-- <h3>{{ text_option }}</h3> -->
               {% for option in options %}
                 {% if option.type == 'select' %}
                   <div class="form-group{% if option.required %} required {% endif %}">

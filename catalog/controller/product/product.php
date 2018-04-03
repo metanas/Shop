@@ -18,7 +18,7 @@ class ControllerProductProduct extends Controller {
 			$path = '';
 
 			$parts = explode('_', (string)$this->request->get['path']);
-
+			var_dump($parts);
 			$category_id = (int)array_pop($parts);
 
 			foreach ($parts as $path_id) {
@@ -64,6 +64,7 @@ class ControllerProductProduct extends Controller {
 					'text' => $category_info['name'],
 					'href' => $this->url->link('product/category', 'language=' . $this->config->get('config_language') . '&path=' . $this->request->get['path'] . $url)
 				);
+
 			}
 		}
 
@@ -155,9 +156,18 @@ class ControllerProductProduct extends Controller {
 		}
 
 		$this->load->model('catalog/product');
+		$this->load->model('catalog/category');
+		$this->load->model('tool/image');
+
+		$product_cat = $this->model_catalog_product->getCategories($product_id);
+		$product_category = $this->model_catalog_category->getCategory($product_cat[count($product_cat)-1]['category_id']);
+		$product_category = $product_category['name'];
+		$data['category'] = $product_category;
 
 		$product_info = $this->model_catalog_product->getProduct($product_id);
-
+		$manufacturer_img = $this->model_catalog_manufacturer->getManufacturer($product_info['manufacturer_id']);
+		$data['manufacturer_img'] = $this->model_tool_image->resize($manufacturer_img['image'], $this->config->get('theme_' . $this->config->get('config_theme') . '_image_additional_width'), $this->config->get('theme_' . $this->config->get('config_theme') . '_image_additional_height'));
+		
 		if ($product_info) {
 			$url = '';
 

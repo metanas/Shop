@@ -35,6 +35,7 @@ class Currency {
 		$amount = round($amount, (int)$decimal_place);
 		
 		if (!$format) {
+
 			return $amount;
 		}
 
@@ -45,6 +46,10 @@ class Currency {
 		}
 
 		$string .= number_format($amount, (int)$decimal_place, $this->language->get('decimal_point'), $this->language->get('thousand_point'));
+		var_dump($decimal_place);
+		$string .= ' ';
+
+
 
 		if ($symbol_right) {
 			$string .= $symbol_right;
