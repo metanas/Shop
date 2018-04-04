@@ -531,8 +531,8 @@ class ModelCatalogProduct extends Model {
 	}
 
 	public function getSimilarProduct($product_id){
-	    $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "product_similar ps LEFT JOIN " . DB_PREFIX . "product p ON (ps.product_id = p.product_id) WHERE ps.product_id= '" . (int)$product_id . "'");
-
+	    $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "product_similar ps LEFT JOIN " . DB_PREFIX . "product p ON (ps.similar_id = p.product_id) WHERE ps.product_id= '" . (int)$product_id . "'");
+	    
         return $query->rows;
     }
 
