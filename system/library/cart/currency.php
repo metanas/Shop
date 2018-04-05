@@ -1,5 +1,11 @@
 <?php
 namespace Cart;
+
+function is_decimal( $val ) {
+    return is_numeric( $val ) && floor( $val ) != $val;
+}
+	
+
 class Currency {
 	private $currencies = array();
 
@@ -20,6 +26,7 @@ class Currency {
 			);
 		}
 	}
+
 
 	public function format($number, $currency, $value = '', $format = true) {
 		$symbol_left = $this->currencies[$currency]['symbol_left'];
@@ -44,9 +51,12 @@ class Currency {
 		if ($symbol_left) {
 			$string .= $symbol_left;
 		}
-
-		$string .= number_format($amount, (int)$decimal_place, $this->language->get('decimal_point'), $this->language->get('thousand_point'));
-		var_dump($decimal_place);
+		
+		if (!is_decimal($amount))
+			$string .= number_format($amount, 0, $this->language->get('decimal_point'), $this->language->get('thousand_point'));
+		else
+			$string .= number_format($amount, (int)$decimal_place, $this->language->get('decimal_point'), $this->language->get('thousand_point'));
+		
 		$string .= ' ';
 
 
@@ -117,4 +127,6 @@ class Currency {
 	public function has($currency) {
 		return isset($this->currencies[$currency]);
 	}
+
+	
 }
