@@ -18,7 +18,6 @@ class ControllerProductProduct extends Controller {
 			$path = '';
 
 			$parts = explode('_', (string)$this->request->get['path']);
-
 			$category_id = (int)array_pop($parts);
 
 			foreach ($parts as $path_id) {
@@ -170,8 +169,20 @@ class ControllerProductProduct extends Controller {
 		
 		$product_similar = $this->model_catalog_product->getSimilarProduct($product_id);
 
-    $data['product_similar'] = $product_similar;
+    $data['product_similar'] = array();
 
+    
+    foreach ($product_similar as $result) {
+    	$data['product_similar'][] = array(
+    		'product_id' => $result['product_id'],
+    		'color' => $result['color'],
+    		'price' => $this->currency->format($this->tax->calculate($result['price'], $product_info['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']),
+    		'image' => $this->model_tool_image->resize($result['image'], $this->config->get('theme_' . $this->config->get('config_theme') . '_image_additional_width'), $this->config->get('theme_' . $this->config->get('config_theme') . '_image_additional_height')),
+    		'popup' => $this->model_tool_image->resize($result['image'], $this->config->get('theme_' . $this->config->get('config_theme') . '_image_popup_width'), $this->config->get('theme_' . $this->config->get('config_theme') . '_image_popup_height')),
+    		'href' => $this->url->link('product/product', 'language=' . $this->config->get('config_language') . '&product_id=' . $result['product_id'])
+    	);
+    }
+    
 		if ($product_info) {
 			$url = '';
 
@@ -257,6 +268,7 @@ class ControllerProductProduct extends Controller {
 			$data['reward'] = $product_info['reward'];
 			$data['points'] = $product_info['points'];
 			$data['description'] = html_entity_decode($product_info['description'], ENT_QUOTES, 'UTF-8');
+			$data['color'] = $product_info['color'];
 
 			if ($product_info['quantity'] <= 0) {
 				$data['stock'] = $product_info['stock_status'];

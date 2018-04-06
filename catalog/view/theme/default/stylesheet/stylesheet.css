@@ -24,7 +24,11 @@ body {
     font-size: 13px;
     line-height: 20px;
     width: 100%;
+<<<<<<< Updated upstream
+=======
     background-color: white;
+    
+>>>>>>> Stashed changes
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -128,8 +132,8 @@ div.required .control-label:before {
     border-bottom: 1px solid RGB(229, 33, 92);
     min-height: 30px;
     height: 30px;
-    padding-left: 80px;
-    padding-right: 80px;
+    padding-left: 100px;
+    padding-right: 100px;
     font-weight: bold;
 
 }
@@ -236,7 +240,6 @@ div.required .control-label:before {
     width: 100%;
     background: transparent;
     border: none;
-    -moz-appearance: none;
     -webkit-appearance: none;
     outline: none;
 }
@@ -1254,6 +1257,7 @@ h2.price {
     font-weight: bold;
 }
 
+
 ul {
     list-style-type: none;
 }
@@ -1346,5 +1350,14 @@ ul {
 .ScrollStyle {
     max-height: 150px;
     overflow-y: auto;
+}
+
+
+#product-product{
+    
+}
+
+.prix-product-page{
+    
 }
 

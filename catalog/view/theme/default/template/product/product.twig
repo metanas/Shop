@@ -21,14 +21,14 @@
             <div class="thumbnails-hover">
               {% if images %}
               <ul class="verticalim col-sm-2 hidden-sm-dowm">
-                <li class="image-additional"><a class="thumbnail" href="{{ popup }}" title="{{ heading_title }}"> <img src="{{ thumb }}" title="{{ heading_title }}" alt="{{ heading_title }}"/></a></li>
+                <li class="image-additional"><a class="thumbnail" href="{{ popup }}" title="{{ heading_title }}"> <img src="{{ thumb }}" title="{{ heading_title }}" alt="{{ popup }}"/></a></li>
                 {% for image in images %}
-                  <li class="image-additional"><a class="thumbnail" href="{{ image.popup }}" title="{{ heading_title }}"> <img src="{{ image.thumb }}" title="{{ heading_title }}" alt="{{ heading_title }}"/></a></li>
+                  <li class="image-additional"><a class="thumbnail" href="{{ image.popup }}" title="{{ heading_title }}"> <img src="{{ image.thumb }}" title="{{ heading_title }}" alt="{{ image.popup }}"/></a></li>
                 {% endfor %}
               </ul>
               {% endif %}
               {% if thumb %}
-                <div class="col-sm-10"><a style="border:0px" class="thumbnail previeus-hover" href="{{ popup }}" title="{{ heading_title }}"><img src="{{ thumb }}" title="{{ heading_title }}" alt="{{ heading_title }}"/></a></div>
+                <div class="col-sm-10"><a id="main_img_cont" style="border:0px" class="thumbnail previeus-hover" href="{{ popup }}" title="{{ heading_title }}"><img id="main_img" src="{{ popup }}" alt="{{ heading_title }}"/></a></div>
               {% endif %}
               
             </div>
@@ -131,7 +131,7 @@
             <ul class="list-unstyled">
               {% if not special %}
                 <li>
-                  <h4 class="prix-product-page">{{ price }}</h4>
+                  <h4 id="price_tag" class="prix-product-page">{{ price }}</h4>
                 </li>
               {% else %}
                 <li><span style="text-decoration: line-through;">{{ price }}</span></li>
@@ -153,8 +153,17 @@
                   <li>{{ discount.quantity }}{{ text_discount }}{{ discount.price }}</li>
                 {% endfor %}
               {% endif %}
+                  <li>Couleur : <b id="color_text">{{ color }}</b></li>
             </ul>
           {% endif %}
+
+          <div id="samecolor">
+              {% for similar in product_similar %}
+                <a href="{{ similar.href }}" ><img class="similar_img" src="{{ similar.image }}" alt="{{ similar.popup }}" data-color="{{ similar.color }}" data-price="{{ similar.price }}"></img></a>
+                
+              {% endfor %}
+          </div>
+          
           <div id="product"> {% if options %}
               <hr>
               <!-- <h3>{{ text_option }}</h3> -->
@@ -565,44 +574,70 @@ $(document).ready(function() {
 });
 //--></script>
 <script>
+
+</script>
+<script>
   // Galery 
    $('document').ready(function(){
+
+  images = $('.image-additional .thumbnail img');
   
-  master_parent = $('.previeus-hover img');
+  img = document.getElementById('main_img');
 
-  link = master_parent[0].src.replace("cache/","").split("-");
-  link[ link.length - 1 ] = "-.png";
-  link = link.join("-").replace("--","");
-  master_parent[0].src = link;
-
-  $('.previeus-hover').zoom();
-
-  master_parent.attr( 
-    "data-zoom-image" ,
-     master_parent.src
-  );
   
-  $('.thumbnails-hover .image-additional .thumbnail').each(
-    function( index , elm ){
-      elm.onclick = function( e ){ 
-        e.preventDefault();
-      }
+
+  img_container = document.getElementById('main_img_cont');
+  
+  images.each(
+    function (index, elm) {
       elm.onmouseover = function( e ){
-        link = elm.href.replace("cache/","").split("-");
+        
+        img.src = elm.alt;
+        link = img.src.replace("cache/","").split("-");
         link[ link.length - 1 ] = "-.png";
         link = link.join("-").replace("--","");
-        master_parent.attr( 'src' ,  link  ); 
-        master_parent.attr( "data-zoom-image" , master_parent.src );
-        s = document.querySelectorAll('.previeus-hover .zoomImg');
-        s.forEach(
-          function( elm ){
-            elm.outerHTML = "";
-          }
-        );
-        $('.previeus-hover').zoom();
-        }
+        $('.previeus-hover').zoom({url: link});
+        };
     }
   );
+  
+
+        link = img.src.replace("cache/","").split("-");
+        link[ link.length - 1 ] = "-.png";
+        link = link.join("-").replace("--","");
+        $('.previeus-hover').zoom({url: link});
+  
+  
 });
+</script>
+<script>
+
+  var img = document.getElementById('main_img');
+  var default_src = img.src;
+
+  color_text = document.getElementById('color_text');
+  default_color = color_text.innerHTML;
+
+  price = document.getElementById('price_tag');
+  default_price = price.innerHTML;
+  
+  $('.similar_img').each(
+    function( index , elm ){
+      
+      elm.onmouseover = function( e ){
+        color_text.innerHTML = $(elm).attr("data-color");
+        price.innerHTML = $(elm).attr("data-price");
+        img.src = elm.alt;
+        };
+        elm.onmouseout = function( e ){
+        color_text.innerHTML = default_color;
+        price.innerHTML = default_price;
+        img.src = default_src;
+        link = img.src.replace("cache/","").split("-");
+        link[ link.length - 1 ] = "-.png";
+        link = link.join("-").replace("--","");
+        $('.previeus-hover').zoom({url: link});
+        }
+    });
 </script>
 {{ footer }}
