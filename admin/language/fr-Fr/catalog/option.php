@@ -9,6 +9,7 @@ $_['text_add']           = 'Add Option';
 $_['text_edit']          = 'Edit Option';
 $_['text_choose']        = 'Choose';
 $_['text_select']        = 'Select';
+$_['text_size']          = 'Taille';
 $_['text_radio']         = 'Radio';
 $_['text_checkbox']      = 'Checkbox';
 $_['text_input']         = 'Input';

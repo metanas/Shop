@@ -510,6 +510,10 @@ header {
 
 .selectpicker {
     cursor: pointer;
+    border: none;
+    background-color: white;
+    -webkit-appearance: none;
+    -moz-appearance: none;
 }
 
 .dropdown-filter {
@@ -1196,9 +1200,22 @@ h2.price {
     padding: 5px 100px 5px 100px;
 }
 
+.filter-done {
+    background-color: transparent;
+    border: 2px solid black;
+    font-weight: bold;
+    color: black;
+    width: 100%;
+    font-size: 16px;
+    padding: auto;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
 .module {
     margin-bottom: 40px;
 }
+
 .verticalim {
     list-style: none;
 }
@@ -1212,7 +1229,7 @@ h2.price {
     margin-bottom: 0px;
 }
 
-.btn-pink{
+.btn-pink {
     font-size: 12px;
     padding: 13px;
     font-weight: normal;
@@ -1223,7 +1240,7 @@ h2.price {
     text-transform: uppercase;
 }
 
-.btn-wish{
+.btn-wish {
     width: 100%;
     padding: 12px;
     background: white;
@@ -1232,6 +1249,7 @@ h2.price {
     color: black;
     text-transform: uppercase;
 }
+
 .actif {
     font-weight: bold;
 }
@@ -1249,14 +1267,84 @@ ul {
     width: 100%
 }
 
-.model {
-    width: 100%;
-    vertical-align: middle;
+.check_filter {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 16px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
-.model label {
-    font-size: 15px;
-    text-align: center;
-    vertical-align: middle;
+.promos {
+
+    font-size: 12px;
+}
+
+.check_filter input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #eee;
+}
+
+.check_filter:hover input ~ .checkmark {
+    background-color: #ccc;
+}
+
+.check_filter input:checked ~ .checkmark {
+    background-color: #ff1b5e;
+}
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.check_filter input:checked ~ .checkmark:after {
+    display: block;
+}
+
+.check_filter .checkmark:after {
+    left: 9px;
+    top: 5px;
+    width: 6px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+#slider12c .slider-selection {
+    background: #ff1b5e;
+}
+
+.slider-handle {
+    border: 1px solid #bababa;
+    background-image: linear-gradient(to bottom, #fefefe 0, #fafafa 100%);
+}
+
+#min-price, #max-price {
+    font-size: 11px;
+}
+
+.ScrollStyle {
+    max-height: 150px;
+    overflow-y: auto;
 }
 

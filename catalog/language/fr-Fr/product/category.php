@@ -28,3 +28,5 @@ $_['text_filter_marque']='Marque';
 $_['text_filter_size']  ='Taile';
 $_['text_filter_color'] ='Couleur';
 $_['text_filter_price'] ='Prix';
+$_['text_close']        ='FERMER';
+$_['text_Promo']        ='Voir les Promos';

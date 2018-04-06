@@ -1,5 +1,5 @@
 {{ header }}
-<div style="height: 15px; background-color: #f7f7f7; width: 100%"></div>
+<div style="height: 15px; background-color: #f7f7f7; width: 100%" xmlns="http://www.w3.org/1999/html"></div>
 <div id="product-category" class="container">
     <div class="row">{{ column_left }}
         {% if column_left and column_right %}
@@ -30,19 +30,21 @@
                             <div class="col-md-11 dropdownFilter"
                                  style="position: absolute;border: 1px solid #e7e7e7; line-height: 30px;font-weight: normal;">
                                 <div class="model-filter">
-                                    {{ text_filter_marque }}<i class="fa fa-angle-down" style="float: right; line-height: 30px"></i>
+                                    {{ text_filter_marque }}<i class="fa fa-angle-down"
+                                                               style="float: right; line-height: 30px"></i>
                                 </div>
                                 <div class="dropdown-filter">
-                                    {% for model in models %}
-                                        {% if model not in products_models %}
-                                            {% set class = 'disabled' %}
-                                        {% else %}
-                                            {% set class = '' %}
-                                        {% endif %}
-                                        <div class="model checkbox {{ class }}">
-                                            <label><input type="checkbox" name="model[]" {{ class }}>{{ model }}</label>
-                                        </div>
-                                    {% endfor %}
+                                    <div class="ScrollStyle">
+                                        {% for model in products_models %}
+                                            <label class="check_filter">{{ model }}
+                                                <input type="checkbox">
+                                                <span class="checkmark"></span>
+                                            </label>
+                                        {% endfor %}
+                                    </div>
+                                    <div>
+                                        <button type="button" class="filter-done" style="width: 100%">{{ text_close }}</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -50,20 +52,22 @@
                             <div class="col-md-11 dropdownFilter"
                                  style="position: absolute;border: 1px solid #e7e7e7; line-height: 30px;font-weight: normal;">
                                 <div class="model-filter">
-                                   {{ text_filter_color }}<i class="fa fa-angle-down" style="float: right; line-height: 30px"></i>
+                                    {{ text_filter_color }}<i class="fa fa-angle-down"
+                                                              style="float: right; line-height: 30px"></i>
 
                                 </div>
                                 <div class="dropdown-filter">
-                                    {% for color in colors %}
-                                        {% if color not in products_colors %}
-                                            {% set class = 'disabled' %}
-                                        {% else %}
-                                            {% set class = '' %}
-                                        {% endif %}
-                                        <div class="model checkbox {{ class }}">
-                                            <label><input type="checkbox" name="color[]" {{ class }}>{{ color }}</label>
-                                        </div>
-                                    {% endfor %}
+                                    <div class="ScrollStyle">
+                                        {% for color in products_colors %}
+                                            <label class="check_filter">{{ color }}
+                                                <input type="checkbox">
+                                                <span class="checkmark"></span>
+                                            </label>
+                                        {% endfor %}
+                                    </div>
+                                    <div>
+                                        <button type="button" class="filter-done" style="width: 100%">{{ text_close }}</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -71,14 +75,27 @@
                             <div class="col-md-11 dropdownFilter"
                                  style="position: absolute;border: 1px solid #e7e7e7; line-height: 30px;font-weight: normal;">
                                 <div class="model-filter">
-                                    {{ text_filter_price }}<i class="fa fa-angle-down" style="float: right; line-height: 30px"></i>
+                                    {{ text_filter_price }}<i class="fa fa-angle-down"
+                                                              style="float: right; line-height: 30px"></i>
                                 </div>
                                 <div class="dropdown-filter">
-                                    {% for model in models %}
-                                        <div class="model">
-                                            <input type="checkbox" name="model[]"><label>{{ model.model }}</label>
-                                        </div>
-                                    {% endfor %}
+                                    <div>
+                                        <input id="ex12c" type="range" style="width: 100%"/>
+                                    </div>
+                                    <div class="container-fluid" style="width: 100%;padding: 0">
+                                        <span id="min-price" class="col-md-6">{{ price_min }} {{ currency }}</span>
+                                        <span id="max-price" class="col-md-6">{{ price_max }} {{ currency }}</span>
+                                    </div>
+                                    <div style="margin-top: 10px">
+                                        <label class="promos check_filter">{{ text_Promo }}
+                                            <input type="checkbox">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </div>
+
+                                    <div>
+                                        <button type="button" class="filter-done" style="width: 100%">{{ text_close }}</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -86,7 +103,8 @@
                             <div class="col-md-11 dropdownFilter"
                                  style="position: absolute;border: 1px solid #e7e7e7; line-height: 30px;font-weight: normal;">
                                 <div class="model-filter">
-                                    {{ text_filter_size }}<i class="fa fa-angle-down" style="float: right; line-height: 30px"></i>
+                                    {{ text_filter_size }}<i class="fa fa-angle-down"
+                                                             style="float: right; line-height: 30px"></i>
                                 </div>
                                 <div class="dropdown-filter">
                                     {% for model in models %}
@@ -94,6 +112,9 @@
                                             <input type="checkbox" name="model[]"><label>{{ model.model }}</label>
                                         </div>
                                     {% endfor %}
+                                    <div>
+                                        <button type="button" class="filter-done" style="width: 100%">{{ text_close }}</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -108,7 +129,6 @@
                                 {{ text_sort }}
                             </span>
                             <select id="input-sort" class="selectpicker"
-                                    style="border: none;background-color: white;-moz-appearance: none; -webkit-appearance: none"
                                     onchange="location = this.value;">
                                 {% for sorts in sorts %}
                                     {% if sorts.value == '%s-%s'|format(sort, order) %}
@@ -225,5 +245,10 @@
                 $(this).css('border', 'none');
                 this.parentNode.parentNode.parentNode.parentNode.children[0].children[0].children[0].src = this.parentNode.children[0].src;
             });
+    });
+    $("#ex12c").slider({id: "slider12c", min : {{ price_min }}, max: {{ price_max }}, range: true, value: [{{ price_min }}, {{ price_max }}]});
+    $("#ex12c").on("change", function (e) {
+       $("#max-price").html(e.value['newValue'][1] + " {{ currency }}");
+       $("#min-price").html(e.value['newValue'][0] + " {{ currency }}");
     });
 </script>
