@@ -12,14 +12,6 @@ class ControllerProductCategory extends Controller
 
         $this->load->model('tool/image');
 
-        $models = $this->model_catalog_product->getModelsProducts();
-
-        $data['models'] = $models;
-
-        $colors = $this->model_catalog_product->getColorsProducts();
-
-        $data['colors'] = $colors;
-
         if (isset($this->request->get['filter'])) {
             $filter = $this->request->get['filter'];
         } else {
@@ -180,6 +172,10 @@ class ControllerProductCategory extends Controller
             $products_colors = array();
             $products_models = array();
 
+            $product_first = reset($results);
+
+            $price_max = (int)((is_null($product_first['special'])) ? $product_first['price'] :  $product_first['special']);
+            $price_min = $price_max;
             foreach ($results as $result) {
                 if ($result['image']) {
                     $image = $this->model_tool_image->resize($result['image'], $this->config->get('theme_' . $this->config->get('config_theme') . '_image_product_width'), $this->config->get('theme_' . $this->config->get('config_theme') . '_image_product_height'));
@@ -219,9 +215,17 @@ class ControllerProductCategory extends Controller
                         'popup' => $this->model_tool_image->resize($r['image'], $this->config->get('theme_' . $this->config->get('config_theme') . '_image_product_width'), $this->config->get('theme_' . $this->config->get('config_theme') . '_image_product_height'))
                     );
                 }
-                $products_colors[] = $result['color'];
+                if(!in_array($result['color'], $products_colors))
+                    $products_colors[] = $result['color'];
 
-                $products_models[] = $result['model'];
+                if(!in_array($result['model'], $products_models))
+                    $products_models[] = $result['model'];
+
+                if((int)$price_max < (int)((is_null($result['special']))? $result['price'] : $result['special'] ))
+                    $price_max = (int)((is_null($result['special']))? $result['price'] : $result['special']) ;
+
+                if((int)$price_min > (int)((is_null($result['special']))? $result['price'] : $result['special'] ))
+                    $price_min = (int)((is_null($result['special']))? $result['price'] : $result['special']);
 
                 $data['products'][] = array(
                     'product_id' => $result['product_id'],
@@ -237,6 +241,9 @@ class ControllerProductCategory extends Controller
                     'href' => $this->url->link('product/product', 'language=' . $this->config->get('config_language') . '&path=' . $this->request->get['path'] . '&product_id=' . $result['product_id'] . $url)
                 );
             }
+            $data['price_max'] = $price_max;
+            $data['price_min'] = $price_min;
+            $data['currency'] = $this->session->data['currency'];
             $data['products_colors'] = $products_colors;
             $data['products_models'] = $products_models;
 

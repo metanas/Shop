@@ -333,7 +333,6 @@ class ControllerCatalogOption extends Controller {
 		} else {
 			$data['sort_order'] = '';
 		}
-
 		if (isset($this->request->post['option_value'])) {
 			$option_values = $this->request->post['option_value'];
 		} elseif (isset($this->request->get['option_id'])) {
@@ -446,11 +445,11 @@ class ControllerCatalogOption extends Controller {
 					$option_values = $this->model_catalog_option->getOptionValues($option['option_id']);
 
 					foreach ($option_values as $option_value) {
-//						if (is_file(DIR_IMAGE . $option_value['image'])) {
-//							$image = $this->model_tool_image->resize($option_value['image'], 50, 50);
-//						} else {
-//							$image = $this->model_tool_image->resize('no_image.png', 50, 50);
-//						}
+						if (is_file(DIR_IMAGE . $option_value['image'])) {
+							$image = $this->model_tool_image->resize($option_value['image'], 50, 50);
+						} else {
+							$image = $this->model_tool_image->resize('no_image.png', 50, 50);
+						}
 
 						$option_value_data[] = array(
 							'option_value_id' => $option_value['option_value_id'],

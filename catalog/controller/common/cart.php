@@ -109,7 +109,6 @@ class ControllerCommonCart extends Controller
                 'total' => $total,
                 'href' => $this->url->link('product/product', 'language=' . $this->config->get('config_language') . '&product_id=' . $product['product_id'])
             );
-            var_dump($data['products']);
         }
 
         // Gift Voucher

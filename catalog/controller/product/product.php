@@ -18,7 +18,6 @@ class ControllerProductProduct extends Controller {
 			$path = '';
 
 			$parts = explode('_', (string)$this->request->get['path']);
-			
 			$category_id = (int)array_pop($parts);
 
 			foreach ($parts as $path_id) {

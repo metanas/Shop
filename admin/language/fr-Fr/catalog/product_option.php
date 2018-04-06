@@ -11,6 +11,7 @@ $_['text_edit']          = 'Edit Product Option';
 $_['text_option']        = 'Product Option';
 $_['text_option_value']  = 'Product Option Values';
 $_['text_select']        = 'Select';
+$_['text_size']          = 'Taille';
 $_['text_radio']         = 'Radio';
 $_['text_checkbox']      = 'Checkbox';
 $_['text_input']         = 'Input';
