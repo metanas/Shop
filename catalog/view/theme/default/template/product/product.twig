@@ -28,7 +28,7 @@
               </ul>
               {% endif %}
               {% if thumb %}
-                <div class="col-sm-10"><a id="main_img_cont" style="border:0px" class="thumbnail previeus-hover" href="{{ popup }}" title="{{ heading_title }}"><img id="main_img" src="{{ popup }}" title="{{ heading_title }}" alt="{{ heading_title }}"/></a></div>
+                <div class="col-sm-10"><a id="main_img_cont" style="border:0px" class="thumbnail previeus-hover" href="{{ popup }}" title="{{ heading_title }}"><img id="main_img" src="{{ popup }}" alt="{{ heading_title }}"/></a></div>
               {% endif %}
               
             </div>
@@ -131,7 +131,7 @@
             <ul class="list-unstyled">
               {% if not special %}
                 <li>
-                  <h4 class="prix-product-page">{{ price }}</h4>
+                  <h4 id="price_tag" class="prix-product-page">{{ price }}</h4>
                 </li>
               {% else %}
                 <li><span style="text-decoration: line-through;">{{ price }}</span></li>
@@ -153,13 +153,14 @@
                   <li>{{ discount.quantity }}{{ text_discount }}{{ discount.price }}</li>
                 {% endfor %}
               {% endif %}
-                  <li>Couleur : <b>{{ color }}</b></li>
+                  <li>Couleur : <b id="color_text">{{ color }}</b></li>
             </ul>
           {% endif %}
 
           <div id="samecolor">
               {% for similar in product_similar %}
-                <a href="{{ similar.href }}" ><img class="similar_img" src="{{ similar.image }}" alt="{{ similar.popup }}"></img></a>
+                <a href="{{ similar.href }}" ><img class="similar_img" src="{{ similar.image }}" alt="{{ similar.popup }}" data-color="{{ similar.color }}" data-price="{{ similar.price }}"></img></a>
+                
               {% endfor %}
           </div>
           
@@ -583,6 +584,8 @@ $(document).ready(function() {
   
   img = document.getElementById('main_img');
 
+  
+
   img_container = document.getElementById('main_img_cont');
   
   images.each(
@@ -608,23 +611,27 @@ $(document).ready(function() {
 });
 </script>
 <script>
-  <!-- {% for similar in product_similar %}
-  
-  console.log( "{{ similar.product_id }}" );
 
-  {% endfor %}
- -->
   var img = document.getElementById('main_img');
   var default_src = img.src;
+
+  color_text = document.getElementById('color_text');
+  default_color = color_text.innerHTML;
+
+  price = document.getElementById('price_tag');
+  default_price = price.innerHTML;
   
   $('.similar_img').each(
     function( index , elm ){
       
       elm.onmouseover = function( e ){
-      
+        color_text.innerHTML = $(elm).attr("data-color");
+        price.innerHTML = $(elm).attr("data-price");
         img.src = elm.alt;
         };
         elm.onmouseout = function( e ){
+        color_text.innerHTML = default_color;
+        price.innerHTML = default_price;
         img.src = default_src;
         link = img.src.replace("cache/","").split("-");
         link[ link.length - 1 ] = "-.png";
