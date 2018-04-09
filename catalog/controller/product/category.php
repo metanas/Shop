@@ -164,7 +164,6 @@ class ControllerProductCategory extends Controller
                 'start' => ($page - 1) * $limit,
                 'limit' => $limit
             );
-
             $product_total = $this->model_catalog_product->getTotalProducts($filter_data);
 
             $results = $this->model_catalog_product->getProducts($filter_data);
@@ -215,11 +214,12 @@ class ControllerProductCategory extends Controller
                         'popup' => $this->model_tool_image->resize($r['image'], $this->config->get('theme_' . $this->config->get('config_theme') . '_image_product_width'), $this->config->get('theme_' . $this->config->get('config_theme') . '_image_product_height'))
                     );
                 }
+
                 if(!in_array($result['color'], $products_colors))
                     $products_colors[] = $result['color'];
 
-                if(!in_array($result['model'], $products_models))
-                    $products_models[] = $result['model'];
+                if(!in_array($result['manufacturer'], $products_models))
+                    $products_models[] = $result['manufacturer'];
 
                 if((int)$price_max < (int)((is_null($result['special']))? $result['price'] : $result['special'] ))
                     $price_max = (int)((is_null($result['special']))? $result['price'] : $result['special']) ;
@@ -265,17 +265,17 @@ class ControllerProductCategory extends Controller
                 'href' => $this->url->link('product/category', 'language=' . $this->config->get('config_language') . '&path=' . $this->request->get['path'] . '&sort=p.sort_order&order=ASC' . $url)
             );
 
-            $data['sorts'][] = array(
-                'text' => $this->language->get('text_name_asc'),
-                'value' => 'pd.name-ASC',
-                'href' => $this->url->link('product/category', 'language=' . $this->config->get('config_language') . '&path=' . $this->request->get['path'] . '&sort=pd.name&order=ASC' . $url)
-            );
+//            $data['sorts'][] = array(
+//                'text' => $this->language->get('text_name_asc'),
+//                'value' => 'pd.name-ASC',
+//                'href' => $this->url->link('product/category', 'language=' . $this->config->get('config_language') . '&path=' . $this->request->get['path'] . '&sort=pd.name&order=ASC' . $url)
+//            );
 
-            $data['sorts'][] = array(
-                'text' => $this->language->get('text_name_desc'),
-                'value' => 'pd.name-DESC',
-                'href' => $this->url->link('product/category', 'language=' . $this->config->get('config_language') . '&path=' . $this->request->get['path'] . '&sort=pd.name&order=DESC' . $url)
-            );
+//            $data['sorts'][] = array(
+//                'text' => $this->language->get('text_name_desc'),
+//                'value' => 'pd.name-DESC',
+//                'href' => $this->url->link('product/category', 'language=' . $this->config->get('config_language') . '&path=' . $this->request->get['path'] . '&sort=pd.name&order=DESC' . $url)
+//            );
 
             $data['sorts'][] = array(
                 'text' => $this->language->get('text_price_asc'),
@@ -289,31 +289,31 @@ class ControllerProductCategory extends Controller
                 'href' => $this->url->link('product/category', 'language=' . $this->config->get('config_language') . '&path=' . $this->request->get['path'] . '&sort=p.price&order=DESC' . $url)
             );
 
-            if ($this->config->get('config_review_status')) {
-                $data['sorts'][] = array(
-                    'text' => $this->language->get('text_rating_desc'),
-                    'value' => 'rating-DESC',
-                    'href' => $this->url->link('product/category', 'language=' . $this->config->get('config_language') . '&path=' . $this->request->get['path'] . '&sort=rating&order=DESC' . $url)
-                );
+//            if ($this->config->get('config_review_status')) {
+//                $data['sorts'][] = array(
+//                    'text' => $this->language->get('text_rating_desc'),
+//                    'value' => 'rating-DESC',
+//                    'href' => $this->url->link('product/category', 'language=' . $this->config->get('config_language') . '&path=' . $this->request->get['path'] . '&sort=rating&order=DESC' . $url)
+//                );
+//
+//                $data['sorts'][] = array(
+//                    'text' => $this->language->get('text_rating_asc'),
+//                    'value' => 'rating-ASC',
+//                    'href' => $this->url->link('product/category', 'language=' . $this->config->get('config_language') . '&path=' . $this->request->get['path'] . '&sort=rating&order=ASC' . $url)
+//                );
+//            }
 
-                $data['sorts'][] = array(
-                    'text' => $this->language->get('text_rating_asc'),
-                    'value' => 'rating-ASC',
-                    'href' => $this->url->link('product/category', 'language=' . $this->config->get('config_language') . '&path=' . $this->request->get['path'] . '&sort=rating&order=ASC' . $url)
-                );
-            }
-
-            $data['sorts'][] = array(
-                'text' => $this->language->get('text_model_asc'),
-                'value' => 'p.model-ASC',
-                'href' => $this->url->link('product/category', 'language=' . $this->config->get('config_language') . '&path=' . $this->request->get['path'] . '&sort=p.model&order=ASC' . $url)
-            );
-
-            $data['sorts'][] = array(
-                'text' => $this->language->get('text_model_desc'),
-                'value' => 'p.model-DESC',
-                'href' => $this->url->link('product/category', 'language=' . $this->config->get('config_language') . '&path=' . $this->request->get['path'] . '&sort=p.model&order=DESC' . $url)
-            );
+//            $data['sorts'][] = array(
+//                'text' => $this->language->get('text_model_asc'),
+//                'value' => 'p.model-ASC',
+//                'href' => $this->url->link('product/category', 'language=' . $this->config->get('config_language') . '&path=' . $this->request->get['path'] . '&sort=p.model&order=ASC' . $url)
+//            );
+//
+//            $data['sorts'][] = array(
+//                'text' => $this->language->get('text_model_desc'),
+//                'value' => 'p.model-DESC',
+//                'href' => $this->url->link('product/category', 'language=' . $this->config->get('config_language') . '&path=' . $this->request->get['path'] . '&sort=p.model&order=DESC' . $url)
+//            );
 
             $url = '';
 

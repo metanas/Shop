@@ -24,11 +24,6 @@ body {
     font-size: 13px;
     line-height: 20px;
     width: 100%;
-<<<<<<< Updated upstream
-=======
-    background-color: white;
-    
->>>>>>> Stashed changes
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -132,8 +127,8 @@ div.required .control-label:before {
     border-bottom: 1px solid RGB(229, 33, 92);
     min-height: 30px;
     height: 30px;
-    padding-left: 100px;
-    padding-right: 100px;
+    padding-left: 80px;
+    padding-right: 80px;
     font-weight: bold;
 
 }
@@ -522,6 +517,7 @@ header {
 .dropdown-filter {
     display: none;
     background-color: white;
+    margin-top: 10px;
 }
 
 /* footer */
@@ -1200,17 +1196,12 @@ h2.price {
     font-weight: bold;
     color: black;
     font-size: 16px;
-    padding: 5px 100px 5px 100px;
+    padding: auto;
+    width: 100%;
+    height: 100%;
 }
 
 .filter-done {
-    background-color: transparent;
-    border: 2px solid black;
-    font-weight: bold;
-    color: black;
-    width: 100%;
-    font-size: 16px;
-    padding: auto;
     margin-bottom: 10px;
     margin-top: 10px;
 }
@@ -1361,3 +1352,20 @@ ul {
     
 }
 
+.filter-content{
+    margin-top: 20px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.filter-generate{
+    border: 1px solid #e0e0e0;
+    padding: 10px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.clear-all-filters{
+    background-color: #989898;
+    color: #fefefe;
+}

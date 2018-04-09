@@ -37,13 +37,14 @@
                                     <div class="ScrollStyle">
                                         {% for model in products_models %}
                                             <label class="check_filter">{{ model }}
-                                                <input type="checkbox">
+                                                <input type="checkbox" name="model[]" value="{{ model }}">
                                                 <span class="checkmark"></span>
                                             </label>
                                         {% endfor %}
                                     </div>
                                     <div>
-                                        <button type="button" class="filter-done" style="width: 100%">{{ text_close }}</button>
+                                        <button type="button" class="filter-done decouvrir"
+                                                name="model">{{ text_close }}</button>
                                     </div>
                                 </div>
                             </div>
@@ -60,13 +61,14 @@
                                     <div class="ScrollStyle">
                                         {% for color in products_colors %}
                                             <label class="check_filter">{{ color }}
-                                                <input type="checkbox">
+                                                <input type="checkbox" name="color[]" value="{{ color }}">
                                                 <span class="checkmark"></span>
                                             </label>
                                         {% endfor %}
                                     </div>
                                     <div>
-                                        <button type="button" class="filter-done" style="width: 100%">{{ text_close }}</button>
+                                        <button type="button" class="filter-done decouvrir"
+                                                name="color">{{ text_close }}</button>
                                     </div>
                                 </div>
                             </div>
@@ -88,13 +90,14 @@
                                     </div>
                                     <div style="margin-top: 10px">
                                         <label class="promos check_filter">{{ text_Promo }}
-                                            <input type="checkbox">
+                                            <input type="checkbox" name="promo">
                                             <span class="checkmark"></span>
                                         </label>
                                     </div>
 
                                     <div>
-                                        <button type="button" class="filter-done" style="width: 100%">{{ text_close }}</button>
+                                        <button type="button" class="filter-done decouvrir"
+                                                name="price">{{ text_close }}</button>
                                     </div>
                                 </div>
                             </div>
@@ -109,15 +112,18 @@
                                 <div class="dropdown-filter">
                                     {% for model in models %}
                                         <div class="model">
-                                            <input type="checkbox" name="model[]"><label>{{ model.model }}</label>
+                                            <input type="checkbox"><label>{{ model.model }}</label>
                                         </div>
                                     {% endfor %}
                                     <div>
-                                        <button type="button" class="filter-done" style="width: 100%">{{ text_close }}</button>
+                                        <button type="button" class="filter-done decouvrir"
+                                                name="size">{{ text_close }}</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="filter-content">
 
                     </div>
                     <div style="position:relative; z-index: 1; margin-top: 30px;">
@@ -246,9 +252,68 @@
                 this.parentNode.parentNode.parentNode.parentNode.children[0].children[0].children[0].src = this.parentNode.children[0].src;
             });
     });
-    $("#ex12c").slider({id: "slider12c", min : {{ price_min }}, max: {{ price_max }}, range: true, value: [{{ price_min }}, {{ price_max }}]});
-    $("#ex12c").on("change", function (e) {
-       $("#max-price").html(e.value['newValue'][1] + " {{ currency }}");
-       $("#min-price").html(e.value['newValue'][0] + " {{ currency }}");
+    $("#ex12c").slider({
+        id: "slider12c",
+        min: {{ price_min }},
+        max: {{ price_max }},
+        range: true,
+        value: [{{ price_min }}, {{ price_max }}]
     });
+    $("#ex12c").on("change", function (e) {
+        $("#max-price").html(e.value['newValue'][1] + " {{ currency }}");
+        $("#min-price").html(e.value['newValue'][0] + " {{ currency }}");
+    });
+    let filters = Array();
+
+    $("input:checkbox").click( function (e) {
+       if($(this).is(':checked'))
+           filters.push($(this).val());
+       else
+           filters.splice($(this).val(),1);
+    });
+
+    $(".filter-done").on("click", function (e) {
+       filterGenerator();
+    });
+
+   function removeFilter(e) {
+        jQuery.grep($("input:checkbox"), function (a) {
+            if(a.value === e.innerText){
+                $(a).prop('checked', false);
+            }
+        });
+        filters.splice(filters.indexOf(e.innerText),1);
+        filterGenerator();
+   }
+    function filterGenerator() {
+        $(".filter-content").empty();
+        for (i = 0; i < filters.length; i++){
+            $(".filter-content").append('<span class="filter-generate" onclick="removeFilter(this)">' + filters[i] + '<i class="fa fa-close" style="margin-left: 5px"></i></span>');
+        }
+        //     var xmlhttp = new XMLHttpRequest();
+        //     xmlhttp.onreadystatechange = function() {
+        //         if (this.readyState == 4 && this.status == 200) {
+        //             document.getElementById("txtHint").innerHTML = this.responseText;
+        //         }
+        //     };
+        //     xmlhttp.open("GET", "gethint.php?q=" + str, true);
+        //     xmlhttp.send();
+        //
+
+        if (filters.length >= 3 && $('.clear-all-filters').get().length === 0){
+            $(".filter-content").prepend('<span class="filter-generate clear-all-filters" onclick="removeAllFilters()">{{ text_clear_filter }}<i class="fa fa-close" style="margin-left: 5px"></i></span>');
+        }
+        $('.dropdown-filter').hide(200);
+        $('.dropdownFilter').css({"border": "1px solid #e7e7e7"});
+    }
+
+    function removeAllFilters() {
+       let arr = $('.filter-generate').get();
+       while (arr.length !== 0){
+           console.log(arr.length);
+           removeFilter(arr[arr.length-1]);
+           arr = $('.filter-generate').get();
+        }
+    }
+
 </script>
