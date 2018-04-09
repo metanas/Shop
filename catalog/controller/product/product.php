@@ -165,7 +165,8 @@ class ControllerProductProduct extends Controller {
 
 		$product_info = $this->model_catalog_product->getProduct($product_id);
 		$manufacturer_img = $this->model_catalog_manufacturer->getManufacturer($product_info['manufacturer_id']);
-		$data['manufacturer_img'] = $this->model_tool_image->resize($manufacturer_img['image'], $this->config->get('theme_' . $this->config->get('config_theme') . '_image_additional_width'), $this->config->get('theme_' . $this->config->get('config_theme') . '_image_additional_height'));
+		if(isset($manufacturer_img['image']))
+		    $data['manufacturer_img'] = $this->model_tool_image->resize($manufacturer_img['image'], $this->config->get('theme_' . $this->config->get('config_theme') . '_image_additional_width'), $this->config->get('theme_' . $this->config->get('config_theme') . '_image_additional_height'));
 		
 		$product_similar = $this->model_catalog_product->getSimilarProduct($product_id);
 
