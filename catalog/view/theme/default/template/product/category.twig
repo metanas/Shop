@@ -34,6 +34,14 @@
                                                                style="float: right; line-height: 30px"></i>
                                 </div>
                                 <div class="dropdown-filter">
+                                    <div id="search" class="field input-group stylish-input-group input-append">
+                                        <input class="field-input-filter" id="autoCompInput" placeholder="{{ text_search }}" name="model" value="{{ search }}">
+                                        <span class="input-group-addon" style="border: none">
+                                            <button id="sub" type="button">
+                                                <img class="terms" src="catalog/view/theme/default/image/loupe.png">
+                                            </button>
+                                        </span>
+                                    </div>
                                     <div class="ScrollStyle">
                                         {% for model in products_models %}
                                             <label class="check_filter">{{ model }}
@@ -58,6 +66,14 @@
 
                                 </div>
                                 <div class="dropdown-filter">
+                                    <div id="search" class="field input-group stylish-input-group input-append">
+                                        <input class="field-input-filter" id="autoCompInput" placeholder="{{ text_search }}" name="color" value="{{ search }}">
+                                        <span class="input-group-addon" style="border: none">
+                                            <button id="sub" type="button">
+                                                <img class="terms" src="catalog/view/theme/default/image/loupe.png">
+                                            </button>
+                                        </span>
+                                    </div>
                                     <div class="ScrollStyle">
                                         {% for color in products_colors %}
                                             <label class="check_filter">{{ color }}
@@ -147,7 +163,6 @@
                             <i class="fa fa-angle-down" style="position: absolute; right: 20px;top: 3px;"></i>
                         </div>
                     </div>
-
                     {#<div class="col-md-3 col-xs-6">#}
                     {#<div class="form-group input-group input-group-sm">#}
                     {#<label class="input-group-addon" for="input-limit">{{ text_limit }}</label>#}
@@ -306,7 +321,8 @@
         $('.dropdown-filter').hide(200);
         $('.dropdownFilter').css({"border": "1px solid #e7e7e7"});
     }
-
+    let models = $('input[name*=\'model[]\']').get();
+    let colors = $('input[name*=\'color[]\']').get();
     function removeAllFilters() {
        let arr = $('.filter-generate').get();
        while (arr.length !== 0){
@@ -315,5 +331,23 @@
            arr = $('.filter-generate').get();
         }
     }
+
+    $(".field-input-filter").on('input', function() {
+        $(".ScrollStyle").empty();
+        let arr = Array();
+        if(this.name === "color"){
+            arr = colors;
+        }else if(this.name === "model"){
+            arr = models;
+        }
+        for(i=0;i<arr.length;i++){
+            console.log(arr[i].value);
+            if(arr[i].value.includes(this.value))
+                $(".ScrollStyle").append("<label class=\"check_filter\">"+ arr[i].value +
+                    "<input type=\"checkbox\" name=\"color[]\" value=\"" + arr[i].value +"\">" +
+                    "<span class=\"checkmark\"></span>" +
+                    "</label>");
+        }
+    });
 
 </script>
