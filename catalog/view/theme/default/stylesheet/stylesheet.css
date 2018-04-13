@@ -229,7 +229,7 @@ div.required .control-label:before {
     left: 0;
 }
 
-.field-input {
+.field-input, .field-input-filter {
     position: relative;
     display: block;
     width: 100%;
