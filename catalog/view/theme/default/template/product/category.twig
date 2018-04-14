@@ -301,6 +301,7 @@
         filterGenerator();
    }
     function filterGenerator() {
+        $('body').loading({message: "chargement" });
         $(".filter-content").empty();
         for (i = 0; i < filters.length; i++){
             $(".filter-content").append('<span class="filter-generate" onclick="removeFilter(this)">' + filters[i] + '<i class="fa fa-close" style="margin-left: 5px"></i></span>');
@@ -320,6 +321,8 @@
         }
         $('.dropdown-filter').hide(200);
         $('.dropdownFilter').css({"border": "1px solid #e7e7e7"});
+        $('body').loading('stop');
+
     }
     let models = $('input[name*=\'model[]\']').get();
     let colors = $('input[name*=\'color[]\']').get();
@@ -343,8 +346,8 @@
         for(i=0;i<arr.length;i++){
             console.log(arr[i].value);
             if(arr[i].value.includes(this.value))
-                $(".ScrollStyle").append("<label class=\"check_filter\">"+ arr[i].value +
-                    "<input type=\"checkbox\" name=\"color[]\" value=\"" + arr[i].value +"\">" +
+                $(".ScrollStyle").append("<label class=\"check_filter\">" + arr[i].value +
+                    "<input type=\"checkbox\" name=\"color[]\" value=\"" + arr[i].value + "\">" +
                     "<span class=\"checkmark\"></span>" +
                     "</label>");
         }
