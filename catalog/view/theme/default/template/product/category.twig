@@ -274,9 +274,14 @@
         range: true,
         value: [{{ price_min }}, {{ price_max }}]
     });
+    let price = Array();
     $("#ex12c").on("change", function (e) {
         $("#max-price").html(e.value['newValue'][1] + " {{ currency }}");
         $("#min-price").html(e.value['newValue'][0] + " {{ currency }}");
+        filters.splice(filters.indexOf(price[0]),1);
+        filters.splice(filters.indexOf(price[1]),1);
+        price[0] = "prix max: "+e.value['newValue'][1] + "{{ currency }}" ;
+        price[1] = "prix min: "+e.value['newValue'][0] + "{{ currency }}" ;
     });
     let filters = Array();
 
@@ -303,18 +308,13 @@
     function filterGenerator() {
         $('body').loading({message: "chargement" });
         $(".filter-content").empty();
+        if(price.length > 0) if($.inArray(price[0], filters) === -1) filters = filters.concat(price);
         for (i = 0; i < filters.length; i++){
             $(".filter-content").append('<span class="filter-generate" onclick="removeFilter(this)">' + filters[i] + '<i class="fa fa-close" style="margin-left: 5px"></i></span>');
         }
-        //     var xmlhttp = new XMLHttpRequest();
-        //     xmlhttp.onreadystatechange = function() {
-        //         if (this.readyState == 4 && this.status == 200) {
-        //             document.getElementById("txtHint").innerHTML = this.responseText;
-        //         }
-        //     };
-        //     xmlhttp.open("GET", "gethint.php?q=" + str, true);
-        //     xmlhttp.send();
-        //
+
+        updateQueryStringParam("test", "test");
+
 
         if (filters.length >= 3 && $('.clear-all-filters').get().length === 0){
             $(".filter-content").prepend('<span class="filter-generate clear-all-filters" onclick="removeAllFilters()">{{ text_clear_filter }}<i class="fa fa-close" style="margin-left: 5px"></i></span>');
@@ -329,7 +329,6 @@
     function removeAllFilters() {
        let arr = $('.filter-generate').get();
        while (arr.length !== 0){
-           console.log(arr.length);
            removeFilter(arr[arr.length-1]);
            arr = $('.filter-generate').get();
         }
@@ -352,5 +351,22 @@
                     "</label>");
         }
     });
+    function updateQueryStringParam(param, value) {
+        baseUrl = [location.protocol, '//', location.host, location.pathname].join('');
+        urlQueryString = document.location.search;
+        let newParam = param + '=' + value;
+        let params = '?' + newParam;
 
+        // If the "search" string exists, then build params from it
+        if (urlQueryString) {
+            keyRegex = new RegExp('([\?&])' + param + '[^&]*');
+            // If param exists already, update it
+            if (urlQueryString.match(keyRegex) !== null) {
+                params = urlQueryString.replace(keyRegex, "$1" + newParam);
+            } else { // Otherwise, add it to end of query string
+                params = urlQueryString + '&' + newParam;
+            }
+        }
+        window.history.replaceState({}, "", baseUrl + params);
+    }
 </script>
