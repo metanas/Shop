@@ -248,7 +248,30 @@
                 }
             }
         );
+        if($_GET("filter").length !== 0){
+            filters = $_GET("filter").split('_');
+            filterGenerator();
+        }else{
+            filters = Array();
+        }
+        console.log(filters);
     });
+
+    function $_GET(param) {
+        let vars = {};
+        window.location.href.replace( location.hash, '' ).replace(
+            /[?&]+([^=&]+)=?([^&]*)?/gi, // regexp
+            function( m, key, value ) { // callback
+                vars[key] = value !== undefined ? value : '';
+            }
+        );
+
+        if ( param ) {
+            return vars[param] ? vars[param] : null;
+        }
+        return vars;
+    }
+
     $(function () {
         $(".product-layout").hover(
             function () {
@@ -286,10 +309,11 @@
     let filters = Array();
 
     $("input:checkbox").click( function (e) {
-       if($(this).is(':checked'))
-           filters.push($(this).val());
-       else
-           filters.splice($(this).val(),1);
+       if($(this).is(':checked')) {
+           console.log($(this)[0].name);
+           filters.push($(this)[0].name + $(this).val());
+       }else
+           filters.splice(filters.indexOf($(this)[0].name + $(this).val()),1);
     });
 
     $(".filter-done").on("click", function (e) {
@@ -306,14 +330,14 @@
         filterGenerator();
    }
     function filterGenerator() {
-        $('body').loading({message: "chargement" });
+        $('body').loading({ message: "chargement" });
         $(".filter-content").empty();
         if(price.length > 0) if($.inArray(price[0], filters) === -1) filters = filters.concat(price);
         for (i = 0; i < filters.length; i++){
-            $(".filter-content").append('<span class="filter-generate" onclick="removeFilter(this)">' + filters[i] + '<i class="fa fa-close" style="margin-left: 5px"></i></span>');
+            $(".filter-content").append('<span class="filter-generate" onclick="removeFilter(this)">' + filters[i].split('[]')[1] + '<i class="fa fa-close" style="margin-left: 5px"></i></span>');
         }
 
-        updateQueryStringParam("test", "test");
+        updateQueryStringParam("filter", filters.join("_"));
 
 
         if (filters.length >= 3 && $('.clear-all-filters').get().length === 0){
@@ -368,5 +392,8 @@
             }
         }
         window.history.replaceState({}, "", baseUrl + params);
+        $.get(baseUrl + params,function (data) {
+            console.log(data);
+        })
     }
 </script>

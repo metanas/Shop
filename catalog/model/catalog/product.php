@@ -67,7 +67,7 @@ class ModelCatalogProduct extends Model {
 			}
 
 			if (!empty($data['filter_filter'])) {
-				$sql .= " LEFT JOIN " . DB_PREFIX . "product_filter pf ON (p2c.product_id = pf.product_id) LEFT JOIN " . DB_PREFIX . "product p ON (pf.product_id = p.product_id)";
+				$sql .= " LEFT JOIN " . DB_PREFIX . "product p ON (p2c.product_id = p.product_id) LEFT JOIN " . DB_PREFIX . "manufacturer m ON (p.manufacturer_id = m.manufacturer_id) ";
 			} else {
 				$sql .= " LEFT JOIN " . DB_PREFIX . "product p ON (p2c.product_id = p.product_id)";
 			}
@@ -86,14 +86,21 @@ class ModelCatalogProduct extends Model {
 
 			if (!empty($data['filter_filter'])) {
 				$implode = array();
+				$colors = array();
+				$model = array();
+				$price = array();
+				$Size = array();
 
-				$filters = explode(',', $data['filter_filter']);
+				$filters = explode('_', $data['filter_filter']);
 
 				foreach ($filters as $filter_id) {
-					$implode[] = (int)$filter_id;
+				    if(strpos($filter_id,"model[]") !== false) $model[] = explode("[]",$filter_id)[1];
+				    if(strpos($filter_id,"color[]") !== false) $colors[] = explode("[]",$filter_id)[1];
+					$implode[] = $filter_id;
 				}
 
-				$sql .= " AND pf.filter_id IN (" . implode(',', $implode) . ")";
+				if(!empty($colors)) $sql .= " AND p.color IN ('" . implode("','", $colors) . "')";
+				if(!empty($model)) $sql .= " AND m.name IN ('" . implode("','", $model) . "')";
 			}
 		}
 
