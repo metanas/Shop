@@ -248,13 +248,13 @@
                 }
             }
         );
-        if($_GET("filter").length !== 0){
-            filters = $_GET("filter").split('_');
+        let s = $_GET("filter");
+        if(s !== null){
+            filters = s.split('_');
             filterGenerator();
         }else{
             filters = Array();
         }
-        console.log(filters);
     });
 
     function $_GET(param) {
@@ -310,7 +310,6 @@
 
     $("input:checkbox").click( function (e) {
        if($(this).is(':checked')) {
-           console.log($(this)[0].name);
            filters.push($(this)[0].name + $(this).val());
        }else
            filters.splice(filters.indexOf($(this)[0].name + $(this).val()),1);
@@ -367,7 +366,6 @@
             arr = models;
         }
         for(i=0;i<arr.length;i++){
-            console.log(arr[i].value);
             if(arr[i].value.includes(this.value))
                 $(".ScrollStyle").append("<label class=\"check_filter\">" + arr[i].value +
                     "<input type=\"checkbox\" name=\"color[]\" value=\"" + arr[i].value + "\">" +
@@ -392,8 +390,18 @@
             }
         }
         window.history.replaceState({}, "", baseUrl + params);
-        $.get(baseUrl + params,function (data) {
-            console.log(data);
-        })
+        id_numbers = new Array();
+        $.ajax({
+            url: baseUrl + "?route=product/category/filter&path="+ $_GET('path') + "&filter=" + $_GET("filter"),
+            type:"GET",
+            success:function(msg){
+                id_numbers = msg;
+
+            },
+            error: function (result,status,xhr) {
+                console.log(status );
+            },
+            dataType:"json"
+        });
     }
 </script>
