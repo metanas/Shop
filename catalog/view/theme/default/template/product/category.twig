@@ -35,7 +35,8 @@
                                 </div>
                                 <div class="dropdown-filter">
                                     <div id="search" class="field input-group stylish-input-group input-append">
-                                        <input class="field-input-filter" id="autoCompInput" placeholder="{{ text_search }}" name="model" value="{{ search }}">
+                                        <input class="field-input-filter" id="autoCompInput"
+                                               placeholder="{{ text_search }}" name="model" value="{{ search }}">
                                         <span class="input-group-addon" style="border: none">
                                             <button id="sub" type="button">
                                                 <img class="terms" src="catalog/view/theme/default/image/loupe.png">
@@ -67,7 +68,8 @@
                                 </div>
                                 <div class="dropdown-filter">
                                     <div id="search" class="field input-group stylish-input-group input-append">
-                                        <input class="field-input-filter" id="autoCompInput" placeholder="{{ text_search }}" name="color" value="{{ search }}">
+                                        <input class="field-input-filter" id="autoCompInput"
+                                               placeholder="{{ text_search }}" name="color" value="{{ search }}">
                                         <span class="input-group-addon" style="border: none">
                                             <button id="sub" type="button">
                                                 <img class="terms" src="catalog/view/theme/default/image/loupe.png">
@@ -178,7 +180,7 @@
                     {#</div>#}
                     {#</div>#}
                 </div>
-                <div class="row" style="position: relative;z-index:1;">
+                <div class="product-container row" style="position: relative;z-index:1;">
                     {% for product in products %}
                         <div class="product-layout col-lg-4 col-md-4 col-sm-6 col-xs-12 swiper-slide">
                             <div class="product-thumb transition">
@@ -249,24 +251,24 @@
             }
         );
         let s = $_GET("filter");
-        if(s !== null){
+        if (s !== null) {
             filters = s.split('_');
             filterGenerator();
-        }else{
+        } else {
             filters = Array();
         }
     });
 
     function $_GET(param) {
         let vars = {};
-        window.location.href.replace( location.hash, '' ).replace(
+        window.location.href.replace(location.hash, '').replace(
             /[?&]+([^=&]+)=?([^&]*)?/gi, // regexp
-            function( m, key, value ) { // callback
+            function (m, key, value) { // callback
                 vars[key] = value !== undefined ? value : '';
             }
         );
 
-        if ( param ) {
+        if (param) {
             return vars[param] ? vars[param] : null;
         }
         return vars;
@@ -301,45 +303,46 @@
     $("#ex12c").on("change", function (e) {
         $("#max-price").html(e.value['newValue'][1] + " {{ currency }}");
         $("#min-price").html(e.value['newValue'][0] + " {{ currency }}");
-        filters.splice(filters.indexOf(price[0]),1);
-        filters.splice(filters.indexOf(price[1]),1);
-        price[0] = "prix max: "+e.value['newValue'][1] + "{{ currency }}" ;
-        price[1] = "prix min: "+e.value['newValue'][0] + "{{ currency }}" ;
+        filters.splice(filters.indexOf(price[0]), 1);
+        filters.splice(filters.indexOf(price[1]), 1);
+        price[0] = "prix max: " + e.value['newValue'][1] + "{{ currency }}";
+        price[1] = "prix min: " + e.value['newValue'][0] + "{{ currency }}";
     });
     let filters = Array();
 
-    $("input:checkbox").click( function (e) {
-       if($(this).is(':checked')) {
-           filters.push($(this)[0].name + $(this).val());
-       }else
-           filters.splice(filters.indexOf($(this)[0].name + $(this).val()),1);
+    $("input:checkbox").click(function (e) {
+        if ($(this).is(':checked')) {
+            filters.push($(this)[0].name + $(this).val());
+        } else
+            filters.splice(filters.indexOf($(this)[0].name + $(this).val()), 1);
     });
 
     $(".filter-done").on("click", function (e) {
-       filterGenerator();
+        filterGenerator();
     });
 
-   function removeFilter(e) {
+    function removeFilter(e) {
         jQuery.grep($("input:checkbox"), function (a) {
-            if(a.value === e.innerText){
+            if (a.value === e.innerText) {
                 $(a).prop('checked', false);
             }
         });
-        filters.splice(filters.indexOf(e.innerText),1);
+        filters.splice(filters.indexOf(e.innerText), 1);
         filterGenerator();
-   }
+    }
+
     function filterGenerator() {
-        $('body').loading({ message: "chargement" });
+        $('body').loading({message: "chargement"});
         $(".filter-content").empty();
-        if(price.length > 0) if($.inArray(price[0], filters) === -1) filters = filters.concat(price);
-        for (i = 0; i < filters.length; i++){
+        if (price.length > 0) if ($.inArray(price[0], filters) === -1) filters = filters.concat(price);
+        for (i = 0; i < filters.length; i++) {
             $(".filter-content").append('<span class="filter-generate" onclick="removeFilter(this)">' + filters[i].split('[]')[1] + '<i class="fa fa-close" style="margin-left: 5px"></i></span>');
         }
 
         updateQueryStringParam("filter", filters.join("_"));
 
 
-        if (filters.length >= 3 && $('.clear-all-filters').get().length === 0){
+        if (filters.length >= 3 && $('.clear-all-filters').get().length === 0) {
             $(".filter-content").prepend('<span class="filter-generate clear-all-filters" onclick="removeAllFilters()">{{ text_clear_filter }}<i class="fa fa-close" style="margin-left: 5px"></i></span>');
         }
         $('.dropdown-filter').hide(200);
@@ -347,32 +350,35 @@
         $('body').loading('stop');
 
     }
+
     let models = $('input[name*=\'model[]\']').get();
     let colors = $('input[name*=\'color[]\']').get();
+
     function removeAllFilters() {
-       let arr = $('.filter-generate').get();
-       while (arr.length !== 0){
-           removeFilter(arr[arr.length-1]);
-           arr = $('.filter-generate').get();
+        let arr = $('.filter-generate').get();
+        while (arr.length !== 0) {
+            removeFilter(arr[arr.length - 1]);
+            arr = $('.filter-generate').get();
         }
     }
 
-    $(".field-input-filter").on('input', function() {
+    $(".field-input-filter").on('input', function () {
         $(".ScrollStyle").empty();
         let arr = Array();
-        if(this.name === "color"){
+        if (this.name === "color") {
             arr = colors;
-        }else if(this.name === "model"){
+        } else if (this.name === "model") {
             arr = models;
         }
-        for(i=0;i<arr.length;i++){
-            if(arr[i].value.includes(this.value))
+        for (i = 0; i < arr.length; i++) {
+            if (arr[i].value.includes(this.value))
                 $(".ScrollStyle").append("<label class=\"check_filter\">" + arr[i].value +
                     "<input type=\"checkbox\" name=\"color[]\" value=\"" + arr[i].value + "\">" +
                     "<span class=\"checkmark\"></span>" +
                     "</label>");
         }
     });
+
     function updateQueryStringParam(param, value) {
         baseUrl = [location.protocol, '//', location.host, location.pathname].join('');
         urlQueryString = document.location.search;
@@ -390,18 +396,51 @@
             }
         }
         window.history.replaceState({}, "", baseUrl + params);
-        id_numbers = new Array();
         $.ajax({
-            url: baseUrl + "?route=product/category/filter&path="+ $_GET('path') + "&filter=" + $_GET("filter"),
-            type:"GET",
-            success:function(msg){
-                id_numbers = msg;
-
+            url: baseUrl + "?route=product/category/filter&path=" + $_GET('path') + "&filter=" + $_GET("filter"),
+            type: "GET",
+            success: function (json, status) {
+                updateFilters(json);
+                updateProducts(json['products']);
             },
-            error: function (result,status,xhr) {
-                console.log(status );
+            error: function (result, status) {
+                console.log(status);
             },
-            dataType:"json"
+            dataType: "json"
         });
+    }
+
+    function updateProducts(products) {
+        html = "";
+        $.map(products, function (item) {
+            console.log(item.hasOwnProperty('price'));
+            html += '<div class="product-layout col-lg-4 col-md-4 col-sm-6 col-xs-12 swiper-slide">';
+            html += '<div class="product-thumb transition">';
+            html += '<div class="image"><a href="' + item['href'] + '"><img src = "' + item['thumb'] + '" alt="' + item['name'] + '" title = "' + item['name'] + '" class="img-responsive"/></a></div>';
+            html += '<div class="caption" ><div class="desctip col-sm-12 col-xs-12" ><h4 class="SheosName"><a href = "' + item['href'] + '" >' + item['name'] + '</a></h4>';
+            if (item.hasOwnProperty('price') === true) {
+                if (item.hasOwnProperty('special') === false) {
+                    html += '<p class="SheosPrice" >'+ item['price'] +'</p>';
+                } else {
+                    html += '<span class="price-old SheosPrice" >'+ item['price'] +'</span><br>';
+                    html += '<span class="price-new SheosPrice" >'+ item['price'] +'</span>';
+                }
+            }
+            html += '<div class="same">';
+            if (item.hasOwnProperty('simulate')) {
+                html += '<img class="smallSame img-default" src = "' + item['thumb'] + '" >';
+                $.map(item['simulate'], function (same) {
+                    html += '<img class="smallSame" src = "' + same['popup'] + '" >';
+                });
+            }
+            {#<p>Disponible en plusieurs tailles</p>#}
+            html += '</div></div></div></div><div><img src = "catalog/view/theme/default/image/favoris.png" style="margin-right:20px;margin-top: 10px; position: absolute; top: 0;right: 0;width: 20px"></div></div>'
+        });
+        $('.product-container').empty();
+        $('.product-container').html(html);
+    }
+
+    function updateFilters() {
+
     }
 </script>
