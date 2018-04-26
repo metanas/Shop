@@ -166,6 +166,8 @@ class ControllerProductCategory extends Controller
             );
             $product_total = $this->model_catalog_product->getTotalProducts($filter_data);
 
+            $data['product_total'] = $product_total;
+
             $results = $this->model_catalog_product->getProducts($filter_data);
 
             $products_colors = array();
@@ -484,11 +486,6 @@ class ControllerProductCategory extends Controller
             $parts = explode('_', (string)$this->request->get['path']);
 
             $category_id = (int)array_pop($parts);
-
-            $filter_count = array('filter_category_id' => $category_id, 'filter_sub_category' => true);
-            $countProd = $this->model_catalog_product->getTotalProducts($filter_count);
-
-            $data['count'] = $countProd;
 
             foreach ($parts as $path_id) {
                 if (!$path) {
