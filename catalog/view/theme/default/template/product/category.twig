@@ -249,7 +249,8 @@
 {{ footer }}
 <script>
     $(document).ready(function () {
-        $('.model-filter').click(function () {
+        $('.model-filter').click(function (e) {
+                e.stopPropagation();
                 if ($(".dropdown-filter", this.parentNode).css('display') === 'block') {
                     $(".dropdown-filter", this.parentNode).hide(200);
                     $(this.parentNode).css({"border": "1px solid #e7e7e7"});
@@ -342,6 +343,15 @@
         filterGenerator();
     }
 
+    $(document).click(function(){
+        $.map($(".dropdown-filter").get(),function (item) {
+            if(item.style.display === "block"){
+                filterGenerator();
+                return;
+            }
+        });
+    });
+
     function filterGenerator() {
         $('body').loading({message: "chargement"});
         $(".filter-content").empty();
@@ -356,6 +366,7 @@
         if (filters.length >= 3 && $('.clear-all-filters').get().length === 0) {
             $(".filter-content").prepend('<span class="filter-generate clear-all-filters" onclick="removeAllFilters()">{{ text_clear_filter }}<i class="fa fa-close" style="margin-left: 5px"></i></span>');
         }
+
         $('.dropdown-filter').hide(200);
         $('.dropdownFilter').css({"border": "1px solid #e7e7e7"});
         $('body').loading('stop');
