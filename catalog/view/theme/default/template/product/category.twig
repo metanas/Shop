@@ -467,7 +467,6 @@
         $("#model").empty();
         $("#color").empty();
         $.map(json['products_models'], function (item) {
-            console.log(item);
             $("#model").append('<label class="check_filter">' + item +
                 '<input type="checkbox" name="model[]" value="' + item + '">' +
                 '<span class="checkmark"></span></label>')
@@ -477,6 +476,17 @@
                 '<input type="checkbox" name="color[]" value="' + item + '">' +
                 '<span class="checkmark"></span></label>')
         });
+
+        $("#ex12c").slider({
+            id: "slider12c",
+            min: json['price_min'],
+            max: json['price_max'],
+            range: true,
+            value: [ json['price_min'],  json['price_max']]
+        });
+
+        $('#max-price').html(json['price_max']);
+        $('#min-price').html(json['price_min']);
 
     }
 </script>
