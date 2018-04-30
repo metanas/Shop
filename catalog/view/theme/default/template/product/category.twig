@@ -317,8 +317,8 @@
         $("#min-price").html(e.value['newValue'][0] + " {{ currency }}");
         filters.splice(filters.indexOf(price[0]), 1);
         filters.splice(filters.indexOf(price[1]), 1);
-        price[0] = "prix max: " + e.value['newValue'][1] + "{{ currency }}";
-        price[1] = "prix min: " + e.value['newValue'][0] + "{{ currency }}";
+        price[0] = "prixMax[]" + e.value['newValue'][1] + "{{ currency }}";
+        price[1] = "prixMin[]" + e.value['newValue'][0] + "{{ currency }}";
     });
     let filters = Array();
 

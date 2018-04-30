@@ -602,6 +602,6 @@ class ControllerProductCategory extends Controller
         $data['products_colors'] = $products_colors;
         $data['products_models'] = $products_models;
 
-        echo json_encode($data);
+        $this->response->setOutput(json_encode($data));
     }
 }
