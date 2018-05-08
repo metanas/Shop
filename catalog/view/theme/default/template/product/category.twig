@@ -435,7 +435,7 @@
     function updateProducts(products) {
         html = "";
         $.map(products, function (item) {
-            html += '<div class="product-layout col-lg-4 col-md-4 col-sm-6 col-xs-12 swiper-slide">';
+            html += '<div class="product-layout col-lg-4 col-md-4 col-sm-6 col-xs-12">';
             html += '<div class="product-thumb transition">';
             html += '<div class="image"><a href="' + item['href'] + '"><img src = "' + item['thumb'] + '" alt="' + item['name'] + '" title = "' + item['name'] + '" class="img-responsive"/></a></div>';
             html += '<div class="caption" ><div class="desctip col-sm-12 col-xs-12" ><h4 class="SheosName"><a href = "' + item['href'] + '" >' + item['name'] + '</a></h4>';
