@@ -57,9 +57,9 @@
                       <option value="checkbox">{{ text_checkbox }}</option>
                     {% endif %}
                       {% if type == 'size' %}
-                          <option value="select" selected="selected">{{ text_size }}</option>
+                          <option value="size" selected="selected">{{ text_size }}</option>
                       {% else %}
-                          <option value="select">{{ text_size }}</option>
+                          <option value="size">{{ text_size }}</option>
                       {% endif %}
                   </optgroup>
                   <optgroup label="{{ text_input }}">
@@ -142,11 +142,49 @@
               <tfoot>
                 <tr>
                   <td colspan="3"></td>
-                  <td class="text-right"><button type="button" onclick="addOptionValue();" data-toggle="tooltip" title="{{ button_option_value_add }}" class="btn btn-primary"><i class="fa fa-plus-circle"></i></button></td>
+                  <td class="text-right"><button type="button" onclick="addOptionValue('other');" data-toggle="tooltip" title="{{ button_option_value_add }}" class="btn btn-primary"><i class="fa fa-plus-circle"></i></button></td>
                 </tr>
               </tfoot>
             </table>
           </fieldset>
+            <fieldset>
+                <legend>{{ text_value }}</legend>
+                <table id="option-size" class="table table-striped table-bordered table-hover">
+                    <thead>
+                    <tr>
+                        <td class="text-left required">{{ entry_option_value }}</td>
+                        <td class="text-center">{{ entry_equivalent }}</td>
+                        <td class="text-right">{{ entry_sort_order }}</td>
+                        <td></td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% set option_value_row = 0 %}
+                    {% for option_value in option_values %}
+                        <tr id="option-value-row{{ option_value_row }}">
+                            <td class="text-center"><input type="hidden" name="option_value[{{ option_value_row }}][option_value_id]" value="{{ option_value.option_value_id }}"/>
+                                {% for language in languages %}
+                                    <div class="input-group"><span class="input-group-addon"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}"/></span> <input type="text" name="option_value[{{ option_value_row }}][option_value_description][{{ language.language_id }}][name]" value="{{ option_value.option_value_description[language.language_id] ? option_value.option_value_description[language.language_id].name }}" placeholder="{{ entry_option_value }}" class="form-control"/>
+                                    </div>
+                                    {% if error_option_value[option_value_row][language.language_id] %}
+                                        <div class="text-danger">{{ error_option_value[option_value_row][language.language_id] }}</div>
+                                    {% endif %}
+                                {% endfor %}</td>
+                            <td class="text-right"><input type="text" name="option_value[{{ option_value_row }}][equivalent]" value="{{ option_value.equivalent }}" class="form-control"/></td>
+                            <td class="text-right"><input type="text" name="option_value[{{ option_value_row }}][sort_order]" value="{{ option_value.sort_order }}" class="form-control"/></td>
+                            <td class="text-right"><button type="button" onclick="$('#option-value-row{{ option_value_row }}').remove();" data-toggle="tooltip" title="{{ button_remove }}" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></td>
+                        </tr>
+                        {% set option_value_row = option_value_row + 1 %}
+                    {% endfor %}
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <td colspan="3"></td>
+                        <td class="text-right"><button type="button" onclick="addOptionValue('size');" data-toggle="tooltip" title="{{ button_option_value_add }}" class="btn btn-primary"><i class="fa fa-plus-circle"></i></button></td>
+                    </tr>
+                    </tfoot>
+                </table>
+            </fieldset>
         </form>
       </div>
     </div>
@@ -156,8 +194,14 @@
 $('select[name=\'type\']').on('change', function() {
 	if (this.value == 'select' || this.value == 'radio' || this.value == 'checkbox' || this.value == 'image') {
 		$('#option-value').parent().show();
-	} else {
+		$('#option-size').parent().hide();
+	}else if(this.value == 'size'){
+        $('#option-value').parent().hide();
+        $('#option-size').parent().show();
+    }
+	else {
 		$('#option-value').parent().hide();
+        $('#option-size').parent().hide();
 	}
 });
 
@@ -165,7 +209,7 @@ $('select[name=\'type\']').trigger('change');
 
 var option_value_row = {{ option_value_row }};
 
-function addOptionValue() {
+function addOptionValue(e) {
 	html = '<tr id="option-value-row' + option_value_row + '">';
 	html += '  <td class="text-left"><input type="hidden" name="option_value[' + option_value_row + '][option_value_id]" value="" />';
     {% for language in languages %}
@@ -174,15 +218,19 @@ function addOptionValue() {
 	html += '    </div>';
     {% endfor %}
 	html += '  </td>';
-    html += '  <td class="text-center"><a href="" id="thumb-image' + option_value_row + '" data-toggle="image" class="img-thumbnail"><img src="{{ placeholder }}" alt="" title="" data-placeholder="{{ placeholder }}" /></a><input type="hidden" name="option_value[' + option_value_row + '][image]" value="" id="input-image' + option_value_row + '" /></td>';
-    {#html += '  <td class="text-left"><input type="text" name="option_value[{{ option_value_row }}][equivalent]" value="" class="form-control"/></td>\n';#}
+	if(e === 'other')
+        html += '  <td class="text-center"><a href="" id="thumb-image' + option_value_row + '" data-toggle="image" class="img-thumbnail"><img src="{{ placeholder }}" alt="" title="" data-placeholder="{{ placeholder }}" /></a><input type="hidden" name="option_value[' + option_value_row + '][image]" value="" id="input-image' + option_value_row + '" /></td>';
+    else
+        html += '  <td class="text-left"><input type="text" name="option_value[{{ option_value_row }}][equivalent]" value="" class="form-control"/></td>\n';
 	html += '  <td class="text-right"><input type="text" name="option_value[' + option_value_row + '][sort_order]" value="" placeholder="{{ entry_sort_order }}" class="form-control" /></td>';
 	html += '  <td class="text-right"><button type="button" onclick="$(\'#option-value-row' + option_value_row + '\').remove();" data-toggle="tooltip" title="{{ button_remove }}" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></td>';
 	html += '</tr>';
+    if (e=== 'other')
+	    $('#option-value tbody').append(html);
+    else
+        $('#option-size tbody').append(html);
 
-	$('#option-value tbody').append(html);
-
-	option_value_row++;
+    option_value_row++;
 }
 //--></script>
 {{ footer }} 
