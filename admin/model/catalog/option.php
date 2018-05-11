@@ -17,7 +17,7 @@ class ModelCatalogOption extends Model
                 $this->db->query("INSERT INTO " . DB_PREFIX . "option_value SET option_id = '" . (int)$option_id . "', image = '" . ((isset($option_value['image'])) ? $this->db->escape(html_entity_decode($option_value['image'], ENT_QUOTES, 'UTF-8')) : "") . "', sort_order = '" . (int)$option_value['sort_order'] . "'");
                 $option_value_id = $this->db->getLastId();
                 if(isset($option_value['equivalent']))
-                    $this->db->query("INSERT INTO " . DB_PREFIX . "option_value_equivalent SET option_value_id= '" . $option_value_id . "', option_id = '" . (int)$option_id . "', equivalent = '" . (int)$option_value['equivalent'] . "'");
+                    $this->db->query("INSERT INTO " . DB_PREFIX . "option_value_equivalent SET option_value_id= '" . $option_value_id . "', option_id = '" . (int)$option_id . "', equivalent = '" . $this->db->escape($option_value['equivalent']) . "'");
 
 
                 foreach ($option_value['option_value_description'] as $language_id => $option_value_description) {
