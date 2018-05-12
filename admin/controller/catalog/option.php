@@ -441,7 +441,7 @@ class ControllerCatalogOption extends Controller {
 			foreach ($options as $option) {
 				$option_value_data = array();
 
-				if ($option['type'] == 'select' || $option['type'] == 'radio' || $option['type'] == 'checkbox' || $option['type'] == 'image') {
+				if ($option['type'] == 'select' || $option['type'] == 'radio' || $option['type'] == 'checkbox' || $option['type'] == 'image' || $option['type'] == 'size' ) {
 					$option_values = $this->model_catalog_option->getOptionValues($option['option_id']);
 
 					foreach ($option_values as $option_value) {
@@ -470,7 +470,7 @@ class ControllerCatalogOption extends Controller {
 
 				$type = '';
 
-				if ($option['type'] == 'select' || $option['type'] == 'radio' || $option['type'] == 'checkbox') {
+				if ($option['type'] == 'select' || $option['type'] == 'radio' || $option['type'] == 'checkbox'|| $option['type'] == 'size') {
 					$type = $this->language->get('text_choose');
 				}
 
