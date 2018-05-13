@@ -9,7 +9,7 @@ $_['heading_confirm']			='Récapitulatif de la commande';
 // Text
 
 $_['text_back']					='Arrière';
-$_['text_cart']					='Chariot';
+$_['text_cart']					='Mon panier';
 $_['text_confirm']				='Confirmer';
 $_['text_continue']				='Continuer';
 $_['text_lpa']					='Connectez-vous et payez avec Amazon';

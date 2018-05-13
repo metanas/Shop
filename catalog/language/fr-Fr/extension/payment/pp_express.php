@@ -8,7 +8,7 @@ $_['express_text_title']      ='Confirmer la commande';
 // Text
 
 $_['text_title']              ='PayPal Express Checkout';
-$_['text_cart']               ='Chariot';
+$_['text_cart']               ='Mon panier';
 $_['text_shipping_updated']   ='Service de livraison mis à jour';
 $_['text_trial']              ='%s tous les %s %s pour %s paiements alors';
 $_['text_recurring']          ='%s tous les %s %s';

@@ -1,6 +1,6 @@
 <?php
 // Heading
-$_['heading_title']            ='Chariot';
+$_['heading_title']            ='Mon panier';
 
 // Text
 $_['text_success']             ='Succès: vous avez ajouté <a href="%s"> %s </a> à ton <a href="%s"> chariot </a> !';

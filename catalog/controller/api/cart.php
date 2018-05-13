@@ -183,6 +183,7 @@ class ControllerApiCart extends Controller {
 			}
 
 			// Voucher
+
 			$json['vouchers'] = array();
 
 			if (!empty($this->session->data['vouchers'])) {

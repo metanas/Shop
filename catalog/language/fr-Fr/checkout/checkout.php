@@ -3,7 +3,7 @@
 $_['heading_title']                  ='Check-out';
 
 // Text
-$_['text_cart']                      ='Chariot';
+$_['text_cart']                      ='Mon panier';
 $_['text_checkout_option']           ='Étape %s: options de paiement';
 $_['text_checkout_account']          ='Étape %s: Détails de facturation';
 $_['text_checkout_payment_address']  ='Étape %s: Détails de facturation';
