@@ -56,6 +56,8 @@ class ControllerCommonCart extends Controller
         $this->load->model('tool/upload');
 
         $data['products'] = array();
+        $data['total_products'] = 0;
+
 
         foreach ($this->cart->getProducts() as $product) {
             if ($product['image']) {

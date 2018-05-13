@@ -4,7 +4,7 @@
 
 $_['text_home']          ='Accueil';
 $_['text_wishlist']      ='Mes préférences';
-$_['text_shopping_cart'] ='Chariot';
+$_['text_shopping_cart'] ='Mon panier';
 $_['text_category']      ='Catégories';
 $_['text_account']       ='Mon compte';
 $_['text_profile']       ='Profil';
