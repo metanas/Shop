@@ -1381,6 +1381,11 @@ ul {
     display: table;
     width: 100%;
     position: relative;
+    margin-top: 20px;
+}
+
+.steps-form-2 span {
+    font-size: 24px;
 }
 
 .steps-form-2 .steps-row-2 {
@@ -1394,7 +1399,7 @@ ul {
     content: " ";
     width: 100%;
     height: 2px;
-    background-color: #7283a7;
+    background-color: #989da4;
 }
 
 .steps-form-2 .steps-row-2 .steps-step-2 {
@@ -1413,19 +1418,19 @@ ul {
 }
 
 .steps-form-2 .steps-row-2 .steps-step-2 .btn-circle-2 {
-    width: 70px;
-    height: 70px;
-    border: 2px solid #59698D;
+    width: 50px;
+    height: 50px;
+    border: 2px solid #989da4;
     background-color: white !important;
-    color: #59698D !important;
+    color: #989da4 !important;
     border-radius: 50%;
-    padding: 22px 18px 15px 18px;
-    margin-top: -22px;
+    padding: 5px 18px 15px 16px;
+    margin-top: -10px;
 }
 
 .steps-form-2 .steps-row-2 .steps-step-2 .btn-circle-2:hover {
-    border: 2px solid #4285F4;
-    color: #4285F4 !important;
+    border: 2px solid #ff1b5e;
+    color: #ff1b5e !important;
     background-color: white !important;
 }
 
@@ -1433,63 +1438,69 @@ ul {
     font-size: 1.7rem;
 }
 
-
-
-#checkout-cart{
+#checkout-cart {
     background-color: #f2f2f2;
     padding: 0px;
 }
 
-#c_cart_head_title{
+#c_cart_head_title {
     margin: 0 0 0 25px;
     padding-top: 25px;
     padding-bottom: 25px;
 }
 
-#c_products_content{
+#c_products_content {
     background-color: white;
     padding: 0;
     margin: 0;
 }
 
-#c_cart_layout_left{
+#c_cart_layout_left {
     padding-right: 25px;
     padding-left: 0;
 }
 
-#c_cart_layout_right{
+#c_cart_layout_right {
     padding-right: 25px;
     padding-left: 0;
 }
 
-#c_c_total{
+#c_c_total {
     background-color: white;
     margin: 0;
 }
 
-#c_c_buttons{
+#c_c_buttons {
     background-color: white;
 }
 
-#c_row{
+#c_row {
     margin: 0;
 }
 
-#content\ c_content{
+#content\ c_content {
     padding: 25px 0 0 25px;
     margin: 0;
 }
 
-#r1{
+#r1 {
     border-top-width: 0;
 }
 
-.c_price{
+.c_price {
     right: 0;
     bottom: 0;
 }
 
-.c_info{
+.c_info {
     padding: 0 0 25px 25px;
-    color: #0da6ff;
+    color: #ff1b5e;
+}
+
+.select-sign-up {
+    border: 1px solid #989da4;
+    height: 30px;
+    width: 32%;
+    margin-left: 5px;
+    background-color: transparent !important;
 }
