@@ -4,19 +4,25 @@
         <h1>{{ heading_title }}</h1>
     </div>
     <!-- Stepper -->
-    <div class="steps-form-2">
-        <div class="steps-row-2 setup-panel-2 d-flex justify-content-between">
-            <div class="steps-step-2">
-                <a href="#step-1" type="button" class="btn btn-amber btn-circle-2 waves-effect ml-0" data-toggle="tooltip" data-placement="top" title="Basic Information"><i class="fa fa-folder-open-o" aria-hidden="true"></i></a>
-            </div>
-            <div class="steps-step-2">
-                <a href="#step-2" type="button" class="btn btn-blue-grey btn-circle-2 waves-effect" data-toggle="tooltip" data-placement="top" title="Personal Data"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-            </div>
-            <div class="steps-step-2">
-                <a href="#step-3" type="button" class="btn btn-blue-grey btn-circle-2 waves-effect" data-toggle="tooltip" data-placement="top" title="Terms and Conditions"><i class="fa fa-photo" aria-hidden="true"></i></a>
-            </div>
-            <div class="steps-step-2">
-                <a href="#step-4" type="button" class="btn btn-blue-grey btn-circle-2 waves-effect mr-0" data-toggle="tooltip" data-placement="top" title="Finish"><i class="fa fa-check" aria-hidden="true"></i></a>
+    <div class="container col-sm-12" align="center">
+        <div class="steps-form-2">
+            <div class="steps-row-2 setup-panel-2 d-flex justify-content-between">
+                <div class="steps-step-2">
+                    <a href="#step-1" type="button" class="btn btn-amber btn-circle-2 waves-effect ml-0"
+                       data-toggle="tooltip" data-placement="top" title="Basic Information"><span>1</span></a>
+                </div>
+                <div class="steps-step-2">
+                    <a href="#step-2" type="button" class="btn btn-blue-grey btn-circle-2 waves-effect"
+                       data-toggle="tooltip" data-placement="top" title="Personal Data"><span>2</span></a>
+                </div>
+                <div class="steps-step-2">
+                    <a href="#step-3" type="button" class="btn btn-blue-grey btn-circle-2 waves-effect"
+                       data-toggle="tooltip" data-placement="top" title="Terms and Conditions"><span>3</span></a>
+                </div>
+                <div class="steps-step-2">
+                    <a href="#step-4" type="button" class="btn btn-blue-grey btn-circle-2 waves-effect mr-0"
+                       data-toggle="tooltip" data-placement="top" title="Finish"><span>4</span></a>
+                </div>
             </div>
         </div>
     </div>
@@ -26,16 +32,20 @@
             <h2>{{ text_returning_customer }}</h2>
             <hr>
             <p>{{ text_i_am_returning_customer }}</p>
-            <div class="form-group">
-                <label class="control-label" for="input-email">{{ entry_email }}</label>
-                <input type="text" name="email" value="" placeholder="{{ entry_email }}" id="input-email"
-                       class="form-control"/>
+            <div id="login-field">
+                <div class="form-group">
+                    <label class="control-label" for="input-email">{{ entry_email }}</label>
+                    <input type="text" name="email" value="" placeholder="{{ entry_email }}" id="input-email"
+                           class="form-control"/>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="input-password">{{ entry_password }}</label>
+                    <input type="password" name="password" value="" placeholder="{{ entry_password }}"
+                           id="input-password"
+                           class="form-control"/>
+                    <a href="{{ forgotten }}">{{ text_forgotten }}</a>
+                </div>
             </div>
-            <div class="form-group">
-                <label class="control-label" for="input-password">{{ entry_password }}</label>
-                <input type="password" name="password" value="" placeholder="{{ entry_password }}" id="input-password"
-                       class="form-control"/>
-                <a href="{{ forgotten }}">{{ text_forgotten }}</a></div>
             <button type="button" value="{{ button_login }}" id="button-login" data-loading-text="{{ text_loading }}"
                     class="login-button">{{ button_login }}</button>
         </div>
@@ -43,10 +53,129 @@
             <h2>{{ text_new_customer }}</h2>
             <hr>
             <p>{{ text_checkout }}</p>
-            <p>{{ text_register_account }}</p>
+            <p>{{ text_register_account }}
+            <div id="sign-up-field" style="display: none">
+                <div class="form-group">
+                    <label class="control-label" for="input-name">{{ entry_firstname }}</label>
+                    <input type="text" name="name" value="" placeholder="{{ entry_firstname }}" id="input-name"
+                           class="form-control"/>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="input-last-name">{{ entry_lastname }}</label>
+                    <input type="text" name="last-name" value="" placeholder="{{ entry_lastname }}" id="input-last-name"
+                           class="form-control"/>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="input-name">{{ entry_birth }}</label>
+                    <div>
+                        <span>
+                        <select class="col-md-4 select-sign-up">
+                            <option>1</option>
+                            <option>1</option>
+                            <option>1</option>
+                            <option>1</option>
+                        </select>
+                    </span>
+                        <span>
+                        <select class="col-md-4 select-sign-up">
+                            <option>1</option>
+                            <option>1</option>
+                            <option>1</option>
+                            <option>1</option>
+                        </select>
+                    </span>
+                        <span>
+                        <select class="col-md-4 select-sign-up">
+                            <option>1</option>
+                            <option>1</option>
+                            <option>1</option>
+                            <option>1</option>
+                        </select>
+                    </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="input-email">{{ entry_email_address }}</label>
+                    <input type="text" name="email" value="" placeholder="{{ entry_email_address }}" id="input-email"
+                           class="form-control"/>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="input-password">{{ entry_password }}</label>
+                    <input type="password" name="password" value="" placeholder="{{ entry_password }}"
+                           id="input-password"
+                           class="form-control"/>
+                </div>
+            </div>
             <button type="button" value="{{ button_continue }}" id="button-account"
                     data-loading-text="{{ text_loading }}" class="login-button">{{ button_continue }}</button>
         </div>
     </div>
 </div>
+<script>
+    $('#button-account').click(function () {
+        $('#login-field').hide(20);
+        $('#sign-up-field').show();
+        $('#button-account').empty();
+        $('#button-account').html("{{ button_sign_up }}");
+        $('#button-account').val("{{ button_sign_up }}")
+    });
+
+
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    });
+
+    // Steppers
+    $(document).ready(function () {
+        var navListItems = $('div.setup-panel-2 div a'),
+            allWells = $('.setup-content-2'),
+            allNextBtn = $('.nextBtn-2'),
+            allPrevBtn = $('.prevBtn-2');
+
+        allWells.hide();
+
+        navListItems.click(function (e) {
+            e.preventDefault();
+            var $target = $($(this).attr('href')),
+                $item = $(this);
+
+            if (!$item.hasClass('disabled')) {
+                navListItems.removeClass('btn-amber').addClass('btn-blue-grey');
+                $item.addClass('btn-amber');
+                allWells.hide();
+                $target.show();
+                $target.find('input:eq(0)').focus();
+            }
+        });
+
+        allPrevBtn.click(function () {
+            var curStep = $(this).closest(".setup-content-2"),
+                curStepBtn = curStep.attr("id"),
+                prevStepSteps = $('div.setup-panel-2 div a[href="#' + curStepBtn + '"]').parent().prev().children("a");
+
+            prevStepSteps.removeAttr('disabled').trigger('click');
+        });
+
+        allNextBtn.click(function () {
+            var curStep = $(this).closest(".setup-content-2"),
+                curStepBtn = curStep.attr("id"),
+                nextStepSteps = $('div.setup-panel-2 div a[href="#' + curStepBtn + '"]').parent().next().children("a"),
+                curInputs = curStep.find("input[type='text'],input[type='url']"),
+                isValid = true;
+
+            $(".form-group").removeClass("has-error");
+            for (var i = 0; i < curInputs.length; i++) {
+                if (!curInputs[i].validity.valid) {
+                    isValid = false;
+                    $(curInputs[i]).closest(".form-group").addClass("has-error");
+                }
+            }
+
+            if (isValid)
+                nextStepSteps.removeAttr('disabled').trigger('click');
+        });
+
+        $('div.setup-panel-2 div a.btn-amber').trigger('click');
+    });
+</script>
 {{ footer }}

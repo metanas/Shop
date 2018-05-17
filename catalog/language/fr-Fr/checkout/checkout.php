@@ -50,6 +50,7 @@ $_['column_total']                   ='Total';
 // Entry
 $_['entry_email_address']            ='Adresse e-mail';
 $_['entry_email']                    ='Email';
+$_['entry_birth']                    ='Date de naissance';
 $_['entry_password']                 ='Mot de passe';
 $_['entry_confirm']                  ='Confirmer le mot de passe';
 $_['entry_firstname']                ='Prénom';

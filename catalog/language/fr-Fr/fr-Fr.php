@@ -30,6 +30,7 @@ $_['text_no_results']       ='Aucun résultat!';
 $_['button_address_add']    ='Ajoutez l`adresse';
 $_['button_back']           ='Arrière';
 $_['button_continue']       ='Continuer';
+$_['button_sign_up']        ='S\'inscrire';
 $_['button_cart']           ='Ajouter au panier';
 $_['button_cancel']         ='Annuler';
 $_['button_compare']        ='Comparez ce produit';
