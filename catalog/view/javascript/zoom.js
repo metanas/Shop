@@ -3,6 +3,8 @@
 	license: MIT
 	http://www.jacklmoore.com/zoom
 */
+
+
 (function ($) {
 	var defaults = {
 		url: false,
