@@ -35,7 +35,7 @@
                                 </div>
                                 <div class="dropdown-filter">
                                     <div id="search" class="field input-group stylish-input-group input-append">
-                                        <input class="field-input-filter" id="autoCompInput"
+                                        <input class="field-input-filter"
                                                placeholder="{{ text_search }}" name="model" value="{{ search }}">
                                         <span class="input-group-addon" style="border: none">
                                             <button id="sub" type="button">
@@ -67,7 +67,7 @@
                                 </div>
                                 <div class="dropdown-filter">
                                     <div id="search" class="field input-group stylish-input-group input-append">
-                                        <input class="field-input-filter" id="autoCompInput"
+                                        <input class="field-input-filter"
                                                placeholder="{{ text_search }}" name="color" value="{{ search }}">
                                         <span class="input-group-addon" style="border: none">
                                             <button id="sub" type="button">
@@ -78,7 +78,7 @@
                                     <div id="color" class="ScrollStyle">
                                         {% for color in products_colors %}
                                             <label class="check_filter">{{ color }}
-                                                <input type="checkbox" name="color[]" value="{{ color }}">
+                                                <input class="checkbox" type="checkbox" name="color[]" value="{{ color }}">
                                                 <span class="checkmark"></span>
                                             </label>
                                         {% endfor %}
@@ -128,7 +128,7 @@
                                 </div>
                                 <div class="dropdown-filter">
                                     <div id="search" class="field input-group stylish-input-group input-append">
-                                        <input class="field-input-filter" id="autoCompInput"
+                                        <input class="field-input-filter"
                                                placeholder="{{ text_search }}" name="color" value="{{ search }}">
                                         <span class="input-group-addon" style="border: none">
                                             <button id="sub" type="button">
@@ -138,10 +138,10 @@
                                     </div>
                                     <div id="size" class="ScrollStyle">
                                         {#{% for color in products_colors %}#}
-                                            {#<label class="check_filter">{{ color }}#}
-                                                {#<input type="checkbox" name="color[]" value="{{ color }}">#}
-                                                {#<span class="checkmark"></span>#}
-                                            {#</label>#}
+                                        {#<label class="check_filter">{{ color }}#}
+                                        {#<input type="checkbox" name="color[]" value="{{ color }}">#}
+                                        {#<span class="checkmark"></span>#}
+                                        {#</label>#}
                                         {#{% endfor %}#}
                                     </div>
                                     <div>
@@ -196,12 +196,12 @@
                         <div class="product-layout col-lg-4 col-md-4 col-sm-6 col-xs-12">
                             <div class="product-thumb transition">
                                 <div class="image">
-                                        <img src="{{ product.thumb }}"
-                                             alt="{{ product.name }}"
-                                             title="{{ product.name }}"
-                                             class="img-responsive"
-                                             style="width: 100%"
-                                        />
+                                    <img src="{{ product.thumb }}"
+                                         alt="{{ product.name }}"
+                                         title="{{ product.name }}"
+                                         class="img-responsive"
+                                         style="width: 100%"
+                                    />
                                 </div>
                                 <div class="caption">
                                     <div class="desctip col-sm-12 col-xs-12">
@@ -230,10 +230,11 @@
                                       style=" margin-right:20px;margin-top: 10px; position: absolute; top: 0;right: 0;width: 20px">
                             </div>
                         </div>
-                    {% endfor %} </div>
-                <div class="row">
-                    <div class="col-sm-6 text-left">{{ pagination }}</div>
-                    <div class="col-sm-6 text-right">{{ results }}</div>
+                    {% endfor %}
+                    <div class="row col-sm-12" style="margin: 30px 0 30px 0">
+                        {#<div class="col-sm-6 text-center">{{ pagination }}</div>#}
+                        <div class="col-sm-12 text-center">{{ results }}</div>
+                    </div>
                 </div>
             {% endif %}
             {% if not categories and not products %}
@@ -312,21 +313,26 @@
         value: [{{ price_min }}, {{ price_max }}]
     });
     let price = Array();
+
     $("#ex12c").on("change", function (e) {
         $("#max-price").html(e.value['newValue'][1] + " {{ currency }}");
         $("#min-price").html(e.value['newValue'][0] + " {{ currency }}");
         filters.splice(filters.indexOf(price[0]), 1);
         filters.splice(filters.indexOf(price[1]), 1);
-        price[0] = "prixMax[]" + e.value['newValue'][1] + "{{ currency }}";
-        price[1] = "prixMin[]" + e.value['newValue'][0] + "{{ currency }}";
+        price[0] = "prixMax[]" + e.value['newValue'][1];
+        price[1] = "prixMin[]" + e.value['newValue'][0];
     });
     let filters = Array();
 
-    $("input:checkbox").click(function (e) {
+    $("input:checkbox").on('click', function () {
+        console.log('sssssssssssssssssssssssss');
         if ($(this).is(':checked')) {
-            filters.push($(this)[0].name + $(this).val());
-        } else
+            if ($.inArray($(this)[0].name + $(this).val(), filters))
+                filters.push($(this)[0].name + $(this).val());
+        } else {
             filters.splice(filters.indexOf($(this)[0].name + $(this).val()), 1);
+        }
+
     });
 
     $(".filter-done").on("click", function (e) {
@@ -343,14 +349,13 @@
         filterGenerator();
     }
 
-    $(document).click(function(){
-        $.map($(".dropdown-filter").get(),function (item) {
-            if(item.style.display === "block"){
-                filterGenerator();
-                return;
-            }
-        });
-    });
+    // $(document).click(function () {
+    //     $.map($(".dropdown-filter").get(), function (item) {
+    //         if (item.style.display === "block") {
+    //             filterGenerator();
+    //         }
+    //     });
+    // });
 
     function filterGenerator() {
         $('body').loading({message: "chargement"});
@@ -370,7 +375,6 @@
         $('.dropdown-filter').hide(200);
         $('.dropdownFilter').css({"border": "1px solid #e7e7e7"});
         $('body').loading('stop');
-
     }
 
     let models = $('input[name*=\'model[]\']').get();
@@ -406,13 +410,17 @@
         urlQueryString = document.location.search;
         let newParam = param + '=' + value;
         let params = '?' + newParam;
+        console.log(urlQueryString);
 
         // If the "search" string exists, then build params from it
         if (urlQueryString) {
             keyRegex = new RegExp('([\?&])' + param + '[^&]*');
             // If param exists already, update it
             if (urlQueryString.match(keyRegex) !== null) {
-                params = urlQueryString.replace(keyRegex, "$1" + newParam);
+                if (value === '') {
+                    params = urlQueryString.replace(keyRegex, "");
+                } else
+                    params = urlQueryString.replace(keyRegex, "$1" + newParam);
             } else { // Otherwise, add it to end of query string
                 params = urlQueryString + '&' + newParam;
             }
@@ -426,7 +434,7 @@
                 updateProducts(json['products']);
             },
             error: function (result, status) {
-
+                debugger;
             },
             dataType: "json"
         });
@@ -441,10 +449,10 @@
             html += '<div class="caption" ><div class="desctip col-sm-12 col-xs-12" ><h4 class="SheosName"><a href = "' + item['href'] + '" >' + item['name'] + '</a></h4>';
             if (item.hasOwnProperty('price') === true) {
                 if (item.hasOwnProperty('special') === false) {
-                    html += '<p class="SheosPrice" >'+ item['price'] +'</p>';
+                    html += '<p class="SheosPrice" >' + item['price'] + '</p>';
                 } else {
-                    html += '<span class="price-old SheosPrice" >'+ item['price'] +'</span><br>';
-                    html += '<span class="price-new SheosPrice" >'+ item['price'] +'</span>';
+                    html += '<span class="price-old SheosPrice" >' + item['price'] + '</span><br>';
+                    html += '<span class="price-new SheosPrice" >' + item['price'] + '</span>';
                 }
             }
             html += '<div class="same">';
@@ -462,7 +470,6 @@
     }
 
     function updateFilters(json) {
-        console.log(json);
         $(".product-count").text(json['product_total'] + " articles");
         $("#model").empty();
         $("#color").empty();
@@ -482,7 +489,7 @@
             min: json['price_min'],
             max: json['price_max'],
             range: true,
-            value: [ json['price_min'],  json['price_max']]
+            value: [json['price_min'], json['price_max']]
         });
 
         $('#max-price').html(json['price_max']);
