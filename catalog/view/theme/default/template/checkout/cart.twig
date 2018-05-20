@@ -60,12 +60,13 @@
                         {% if not product.stock %} <span class="text-danger">***</span> {% endif %}
                       <br/>
                       <br/>
-                      <br/>
-                      <br/>
+                      <span>Couleur : </span><br/>
+                      <span>Taille : </span><br/>
+
                       <br/>
 
 
-                      <button data-toggle="tooltip" style="background-color: inherit; border:0"  onclick="cart.remove('{{ product.cart_id }}');"><span class="glyphicon glyphicon-trash"></span></button><span>Supprimer</span>
+                      <span style="border:0;color: grey; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif"><button data-toggle="tooltip" style="background-color: inherit; border:0;"  onclick="cart.remove('{{ product.cart_id }}');"><span class="glyphicon glyphicon-trash"> <span style="color: grey; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif"> Supprimer</span></span></button><span> | </span><button data-toggle="tooltip" style="background-color: inherit; border:0"  onclick=""><span class="glyphicon glyphicon-heart-empty"> <span style="color: grey; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif"> Déplacer vers mes préférés</span></span></button></span>
 
                         {% if product.option %}
                             {% for option in product.option %} <br />
@@ -79,11 +80,17 @@
                     {#<td id="r{{ loop.index }}" class="text-left">{{ product.model }} <button type="button" data-toggle="tooltip" title="{{ button_remove }}" class="btn btn-danger" onclick="cart.remove('{{ product.cart_id }}');"></button></td>#}
                     <td id="r{{ loop.index }}" class="text-left"><div class="input-group btn-block" style="max-width: 200px;">
                         <input type="select" name="quantity[{{ product.cart_id }}]" value="{{ product.quantity }}" size="1" class="form-control" />
-                        <div class="input-group-btn">
-                          <button type="submit" data-toggle="tooltip" title="{{ button_update }}" class="btn btn-primary"><i class="fa fa-refresh"></i></button>
 
-                        </div></div>
-                        <span id="r{{ loop.index }}" class="c_price">{{ product.total }}</span>
+                        {#<div class="input-group-btn">#}
+                          {#<button type="submit" data-toggle="tooltip" title="{{ button_update }}" class="btn btn-primary"><i class="fa fa-refresh"></i></button>#}
+
+                        {#</div>#}
+                      </div>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <span id="r{{ loop.index }}" class="c_price pull-right">{{ product.total }}</span>
                     </td>
                     {#<td id="r{{ loop.index }}" class="text-right">{{ product.price }}</td>#}
 
@@ -127,7 +134,13 @@
         </div>
         <div style="background-color: white; margin-bottom: 25px;">
           <h2 style="padding: 25px 0 0 25px">Nous acceptons</h2>
-          <span>Mastercard</span><span>Visa</span><span>Cash</span><span>PayPal</span>
+          <div style="padding-bottom: 25px">
+            <img class="w50" src="catalog/view/theme/default/image/master2.png">
+            <img class="w50" src="catalog/view/theme/default/image/visa2.png">
+            <img class="w50" src="catalog/view/theme/default/image/livraison2.png">
+            <img class="w50" src="catalog/view/theme/default/image/paypal2.png">
+          </div>
+
         </div>
       </div>
       <div id="c_cart_layout_right" class="col-md-4 col-xs-12">

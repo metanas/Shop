@@ -1,9 +1,6 @@
 <?php
-
-class ModelCatalogOption extends Model
-{
-    public function addOption($data)
-    {
+class ModelCatalogOption extends Model {
+    public function addOption($data) {
         $this->db->query("INSERT INTO `" . DB_PREFIX . "option` SET type = '" . $this->db->escape((string)$data['type']) . "', sort_order = '" . (int)$data['sort_order'] . "'");
 
         $option_id = $this->db->getLastId();
@@ -14,11 +11,9 @@ class ModelCatalogOption extends Model
 
         if (isset($data['option_value'])) {
             foreach ($data['option_value'] as $option_value) {
-                $this->db->query("INSERT INTO " . DB_PREFIX . "option_value SET option_id = '" . (int)$option_id . "', image = '" . ((isset($option_value['image'])) ? $this->db->escape(html_entity_decode($option_value['image'], ENT_QUOTES, 'UTF-8')) : "") . "', sort_order = '" . (int)$option_value['sort_order'] . "'");
-                $option_value_id = $this->db->getLastId();
-                if(isset($option_value['equivalent']))
-                    $this->db->query("INSERT INTO " . DB_PREFIX . "option_value_equivalent SET option_value_id= '" . $option_value_id . "', option_id = '" . (int)$option_id . "', equivalent = '" . $this->db->escape($option_value['equivalent']) . "'");
+                $this->db->query("INSERT INTO " . DB_PREFIX . "option_value SET option_id = '" . (int)$option_id . "', image = '" . $this->db->escape(html_entity_decode($option_value['image'], ENT_QUOTES, 'UTF-8')) . "', sort_order = '" . (int)$option_value['sort_order'] . "'");
 
+                $option_value_id = $this->db->getLastId();
 
                 foreach ($option_value['option_value_description'] as $language_id => $option_value_description) {
                     $this->db->query("INSERT INTO " . DB_PREFIX . "option_value_description SET option_value_id = '" . (int)$option_value_id . "', language_id = '" . (int)$language_id . "', option_id = '" . (int)$option_id . "', name = '" . $this->db->escape($option_value_description['name']) . "'");
@@ -29,8 +24,7 @@ class ModelCatalogOption extends Model
         return $option_id;
     }
 
-    public function editOption($option_id, $data)
-    {
+    public function editOption($option_id, $data) {
         $this->db->query("UPDATE `" . DB_PREFIX . "option` SET type = '" . $this->db->escape((string)$data['type']) . "', sort_order = '" . (int)$data['sort_order'] . "' WHERE option_id = '" . (int)$option_id . "'");
 
         $this->db->query("DELETE FROM " . DB_PREFIX . "option_description WHERE option_id = '" . (int)$option_id . "'");
@@ -41,19 +35,13 @@ class ModelCatalogOption extends Model
 
         $this->db->query("DELETE FROM " . DB_PREFIX . "option_value WHERE option_id = '" . (int)$option_id . "'");
         $this->db->query("DELETE FROM " . DB_PREFIX . "option_value_description WHERE option_id = '" . (int)$option_id . "'");
-        $this->db->query("DELETE FROM " . DB_PREFIX . "option_value_equivalent WHERE option_id = '" . (int)$option_id . "'");
 
         if (isset($data['option_value'])) {
             foreach ($data['option_value'] as $option_value) {
                 if ($option_value['option_value_id']) {
-                    $this->db->query("INSERT INTO " . DB_PREFIX . "option_value SET option_value_id = '" . (int)$option_value['option_value_id'] . "', option_id = '" . (int)$option_id . "', image = '" . ((isset($option_value['image'])) ? $this->db->escape(html_entity_decode($option_value['image'], ENT_QUOTES, 'UTF-8')) : "" ) . "', sort_order = '" . (int)$option_value['sort_order'] . "'");
-                    if(isset($option_value['equivalent']))
-                        $this->db->query("INSERT INTO " . DB_PREFIX . "option_value_equivalent SET option_value_id = '" . (int)$option_value['option_value_id'] . "', option_id = '" . (int)$option_id . "', equivalent = '" . (int)$option_value['equivalent'] . "'");
+                    $this->db->query("INSERT INTO " . DB_PREFIX . "option_value SET option_value_id = '" . (int)$option_value['option_value_id'] . "', option_id = '" . (int)$option_id . "', image = '" . $this->db->escape(html_entity_decode($option_value['image'], ENT_QUOTES, 'UTF-8')) . "', sort_order = '" . (int)$option_value['sort_order'] . "'");
                 } else {
-                    $this->db->query("INSERT INTO " . DB_PREFIX . "option_value SET option_id = '" . (int)$option_id . "', image = '" . ((isset($option_value['image'])) ? $this->db->escape(html_entity_decode($option_value['image'], ENT_QUOTES, 'UTF-8')) : '') . "', sort_order = '" . (int)$option_value['sort_order'] . "'");
-                    $option_value_id = $this->db->getLastId();
-                    if(isset($option_value['equivalent']))
-                        $this->db->query("INSERT INTO " . DB_PREFIX . "option_value_equivalent SET option_value_id='" . $option_value_id . "', option_id = '" . (int)$option_id . "', equivalent = '" . (int)$option_value['equivalent'] . "'");
+                    $this->db->query("INSERT INTO " . DB_PREFIX . "option_value SET option_id = '" . (int)$option_id . "', image = '" . $this->db->escape(html_entity_decode($option_value['image'], ENT_QUOTES, 'UTF-8')) . "', sort_order = '" . (int)$option_value['sort_order'] . "'");
                 }
 
                 $option_value_id = $this->db->getLastId();
@@ -66,24 +54,20 @@ class ModelCatalogOption extends Model
         }
     }
 
-    public function deleteOption($option_id)
-    {
+    public function deleteOption($option_id) {
         $this->db->query("DELETE FROM `" . DB_PREFIX . "option` WHERE option_id = '" . (int)$option_id . "'");
         $this->db->query("DELETE FROM " . DB_PREFIX . "option_description WHERE option_id = '" . (int)$option_id . "'");
         $this->db->query("DELETE FROM " . DB_PREFIX . "option_value WHERE option_id = '" . (int)$option_id . "'");
         $this->db->query("DELETE FROM " . DB_PREFIX . "option_value_description WHERE option_id = '" . (int)$option_id . "'");
-        $this->db->query("DELETE FROM " . DB_PREFIX . "option_value_equivalent WHERE option_id = '" . (int)$option_id . "'");
     }
 
-    public function getOption($option_id)
-    {
+    public function getOption($option_id) {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "option` o LEFT JOIN " . DB_PREFIX . "option_description od ON (o.option_id = od.option_id) WHERE o.option_id = '" . (int)$option_id . "' AND od.language_id = '" . (int)$this->config->get('config_language_id') . "'");
 
         return $query->row;
     }
 
-    public function getOptions($data = array())
-    {
+    public function getOptions($data = array()) {
         $sql = "SELECT * FROM `" . DB_PREFIX . "option` o LEFT JOIN " . DB_PREFIX . "option_description od ON (o.option_id = od.option_id) WHERE od.language_id = '" . (int)$this->config->get('config_language_id') . "'";
 
         if (!empty($data['filter_name'])) {
@@ -125,8 +109,7 @@ class ModelCatalogOption extends Model
         return $query->rows;
     }
 
-    public function getOptionDescriptions($option_id)
-    {
+    public function getOptionDescriptions($option_id) {
         $option_data = array();
 
         $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "option_description WHERE option_id = '" . (int)$option_id . "'");
@@ -138,36 +121,33 @@ class ModelCatalogOption extends Model
         return $option_data;
     }
 
-    public function getOptionValue($option_value_id)
-    {
-        $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "option_value ov LEFT JOIN " . DB_PREFIX . "option_value_description ovd ON (ov.option_value_id = ovd.option_value_id) LEFT JOIN " . DB_PREFIX . "option_value_equivalent ove ON (ov.option_value_id = ove.option_value_id) WHERE ov.option_value_id = '" . (int)$option_value_id . "' AND ovd.language_id = '" . (int)$this->config->get('config_language_id') . "'");
+    public function getOptionValue($option_value_id) {
+        $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "option_value ov LEFT JOIN " . DB_PREFIX . "option_value_description ovd ON (ov.option_value_id = ovd.option_value_id) WHERE ov.option_value_id = '" . (int)$option_value_id . "' AND ovd.language_id = '" . (int)$this->config->get('config_language_id') . "'");
+
         return $query->row;
     }
 
-    public function getOptionValues($option_id)
-    {
+    public function getOptionValues($option_id) {
         $option_value_data = array();
 
-        $option_value_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "option_value ov LEFT JOIN " . DB_PREFIX . "option_value_description ovd ON (ov.option_value_id = ovd.option_value_id) LEFT JOIN " . DB_PREFIX . "option_value_equivalent ove ON (ov.option_value_id = ove.option_value_id) WHERE ov.option_id = '" . (int)$option_id . "' AND ovd.language_id = '" . (int)$this->config->get('config_language_id') . "' ORDER BY ov.sort_order, ovd.name");
+        $option_value_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "option_value ov LEFT JOIN " . DB_PREFIX . "option_value_description ovd ON (ov.option_value_id = ovd.option_value_id) WHERE ov.option_id = '" . (int)$option_id . "' AND ovd.language_id = '" . (int)$this->config->get('config_language_id') . "' ORDER BY ov.sort_order, ovd.name");
 
         foreach ($option_value_query->rows as $option_value) {
             $option_value_data[] = array(
                 'option_value_id' => $option_value['option_value_id'],
-                'name' => $option_value['name'],
-                'image' => $option_value['image'],
-                'equivalent' => (isset($option_value['equivalent']))? $option_value['equivalent'] : "" ,
-                'sort_order' => $option_value['sort_order']
+                'name'            => $option_value['name'],
+                'image'           => $option_value['image'],
+                'sort_order'      => $option_value['sort_order']
             );
         }
 
         return $option_value_data;
     }
 
-    public function getOptionValueDescriptions($option_id)
-    {
+    public function getOptionValueDescriptions($option_id) {
         $option_value_data = array();
 
-        $option_value_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "option_value ov LEFT JOIN " . DB_PREFIX . "option_value_equivalent ove ON (ov.option_value_id = ove.option_value_id) WHERE ov.option_id = '" . (int)$option_id . "' ORDER BY sort_order");
+        $option_value_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "option_value WHERE option_id = '" . (int)$option_id . "' ORDER BY sort_order");
 
         foreach ($option_value_query->rows as $option_value) {
             $option_value_description_data = array();
@@ -179,20 +159,19 @@ class ModelCatalogOption extends Model
             }
 
             $option_value_data[] = array(
-                'option_value_id' => $option_value['option_value_id'],
+                'option_value_id'          => $option_value['option_value_id'],
                 'option_value_description' => $option_value_description_data,
-                'image' => $option_value['image'],
-                'equivalent' => (isset($option_value['equivalent'])) ? $option_value['equivalent'] : '',
-                'sort_order' => $option_value['sort_order']
+                'image'                    => $option_value['image'],
+                'sort_order'               => $option_value['sort_order']
             );
         }
 
         return $option_value_data;
     }
 
-    public function getTotalOptions()
-    {
+    public function getTotalOptions() {
         $query = $this->db->query("SELECT COUNT(*) AS total FROM `" . DB_PREFIX . "option`");
+
         return $query->row['total'];
     }
 }
