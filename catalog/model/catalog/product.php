@@ -88,7 +88,7 @@ class ModelCatalogProduct extends Model {
 				$implode = array();
 				$colors = array();
 				$model = array();
-				$price = array();
+				$priceMax = '';
 				$Size = array();
 
 				$filters = explode('_', $data['filter_filter']);
@@ -96,11 +96,15 @@ class ModelCatalogProduct extends Model {
 				foreach ($filters as $filter_id) {
 				    if(strpos($filter_id,"model[]") !== false) $model[] = explode("[]",$filter_id)[1];
 				    if(strpos($filter_id,"color[]") !== false) $colors[] = explode("[]",$filter_id)[1];
+				    if(strpos($filter_id,"prixMax[]") !== false) $priceMax = explode("[]",$filter_id)[1];
+				    if(strpos($filter_id,"prixMin[]") !== false) $priceMin = explode("[]",$filter_id)[1];
 					$implode[] = $filter_id;
 				}
 
 				if(!empty($colors)) $sql .= " AND p.color IN ('" . implode("','", $colors) . "')";
 				if(!empty($model)) $sql .= " AND m.name IN ('" . implode("','", $model) . "')";
+				if(!empty($priceMax)) $sql .= " AND p.price < $priceMax";
+				if(!empty($priceMin)) $sql .= " AND p.price > $priceMin";
 			}
 		}
 

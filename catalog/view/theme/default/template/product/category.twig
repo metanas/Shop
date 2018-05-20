@@ -325,7 +325,8 @@
     });
     let filters = Array();
 
-    $("input:checkbox").on('click', function () {
+    $("input:checkbox").on('click', function (event) {
+        event.stopPropagation();
         check(this)
     });
 
@@ -339,28 +340,34 @@
                 $(a).prop('checked', false);
             }
         });
-        filters.splice(filters.indexOf(e.innerText), 2);
-        filterGenerator();
-    }
-
-    $(document).click(function () {
-        $.map($(".dropdown-filter").get(), function (item) {
-            if (item.style.display === "block") {
+        filters.forEach(function (item)
+        {
+            if (item.includes(e.innerText.replace(":","[]")) || item === e.innerText) {
+                filters.splice(filters.indexOf(item), 1);
+                price.splice(filters.indexOf(item), 1);
                 filterGenerator();
+                return;
             }
         });
-    });
+    }
+
+    // $(document).click(function () {
+    //     $.map($(".dropdown-filter").get(), function (item) {
+    //         if (item.style.display === "block") {
+    //             filterGenerator();
+    //         }
+    //     });
+    // });
 
     function filterGenerator() {
         $('body').loading({message: "chargement"});
         $(".filter-content").empty();
         if (price.length > 0) if ($.inArray(price[0], filters) === -1) filters = filters.concat(price);
         for (i = 0; i < filters.length; i++) {
-            $(".filter-content").append('<span class="filter-generate" onclick="removeFilter(this)">' + filters[i].split('[]')[1] + '<i class="fa fa-close" style="margin-left: 5px"></i></span>');
+            $(".filter-content").append('<span class="filter-generate" onclick="removeFilter(this)">' + (($.inArray(filters[i],price) !== -1) ? filters[i].replace('[]', ":") : filters[i].split('[]')[1]) + '<i class="fa fa-close" style="margin-left: 5px"></i></span>');
         }
 
         updateQueryStringParam("filter", filters.join("_"));
-
 
         if (filters.length >= 3 && $('.clear-all-filters').get().length === 0) {
             $(".filter-content").prepend('<span class="filter-generate clear-all-filters" onclick="removeAllFilters()">{{ text_clear_filter }}<i class="fa fa-close" style="margin-left: 5px"></i></span>');
@@ -477,8 +484,6 @@
                 $('.same', this).hide(400)
             }
         );
-
-
     }
 
     function updateFilters(json) {
@@ -506,19 +511,18 @@
 
         $('#max-price').html(json['price_max']);
         $('#min-price').html(json['price_min']);
-        $("input:checkbox").on('click', function () {
-            check(this)
+
+        $("input:checkbox").on('click', function (event) {
+            check(this);
         });
     }
 
     function check(e) {
-        console.log(e);
         if ($(e).is(':checked')) {
             if ($.inArray($(e)[0].name + $(e).val(), filters))
                 filters.push($(e)[0].name + $(e).val());
         } else {
             filters.splice(filters.indexOf($(e)[0].name + $(e).val()), 1);
         }
-
     }
 </script>
