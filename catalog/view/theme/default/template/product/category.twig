@@ -45,8 +45,9 @@
                                     </div>
                                     <div id="model" class="ScrollStyle">
                                         {% for model in products_models %}
-                                            <label class="check_filter">{{ model }}
-                                                <input type="checkbox" name="model[]" value="{{ model }}">
+                                            <label class="check_filter check-model">{{ model }}
+                                                <input class="checkbox" type="checkbox" name="model[]"
+                                                       value="{{ model }}">
                                                 <span class="checkmark"></span>
                                             </label>
                                         {% endfor %}
@@ -77,8 +78,9 @@
                                     </div>
                                     <div id="color" class="ScrollStyle">
                                         {% for color in products_colors %}
-                                            <label class="check_filter">{{ color }}
-                                                <input class="checkbox" type="checkbox" name="color[]" value="{{ color }}">
+                                            <label class="check_filter check-color">{{ color }}
+                                                <input class="checkbox" type="checkbox" name="color[]"
+                                                       value="{{ color }}">
                                                 <span class="checkmark"></span>
                                             </label>
                                         {% endfor %}
@@ -233,7 +235,7 @@
                     {% endfor %}
                     <div class="row col-sm-12" style="margin: 30px 0 30px 0">
                         {#<div class="col-sm-6 text-center">{{ pagination }}</div>#}
-                        <div class="col-sm-12 text-center">{{ results }}</div>
+                        <div class="col-sm-12 text-center pagination">{{ results }}</div>
                     </div>
                 </div>
             {% endif %}
@@ -287,24 +289,23 @@
         return vars;
     }
 
-    $(function () {
-        $(".product-layout").hover(
-            function () {
-                $('.same', this).show(400)
-            }, function () {
-                $('.same', this).hide(400)
-            })
-    });
-    $(function () {
-        $(".smallSame").hover(
-            function () {
-                $(this).css('border', '1px solid black');
-                this.parentNode.parentNode.parentNode.parentNode.children[0].children[0].src = this.src;
-            }, function () {
-                $(this).css('border', 'none');
-                this.parentNode.parentNode.parentNode.parentNode.children[0].children[0].src = this.parentNode.children[0].src;
-            });
-    });
+
+    $(".product-layout").hover(
+        function () {
+            $('.same', this).show(400)
+        }, function () {
+            $('.same', this).hide(400)
+        }
+    );
+
+    $(".smallSame").hover(
+        function () {
+            $(this).css('border', '1px solid black');
+            this.parentNode.parentNode.parentNode.parentNode.children[0].children[0].src = this.src;
+        }, function () {
+            $(this).css('border', 'none');
+            this.parentNode.parentNode.parentNode.parentNode.children[0].children[0].src = this.parentNode.children[0].src;
+        });
     $("#ex12c").slider({
         id: "slider12c",
         min: {{ price_min }},
@@ -325,14 +326,7 @@
     let filters = Array();
 
     $("input:checkbox").on('click', function () {
-        console.log('sssssssssssssssssssssssss');
-        if ($(this).is(':checked')) {
-            if ($.inArray($(this)[0].name + $(this).val(), filters))
-                filters.push($(this)[0].name + $(this).val());
-        } else {
-            filters.splice(filters.indexOf($(this)[0].name + $(this).val()), 1);
-        }
-
+        check(this)
     });
 
     $(".filter-done").on("click", function (e) {
@@ -345,17 +339,17 @@
                 $(a).prop('checked', false);
             }
         });
-        filters.splice(filters.indexOf(e.innerText), 1);
+        filters.splice(filters.indexOf(e.innerText), 2);
         filterGenerator();
     }
 
-    // $(document).click(function () {
-    //     $.map($(".dropdown-filter").get(), function (item) {
-    //         if (item.style.display === "block") {
-    //             filterGenerator();
-    //         }
-    //     });
-    // });
+    $(document).click(function () {
+        $.map($(".dropdown-filter").get(), function (item) {
+            if (item.style.display === "block") {
+                filterGenerator();
+            }
+        });
+    });
 
     function filterGenerator() {
         $('body').loading({message: "chargement"});
@@ -399,7 +393,7 @@
         for (i = 0; i < arr.length; i++) {
             if (arr[i].value.includes(this.value))
                 $(".ScrollStyle").append("<label class=\"check_filter\">" + arr[i].value +
-                    "<input type=\"checkbox\" name=\"" + this.name + "[]\" value=\"" + arr[i].value + "\">" +
+                    "<input class=\"checkbox\" type=\"checkbox\" name=\"" + this.name + "[]\" value=\"" + arr[i].value + "\">" +
                     "<span class=\"checkmark\"></span>" +
                     "</label>");
         }
@@ -410,21 +404,19 @@
         urlQueryString = document.location.search;
         let newParam = param + '=' + value;
         let params = '?' + newParam;
-        console.log(urlQueryString);
-
         // If the "search" string exists, then build params from it
-        if (urlQueryString) {
+        if (urlQueryString && value !== '') {
             keyRegex = new RegExp('([\?&])' + param + '[^&]*');
             // If param exists already, update it
             if (urlQueryString.match(keyRegex) !== null) {
-                if (value === '') {
-                    params = urlQueryString.replace(keyRegex, "");
-                } else
-                    params = urlQueryString.replace(keyRegex, "$1" + newParam);
+                params = urlQueryString.replace(keyRegex, "$1" + newParam);
             } else { // Otherwise, add it to end of query string
                 params = urlQueryString + '&' + newParam;
             }
+        } else {
+            params = urlQueryString.replace("&filter=" + $_GET("filter"), "");
         }
+
         window.history.replaceState({}, "", baseUrl + params);
         $.ajax({
             url: baseUrl + "?route=product/category/filter&path=" + $_GET('path') + "&filter=" + $_GET("filter"),
@@ -434,7 +426,6 @@
                 updateProducts(json['products']);
             },
             error: function (result, status) {
-                debugger;
             },
             dataType: "json"
         });
@@ -465,8 +456,29 @@
             {#<p>Disponible en plusieurs tailles</p>#}
             html += '</div></div></div></div><div><img src="catalog/view/theme/default/image/favoris.png" style="margin-right:20px;margin-top: 10px; position: absolute; top: 0;right: 0;width: 20px"></div></div>'
         });
+        html += '<div class="row col-sm-12" style="margin: 30px 0 30px 0">';
+        html += '<div class="col-sm-6 text-center pagination">{{ pagination }}</div></div>';
         $('.product-container').empty();
         $('.product-container').html(html);
+
+        $(".smallSame").hover(
+            function () {
+                $(this).css('border', '1px solid black');
+                this.parentNode.parentNode.parentNode.parentNode.children[0].children[0].src = this.src;
+            }, function () {
+                $(this).css('border', 'none');
+                this.parentNode.parentNode.parentNode.parentNode.children[0].children[0].src = this.parentNode.children[0].src;
+            }
+        );
+        $(".product-layout").hover(
+            function () {
+                $('.same', this).show(400)
+            }, function () {
+                $('.same', this).hide(400)
+            }
+        );
+
+
     }
 
     function updateFilters(json) {
@@ -494,6 +506,19 @@
 
         $('#max-price').html(json['price_max']);
         $('#min-price').html(json['price_min']);
+        $("input:checkbox").on('click', function () {
+            check(this)
+        });
+    }
+
+    function check(e) {
+        console.log(e);
+        if ($(e).is(':checked')) {
+            if ($.inArray($(e)[0].name + $(e).val(), filters))
+                filters.push($(e)[0].name + $(e).val());
+        } else {
+            filters.splice(filters.indexOf($(e)[0].name + $(e).val()), 1);
+        }
 
     }
 </script>
