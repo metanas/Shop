@@ -26,13 +26,12 @@
     });
 
     function checkOffset() {
-
         if ($("#content").offset().top >= $(document).scrollTop()) {
             $(".groupe_list").css({"position": "absolute"});
         }
-        else if ($(".text-left").offset().top + $(".text-left").height() - $(".groupe_list").height() <= $(document).scrollTop()) {
+        else if ($(".pagination").offset().top + $(".pagination").height() - $(".groupe_list").height() <= $(document).scrollTop()) {
             $(".groupe_list").css({"position": "absolute"});
-            $(".groupe_list").offset({"top": $(".text-left").offset().top + $(".text-left").height() - $(".groupe_list").height()})
+            $(".groupe_list").offset({"top": $(".pagination").offset().top + $(".pagination").height() - $(".groupe_list").height()})
         }
         else {
             $(".groupe_list").css({"position": "fixed", "top": "0"});
