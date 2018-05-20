@@ -89,6 +89,7 @@ class ModelCatalogProduct extends Model {
 				$colors = array();
 				$model = array();
 				$priceMax = '';
+				$priceMin = '';
 				$Size = array();
 
 				$filters = explode('_', $data['filter_filter']);
@@ -103,8 +104,8 @@ class ModelCatalogProduct extends Model {
 
 				if(!empty($colors)) $sql .= " AND p.color IN ('" . implode("','", $colors) . "')";
 				if(!empty($model)) $sql .= " AND m.name IN ('" . implode("','", $model) . "')";
-				if(!empty($priceMax)) $sql .= " AND p.price < $priceMax";
-				if(!empty($priceMin)) $sql .= " AND p.price > $priceMin";
+				if(!empty($priceMax)) $sql .= " AND p.price <= $priceMax";
+				if(!empty($priceMin)) $sql .= " AND p.price >= $priceMin";
 			}
 		}
 

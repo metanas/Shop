@@ -125,20 +125,7 @@ class ModelCatalogProduct extends Model {
 
 		return $product_id;
 	}
-    function dd($var, $pretty = false)
-    {
-        $backtrace = debug_backtrace();
-        echo "\n<pre>\n";
-        if (isset($backtrace[0]['file'])) {
-            echo $backtrace[0]['file'] . "\n\n";
-        }
-        echo "Type: " . gettype($var) . "\n";
-        echo "Time: " . date('c') . "\n";
-        echo "---------------------------------\n\n";
-        ($pretty) ? print_r($var) : var_dump($var);
-        echo "</pre>\n";
-        die;
-    }
+
 	public function editProduct($product_id, $data) {
 		$this->db->query("UPDATE " . DB_PREFIX . "product SET model = '" . $this->db->escape((string)$data['model']) . "', sku = '" . $this->db->escape((string)$data['sku']) . "', upc = '" . $this->db->escape((string)$data['upc']) . "', ean = '" . $this->db->escape((string)$data['ean']) . "', jan = '" . $this->db->escape((string)$data['jan']) . "', isbn = '" . $this->db->escape((string)$data['isbn']) . "', color = '" . $this->db->escape((string)$data['color']) . "', location = '" . $this->db->escape((string)$data['location']) . "', quantity = '" . (int)$data['quantity'] . "', minimum = '" . (int)$data['minimum'] . "', subtract = '" . (int)$data['subtract'] . "', stock_status_id = '" . (int)$data['stock_status_id'] . "', date_available = '" . $this->db->escape((string)$data['date_available']) . "', manufacturer_id = '" . (int)$data['manufacturer_id'] . "', shipping = '" . (int)$data['shipping'] . "', price = '" . (float)$data['price'] . "', points = '" . (int)$data['points'] . "', weight = '" . (float)$data['weight'] . "', weight_class_id = '" . (int)$data['weight_class_id'] . "', length = '" . (float)$data['length'] . "', width = '" . (float)$data['width'] . "', height = '" . (float)$data['height'] . "', length_class_id = '" . (int)$data['length_class_id'] . "', status = '" . (int)$data['status'] . "', tax_class_id = '" . (int)$data['tax_class_id'] . "', sort_order = '" . (int)$data['sort_order'] . "', date_modified = NOW() WHERE product_id = '" . (int)$product_id . "'");
 
