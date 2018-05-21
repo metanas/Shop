@@ -138,7 +138,7 @@ class ControllerCommonCart extends Controller
         $data['profile'] = $this->model_tool_image->resize("catalog/user.png", 100, 100);
         $data['favoris'] = $this->model_tool_image->resize("catalog/favoris.png", 100, 100);
         $data['panier'] = $this->model_tool_image->resize("catalog/checkout.png", 100, 100);
-
+        $data['count_products'] = $this->cart->countProducts();
         $data['logged'] = $this->customer->isLogged();
         $data['register'] = $this->url->link('account/register', 'language=' . $this->config->get('config_language'));
         $data['cart'] = $this->url->link('checkout/cart', 'language=' . $this->config->get('config_language'));

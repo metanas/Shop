@@ -21,11 +21,13 @@
     {% endif %}
     <script src="catalog/view/javascript/jquery/jquery-3.3.1.min.js" type="text/javascript"></script>
     <script src="catalog/view/javascript/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.0.0/bootstrap-slider.min.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.0.0/bootstrap-slider.min.js"
+            type="text/javascript"></script>
     <link href="catalog/view/javascript/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
     <link href="catalog/view/javascript/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen"/>
     <link href="//fonts.googleapis.com/css?family=Open+Sans:400,400i,300,700" rel="stylesheet" type="text/css"/>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.0.0/css/bootstrap-slider.min.css" rel="stylesheet" type="text/css"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.0.0/css/bootstrap-slider.min.css"
+          rel="stylesheet" type="text/css"/>
     <link href="catalog/view/theme/default/stylesheet/stylesheet.css" rel="stylesheet">
     <link href="catalog/view/theme/default/stylesheet/loading.css" rel="stylesheet">
     {% for style in styles %}
@@ -46,22 +48,28 @@
 </head>
 <body>
 <nav id="top">
+    <div class="container">
         <div class="col-sm-4 col-xs-4">
-            <div class="col-sm-12" style="margin-top: 5px">
+            <div class="col-sm-12" style="margin-top: 5px;margin-left: -35px">
                 <p>SATISFAIT OU REMBOURSE SOUS 50 JOURS</p>
             </div>
         </div>
         <div class="col-md-4" align="center" style="margin-top: 5px">
             <p>{{ text_expedition }}</p>
         </div>
-    <div class="col-md-4" align="right" style="margin-top: 5px"><p>{{ text_service }}</p></div>
+        <div class="col-md-4" align="right" style="margin-top: 5px"><p>{{ text_service }}</p></div>
+    </div>
 </nav>
 <header>
     <div class="container">
         <div class="row">
-            <div class="col-sm-5 col-xs-12" style="margin-top:17px">
-                {{ menu }}
-                {{ search }}
+            <div class="col-sm-5 col-xs-12" style="margin-left: -15px">
+                <div class="col-sm-12" style="margin-bottom: -5px">
+                    {{ search }}
+                </div>
+                <div class="col-sm-12">
+                    {{ menu }}
+                </div>
             </div>
             <div class="col-sm-2 col-xs-12">
                 <div id="logo" align="center">{% if logo %}<a href="{{ home }}"><img src="{{ logo }}" title="{{ name }}"
