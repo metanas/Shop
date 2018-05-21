@@ -459,6 +459,7 @@
                         url: 'index.php?route=checkout/cart/info',
                         dataType: 'html',
                         success: function (json) {
+                            $('.quantity').css("display", 'block');
                             $('.quantity').empty();
                             $('.quantity').html(json);
                         },
