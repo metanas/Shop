@@ -236,9 +236,11 @@ class ControllerProductCategory extends Controller
                         $favorite = $this->model_tool_image->resize("favoriteAdded.png", 100, 100);
                     } else $favorite = $this->model_tool_image->resize("favorite.png", 100, 100);
                 } else {
-                    if (in_array($result['product_id'], $this->session->data['wishlist'])) {
-                        $favorite = $this->model_tool_image->resize("favoriteAdded.png", 100, 100);
-                    } else $favorite = $this->model_tool_image->resize("favorite.png", 100, 100);
+                    if(isset($this->session->data['wishlist']))
+                        if (in_array($result['product_id'], $this->session->data['wishlist'])) {
+                            $favorite = $this->model_tool_image->resize("favoriteAdded.png", 100, 100);
+                        } else $favorite = $this->model_tool_image->resize("favorite.png", 100, 100);
+                    else $favorite = $this->model_tool_image->resize("favorite.png", 100, 100);
                 }
 
                 $data['products'][] = array(

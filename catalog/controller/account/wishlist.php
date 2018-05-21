@@ -115,7 +115,7 @@ class ControllerAccountWishList extends Controller {
 
 	public function add() {
 		$this->load->language('account/wishlist');
-        die('ssssssssssssssssss');
+
 		$json = array();
 
 		if (isset($this->request->post['product_id'])) {
@@ -125,6 +125,7 @@ class ControllerAccountWishList extends Controller {
 		}
 
 		$this->load->model('catalog/product');
+        $this->load->model('tool/image');
 
 		$product_info = $this->model_catalog_product->getProduct($product_id);
 
@@ -134,6 +135,8 @@ class ControllerAccountWishList extends Controller {
 				$this->load->model('account/wishlist');
 
 				$this->model_account_wishlist->addWishlist($this->request->post['product_id']);
+
+				$json['favorite'] = ($this->model_account_wishlist->getTotalWishlist() == 0) ? $this->model_tool_image->resize("favorite.png", 100, 100): $this->model_tool_image->resize("favoriteAdded.png", 100, 100);
 
 				$json['success'] = sprintf($this->language->get('text_success'), $this->url->link('product/product', 'language=' . $this->config->get('config_language') . '&product_id=' . (int)$this->request->post['product_id']), $product_info['name'], $this->url->link('account/wishlist', 'language=' . $this->config->get('config_language')));
 
@@ -146,6 +149,8 @@ class ControllerAccountWishList extends Controller {
 				$this->session->data['wishlist'][] = $this->request->post['product_id'];
 
 				$this->session->data['wishlist'] = array_unique($this->session->data['wishlist']);
+
+                $json['favorite'] = $this->model_tool_image->resize("favoriteAdded.png", 100, 100);
 
 				$json['success'] = sprintf($this->language->get('text_login'), $this->url->link('account/login', 'language=' . $this->config->get('config_language')), $this->url->link('account/register', 'language=' . $this->config->get('config_language')), $this->url->link('product/product', 'language=' . $this->config->get('config_language') . '&product_id=' . (int)$this->request->post['product_id']), $product_info['name'], $this->url->link('account/wishlist', 'language=' . $this->config->get('config_language')));
 
@@ -169,6 +174,7 @@ class ControllerAccountWishList extends Controller {
         }
 
         $this->load->model('catalog/product');
+        $this->load->model('tool/image');
 
         $product_info = $this->model_catalog_product->getProduct($product_id);
 
@@ -178,6 +184,8 @@ class ControllerAccountWishList extends Controller {
                 $this->load->model('account/wishlist');
 
                 $this->model_account_wishlist->deleteWishlist($this->request->post['product_id']);
+
+                $json['favorite'] = ($this->model_account_wishlist->getTotalWishlist() == 0) ? $this->model_tool_image->resize("favorite.png", 100, 100): $this->model_tool_image->resize("favoriteAdded.png", 100, 100);
 
                 $json['success'] = sprintf($this->language->get('text_success'), $this->url->link('product/product', 'language=' . $this->config->get('config_language') . '&product_id=' . (int)$this->request->post['product_id']), $product_info['name'], $this->url->link('account/wishlist', 'language=' . $this->config->get('config_language')));
 
@@ -191,9 +199,11 @@ class ControllerAccountWishList extends Controller {
                     unset($this->session->data['wishlist'][$key]);
                 }
 
-                $this->session->data['wishlist'] = array_unique($this->session->data['wishlist']);
+                $json['favorite'] = (empty($this->session->data['wishlist'])) ? $this->model_tool_image->resize("favorite.png", 100, 100): $this->model_tool_image->resize("favoriteAdded.png", 100, 100);
 
                 $json['success'] = sprintf($this->language->get('text_login'), $this->url->link('account/login', 'language=' . $this->config->get('config_language')), $this->url->link('account/register', 'language=' . $this->config->get('config_language')), $this->url->link('product/product', 'language=' . $this->config->get('config_language') . '&product_id=' . (int)$this->request->post['product_id']), $product_info['name'], $this->url->link('account/wishlist', 'language=' . $this->config->get('config_language')));
+
+                $this->session->data['wishlist'] = array_unique($this->session->data['wishlist']);
 
                 $json['total'] = sprintf($this->language->get('text_wishlist'), (isset($this->session->data['wishlist']) ? count($this->session->data['wishlist']) : 0));
             }

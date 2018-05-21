@@ -279,7 +279,7 @@ var voucher = {
 
 var wishlist = {
 	'add': function(product_id) {
-		$.ajax({
+        $.ajax({
 			url: 'index.php?route=account/wishlist/add',
 			type: 'post',
 			data: 'product_id=' + product_id,
@@ -307,10 +307,22 @@ var wishlist = {
 			}
 		});
 	},
-	'remove': function() {
-
-	}
-}
+    'remove': function(product_id) {
+		debugger;
+        $.ajax({
+            url: 'index.php?route=account/wishlist/remove',
+            type: 'post',
+            data: 'product_id=' + product_id,
+            dataType: 'json',
+            success: function (json) {debugger;
+                console.log("success")
+            },
+            error: function (s,d,f) {debugger;
+                console.log('error',s,d,f);
+            }
+        });
+    },
+};
 
 var compare = {
 	'add': function(product_id) {

@@ -115,11 +115,13 @@ class ControllerCommonCart extends Controller
 
         $this->load->model('account/wishlist');
 
+        // favorite Product
         if($this->model_account_wishlist->getTotalWishlist() == 0 && empty($this->session->data['wishlist']))
             $data['favoris'] = $this->model_tool_image->resize("favorite.png", 100, 100);
         else{
             $data['favoris'] = $this->model_tool_image->resize("favoriteAdded.png", 100, 100);
         }
+
         // Gift Voucher
         $data['vouchers'] = array();
 
