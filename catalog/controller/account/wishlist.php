@@ -115,7 +115,7 @@ class ControllerAccountWishList extends Controller {
 
 	public function add() {
 		$this->load->language('account/wishlist');
-
+        die('ssssssssssssssssss');
 		$json = array();
 
 		if (isset($this->request->post['product_id'])) {
@@ -156,4 +156,50 @@ class ControllerAccountWishList extends Controller {
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
 	}
+
+	public function remove(){
+        $this->load->language('account/wishlist');
+
+        $json = array();
+
+        if (isset($this->request->post['product_id'])) {
+            $product_id = $this->request->post['product_id'];
+        } else {
+            $product_id = 0;
+        }
+
+        $this->load->model('catalog/product');
+
+        $product_info = $this->model_catalog_product->getProduct($product_id);
+
+        if ($product_info) {
+            if ($this->customer->isLogged()) {
+                // Edit customers cart
+                $this->load->model('account/wishlist');
+
+                $this->model_account_wishlist->deleteWishlist($this->request->post['product_id']);
+
+                $json['success'] = sprintf($this->language->get('text_success'), $this->url->link('product/product', 'language=' . $this->config->get('config_language') . '&product_id=' . (int)$this->request->post['product_id']), $product_info['name'], $this->url->link('account/wishlist', 'language=' . $this->config->get('config_language')));
+
+                $json['total'] = sprintf($this->language->get('text_wishlist'), $this->model_account_wishlist->getTotalWishlist());
+            } else {
+                if (!isset($this->session->data['wishlist'])) {
+                    $this->session->data['wishlist'] = array();
+                }
+
+                if (($key = array_search($this->request->post['product_id'] , $this->session->data['wishlist'])) !== false) {
+                    unset($this->session->data['wishlist'][$key]);
+                }
+
+                $this->session->data['wishlist'] = array_unique($this->session->data['wishlist']);
+
+                $json['success'] = sprintf($this->language->get('text_login'), $this->url->link('account/login', 'language=' . $this->config->get('config_language')), $this->url->link('account/register', 'language=' . $this->config->get('config_language')), $this->url->link('product/product', 'language=' . $this->config->get('config_language') . '&product_id=' . (int)$this->request->post['product_id']), $product_info['name'], $this->url->link('account/wishlist', 'language=' . $this->config->get('config_language')));
+
+                $json['total'] = sprintf($this->language->get('text_wishlist'), (isset($this->session->data['wishlist']) ? count($this->session->data['wishlist']) : 0));
+            }
+        }
+
+        $this->response->addHeader('Content-Type: application/json');
+        $this->response->setOutput(json_encode($json));
+    }
 }

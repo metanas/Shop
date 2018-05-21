@@ -325,8 +325,19 @@ var wishlist = {
 			}
 		});
 	},
-	'remove': function() {
-
+	'remove': function(product_id) {
+		$.ajax({
+            url: 'index.php?route=account/wishlist/remove',
+            type: 'post',
+            data: 'product_id=' + product_id,
+            dataType: 'json',
+			success: function (json) {
+				console.log("success")
+            },
+            error: function (s,d,f) {
+				console.log('error',s,d,f);
+            }
+		});
 	}
 };
 
