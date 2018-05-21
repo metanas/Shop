@@ -1491,6 +1491,7 @@ ul {
 .c_price {
     right: 0;
     bottom: 0;
+    font-weight: bold;
 }
 
 .c_info {
@@ -1559,4 +1560,12 @@ ul {
 .cart-thumb{
     height: 130px;
     border: 0;
+}
+.w50{
+    width: 50px;
+    padding: 2px;
+    border-width: 2px;
+    border-color: black;
+    border-radius: 2px;
+    margin: 25px 0 0 25px;
 }

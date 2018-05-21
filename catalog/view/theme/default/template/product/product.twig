@@ -33,15 +33,15 @@
 
                         </div>
                     {% endif %}
-                    <ul class="nav nav-tabs">
-                        <li class="active"><a href="#tab-description" data-toggle="tab">{{ tab_description }}</a></li>
-                        {% if attribute_groups %}
-                            <li><a href="#tab-specification" data-toggle="tab">{{ tab_attribute }}</a></li>
-                        {% endif %}
-                        {% if review_status %}
-                            <li><a href="#tab-review" data-toggle="tab">{{ tab_review }}</a></li>
-                        {% endif %}
-                    </ul>
+                    {#<ul class="nav nav-tabs">#}
+                    {#<li class="active"><a href="#tab-description" data-toggle="tab">{{ tab_description }}</a></li>#}
+                    {#{% if attribute_groups %}#}
+                    {#<li><a href="#tab-specification" data-toggle="tab">{{ tab_attribute }}</a></li>#}
+                    {#{% endif %}#}
+                    {#{% if review_status %}#}
+                    {#<li><a href="#tab-review" data-toggle="tab">{{ tab_review }}</a></li>#}
+                    {#{% endif %}#}
+                    {#</ul>#}
                     <div class="tab-content">
                         <div class="tab-pane active" id="tab-description">{{ description }}</div>
                         {% if attribute_groups %}
@@ -158,8 +158,9 @@
                     {% endif %}
 
                     <div id="samecolor">
+                        <a> <img id="main_thumb" style="width:74px; border-bottom: 2px black solid" src="{{ thumb }}" alt="{{ popup }}"/></a>
                         {% for similar in product_similar %}
-                            <a href="{{ similar.href }}" ><img class="similar_img" src="{{ similar.image }}" alt="{{ similar.popup }}" data-color="{{ similar.color }}" data-price="{{ similar.price }}"></img></a>
+                            <a href="{{ similar.href }}" ><img class="similar_img" src="{{ similar.image }}" alt="{{ similar.popup }}" data-color="{{ similar.color }}" data-price="{{ similar.price }}"/></a>
 
                         {% endfor %}
                     </div>
@@ -181,7 +182,7 @@
                                     </div>
                                 {% endif %}
                                 {% if option.type == 'select' %}
-                                    <div class="form-group{% if option.required %} required {% endif %}">
+                                    <div id="myBtn" class="form-group{% if option.required %} required {% endif %}">
                                         <label class="control-label" for="input-option{{ option.product_option_id }}">{{ option.name }}</label> <select name="option[{{ option.product_option_id }}]" id="input-option{{ option.product_option_id }}" class="form-control taille-btn"><!-- {{ text_select }} --><option value="">Votre taille</option>
                                             {% for option_value in option.product_option_value %}
                                                 <option value="{{ option_value.product_option_value_id }}">{{ option_value.name }}
@@ -318,6 +319,26 @@
 
 
                 </div>
+            </div>
+            <div class="col-md-12" style="background-color: #f7f7f7">
+                <div class="col-md-7">
+                    <br/>
+                    <br/>
+                    <span style="font-weight:bold; border-bottom: 2px #ff1b5e solid; margin: 0 0 20px 90px;">DESCRIPTION</span><br/><br/><br/>
+                    <span style="font-weight:bold; margin: 0 0 20px 90px">MATIERE ET ENTRETIEN</span><br/>
+                    <span style="font-weight:bold; margin: 0 0 20px 90px">Dessus / Tige : </span><br/>
+                    <span style="font-weight:bold; margin: 0 0 20px 90px">Doublure : </span><br/>
+                    <span style="font-weight:bold; margin: 0 0 20px 90px">Semelle de propreté : </span><br/>
+                    <span style="font-weight:bold; margin: 0 0 20px 90px">Semelle d'usure : </span><br/>
+                    <span style="font-weight:bold; margin: 0 0 20px 90px">Epesseure de la doublure : </span><br/><br/><br/>
+                    <span style="font-weight:bold; margin: 0 0 20px 90px">DETAILS DU PRODUIT</span><br/>
+                    <span style="font-weight:bold; margin: 0 0 20px 90px">Bout de la chaussure</span><br/>
+                    <span style="font-weight:bold; margin: 0 0 20px 90px">Forme du talon : </span><br/>
+                    <span style="font-weight:bold; margin: 0 0 20px 90px">Détails : </span><br/>
+                    <span style="font-weight:bold; margin: 0 0 20px 90px">Fermeture : </span><br/>
+                    <span style="font-weight:bold; margin: 0 0 20px 90px">Référence : </span><br/>
+                </div>
+                <div class="col-md-5"><img style="" src="{{ popup }}" alt="{{ heading_title }}"/></div>
             </div>
             {% if products %}
                 <h3>{{ text_related }}</h3>
@@ -619,6 +640,7 @@
 <script>
 
   var img = document.getElementById('main_img');
+  var main_thumb = document.getElementById('main_thumb');
   var default_src = img.src;
 
   color_text = document.getElementById('color_text');
@@ -634,8 +656,13 @@
         color_text.innerHTML = $(elm).attr("data-color");
         price.innerHTML = $(elm).attr("data-price");
         img.src = elm.alt;
+        main_thumb.style.borderBottom = "0";
+        elm.style.borderBottom = "2px black solid";
+
         };
         elm.onmouseout = function( e ){
+        elm.style.borderBottom = "0";
+        main_thumb.style.borderBottom = "2px black solid";
         color_text.innerHTML = default_color;
         price.innerHTML = default_price;
         img.src = default_src;
