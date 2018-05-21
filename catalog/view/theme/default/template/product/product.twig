@@ -1,224 +1,20 @@
 {{ header }}
 <div class="hidden-md-dowm" style="height:15px; background-color: #f7f7f7; width:100%"></div>
-<div id="product-product" class="container" >  
-  <div class="row">{{ column_left }}
-    {% if column_left and column_right %}
-      {% set class = 'col-sm-6' %}
-    {% elseif column_left or column_right %}
-      {% set class = 'col-sm-9' %}
-    {% else %}
-      {% set class = 'col-sm-12' %}
-    {% endif %}
-    <div id="content" class="{{ class }}">{{ content_top }}
-      <div class="row"> {% if column_left or column_right %}
-          {% set class = 'col-sm-6' %}
-        {% else %}
-          {% set class = 'col-sm-7' %}
-        {% endif %}
-        
-        <div class="{{ class }}"> {% if thumb or images %}
-            <div class="thumbnails-hover">
-              {% if images %}
-              <ul class="verticalim col-sm-2 hidden-sm-dowm">
-                <li class="image-additional"><a class="thumbnail" href="{{ popup }}" title="{{ heading_title }}"> <img src="{{ thumb }}" title="{{ heading_title }}" alt="{{ popup }}"/></a></li>
-                {% for image in images %}
-                  <li class="image-additional"><a class="thumbnail" href="{{ image.popup }}" title="{{ heading_title }}"> <img src="{{ image.thumb }}" title="{{ heading_title }}" alt="{{ image.popup }}"/></a></li>
-                {% endfor %}
-              </ul>
-              {% endif %}
-              {% if thumb %}
-                <div class="col-sm-10"><a id="main_img_cont" style="border:0px" class="thumbnail previeus-hover" href="{{ popup }}" title="{{ heading_title }}"><img id="main_img" src="{{ popup }}" alt="{{ heading_title }}"/></a></div>
-              {% endif %}
-              
-            </div>
-          {% endif %}
-          {#<ul class="nav nav-tabs">#}
-                {#<li class="active"><a href="#tab-description" data-toggle="tab">{{ tab_description }}</a></li>#}
-                {#{% if attribute_groups %}#}
-                    {#<li><a href="#tab-specification" data-toggle="tab">{{ tab_attribute }}</a></li>#}
-                {#{% endif %}#}
-                {#{% if review_status %}#}
-                    {#<li><a href="#tab-review" data-toggle="tab">{{ tab_review }}</a></li>#}
-                {#{% endif %}#}
-            {#</ul>#}
-          <div class="tab-content">
-            <div class="tab-pane active" id="tab-description">{{ description }}</div>
-            {% if attribute_groups %}
-              <div class="tab-pane" id="tab-specification">
-                <table class="table table-bordered">
-                  {% for attribute_group in attribute_groups %}
-                    <thead>
-                      <tr>
-                        <td colspan="2"><strong>{{ attribute_group.name }}</strong></td>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {% for attribute in attribute_group.attribute %}
-                        <tr>
-                          <td>{{ attribute.name }}</td>
-                          <td>{{ attribute.text }}</td>
-                        </tr>
-                      {% endfor %}
-                    </tbody>
-                  {% endfor %}
-                </table>
-              </div>
-            {% endif %}
-            {% if review_status %}
-              <div class="tab-pane" id="tab-review">
-                <form class="form-horizontal" id="form-review">
-                  <div id="review"></div>
-                  <h2>{{ text_write }}</h2>
-                  {% if review_guest %}
-                    <div class="form-group required">
-                      <div class="col-sm-12">
-                        <label class="control-label" for="input-name">{{ entry_name }}</label> <input type="text" name="name" value="{{ customer_name }}" id="input-name" class="form-control"/>
-                      </div>
-                    </div>
-                    <div class="form-group required">
-                      <div class="col-sm-12">
-                        <label class="control-label" for="input-review">{{ entry_review }}</label> <textarea name="text" rows="5" id="input-review" class="form-control"></textarea>
-                        <div class="help-block">{{ text_note }}</div>
-                      </div>
-                    </div>
-                    <div class="form-group required">
-                      <div class="col-sm-12">
-                        <label class="control-label">{{ entry_rating }}</label>
-                        &nbsp;&nbsp;&nbsp; {{ entry_bad }}&nbsp;
-                        <input type="radio" name="rating" value="1"/>
-                        &nbsp;
-                        <input type="radio" name="rating" value="2"/>
-                        &nbsp;
-                        <input type="radio" name="rating" value="3"/>
-                        &nbsp;
-                        <input type="radio" name="rating" value="4"/>
-                        &nbsp;
-                        <input type="radio" name="rating" value="5"/>
-                        &nbsp;{{ entry_good }}</div>
-                    </div>
-                    {{ captcha }}
-                    <div class="buttons clearfix">
-                      <div class="pull-right">
-                        <button type="button" id="button-review" data-loading-text="{{ text_loading }}" class="btn btn-primary">{{ button_continue }}</button>
-                      </div>
-                    </div>
-                  {% else %}
-                    {{ text_login }}
-                  {% endif %}
-                </form>
-              </div>
-            {% endif %}</div>
-        </div>
-        {% if column_left or column_right %}
-          {% set class = 'col-sm-6' %}
+<div id="product-product" class="container" >
+
+    <div class="row">{{ column_left }}
+        {% if column_left and column_right %}
+            {% set class = 'col-sm-6' %}
+        {% elseif column_left or column_right %}
+            {% set class = 'col-sm-9' %}
         {% else %}
             {% set class = 'col-sm-12' %}
         {% endif %}
-        <div class="{{ class }}">
-          
-         <!--  <h1>{{ heading_title }}</h1> -->
-
-          <img src="{{ manufacturer_img }}">
-          <ul class="list-unstyled">
-            <li><h3>{{ model }} - {{ category }}</h3></li>
-            {% if reward %}
-              <li>{{ text_reward }} {{ reward }}</li>
-            {% endif %}
-            <!-- <li>{{ text_stock }} {{ stock }}</li> -->
-          </ul>
-          {% if price %}
-            <ul class="list-unstyled">
-              {% if not special %}
-                <li>
-                  <h4 id="price_tag" class="prix-product-page">{{ price }}</h4>
-                </li>
-              {% else %}
-                <li><span style="text-decoration: line-through;">{{ price }}</span></li>
-                <li>
-                  <h2>{{ special }}</h2>
-                </li>
-              {% endif %}
-              <!-- {% if tax %}
-                <li>{{ text_tax }} {{ tax }}</li>
-              {% endif %} -->
-              {% if points %}
-                <li>{{ text_points }} {{ points }}</li>
-              {% endif %}
-              {% if discounts %}
-                <li>
-                  <hr>
-                </li>
-                {% for discount in discounts %}
-                  <li>{{ discount.quantity }}{{ text_discount }}{{ discount.price }}</li>
-                {% endfor %}
-              {% endif %}
-                  <li>Couleur : <b id="color_text">{{ color }}</b></li>
-            </ul>
-          {% endif %}
-
-          <div id="samecolor">
-            <a> <img id="main_thumb" style="width:74px; border-bottom: 2px black solid" src="{{ thumb }}" alt="{{ popup }}"/></a>
-              {% for similar in product_similar %}
-                <a href="{{ similar.href }}" ><img class="similar_img" src="{{ similar.image }}" alt="{{ similar.popup }}" data-color="{{ similar.color }}" data-price="{{ similar.price }}"/></a>
-                
-              {% endfor %}
-          </div>
-          
-          <div id="product"> {% if options %}
-              <hr>
-              <!-- <h3>{{ text_option }}</h3> -->
-              {% for option in options %}
-                  {% if option.type == 'Taille' %}
-                      <div class="form-group{% if option.required %} required {% endif %}">
-                          <label class="control-label" for="input-option{{ option.product_option_id }}">{{ option.name }}</label> <select name="option[{{ option.product_option_id }}]" id="input-option{{ option.product_option_id }}" class="form-control"><!-- {{ text_select }} --><option value="">Votre taille</option>
-                              {% for option_value in option.product_option_value %}
-                                  <option value="{{ option_value.product_option_value_id }}">{{ option_value.name }}
-                                      {% if option_value.price %}
-                                          ({{ option_value.price_prefix }}{{ option_value.price }})
-                                      {% endif %} </option>
-                              {% endfor %}
-                          </select>
-                      </div>
-                  {% endif %}
-                {% if option.type == 'select' %}
-                  <div id="myBtn" class="form-group{% if option.required %} required {% endif %}">
-                    <label class="control-label" for="input-option{{ option.product_option_id }}">{{ option.name }}</label> <select name="option[{{ option.product_option_id }}]" id="input-option{{ option.product_option_id }}" class="form-control taille-btn"><!-- {{ text_select }} --><option value="">Votre taille</option>
-                      {% for option_value in option.product_option_value %}
-                        <option value="{{ option_value.product_option_value_id }}">{{ option_value.name }}
-                          {% if option_value.price %}
-                            ({{ option_value.price_prefix }}{{ option_value.price }})
-                          {% endif %} </option>
-                      {% endfor %}
-                    </select>
-                  </div>
-                    <!-- The Modal -->
-                    <div id="myModal" class="modal">
-
-                        <!-- Modal content -->
-                        <div class="modal-content col-md-6 col-md-offset-6 col-sm-12">
-                            <span class="close">&times;</span>
-                            {% for option_value in option.product_option_value %}
-                                <button value="{{ option_value.product_option_value_id }}">{{ option_value.name }}
-                                </button>
-                            {% endfor %}
-                        </div>
-
-                    </div>
-                {% endif %}
-                {% if option.type == 'radio' %}
-                  <div class="form-group{% if option.required %} required {% endif %}">
-                    <label class="control-label">{{ option.name }}</label>
-                    <div id="input-option{{ option.product_option_id }}"> {% for option_value in option.product_option_value %}
-                        <div class="radio">
-                          <label> <input type="radio" name="option[{{ option.product_option_id }}]" value="{{ option_value.product_option_value_id }}"/>
-                            {% if option_value.image %} <img src="{{ option_value.image }}" alt="{{ option_value.name }} {% if option_value.price %} {{ option_value.price_prefix }} {{ option_value.price }} {% endif %}" class="img-thumbnail"/> {% endif %}
-                            {{ option_value.name }}
-                            {% if option_value.price %}
-                              ({{ option_value.price_prefix }}{{ option_value.price }})
-                            {% endif %} </label>
-                        </div>
-                      {% endfor %} </div>
-                  </div>
+        <div id="content" class="{{ class }}">{{ content_top }}
+            <div class="row"> {% if column_left or column_right %}
+                    {% set class = 'col-sm-6' %}
+                {% else %}
+                    {% set class = 'col-sm-7' %}
                 {% endif %}
 
                 <div class="{{ class }}"> {% if thumb or images %}
@@ -237,15 +33,15 @@
 
                         </div>
                     {% endif %}
-                    <ul class="nav nav-tabs">
-                        <li class="active"><a href="#tab-description" data-toggle="tab">{{ tab_description }}</a></li>
-                        {% if attribute_groups %}
-                            <li><a href="#tab-specification" data-toggle="tab">{{ tab_attribute }}</a></li>
-                        {% endif %}
-                        {% if review_status %}
-                            <li><a href="#tab-review" data-toggle="tab">{{ tab_review }}</a></li>
-                        {% endif %}
-                    </ul>
+                    {#<ul class="nav nav-tabs">#}
+                    {#<li class="active"><a href="#tab-description" data-toggle="tab">{{ tab_description }}</a></li>#}
+                    {#{% if attribute_groups %}#}
+                    {#<li><a href="#tab-specification" data-toggle="tab">{{ tab_attribute }}</a></li>#}
+                    {#{% endif %}#}
+                    {#{% if review_status %}#}
+                    {#<li><a href="#tab-review" data-toggle="tab">{{ tab_review }}</a></li>#}
+                    {#{% endif %}#}
+                    {#</ul>#}
                     <div class="tab-content">
                         <div class="tab-pane active" id="tab-description">{{ description }}</div>
                         {% if attribute_groups %}
@@ -362,8 +158,9 @@
                     {% endif %}
 
                     <div id="samecolor">
+                        <a> <img id="main_thumb" style="width:74px; border-bottom: 2px black solid" src="{{ thumb }}" alt="{{ popup }}"/></a>
                         {% for similar in product_similar %}
-                            <a href="{{ similar.href }}" ><img class="similar_img" src="{{ similar.image }}" alt="{{ similar.popup }}" data-color="{{ similar.color }}" data-price="{{ similar.price }}"></img></a>
+                            <a href="{{ similar.href }}" ><img class="similar_img" src="{{ similar.image }}" alt="{{ similar.popup }}" data-color="{{ similar.color }}" data-price="{{ similar.price }}"/></a>
 
                         {% endfor %}
                     </div>
@@ -385,7 +182,7 @@
                                     </div>
                                 {% endif %}
                                 {% if option.type == 'select' %}
-                                    <div class="form-group{% if option.required %} required {% endif %}">
+                                    <div id="myBtn" class="form-group{% if option.required %} required {% endif %}">
                                         <label class="control-label" for="input-option{{ option.product_option_id }}">{{ option.name }}</label> <select name="option[{{ option.product_option_id }}]" id="input-option{{ option.product_option_id }}" class="form-control taille-btn"><!-- {{ text_select }} --><option value="">Votre taille</option>
                                             {% for option_value in option.product_option_value %}
                                                 <option value="{{ option_value.product_option_value_id }}">{{ option_value.name }}
@@ -520,73 +317,28 @@
                             <div class="alert alert-info"><i class="fa fa-info-circle"></i> {{ text_minimum }}</div>
                         {% endif %}</div>
 
-              <!-- <label class="control-label" for="input-quantity">{{ entry_qty }}</label> <input type="text" name="quantity" value="{{ minimum }}" size="2" id="input-quantity" class="form-control"/> <input type="hidden" name="product_id" value="{{ product_id }}"/>
-              <br/> -->
-              <button type="button" data-toggle="tooltip" class="btn btn-default btn-wish" title="{{ button_wishlist }}" onclick="wishlist.add('{{ product_id }}');" class="wish-list"><i class="fa fa-heart"></i> Ajouter à mes préférés</button>
-            <!-- <button type="button" data-toggle="tooltip" class="btn btn-default" title="{{ button_compare }}" onclick="compare.add('{{ product_id }}');"><i class="fa fa-exchange"></i></button> -->
-              <br/>
-              <button type="button" id="button-cart" data-loading-text="{{ text_loading }}" class="btn btn-primary btn-lg btn-block btn-pink">{{ button_cart }}</button>
-            </div>
-            {% if minimum > 1 %}
-              <div class="alert alert-info"><i class="fa fa-info-circle"></i> {{ text_minimum }}</div>
-            {% endif %}</div>
 
-
-        </div>
-      </div>
-        <div class="col-md-12" style="background-color: #f7f7f7">
-            <div class="col-md-7">
-                <br/>
-                <br/>
-                <span style="font-weight:bold; border-bottom: 2px #ff1b5e solid; margin: 0 0 20px 90px;">DESCRIPTION</span><br/><br/><br/>
-                <span style="font-weight:bold; margin: 0 0 20px 90px">MATIERE ET ENTRETIEN</span><br/>
-                <span style="font-weight:bold; margin: 0 0 20px 90px">Dessus / Tige : </span><br/>
-                <span style="font-weight:bold; margin: 0 0 20px 90px">Doublure : </span><br/>
-                <span style="font-weight:bold; margin: 0 0 20px 90px">Semelle de propreté : </span><br/>
-                <span style="font-weight:bold; margin: 0 0 20px 90px">Semelle d'usure : </span><br/>
-                <span style="font-weight:bold; margin: 0 0 20px 90px">Epesseure de la doublure : </span><br/><br/><br/>
-                <span style="font-weight:bold; margin: 0 0 20px 90px">DETAILS DU PRODUIT</span><br/>
-                <span style="font-weight:bold; margin: 0 0 20px 90px">Bout de la chaussure</span><br/>
-                <span style="font-weight:bold; margin: 0 0 20px 90px">Forme du talon : </span><br/>
-                <span style="font-weight:bold; margin: 0 0 20px 90px">Détails : </span><br/>
-                <span style="font-weight:bold; margin: 0 0 20px 90px">Fermeture : </span><br/>
-                <span style="font-weight:bold; margin: 0 0 20px 90px">Référence : </span><br/>
-            </div>
-            <div class="col-md-5"><img style="" src="{{ popup }}" alt="{{ heading_title }}"/></div>
-        </div>
-      {% if products %}
-        <h3>{{ text_related }}</h3>
-        <div class="row"> {% set i = 0 %}
-          {% for product in products %}
-            {% if column_left and column_right %}
-              {% set class = 'col-xs-8 col-sm-6' %}
-            {% elseif column_left or column_right %}
-              {% set class = 'col-xs-6 col-md-4' %}
-            {% else %}
-              {% set class = 'col-xs-6 col-sm-3' %}
-            {% endif %}
-            <div class="{{ class }}">
-              <div class="product-thumb transition">
-                <div class="image"><a href="{{ product.href }}"><img src="{{ product.thumb }}" alt="{{ product.name }}" title="{{ product.name }}" class="img-responsive"/></a></div>
-                <div class="caption">
-                  <h4><a href="{{ product.href }}">{{ product.name }}</a></h4>
-                  <p>{{ product.description }}</p>
-                  {% if product.rating %}
-                    <div class="rating"> {% for j in 1..5 %}
-                        {% if product.rating < j %} <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span> {% else %} <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i><i class="fa fa-star-o fa-stack-1x"></i></span> {% endif %}
-                      {% endfor %} </div>
-                  {% endif %}
-                  {% if product.price %}
-                    <p class="price"> {% if not product.special %}
-                        {{ product.price }}
-                      {% else %} <span class="price-new">{{ product.special }}</span> <span class="price-old">{{ product.price }}</span> {% endif %}
-                      {% if product.tax %} <span class="price-tax">{{ text_tax }} {{ product.tax }}</span> {% endif %} </p>
-                  {% endif %}</div>
-                <div class="button-group">
-                  <button type="button" onclick="cart.add('{{ product.product_id }}', '{{ product.minimum }}');"><span class="hidden-xs hidden-sm hidden-md">{{ button_cart }}</span> <i class="fa fa-shopping-cart"></i></button>
-                  <button type="button" data-toggle="tooltip" title="{{ button_wishlist }}" onclick="wishlist.add('{{ product.product_id }}');"><i class="fa fa-heart"></i></button>
-                  <button type="button" data-toggle="tooltip" title="{{ button_compare }}" onclick="compare.add('{{ product.product_id }}');"><i class="fa fa-exchange"></i></button>
                 </div>
+            </div>
+            <div class="col-md-12" style="background-color: #f7f7f7">
+                <div class="col-md-7">
+                    <br/>
+                    <br/>
+                    <span style="font-weight:bold; border-bottom: 2px #ff1b5e solid; margin: 0 0 20px 90px;">DESCRIPTION</span><br/><br/><br/>
+                    <span style="font-weight:bold; margin: 0 0 20px 90px">MATIERE ET ENTRETIEN</span><br/>
+                    <span style="font-weight:bold; margin: 0 0 20px 90px">Dessus / Tige : </span><br/>
+                    <span style="font-weight:bold; margin: 0 0 20px 90px">Doublure : </span><br/>
+                    <span style="font-weight:bold; margin: 0 0 20px 90px">Semelle de propreté : </span><br/>
+                    <span style="font-weight:bold; margin: 0 0 20px 90px">Semelle d'usure : </span><br/>
+                    <span style="font-weight:bold; margin: 0 0 20px 90px">Epesseure de la doublure : </span><br/><br/><br/>
+                    <span style="font-weight:bold; margin: 0 0 20px 90px">DETAILS DU PRODUIT</span><br/>
+                    <span style="font-weight:bold; margin: 0 0 20px 90px">Bout de la chaussure</span><br/>
+                    <span style="font-weight:bold; margin: 0 0 20px 90px">Forme du talon : </span><br/>
+                    <span style="font-weight:bold; margin: 0 0 20px 90px">Détails : </span><br/>
+                    <span style="font-weight:bold; margin: 0 0 20px 90px">Fermeture : </span><br/>
+                    <span style="font-weight:bold; margin: 0 0 20px 90px">Référence : </span><br/>
+                </div>
+                <div class="col-md-5"><img style="" src="{{ popup }}" alt="{{ heading_title }}"/></div>
             </div>
             {% if products %}
                 <h3>{{ text_related }}</h3>
