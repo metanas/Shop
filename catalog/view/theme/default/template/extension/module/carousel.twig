@@ -2,7 +2,7 @@
     <div class="container">
         <h1>{{ heading_title }}</h1>
         <div class="swiper-viewport">
-            <div id="carousel{{ module }}" class="swiper-container" >
+            <div id="carousel{{ module }}" class="swiper-container">
                 <div class="swiper-wrapper">
                     {% for product in products %}
                         <div class="product-layout col-lg-3 col-md-3 col-sm-4 col-xs-4 swiper-slide">
@@ -38,7 +38,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div><img src="catalog/view/theme/default/image/favoris.png" style=" margin-right:20px;margin-top: 10px; position: absolute; top: 0;right: 0;width: 20px"></div>
+                            <div><img src="catalog/view/theme/default/image/favoris.png" class="favoris" title="ajouter au favoris"></div>
                         </div>
                     {% endfor %}
                 </div>
@@ -50,7 +50,7 @@
             </div>
         </div>
     </div>
-    <div align="center" >
+    <div align="center">
         <div style="width: 300px;height: 40px">
             <button type="button" class="decouvrir">DECOUVRIR</button>
         </div>
