@@ -12,6 +12,8 @@ class ControllerProductCategory extends Controller
 
         $this->load->model('tool/image');
 
+        $this->load->model('account/wishlist');
+
         if (isset($this->request->get['filter'])) {
             $filter = $this->request->get['filter'];
         } else {
@@ -229,6 +231,16 @@ class ControllerProductCategory extends Controller
                 if ((int)$price_min > (int)((is_null($result['special'])) ? $result['price'] : $result['special']))
                     $price_min = (int)((is_null($result['special'])) ? $result['price'] : $result['special']);
 
+                if ($this->customer->isLogged()) {
+                    if (in_array($result['product_id'], $this->model_account_wishlist->getWishlist()['product_id'])) {
+                        $favorite = $this->model_tool_image->resize("favoriteAdded.png", 100, 100);
+                    } else $favorite = $this->model_tool_image->resize("favorite.png", 100, 100);
+                } else {
+                    if (in_array($result['product_id'], $this->session->data['wishlist'])) {
+                        $favorite = $this->model_tool_image->resize("favoriteAdded.png", 100, 100);
+                    } else $favorite = $this->model_tool_image->resize("favorite.png", 100, 100);
+                }
+
                 $data['products'][] = array(
                     'product_id' => $result['product_id'],
                     'thumb' => $image,
@@ -236,6 +248,7 @@ class ControllerProductCategory extends Controller
                     'description' => utf8_substr(trim(strip_tags(html_entity_decode($result['description'], ENT_QUOTES, 'UTF-8'))), 0, $this->config->get('theme_' . $this->config->get('config_theme') . '_product_description_length')) . '..',
                     'price' => $price,
                     'special' => $special,
+                    'favorite' => $favorite,
                     'tax' => $tax,
                     'minimum' => $result['minimum'] > 0 ? $result['minimum'] : 1,
                     'rating' => $result['rating'],
@@ -460,6 +473,8 @@ class ControllerProductCategory extends Controller
 
         $this->load->model('tool/image');
 
+        $this->load->model('account/wishlist');
+
         if (isset($this->request->get['filter'])) {
             $filter = $this->request->get['filter'];
         } else {
@@ -581,6 +596,16 @@ class ControllerProductCategory extends Controller
             if ((int)$price_min > (int)((is_null($result['special'])) ? $result['price'] : $result['special']))
                 $price_min = (int)((is_null($result['special'])) ? $result['price'] : $result['special']);
 
+            if ($this->customer->isLogged()) {
+                if (in_array($result['product_id'], $this->model_account_wishlist->getWishlist()['product_id'])) {
+                    $favorite = $this->model_tool_image->resize("favoriteAdded.png", 100, 100);
+                } else $favorite = $this->model_tool_image->resize("favorite.png", 100, 100);
+            } else {
+                if (in_array($result['product_id'], $this->session->data['wishlist'])) {
+                    $favorite = $this->model_tool_image->resize("favoriteAdded.png", 100, 100);
+                } else $favorite = $this->model_tool_image->resize("favorite.png", 100, 100);
+            }
+
             $data['products'][] = array(
                 'product_id' => $result['product_id'],
                 'thumb' => $image,
@@ -589,6 +614,7 @@ class ControllerProductCategory extends Controller
                 'price' => $price,
                 'special' => $special,
                 'tax' => $tax,
+                'favorite' => $favorite,
                 'minimum' => $result['minimum'] > 0 ? $result['minimum'] : 1,
                 'rating' => $result['rating'],
                 'simulate' => $simulate,
@@ -599,8 +625,6 @@ class ControllerProductCategory extends Controller
         $data['price_max'] = $price_max;
         $data['price_min'] = $price_min;
         $data['currency'] = $this->session->data['currency'];
-        $data['products_colors'] = $products_colors;
-        $data['products_models'] = $products_models;
 
         $this->response->setOutput(json_encode($data));
     }

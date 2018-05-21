@@ -111,9 +111,15 @@ class ControllerCommonCart extends Controller
                 'total' => $total,
                 'href' => $this->url->link('product/product', 'language=' . $this->config->get('config_language') . '&product_id=' . $product['product_id'])
             );
-
         }
 
+        $this->load->model('account/wishlist');
+
+        if($this->model_account_wishlist->getTotalWishlist() == 0 && empty($this->session->data['wishlist']))
+            $data['favoris'] = $this->model_tool_image->resize("favorite.png", 100, 100);
+        else{
+            $data['favoris'] = $this->model_tool_image->resize("favoriteAdded.png", 100, 100);
+        }
         // Gift Voucher
         $data['vouchers'] = array();
 
@@ -135,9 +141,7 @@ class ControllerCommonCart extends Controller
                 'text' => $this->currency->format($total['value'], $this->session->data['currency']),
             );
         }
-        $data['profile'] = $this->model_tool_image->resize("catalog/user.png", 100, 100);
-        $data['favoris'] = $this->model_tool_image->resize("catalog/favoris.png", 100, 100);
-        $data['panier'] = $this->model_tool_image->resize("catalog/checkout.png", 100, 100);
+
         $data['count_products'] = $this->cart->countProducts();
         $data['logged'] = $this->customer->isLogged();
         $data['register'] = $this->url->link('account/register', 'language=' . $this->config->get('config_language'));
