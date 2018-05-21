@@ -305,7 +305,6 @@
                 url: 'index.php?route=catalog/product/autocomplete&user_token={{ user_token }}&filter_name=' + encodeURIComponent(request),
                 dataType: 'json',
                 success: function (json) {
-                    console.log(json);
                     response($.map(json, function (item) {
                         return {
                             label: item['name'],
@@ -326,9 +325,7 @@
                 url: 'index.php?route=catalog/option/autocomplete&user_token={{ user_token }}&filter_name=' + encodeURIComponent(request),
                 dataType: 'json',
                 success: function (json) {
-                    console.log(json);
                     response($.map(json, function (item) {
-                        console.log(item);
                         return {
                             category: item['category'],
                             label: item['name'],
