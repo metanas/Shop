@@ -29,7 +29,7 @@ $_['text_no_results']       ='Aucun résultat!';
 
 $_['button_address_add']    ='Ajoutez l`adresse';
 $_['button_back']           ='Arrière';
-$_['button_continue']       ='Continuer';
+$_['button_continue']       ='CONTINUER';
 $_['button_sign_up']        ='S\'inscrire';
 $_['button_cart']           ='Ajouter au panier';
 $_['button_cancel']         ='Annuler';
@@ -46,7 +46,7 @@ $_['button_new_address']    ='Nouvelle adresse';
 $_['button_change_address'] ='Changement d`adresse';
 $_['button_reviews']        ='Avis';
 $_['button_write']          ='Ecrire une critique';
-$_['button_login']          ='S`identifier';
+$_['button_login']          ='SE CONNECTER';
 $_['button_update']         ='Mettre à jour';
 $_['button_remove']         ='Retirer';
 $_['button_reorder']        ='Réorganiser';

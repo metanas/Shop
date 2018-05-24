@@ -1325,6 +1325,10 @@ ul {
     transform: rotate(45deg);
 }
 
+.checkradio{
+    border-radius: 50% ;
+}
+
 #slider12c .slider-selection {
     background: #ff1b5e;
 }
@@ -1593,6 +1597,7 @@ ul {
     margin-top: 30px;
     counter-reset: step;
 }
+
 .progressbar li:before{
     content:counter(step);
     counter-increment: step;
@@ -1607,6 +1612,7 @@ ul {
     color: #bebebe;
     text-align: center;
     font-weight: bold;
+    cursor: pointer;
 }
 
 .progressbar li:after{
@@ -1622,7 +1628,7 @@ ul {
 
 .progressbar li:first-child:after {
     content: none;
-    background-color: #0b91d2;
+    background-color: #ff1b5e;
 }
 .progressbar li:first-child:before{
     border: 2px solid #ff1b5e;
@@ -1637,4 +1643,47 @@ ul {
     border-color: #ff1b5e;
     background: #ff1b5e;
     color: white
+}
+
+.zalark-button{
+    border: transparent !important;
+    background-color: #ff1b5e;
+    color: whitesmoke;
+    font-size: 14px;
+    width: 100%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    height: 40px;
+}
+
+.zalark-button:hover{
+    background-color: #ff1b5a;
+    color: black;
+}
+
+.zalark-button-border{
+    background-color: white;
+    color: #ff1b5a ;
+    border: 2px solid #ff1b5a;
+    font-size: 14px;
+    width: 100%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    height: 40px;
+}
+
+.description{
+    color: #a6a6a6;
+    font-size: 12px;
+}
+
+.condition-general{
+    font-size: 15px;
+}
+
+.pay-image{
+    margin-top: 30px;
+    width: 40px;
+    height: 20px;
+    border: 1px solid grey;
 }
