@@ -269,6 +269,17 @@ var voucher = {
     }
 };
 
+var stringChecker = {
+    'password' : function (password) {
+        var regex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+        return regex.test(password)
+    },
+    'email' : function (email) {
+        var email_regex= /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        return email_regex.test(email)
+    }
+};
+
 var wishlist = {
     'add': function (product_id) {
         $.ajax({
