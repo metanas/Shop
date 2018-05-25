@@ -132,26 +132,7 @@ $(document).ready(function () {
         $('#alert-box').removeClass('open');
     });
 });
-    // Remove From Here
-//=========================================================================
-// When the user clicks on the button, open the modal
-    $('#myBtn').on('click', function () {
-        $('#myModal').show(100)
-    });
 
-// When the user clicks on <span> (x), close the modal
-    $('.close').on('click', function () {
-        $('#myModal').hide(100);
-    });
-
-// When the user clicks anywhere outside of the modal, close it
-//     window.onclick = function (event) {
-//         if (event.target == modal) {
-//             modal.style.display = "none";
-//         }
-//     }
-// });
-//==========================================================================
 // Cart add remove functions
 var cart = {
     'add': function (product_id, quantity) {
