@@ -131,34 +131,27 @@ $(document).ready(function () {
     $('#alert-box').on('click', '.close', function () {
         $('#alert-box').removeClass('open');
     });
-
-    // Get the modal
-    var modal = document.getElementById('myModal');
-
-// Get the button that opens the modal
-    var btn = document.getElementById("myBtn");
-
-// Get the <span> element that closes the modal
-    var span = document.getElementsByClassName("close")[0];
-
+});
+    // Remove From Here
+//=========================================================================
 // When the user clicks on the button, open the modal
-    btn.onclick = function () {
-        modal.style.display = "block";
-    }
+    $('#myBtn').on('click', function () {
+        $('#myModal').show(100)
+    });
 
 // When the user clicks on <span> (x), close the modal
-    span.onclick = function () {
-        modal.style.display = "none";
-    }
+    $('.close').on('click', function () {
+        $('#myModal').hide(100);
+    });
 
 // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function (event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
-        }
-    }
-});
-
+//     window.onclick = function (event) {
+//         if (event.target == modal) {
+//             modal.style.display = "none";
+//         }
+//     }
+// });
+//==========================================================================
 // Cart add remove functions
 var cart = {
     'add': function (product_id, quantity) {
@@ -528,5 +521,5 @@ $(document).delegate('.agree', 'click', function (e) {
             $(this).siblings('ul.dropdown-menu').delegate('a', 'click', $.proxy(this.click, this));
 
         });
-    };
+    }
 })(window.jQuery);
