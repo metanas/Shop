@@ -30,6 +30,7 @@ $_['text_your_address']              ='Votre adresse';
 $_['text_your_password']             ='Votre mot de passe';
 $_['text_agree']                     ='j`ai lu et accepté les <a href="%s" class="agree">  <b> %s </b>  </a> ';
 $_['text_address_new']               ='Je souhaite utiliser une nouvelle adresse';
+$_['text_newsletter']                ='Oui, je veux recevoir par e-mail des infos sur les dernieres tendances<br>Desinscription possible a tout moment. (facultatif)';
 $_['text_address_existing']          ='Je souhaite utiliser une adresse existante';
 $_['text_shipping_method']           ='Sélectionnez la méthode d`expédition préférée à utiliser pour cette commande.';
 $_['text_payment_method']            ='Sélectionnez la méthode de paiement préférée à utiliser sur cette commande.';
