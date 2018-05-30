@@ -68,7 +68,43 @@
     <hr style="border-top: 3px solid #eee">
 </div>
 <div id="collapse-checkout-option" class="container">
-    {{ login }}
+    <div class="col-md-6">
+        <h4>ADRESSE DE LIVRAISON</h4>
+        <hr>
+        <div class="form-group">
+            <span class="edit-address" ><i class="fa fa-pencil"></i></span>
+            <span class="close-address" ><i class="fa fa-close"></i></span>
+            <label class="check_filter">
+                <input type="radio" class="checkbox" name="address">hamza abdalas <br>102 Avenue victor hugo<br> 75116 Paris<br> France
+                <span class="checkmark checkradio"></span>
+            </label>
+        </div>
+        <hr>
+        <div class="form-group">
+            <label class="check_filter">
+                <input type="radio" class="checkbox" name="address">Ajouter une nouvelle adresse
+                <span class="checkmark checkradio"></span>
+            </label>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <h4>ADRESSE DE FACTURATION</h4>
+        <hr>
+        <button class="zalark-button">{{ button_continue }}</button>
+    </div>
+    <script>
+        $('.form-group').hover(function () {
+            $(".close-address", this).show();
+            $(".edit-address", this).animate({
+                marginTop: "70px"
+            },100)
+        },function () {
+            $(".close-address", this).hide();
+            $(".edit-address", this).animate({
+                marginTop: "0"
+            },100)
+        })
+    </script>
 </div>
 
 
