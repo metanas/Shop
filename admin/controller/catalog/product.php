@@ -1107,7 +1107,7 @@ class ControllerCatalogProduct extends Controller {
         if (isset($this->request->post['product_similar'])) {
             $products = $this->request->post['product_similar'];
         } elseif (isset($this->request->get['product_id'])) {
-            $products = $this->model_catalog_product->getProductSimilar($this->request->get['product_id']);
+            $products = $this->model_catalog_product->getProductSimilars($this->request->get['product_id']);
         } else {
             $products = array();
         }

@@ -296,7 +296,7 @@ class ModelCatalogProduct extends Model {
 			$data['product_filter'] = $this->getProductFilters($product_id);
 			$data['product_image'] = $this->getProductImages($product_id);
 			$data['product_related'] = $this->getProductRelated($product_id);
-			$data['product_similar'] = $this->getProductSimilar($product_id);
+			$data['product_similar'] = $this->getProductSimilars($product_id);
 			$data['product_reward'] = $this->getProductRewards($product_id);
 			$data['product_special'] = $this->getProductSpecials($product_id);
 			$data['product_category'] = $this->getProductCategories($product_id);
@@ -577,17 +577,14 @@ class ModelCatalogProduct extends Model {
 
 		return $product_related_data;
 	}
-    public function getProductSimilar($product_id){
-	    $product_similar_data = array();
+
+    public function getProductSimilars($product_id){
 
 	    $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "product_similar WHERE product_id = '". (int)$product_id . "'");
 
-        foreach ($query->rows as $result) {
-            $product_similar_data[] = $result['similar_id'];
-        }
-
-        return $product_similar_data;
+        return $query->rows['simular_id'];
 	}
+
 	public function getRecurrings($product_id) {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "product_recurring` WHERE product_id = '" . (int)$product_id . "'");
 

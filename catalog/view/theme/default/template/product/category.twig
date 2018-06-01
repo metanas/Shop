@@ -223,7 +223,7 @@
                                                 {% if product.simulate %}
                                                     <img class="smallSame img-default" src="{{ product.thumb }}">
                                                     {% for same in product.simulate %}
-                                                        <img class="smallSame" src="{{ same.popup }}">
+                                                        <a href=""></a><img class="smallSame" src="{{ same.popup }}">
                                                     {% endfor %}
                                                 {% endif %}
                                                 {#<p>Disponible en plusieurs tailles</p>#}
@@ -293,22 +293,40 @@
         return vars;
     }
 
-    $(".product-layout").hover(
-        function () {
-            $('.same', this).show(400)
+    var div;
+    $(".product-layout").hover(function () {
+            if ($('.same', this).html().trim() === "") {
+                html = "<a href=\"" + $('.SheosName', this)[0].children[0].href + "\"><img class=\"smallSame img-default\" src=\"" + $(".img-responsive", this)[0].src + "\"></a>";
+                div = this;
+                $.ajax({
+                    url: "index.php?route=product/category/simulate&path=" + $_GET('path') + "&product_id=" + $('#product-id', this).html(),
+                    type: "GET",
+                    dataType: "json",
+                    success: function (json) {
+                        $.map(json, function (item) {
+                            html += "<a href=\"" + item['href'] + "\"><img class=\"smallSame\" src=\"" + item['thumb'] + "\"></a>";
+                        });
+                        $('.same', div).empty();
+                        $('.same', div).html(html);
+                        $('.same', div).show(400);
+                        $(".smallSame").hover(
+                            function () {
+                                $(this).css('border', '1px solid black');
+                                this.parentNode.parentNode.parentNode.parentNode.parentNode.childNodes[0].children[0].childNodes[1].src = this.src;
+                            }, function () {
+                                $(this).css('border', 'none');
+                                this.parentNode.parentNode.parentNode.parentNode.parentNode.childNodes[0].children[0].childNodes[1].src = this.parentNode.children[0].src;
+                            });
+                    }
+                });
+            } else {
+                $('.same', this).show(400)
+            }
         }, function () {
             $('.same', this).hide(400)
         }
     );
 
-    $(".smallSame").hover(
-        function () {
-            $(this).css('border', '1px solid black');
-            this.parentNode.parentNode.parentNode.parentNode.children[0].children[0].children[0].src = this.src;
-        }, function () {
-            $(this).css('border', 'none');
-            this.parentNode.parentNode.parentNode.parentNode.children[0].children[0].children[0].src = this.parentNode.children[0].src;
-        });
     $("#ex12c").slider({
         id: "slider12c",
         min: {{ price_min }},
@@ -427,16 +445,19 @@
 
         window.history.replaceState({}, "", baseUrl + params);
         $.ajax({
-            url: baseUrl + "?route=product/category/filter&path=" + $_GET('path') + "&filter=" + $_GET("filter"),
+            url: "index.php?route=product/category/filter&path=" + $_GET('path') + "&filter=" + $_GET("filter"),
             type: "GET",
-            success: function (json, status) {
+            dataType: "json",
+            success: function (json) {
+                console.log(json);
                 updateFilters(json);
                 updateProducts(json['products']);
                 $('body').loading('stop');
             },
-            error: function (result, status) {
+            error: function (result, status,s) {
+                console.log(s);
+                $('body').loading('stop');
             },
-            dataType: "json"
         });
     }
 
@@ -456,12 +477,6 @@
                 }
             }
             html += '<div class="same">';
-            if (item.hasOwnProperty('simulate')) {
-                html += '<img class="smallSame img-default" src = "' + item['thumb'] + '" >';
-                $.map(item['simulate'], function (same) {
-                    html += '<img class="smallSame" src = "' + same['popup'] + '" >';
-                });
-            }
             {#<p>Disponible en plusieurs tailles</p>#}
             html += '</div></div></div></div><div><img src="{{ favorite }}" style="margin-right:20px;margin-top: 10px; position: absolute; top: 0;right: 0;width: 20px"></div></div>'
         });
@@ -469,23 +484,6 @@
         html += '<div class="col-sm-6 text-center pagination">{{ pagination }}</div></div>';
         $('.product-container').empty();
         $('.product-container').html(html);
-
-        $(".smallSame").hover(
-            function () {
-                $(this).css('border', '1px solid black');
-                this.parentNode.parentNode.parentNode.parentNode.children[0].children[0].children[0].src = this.src;
-            }, function () {
-                $(this).css('border', 'none');
-                this.parentNode.parentNode.parentNode.parentNode.children[0].children[0].children[0].src = this.parentNode.children[0].src;
-            }
-        );
-        $(".product-layout").hover(
-            function () {
-                $('.same', this).show(400)
-            }, function () {
-                $('.same', this).hide(400)
-            }
-        );
     }
 
     function updateFilters(json) {
