@@ -236,7 +236,7 @@ class ControllerProductCategory extends Controller
                         $favorite = $this->model_tool_image->resize("favoriteAdded.png", 100, 100);
                     } else $favorite = $this->model_tool_image->resize("favorite.png", 100, 100);
                 } else {
-                    if(isset($this->session->data['wishlist']))
+                    if (isset($this->session->data['wishlist']))
                         if (in_array($result['product_id'], $this->session->data['wishlist'])) {
                             $favorite = $this->model_tool_image->resize("favoriteAdded.png", 100, 100);
                         } else $favorite = $this->model_tool_image->resize("favorite.png", 100, 100);
@@ -247,14 +247,10 @@ class ControllerProductCategory extends Controller
                     'product_id' => $result['product_id'],
                     'thumb' => $image,
                     'name' => (strlen($result['name']) <= 12) ? $result['name'] : utf8_substr(trim(strip_tags(html_entity_decode($result['name'], ENT_QUOTES, 'UTF-8'))), 0, $this->config->get('theme_' . $this->config->get('config_theme') . '_product_description_length')) . '..',
-                    'description' => utf8_substr(trim(strip_tags(html_entity_decode($result['description'], ENT_QUOTES, 'UTF-8'))), 0, $this->config->get('theme_' . $this->config->get('config_theme') . '_product_description_length')) . '..',
                     'price' => $price,
                     'special' => $special,
                     'favorite' => $favorite,
-                    'tax' => $tax,
                     'minimum' => $result['minimum'] > 0 ? $result['minimum'] : 1,
-                    'rating' => $result['rating'],
-                    'simulate' => $simulate,
                     'href' => $this->url->link('product/product', 'language=' . $this->config->get('config_language') . '&path=' . $this->request->get['path'] . '&product_id=' . $result['product_id'] . $url)
                 );
             }
@@ -565,27 +561,6 @@ class ControllerProductCategory extends Controller
                 $special = false;
             }
 
-            if ($this->config->get('config_tax')) {
-                $tax = $this->currency->format((float)$result['special'] ? $result['special'] : $result['price'], $this->session->data['currency']);
-            } else {
-                $tax = false;
-            }
-
-            if ($this->config->get('config_review_status')) {
-                $rating = (int)$result['rating'];
-            } else {
-                $rating = false;
-            }
-            $simulate = array();
-
-            $results = $this->model_catalog_product->getProductImages($result['product_id']);
-
-            foreach ($results as $r) {
-                $simulate[] = array(
-                    'popup' => $this->model_tool_image->resize($r['image'], $this->config->get('theme_' . $this->config->get('config_theme') . '_image_product_width'), $this->config->get('theme_' . $this->config->get('config_theme') . '_image_product_height'))
-                );
-            }
-
             if (!in_array($result['color'], $products_colors))
                 $products_colors[] = $result['color'];
 
@@ -598,28 +573,24 @@ class ControllerProductCategory extends Controller
             if ((int)$price_min > (int)((is_null($result['special'])) ? $result['price'] : $result['special']))
                 $price_min = (int)((is_null($result['special'])) ? $result['price'] : $result['special']);
 
-            if ($this->customer->isLogged()) {
-                if (in_array($result['product_id'], $this->model_account_wishlist->getWishlist()['product_id'])) {
-                    $favorite = $this->model_tool_image->resize("favoriteAdded.png", 100, 100);
-                } else $favorite = $this->model_tool_image->resize("favorite.png", 100, 100);
-            } else {
-                if (in_array($result['product_id'], $this->session->data['wishlist'])) {
-                    $favorite = $this->model_tool_image->resize("favoriteAdded.png", 100, 100);
-                } else $favorite = $this->model_tool_image->resize("favorite.png", 100, 100);
-            }
+//            if ($this->customer->isLogged()) {
+//                if (in_array($result['product_id'], $this->model_account_wishlist->getWishlist()['product_id'])) {
+//                    $favorite = $this->model_tool_image->resize("favoriteAdded.png", 100, 100);
+//                } else $favorite = $this->model_tool_image->resize("favorite.png", 100, 100);
+//            } else {
+//                if (in_array($result['product_id'], $this->session->data['wishlist'])) {
+//                    $favorite = $this->model_tool_image->resize("favoriteAdded.png", 100, 100);
+//                } else $favorite = $this->model_tool_image->resize("favorite.png", 100, 100);
+//            }
 
             $data['products'][] = array(
                 'product_id' => $result['product_id'],
                 'thumb' => $image,
                 'name' => (strlen($result['name']) <= 12) ? $result['name'] : utf8_substr(trim(strip_tags(html_entity_decode($result['name'], ENT_QUOTES, 'UTF-8'))), 0, $this->config->get('theme_' . $this->config->get('config_theme') . '_product_description_length')) . '..',
-                'description' => utf8_substr(trim(strip_tags(html_entity_decode($result['description'], ENT_QUOTES, 'UTF-8'))), 0, $this->config->get('theme_' . $this->config->get('config_theme') . '_product_description_length')) . '..',
                 'price' => $price,
                 'special' => $special,
-                'tax' => $tax,
-                'favorite' => $favorite,
+//                'favorite' => $favorite,
                 'minimum' => $result['minimum'] > 0 ? $result['minimum'] : 1,
-                'rating' => $result['rating'],
-                'simulate' => $simulate,
                 'href' => $this->url->link('product/product', 'language=' . $this->config->get('config_language') . '&path=' . $this->request->get['path'] . '&product_id=' . $result['product_id'] . $url)
             );
         }
@@ -629,5 +600,34 @@ class ControllerProductCategory extends Controller
         $data['currency'] = $this->session->data['currency'];
 
         $this->response->setOutput(json_encode($data));
+    }
+
+    public function simulate()
+    {
+        $this->load->model('catalog/category');
+        $this->load->model('catalog/product');
+        $this->load->model('tool/image');
+
+        $product_similar = $this->model_catalog_product->getSimilarProduct($this->request->get['product_id']);
+
+        foreach ($product_similar as $result) {
+
+            $this->model_catalog_product->getProduct($result);
+
+            if ($result['image']) {
+                $image = $this->model_tool_image->resize($result['image'], $this->config->get('theme_' . $this->config->get('config_theme') . '_image_product_width'), $this->config->get('theme_' . $this->config->get('config_theme') . '_image_product_height'));
+            } else {
+                $image = $this->model_tool_image->resize('placeholder.png', $this->config->get('theme_' . $this->config->get('config_theme') . '_image_product_width'), $this->config->get('theme_' . $this->config->get('config_theme') . '_image_product_height'));
+            }
+
+            $data[] = array(
+                'product_id' => $result['product_id'],
+                'thumb' => $image,
+                'href' => $this->url->link('product/product', 'language=' . $this->config->get('config_language') . '&path=' . $this->request->get['path'] . '&product_id=' . $result['product_id'])
+            );
+        }
+
+        if (isset($data))
+            $this->response->setOutput(json_encode($data));
     }
 }
