@@ -178,20 +178,6 @@
                             <i class="fa fa-angle-down" style="position: absolute; right: 20px;top: 3px;"></i>
                         </div>
                     </div>
-                    {#<div class="col-md-3 col-xs-6">#}
-                    {#<div class="form-group input-group input-group-sm">#}
-                    {#<label class="input-group-addon" for="input-limit">{{ text_limit }}</label>#}
-                    {#<select id="input-limit" class="form-control" onchange="location = this.value;">#}
-                    {#{% for limits in limits %}#}
-                    {#{% if limits.value == limit %}#}
-                    {#<option value="{{ limits.href }}" selected="selected">{{ limits.text }}</option>#}
-                    {#{% else %}#}
-                    {#<option value="{{ limits.href }}">{{ limits.text }}</option>#}
-                    {#{% endif %}#}
-                    {#{% endfor %}#}
-                    {#</select>#}
-                    {#</div>#}
-                    {#</div>#}
                 </div>
                 <div class="product-container row" style="position: relative;z-index:1;">
                     {% for product in products %}
@@ -294,38 +280,45 @@
     }
 
     var div;
-    $(".product-layout").hover(function () {
-            if ($('.same', this).html().trim() === "") {
-                html = "<a href=\"" + $('.SheosName', this)[0].children[0].href + "\"><img class=\"smallSame img-default\" src=\"" + $(".img-responsive", this)[0].src + "\"></a>";
-                div = this;
-                $.ajax({
-                    url: "index.php?route=product/category/simulate&path=" + $_GET('path') + "&product_id=" + $('#product-id', this).html(),
-                    type: "GET",
-                    dataType: "json",
-                    success: function (json) {
-                        $.map(json, function (item) {
-                            html += "<a href=\"" + item['href'] + "\"><img class=\"smallSame\" src=\"" + item['thumb'] + "\"></a>";
-                        });
-                        $('.same', div).empty();
-                        $('.same', div).html(html);
-                        $('.same', div).show(400);
-                        $(".smallSame").hover(
-                            function () {
-                                $(this).css('border', '1px solid black');
-                                this.parentNode.parentNode.parentNode.parentNode.parentNode.childNodes[0].children[0].childNodes[1].src = this.src;
-                            }, function () {
-                                $(this).css('border', 'none');
-                                this.parentNode.parentNode.parentNode.parentNode.parentNode.childNodes[0].children[0].childNodes[1].src = this.parentNode.children[0].src;
+    sethover();
+
+    function sethover() {
+        $(".product-layout").hover(function () {
+                if ($('.same', this).html().trim() === "") {
+                    html = "<a href=\"" + $('.SheosName', this)[0].children[0].href + "\"><img class=\"smallSame img-default\" src=\"" + $(".img-responsive", this)[0].src + "\"></a>";
+                    div = this;
+                    $.ajax({
+                        url: "index.php?route=product/category/simulate&path=" + $_GET('path') + "&product_id=" + $('#product-id', this).html(),
+                        type: "GET",
+                        dataType: "json",
+                        success: function (json) {
+                            $.map(json, function (item) {
+                                html += "<a href=\"" + item['href'] + "\"><img class=\"smallSame\" src=\"" + item['thumb'] + "\"></a>";
                             });
-                    }
-                });
-            } else {
-                $('.same', this).show(400)
+                            $('.same', div).empty();
+                            $('.same', div).html(html);
+                            $('.same', div).show(400);
+                            $(".smallSame").hover(
+                                function () {
+                                    $(this).css('border', '1px solid black');
+                                    $(this).parents('.product-thumb').find('.img-responsive')[0].src = this.src;
+                                }, function () {
+                                    $(this).css('border', 'none');
+                                    $(this).parents('.product-thumb').find('.img-responsive')[0].src = $(this).parents('.same').find('.img-default')[0].src;
+                                });
+                        },
+                        error: function (d, s) {
+                            console.log(s)
+                        }
+                    });
+                } else {
+                    $('.same', this).show(400)
+                }
+            }, function () {
+                $('.same', this).hide(400)
             }
-        }, function () {
-            $('.same', this).hide(400)
-        }
-    );
+        );
+    }
 
     $("#ex12c").slider({
         id: "slider12c",
@@ -449,13 +442,11 @@
             type: "GET",
             dataType: "json",
             success: function (json) {
-                console.log(json);
                 updateFilters(json);
                 updateProducts(json['products']);
                 $('body').loading('stop');
             },
-            error: function (result, status,s) {
-                console.log(s);
+            error: function (result, status, s) {
                 $('body').loading('stop');
             },
         });
@@ -465,6 +456,7 @@
         html = "";
         $.map(products, function (item) {
             html += '<div class="product-layout col-lg-4 col-md-4 col-sm-6 col-xs-12">';
+            html += '<span id="product-id" style="display: none">' + item['product_id'] + '</span><a href="' + item['href'] + '">';
             html += '<div class="product-thumb transition">';
             html += '<div class="image"><a href="' + item['href'] + '"><img src = "' + item['thumb'] + '" alt="' + item['name'] + '" title = "' + item['name'] + '" class="img-responsive"/></a></div>';
             html += '<div class="caption" ><div class="desctip col-sm-12 col-xs-12" ><h4 class="SheosName"><a href = "' + item['href'] + '" >' + item['name'] + '</a></h4>';
@@ -476,14 +468,15 @@
                     html += '<span class="price-new SheosPrice" >' + item['price'] + '</span>';
                 }
             }
-            html += '<div class="same">';
+            html += '<div class="same"></div>';
             {#<p>Disponible en plusieurs tailles</p>#}
-            html += '</div></div></div></div><div><img src="{{ favorite }}" style="margin-right:20px;margin-top: 10px; position: absolute; top: 0;right: 0;width: 20px"></div></div>'
+            html += '</div></div></div><div></a><img src="{{ favorite }}" style="margin-right:20px;margin-top: 10px; position: absolute; top: 0;right: 0;width: 20px"></div></div>'
         });
         html += '<div class="row col-sm-12" style="margin: 30px 0 30px 0">';
         html += '<div class="col-sm-6 text-center pagination">{{ pagination }}</div></div>';
         $('.product-container').empty();
         $('.product-container').html(html);
+        sethover();
     }
 
     function updateFilters(json) {
