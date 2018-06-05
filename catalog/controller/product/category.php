@@ -232,7 +232,7 @@ class ControllerProductCategory extends Controller
                     $price_min = (int)((is_null($result['special'])) ? $result['price'] : $result['special']);
 
                 if ($this->customer->isLogged()) {
-                    if (in_array($result['product_id'], $this->model_account_wishlist->getWishlist()['product_id'])) {
+                    if ($this->model_account_wishlist->isExist($result['product_id']) == 1) {
                         $favorite = $this->model_tool_image->resize("favoriteAdded.png", 100, 100);
                     } else $favorite = $this->model_tool_image->resize("favorite.png", 100, 100);
                 } else {
@@ -479,6 +479,12 @@ class ControllerProductCategory extends Controller
             $filter = '';
         }
 
+        if (isset($this->request->get['page'])) {
+            $page = $this->request->get['page'];
+        } else {
+            $page = 1;
+        }
+
         if (isset($this->request->get['path'])) {
             $url = '';
 
@@ -491,9 +497,11 @@ class ControllerProductCategory extends Controller
             }
 
             if (isset($this->request->get['limit'])) {
+                $limit = (int)$this->request->get['limit'];
                 $url .= '&limit=' . $this->request->get['limit'];
+            } else {
+                $limit = $this->config->get('theme_' . $this->config->get('config_theme') . '_product_limit');
             }
-
             $path = '';
 
             $parts = explode('_', (string)$this->request->get['path']);
@@ -527,8 +535,8 @@ class ControllerProductCategory extends Controller
             'filter_filter' => $filter,
             'sort' => 'p.sort_order',
             'order' => 'ASC',
-            'start' => (1 - 1) * $this->config->get('theme_' . $this->config->get('config_theme') . '_product_limit'),
-            'limit' => $this->config->get('theme_' . $this->config->get('config_theme') . '_product_limit')
+            'start' => ($page - 1) * $limit,
+            'limit' => $limit
         );
 
         $product_total = $this->model_catalog_product->getTotalProducts($filter_data);
@@ -596,6 +604,13 @@ class ControllerProductCategory extends Controller
                 'href' => $this->url->link('product/product', 'language=' . $this->config->get('config_language') . '&path=' . $this->request->get['path'] . '&product_id=' . $result['product_id'] . $url)
             );
         }
+        $pagination = new Pagination();
+        $pagination->total = $product_total;
+        $pagination->page = $page;
+        $pagination->limit = $limit;
+        $pagination->url = $this->url->link('product/category', 'language=' . $this->config->get('config_language') . '&path=' . $this->request->get['path'] . $url . '&page={page}');
+
+        $data['pagination'] = $pagination->render();
         $data['product_total'] = $product_total;
         $data['price_max'] = $price_max;
         $data['products_models'] = $products_models;
