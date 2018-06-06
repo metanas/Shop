@@ -502,6 +502,7 @@ class ControllerProductCategory extends Controller
             } else {
                 $limit = $this->config->get('theme_' . $this->config->get('config_theme') . '_product_limit');
             }
+
             $path = '';
 
             $parts = explode('_', (string)$this->request->get['path']);
