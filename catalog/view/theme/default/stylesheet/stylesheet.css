@@ -1707,3 +1707,7 @@ ul {
 .close-address:hover {
 
 }
+
+#add-address{
+    display: none;
+}

@@ -53,10 +53,13 @@ class ControllerCheckoutShippingAddress extends Controller {
 		} else {
 			$data['shipping_address_custom_field'] = array();
 		}
-
+        $data['step_1'] = "active";
+        $data['step_2'] = "active";
+        $data['step_3'] = "disabled";
 		$data['language'] = $this->config->get('config_language');
 
 		$this->response->setOutput($this->load->view('checkout/shipping_address', $data));
+		return $this->load->view('checkout/shipping_address', $data);
 	}
 
 	public function save() {

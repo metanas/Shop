@@ -5,13 +5,13 @@
         <div id="login-field">
             <div class="form-group">
                 <label class="control-label" for="input-email">{{ entry_email_address }}</label>
-                <input type="text" name="email" value="" placeholder="{{ entry_email }}" id="input-email"
+                <input type="text" name="email" value="" placeholder="{{ entry_email }}" id="sign-email"
                        class="form-control"/>
             </div>
             <div class="form-group">
                 <label class="control-label" for="input-password">{{ entry_password }}</label>
                 <input type="password" name="password" value="" placeholder="{{ entry_password }}"
-                       id="input-password"
+                       id="sign-password"
                        class="form-control"/>
             </div>
         </div>
@@ -35,7 +35,7 @@
                        class="form-control"/>
             </div>
             <div class="form-group">
-                <label class="control-label" for="input-firstname">{{ entry_lastname }}</label>
+                <label class="control-label" for="input-lastname">{{ entry_lastname }}</label>
                 <input type="text" name="lastname" value="" placeholder="{{ entry_lastname }}" id="input-lastname"
                        class="form-control"/>
             </div>
@@ -48,7 +48,7 @@
             </div>
 
             <div class="form-group">
-                <label class="control-label" for="input-firstname">{{ entry_password }}</label>
+                <label class="control-label" for="input-password">{{ entry_password }}</label>
                 <input type="password" name="password" value="" placeholder="{{ entry_password }}"
                        id="input-password"
                        class="form-control"/>
@@ -90,7 +90,8 @@
 </div>
 <script>
     // Login
-    $('#collapse-checkout-option').on('click', '#button-login', 'click', function () {
+    $('#collapse-checkout-option').on('click', '#button-login', 'click', function () {                step.next();
+
         if($('#login-field').css("display") === 'none')
         {
             $('#login-field').show(300);
@@ -119,7 +120,6 @@
                 $('#button-login').button('reset');
             },
             success: function (json) {
-                console.log(json);
                 $('.alert-dismissible, .text-danger').remove();
                 $('.form-group').removeClass('has-error');
                 if (json['redirect']) {
@@ -196,3 +196,4 @@
     });
 
 </script>
+<script src="catalog/view/javascript/common.js" type="text/javascript"></script>

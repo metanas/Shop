@@ -19,6 +19,7 @@ class ControllerCheckoutLogin extends Controller
         $data['footer'] = $this->load->controller('common/footer');
 
         $this->response->setOutput($this->load->view('checkout/login', $data));
+        return $this->load->view('checkout/login', $data);
     }
 
     public function save()

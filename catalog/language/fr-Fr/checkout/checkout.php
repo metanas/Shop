@@ -101,3 +101,5 @@ $_['error_no_shipping']              ='Avertissement: Aucune option d`expéditio
 $_['error_payment']                  ='Avertissement: Méthode de paiement requise!';
 $_['error_no_payment']               ='Avertissement: Aucune option de paiement n`est disponible. S`il vous plaît.  <a href="%s"> Contactez nous </a> à l`aide!';
 $_['error_custom_field']             ='%s requis!';
+
+$_['button_save_address']            ='ENREGISTRER L\'ADRESSE';
