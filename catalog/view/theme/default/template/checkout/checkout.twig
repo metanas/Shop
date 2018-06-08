@@ -56,10 +56,10 @@
 <div class="root">
     <div class="container">
         <ul class="progressbar">
-            <li>Se connecter</li>
-            <li>Adresse</li>
-            <li>Paiement</li>
-            <li>Validation</li>
+            <li value="2" class="{{ step_1 }}">Se connecter</li>
+            <li value="3" class="{{ step_2 }}">Adresse</li>
+            <li value="4" class="{{ step_3 }}">Paiement</li>
+            <li class="disabled">Validation</li>
         </ul>
     </div>
 </div>
@@ -68,51 +68,7 @@
     <hr style="border-top: 3px solid #eee">
 </div>
 <div id="collapse-checkout-option" class="container">
-    <div class="col-md-6">
-        <h4>ADRESSE DE LIVRAISON</h4>
-        <hr>
-        <div class="form-group">
-            <span class="edit-address" ><i class="fa fa-pencil"></i></span>
-            <span class="close-address" ><i class="fa fa-close"></i></span>
-            <label class="check_filter">
-                <input type="radio" class="checkbox" name="address">hamza abdalas <br>102 Avenue victor hugo<br> 75116 Paris<br> France
-                <span class="checkmark checkradio"></span>
-            </label>
-        </div>
-        <hr>
-        <div class="form-group">
-            <label class="check_filter">
-                <input type="radio" class="checkbox" name="address">Ajouter une nouvelle adresse
-                <span class="checkmark checkradio"></span>
-            </label>
-        </div>
-    </div>
-    <div class="col-md-6">
-        <h4>ADRESSE DE FACTURATION</h4>
-        <hr>
-        <button class="zalark-button">{{ button_continue }}</button>
-    </div>
-    <script>
-        $('.form-group').hover(function () {
-            $(".close-address", this).show();
-            $(".edit-address", this).animate({
-                marginTop: "70px"
-            },100)
-        },function () {
-            $(".close-address", this).hide();
-            $(".edit-address", this).animate({
-                marginTop: "0"
-            },100)
-        });
-
-        $(".edit-address").on("click", function () {
-                
-        });
-        
-        $(".close-address").on("click", function () {
-            
-        })
-    </script>
+   {{ step }}
 </div>
 
 

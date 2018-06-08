@@ -87,7 +87,7 @@ $_['error_firstname']                ='Le prénom doit être compris entre 1 et 
 $_['error_lastname']                 ='Le nom de famille doit être compris entre 1 et 32 ​​caractères!';
 $_['error_email']                    ='L`adresse e-mail ne semble pas être valide!';
 $_['error_telephone']                ='Le téléphone doit avoir entre 3 et 32 ​​caractères!';
-$_['error_password']                 ='Le mot de passe doit être compris entre 4 et 20 caractères!';
+$_['error_password']                 ='Le mot de passe doit être compris entre 8 et 20 caractères!';
 $_['error_confirm']                  ='La confirmation du mot de passe ne correspond pas au mot de passe!';
 $_['error_address_1']                ='L`adresse 1 doit être comprise entre 3 et 128 caractères!';
 $_['error_city']                     ='La ville doit avoir entre 2 et 128 caractères!';
@@ -101,3 +101,5 @@ $_['error_no_shipping']              ='Avertissement: Aucune option d`expéditio
 $_['error_payment']                  ='Avertissement: Méthode de paiement requise!';
 $_['error_no_payment']               ='Avertissement: Aucune option de paiement n`est disponible. S`il vous plaît.  <a href="%s"> Contactez nous </a> à l`aide!';
 $_['error_custom_field']             ='%s requis!';
+
+$_['button_save_address']            ='ENREGISTRER L\'ADRESSE';
