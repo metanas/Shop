@@ -88,9 +88,9 @@ class ControllerCheckoutRegister extends Controller {
         }
 
         // Validate cart has products and has stock.
-//		if ((!$this->cart->hasProducts() && empty($this->session->data['vouchers'])) || (!$this->cart->hasStock() && !$this->config->get('config_stock_checkout'))) {
-//			$json['redirect'] = $this->url->link('checkout/cart', 'language=' . $this->config->get('config_language'));
-//		}
+		if ((!$this->cart->hasProducts() && empty($this->session->data['vouchers'])) || (!$this->cart->hasStock() && !$this->config->get('config_stock_checkout'))) {
+			$json['redirect'] = $this->url->link('checkout/cart', 'language=' . $this->config->get('config_language'));
+		}
 
         // Validate minimum quantity requirements.
         $products = $this->cart->getProducts();
@@ -158,7 +158,7 @@ class ControllerCheckoutRegister extends Controller {
 //				$json['error']['zone'] = $this->language->get('error_zone');
 //			}
 
-            if ((utf8_strlen(html_entity_decode($this->request->post['password'], ENT_QUOTES, 'UTF-8')) < 4) || (utf8_strlen(html_entity_decode($this->request->post['password'], ENT_QUOTES, 'UTF-8')) > 40)) {
+            if ((utf8_strlen(html_entity_decode($this->request->post['password'], ENT_QUOTES, 'UTF-8')) < 8) || (utf8_strlen(html_entity_decode($this->request->post['password'], ENT_QUOTES, 'UTF-8')) > 40)) {
                 $json['error']['password'] = $this->language->get('error_password');
             }
 
@@ -209,7 +209,7 @@ class ControllerCheckoutRegister extends Controller {
         if (!$json) {
             $customer_id = $this->model_account_customer->addCustomer($this->request->post);
             // Default Payment
-            $json['customer_id'] = $customer_id;
+
             $this->load->model('account/address');
 
 //			$address_id = $this->model_account_address->addAddress($customer_id, $this->request->post);

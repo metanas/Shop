@@ -1,75 +1,76 @@
 <div class="col-md-6">
-  <h4>ADRESSE DE LIVRAISON</h4>
-  <hr>
-    {#for#}
-  <div class="form-group">
-    <span class="edit-address"><i class="fa fa-pencil"></i></span>
-    <span class="close-address"><i class="fa fa-close"></i></span>
-    <label class="check_filter">
-      <input type="radio" class="checkbox" name="address">hamza abdalas <br>102 Avenue victor hugo<br> 75116
-      Paris<br> France
-      <span class="checkmark checkradio"></span>
-    </label>
-  </div>
-  <hr>
-    {#endfor#}
-  <div class="form-group">
-    <label class="check_filter">
-      <input id="add-new-address" type="radio" class="checkbox" name="address" value="Add">Ajouter une
-      nouvelle adresse
-      <span class="checkmark checkradio"></span>
-    </label>
-  </div>
+    <h4>ADRESSE DE LIVRAISON</h4>
+    <hr>
+    {% for address in addresses %}
+        <div class="form-group">
+            <span class="edit-address"><i class="fa fa-pencil"></i></span>
+            <span class="close-address"><i class="fa fa-close"></i></span>
+            <label class="check_filter">
+                <input type="radio" class="checkbox" name="address">{{ address.firstname }} {{ address.lastname }}
+                <br>{{ address_1 }}<br> {{ postcode }}
+                {{ city }}<br> Maroc
+                <span class="checkmark checkradio"></span>
+            </label>
+        </div>
+        <hr>
+    {% endfor %}
+    <div class="form-group">
+        <label class="check_filter">
+            <input id="add-new-address" type="radio" class="checkbox" name="address" value="Add">Ajouter une
+            nouvelle adresse
+            <span class="checkmark checkradio"></span>
+        </label>
+    </div>
 
-  <div id="add-address" class="form-group">
-    <div class="form-group">
-      <label class="check_filter" style="display: inline">
-        <input type="radio" id="add-address" class="checkbox" name="address">Ajouter une nouvelle adresse
-        <span class="checkmark checkradio"></span>
-      </label>
-      <label class="check_filter" style="display: inline;margin-left: 10px">
-        <input type="radio" id="add-address" class="checkbox" name="address">Ajouter une nouvelle adresse
-        <span class="checkmark checkradio"></span>
-      </label>
+    <div id="add-address-field" class="form-group" style="display: {% if addresses %} none {% else %} block {% endif %}">
+        <div class="form-group">
+            <label class="check_filter" style="display: inline">
+                <input type="radio" id="add-address" class="checkbox" name="sex">mr
+                <span class="checkmark checkradio"></span>
+            </label>
+            <label class="check_filter" style="display: inline;margin-left: 10px">
+                <input type="radio" id="add-address" class="checkbox" name="sex">madame
+                <span class="checkmark checkradio"></span>
+            </label>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="input-firstname">{{ entry_firstname }}</label>
+            <input type="text" name="firstname" value="" placeholder="{{ entry_firstname }}" id="input-name"
+                   class="form-control"/>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="input-firstname">{{ entry_lastname }}</label>
+            <input type="text" name="lastname" value="" placeholder="{{ entry_lastname }}" id="input-lastname"
+                   class="form-control"/>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="input-address-1">{{ entry_address_1 }}</label>
+            <input type="text" name="address_1" value="" placeholder="{{ entry_address_1 }}" id="input-address-1"
+                   class="form-control"/>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="input-address">{{ entry_address_2 }}</label>
+            <input type="text" name="address_2" value="" placeholder="{{ entry_address_2 }}" id="input-address-2"
+                   class="form-control"/>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="input-postcode">{{ entry_postcode }}</label>
+            <input type="text" name="postcode" value="" placeholder="{{ entry_postcode }}" id="input-postcode"
+                   class="form-control"/>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="input-city">{{ entry_city }}</label>
+            <input type="text" name="city" value="" placeholder="{{ entry_city }}" id="input-city"
+                   class="form-control"/>
+        </div>
+        <h3>Maroc</h3>
+        <button id="save-address" class="zalark-button-border">{{ button_save_address }}</button>
     </div>
-    <div class="form-group">
-      <label class="control-label" for="input-firstname">{{ entry_firstname }}</label>
-      <input type="text" name="firstname" value="" placeholder="{{ entry_firstname }}" id="input-name"
-             class="form-control"/>
-    </div>
-    <div class="form-group">
-      <label class="control-label" for="input-firstname">{{ entry_lastname }}</label>
-      <input type="text" name="lastname" value="" placeholder="{{ entry_lastname }}" id="input-lastname"
-             class="form-control"/>
-    </div>
-    <div class="form-group">
-      <label class="control-label" for="input-address-1">{{ entry_address_1 }}</label>
-      <input type="text" name="address-1" value="" placeholder="{{ entry_address_1 }}" id="input-address-1"
-             class="form-control"/>
-    </div>
-    <div class="form-group">
-      <label class="control-label" for="input-address">{{ entry_address_2 }}</label>
-      <input type="text" name="address-2" value="" placeholder="{{ entry_address_2 }}" id="input-address-2"
-             class="form-control"/>
-    </div>
-    <div class="form-group">
-      <label class="control-label" for="input-postcode">{{ entry_postcode }}</label>
-      <input type="text" name="postcode" value="" placeholder="{{ entry_postcode }}" id="input-postcode"
-             class="form-control"/>
-    </div>
-    <div class="form-group">
-      <label class="control-label" for="input-city">{{ entry_city }}</label>
-      <input type="text" name="city" value="" placeholder="{{ entry_city }}" id="input-city"
-             class="form-control"/>
-    </div>
-    <h3>Maroc</h3>
-    <button id="save-address" class="zalark-button-border">{{ button_save_address }}</button>
-  </div>
 </div>
 <div class="col-md-6 col-xs-12">
-  <h4>ADRESSE DE FACTURATION</h4>
-  <hr>
-  <button class="zalark-button">{{ button_continue }}</button>
+    <h4>ADRESSE DE FACTURATION</h4>
+    <hr>
+    <button class="zalark-button">{{ button_continue }}</button>
 </div>
 <script>
     $('.form-group').hover(function () {
@@ -87,9 +88,9 @@
     $('input:radio[name="address"]').change(
         function () {
             if ($(this).val() === "Add") {
-                $("#add-address").show(200);
+                $("#add-address-field").show(200);
             } else {
-                $("#add-address").hide(200);
+                $("#add-address-field").hide(200);
             }
         });
 
@@ -101,8 +102,11 @@
         $(this).parent("form-group");
     });
 
+    $(".zalark-button").on("click", function () {
+        step.next();
+    });
+
     $("#save-address").on("click", function () {
-        console.log($('ul.progressbar > li.disabled').get()[0].value);
         if ($('#input-name').val().length === 0) {
             $('#input-name').focus();
             return;
@@ -123,20 +127,21 @@
             $('#input-postcode').focus();
             return;
         }
-        $.ajax({
-            url: "index.php?route=checkout/checkout/getNext",
-            type: "POST",
-            data: {"step_id": $('ul.progressbar > li.disabled').get()[0].value},
-            success: function (step) {
-                console.log(step);
-            },
-            error: function (s,d,e) {
-            }
 
-        });
+        $.ajax({
+            url: 'index.php?route=checkout/shipping_address/save',
+            type: 'post',
+            data: $('#add-address-field :input'),
+            dataType: 'json',
+            success: function (json) {
+                console.log(json);
+            },
+            error: function (d,r,e) {
+                console.log(r);
+            }
+        })
     });
 </script>
-
 
 
 {#<form class="form-horizontal">#}
