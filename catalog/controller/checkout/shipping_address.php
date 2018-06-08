@@ -12,7 +12,8 @@ class ControllerCheckoutShippingAddress extends Controller {
 		$this->load->model('account/address');
 
 		$data['addresses'] = $this->model_account_address->getAddresses();
-
+var_dump($data['addresses']);
+exit();
 		if (isset($this->session->data['shipping_address']['postcode'])) {
 			$data['postcode'] = $this->session->data['shipping_address']['postcode'];
 		} else {
@@ -53,9 +54,7 @@ class ControllerCheckoutShippingAddress extends Controller {
 		} else {
 			$data['shipping_address_custom_field'] = array();
 		}
-        $data['step_1'] = "active";
-        $data['step_2'] = "active";
-        $data['step_3'] = "disabled";
+
 		$data['language'] = $this->config->get('config_language');
 
 		$this->response->setOutput($this->load->view('checkout/shipping_address', $data));

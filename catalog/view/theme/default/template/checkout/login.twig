@@ -59,11 +59,11 @@
                     <label class="control-label" for="input-firstname">{{ entry_sex }}</label>
                 </div>
                 <label class="check_filter" style="display: inline">{{ entry_female }}
-                    <input type="radio" name="sex">
+                    <input type="radio" name="sex" value="{{ entry_female }}">
                     <span class="checkmark checkradio"></span>
                 </label>
                 <label class="check_filter" style="display: inline; margin-left: 10px">{{ entry_male }}
-                    <input type="radio" name="sex">
+                    <input type="radio" name="sex" value="{{ entry_male }}">
                     <span class="checkmark checkradio"></span>
                 </label>
             </div>
@@ -90,21 +90,20 @@
 </div>
 <script>
     // Login
-    $('#collapse-checkout-option').on('click', '#button-login', 'click', function () {                step.next();
+    $('#collapse-checkout-option').on('click', '#button-login', 'click', function () {
 
-        if($('#login-field').css("display") === 'none')
-        {
+        if ($('#login-field').css("display") === 'none') {
             $('#login-field').show(300);
             $('#sign-up-field').hide(300);
             return;
         }
 
-        if(stringChecker.email($('#collapse-checkout-option #login-field input[name=\'email\']').val()) === false){
+        if (stringChecker.email($('#collapse-checkout-option #login-field input[name=\'email\']').val()) === false) {
             $('#collapse-checkout-option #login-field input[name=\'email\']').focus();
             return;
         }
 
-        if(stringChecker.password($('#collapse-checkout-option #login-field input[name=\'password\']').val()) === false){
+        if (stringChecker.password($('#collapse-checkout-option #login-field input[name=\'password\']').val()) === false) {
             $('#collapse-checkout-option #login-field input[name=\'password\']').focus();
             return;
         }
@@ -123,7 +122,7 @@
                 $('.alert-dismissible, .text-danger').remove();
                 $('.form-group').removeClass('has-error');
                 if (json['redirect']) {
-                    // location = json['redirect'];
+                    step.next();
                 } else if (json['error']) {
                     // $('#collapse-checkout-option .panel-body').prepend('<div class="alert alert-danger alert-dismissible" ><i class="fa fa-exclamation-circle"></i> '
                     //     + json['error']['warning']
@@ -141,21 +140,21 @@
 
     // Register
     $('#collapse-checkout-option').on('click', '#button-register', function () {
-        if($('#sign-up-field').css("display") === 'none') {
+        if ($('#sign-up-field').css("display") === 'none') {
             $('#sign-up-field').show(300);
             $('#login-field').hide(300);
             return;
         }
 
-        if(stringChecker.email($('#collapse-checkout-option #sign-up-field input[name=\'email\']').val()) === false){
-            $('#collapse-checkout-option #sign-up-field input[name=\'email\']').focus();
-            return;
-        }
-
-        if(stringChecker.password($('#collapse-checkout-option #sign-up-field input[name=\'password\']').val()) === false){
-            $('#collapse-checkout-option #sign-up-field input[name=\'password\']').focus();
-            return;
-        }
+        // if (stringChecker.email($('#collapse-checkout-option #sign-up-field input[name=\'email\']').val()) === false) {
+        //     $('#collapse-checkout-option #sign-up-field input[name=\'email\']').focus();
+        //     return;
+        // }
+        //
+        // if (stringChecker.password($('#collapse-checkout-option #sign-up-field input[name=\'password\']').val()) === false) {
+        //     $('#collapse-checkout-option #sign-up-field input[name=\'password\']').focus();
+        //     return;
+        // }
 
         $.ajax({
             url: 'index.php?route=checkout/register/save&language={{ language }}',
@@ -169,31 +168,31 @@
                 $('#button-register').button('reset');
             },
             success: function (json) {
-            //     $('.alert-dismissible, .text-danger').remove();
-            //     $('.form-group').removeClass('has-error');
-            //
-            //     if (json['redirect']) {
-            //         location = json['redirect'];
-            //     } else if (json['error']) {
-            //         $('#button-register').button('reset');
-            //
-            //         if (json['error']['warning']) {
-            //             $('#collapse-payment-address .panel-body').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json['error']['warning'] + '<button type="button" class="close" data-dismiss="alert">&times;</button></div>');
-            //         }
-            //
-            //         for (i in json['error']) {
-            //             var element = $('#input-payment-' + i.replace('_', '-'));
-            //
-            //             if ($(element).parent().hasClass('input-group')) {
-            //                 $(element).parent().after('<div class="text-danger">' + json['error'][i] + '</div>');
-            //             } else {
-            //                 $(element).after('<div class="text-danger">' + json['error'][i] + '</div>');
-            //             }
-            //         }
-            //     }
+                console.log(json)
+                //     $('.alert-dismissible, .text-danger').remove();
+                //     $('.form-group').removeClass('has-error');
+                //
+                //     if (json['redirect']) {
+                //         location = json['redirect'];
+                //     } else if (json['error']) {
+                //         $('#button-register').button('reset');
+                //
+                //         if (json['error']['warning']) {
+                //             $('#collapse-payment-address .panel-body').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json['error']['warning'] + '<button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+                //         }
+                //
+                //         for (i in json['error']) {
+                //             var element = $('#input-payment-' + i.replace('_', '-'));
+                //
+                //             if ($(element).parent().hasClass('input-group')) {
+                //                 $(element).parent().after('<div class="text-danger">' + json['error'][i] + '</div>');
+                //             } else {
+                //                 $(element).after('<div class="text-danger">' + json['error'][i] + '</div>');
+                //             }
+                //         }
+                //     }
             }
         });
     });
 
 </script>
-<script src="catalog/view/javascript/common.js" type="text/javascript"></script>

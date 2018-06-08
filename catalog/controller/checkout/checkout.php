@@ -175,20 +175,11 @@ class ControllerCheckoutCheckout extends Controller
     public function getNext()
     {
         if ((int)$this->request->post['step_id'] === 2) {
-            $data['step_1'] = "active";
-            $data['step_2'] = "disabled";
-            $data['step_3'] = "disabled";
-            $this->response->setOutput($this->load->controller('checkout/shipping_address'), $data);
+            $this->response->setOutput($this->load->controller('checkout/shipping_address'));
         } elseif ((int)$this->request->post['step_id'] === 3) {
-            $data['step_1'] = "active";
-            $data['step_2'] = "active";
-            $data['step_3'] = "disabled";
-            $this->response->setOutput($this->load->controller('checkout/payment_address'), $data);
+            $this->response->setOutput($this->load->controller('checkout/payment_address'));
         } elseif ((int)$this->request->post['step_id'] === 4) {
-            $data['step_1'] = "active";
-            $data['step_2'] = "active";
-            $data['step_3'] = "active";
-            $this->response->setOutput($this->load->controller('checkout/payment_address'), $data);
+            $this->response->setOutput($this->load->controller('checkout/payment_address'));
         }
     }
 }
