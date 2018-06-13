@@ -169,13 +169,14 @@ class ControllerCheckoutShippingAddress extends Controller
             }
         }
 
-        if ($json) {
+        if (!$json) {
             $json['firstname'] = trim($this->request->post['firstname']);
-            $json['lastname'] =trim($this->request->post['lastname']);
+            $json['lastname'] = trim($this->request->post['lastname']);
             $json['address_1'] = trim($this->request->post['address_1']);
             $json['postcode'] = trim($this->request->post['postcode']);
             $json['city'] = trim($this->request->post['city']);
         }
+
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }

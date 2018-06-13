@@ -1704,7 +1704,9 @@ ul {
     display: none;
 }
 
-.close-address:hover {
-
+.pay-checkout{
+    width: 60px;
+    height: 30px;
+    margin-right: 10px;
+    border: 1px solid grey;
 }
-

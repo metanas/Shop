@@ -286,15 +286,14 @@ var step = {
             url: "index.php?route=checkout/checkout/getNext",
             type: "POST",
             data: {"step_id": $('ul.progressbar > li.disabled').get()[0].value},
-            success: function (step,data) {
-                console.log(data);
+            success: function (step) {
                 $('#collapse-checkout-option').empty();
                 $('#collapse-checkout-option').html(step);
                 $('ul.progressbar > li.disabled').get()[0].classList.add('active');
                 $('ul.progressbar > li.disabled').get()[0].classList.remove('disabled');
             },
             error: function (s, d, e) {
-
+                console.log(s, d, e)
             }
         });
     }

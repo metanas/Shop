@@ -142,15 +142,18 @@
                 html += "<span class=\"edit-address\"><i class=\"fa fa-pencil\"></i></span>";
                 html += "<span class=\"close-address\"><i class=\"fa fa-close\"></i></span>";
                 html += "<label class=\"check_filter\">";
-                html += "<input type=\"radio\" class=\"checkbox\" name=\"address\">{{ address.firstname }} {{ address.lastname }}";
-                html += "<br>{{ address.address_1 }}<br>{{ address.postcode }}";
-                html += "{{ address.city }}<br> Maroc";
+                html += "<input type=\"radio\" class=\"checkbox\" name=\"address\">" + json['firstname'] + " " + json['lastname'];
+                html += "<br>" + json['address_1'] + "<br>" + json['postcode'];
+                html += json['city'] + "<br> Maroc";
                 html += "<span class=\"checkmark checkradio\"></span>";
                 html += "</label>";
-                html += "</div><hr>"
+                html += "</div><hr>";
+
+                $('#container-address').prepend(html);
+
             },
             error: function (d, r, e) {
-                console.log(r);
+                console.log(d, r, e);
             }
         })
     });

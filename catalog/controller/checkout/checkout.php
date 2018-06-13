@@ -4,7 +4,7 @@ class ControllerCheckoutCheckout extends Controller
 {
     public function index()
     {
-//        // Validate cart has products and has stock.
+        // Validate cart has products and has stock.
 //        if ((!$this->cart->hasProducts() && empty($this->session->data['vouchers'])) || (!$this->cart->hasStock() && !$this->config->get('config_stock_checkout'))) {
 //            $this->response->redirect($this->url->link('checkout/cart', 'language=' . $this->config->get('config_language')));
 //        }
@@ -39,23 +39,6 @@ class ControllerCheckoutCheckout extends Controller
         if ($this->config->get('payment_klarna_account') || $this->config->get('payment_klarna_invoice')) {
             $this->document->addScript('http://cdn.klarna.com/public/kitt/toc/v1.0/js/klarna.terms.min.js');
         }
-
-        $data['breadcrumbs'] = array();
-
-        $data['breadcrumbs'][] = array(
-            'text' => $this->language->get('text_home'),
-            'href' => $this->url->link('common/home', 'language=' . $this->config->get('config_language'))
-        );
-
-        $data['breadcrumbs'][] = array(
-            'text' => $this->language->get('text_cart'),
-            'href' => $this->url->link('checkout/cart', 'language=' . $this->config->get('config_language'))
-        );
-
-        $data['breadcrumbs'][] = array(
-            'text' => $this->language->get('heading_title'),
-            'href' => $this->url->link('checkout/checkout', 'language=' . $this->config->get('config_language'))
-        );
 
         if (is_file(DIR_IMAGE . $this->config->get('config_logo'))) {
             $data['logo'] = $this->config->get('config_url') . 'image/' . $this->config->get('config_logo');
