@@ -270,13 +270,33 @@ var voucher = {
 };
 
 var stringChecker = {
-    'password' : function (password) {
+    'password': function (password) {
         var regex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
         return regex.test(password)
     },
-    'email' : function (email) {
-        var email_regex= /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    'email': function (email) {
+        var email_regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
         return email_regex.test(email)
+    }
+};
+
+var step = {
+    'next': function () {
+        $.ajax({
+            url: "index.php?route=checkout/checkout/getNext",
+            type: "POST",
+            data: {"step_id": $('ul.progressbar > li.disabled').get()[0].value},
+            success: function (step,data) {
+                console.log(data);
+                $('#collapse-checkout-option').empty();
+                $('#collapse-checkout-option').html(step);
+                $('ul.progressbar > li.disabled').get()[0].classList.add('active');
+                $('ul.progressbar > li.disabled').get()[0].classList.remove('disabled');
+            },
+            error: function (s, d, e) {
+
+            }
+        });
     }
 };
 

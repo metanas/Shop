@@ -504,6 +504,7 @@ header {
 
 .product-layout {
     z-index: 1;
+    margin-bottom: 20px;
 }
 
 .selectpicker {
@@ -1325,8 +1326,8 @@ ul {
     transform: rotate(45deg);
 }
 
-.checkradio{
-    border-radius: 50% ;
+.checkradio {
+    border-radius: 50%;
 }
 
 #slider12c .slider-selection {
@@ -1570,8 +1571,7 @@ ul {
 .w50 {
     width: 50px;
     padding: 2px;
-    border-width: 2px;
-    border-color: black;
+    border: 2px black;
     border-radius: 2px;
     margin: 25px 0 0 25px;
 }
@@ -1583,23 +1583,23 @@ ul {
     top: 0;
     right: 0;
     width: 20px;
-    cursor: pointer
+    cursor: pointer;
 }
 
-.progressbar li{
+.progressbar li {
     float: left;
     width: 25%;
     position: relative;
     text-align: center;
 }
 
-.progressbar{
+.progressbar {
     margin-top: 30px;
     counter-reset: step;
 }
 
-.progressbar li:before{
-    content:counter(step);
+.progressbar li:before {
+    content: counter(step);
     counter-increment: step;
     width: 30px;
     height: 30px;
@@ -1615,7 +1615,7 @@ ul {
     cursor: pointer;
 }
 
-.progressbar li:after{
+.progressbar li:after {
     content: '';
     position: absolute;
     width: 100%;
@@ -1630,22 +1630,24 @@ ul {
     content: none;
     background-color: #ff1b5e;
 }
-.progressbar li:first-child:before{
+
+.progressbar li:first-child:before {
     border: 2px solid #ff1b5e;
     background: #ff1b5e;
     color: whitesmoke;
 }
 
-.progressbar li.active + li:after{
+.progressbar li.active + li:after {
     background: #ff1b5e;
 }
-.progressbar li.active + li:before{
+
+.progressbar li.active + li:before {
     border-color: #ff1b5e;
     background: #ff1b5e;
     color: white
 }
 
-.zalark-button{
+.zalark-button {
     border: transparent !important;
     background-color: #ff1b5e;
     color: whitesmoke;
@@ -1656,14 +1658,14 @@ ul {
     height: 40px;
 }
 
-.zalark-button:hover{
+.zalark-button:hover {
     background-color: #ff1b5a;
     color: black;
 }
 
-.zalark-button-border{
+.zalark-button-border {
     background-color: white;
-    color: #ff1b5a ;
+    color: #ff1b5a;
     border: 2px solid #ff1b5a;
     font-size: 14px;
     width: 100%;
@@ -1672,18 +1674,37 @@ ul {
     height: 40px;
 }
 
-.description{
+.description {
     color: #a6a6a6;
     font-size: 12px;
 }
 
-.condition-general{
+.condition-general {
     font-size: 15px;
 }
 
-.pay-image{
+.pay-image {
     margin-top: 30px;
     width: 40px;
     height: 20px;
     border: 1px solid grey;
 }
+
+.edit-address {
+    position: absolute;
+    top: 10;
+    right: 20px;
+    cursor: pointer;
+}
+
+.close-address {
+    position: absolute;
+    top: 10;
+    right: 20px;
+    display: none;
+}
+
+.close-address:hover {
+
+}
+

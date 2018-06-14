@@ -56,10 +56,10 @@
 <div class="root">
     <div class="container">
         <ul class="progressbar">
-            <li>Se connecter</li>
-            <li>Adresse</li>
-            <li>Paiement</li>
-            <li>Validation</li>
+            <li value="2" class="{{ step_1 }}">Se connecter</li>
+            <li value="3" class="{{ step_2 }}">Adresse</li>
+            <li value="4" class="{{ step_3 }}">Paiement</li>
+            <li class="disabled">Validation</li>
         </ul>
     </div>
 </div>
@@ -68,7 +68,7 @@
     <hr style="border-top: 3px solid #eee">
 </div>
 <div id="collapse-checkout-option" class="container">
-    {{ login }}
+   {{ step }}
 </div>
 
 

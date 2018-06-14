@@ -92,6 +92,19 @@ class ControllerCheckoutCheckout extends Controller
             $data['account'] = '';
         }
 
+        if (!$this->customer->isLogged()) {
+            $data['step'] = $this->load->controller('checkout/login');
+            $data['step_1'] = "disabled";
+            $data['step_2'] = "disabled";
+            $data['step_3'] = "disabled";
+
+        } else {
+            $data['step'] = $this->load->controller('checkout/shipping_address');
+            $data['step_1'] = "active";
+            $data['step_2'] = "disabled";
+            $data['step_3'] = "disabled";
+        }
+
         $data['shipping_required'] = $this->cart->hasShipping();
 
         $data['language'] = $this->config->get('config_language');
@@ -100,7 +113,6 @@ class ControllerCheckoutCheckout extends Controller
         $data['column_right'] = $this->load->controller('common/column_right');
         $data['content_top'] = $this->load->controller('common/content_top');
         $data['content_bottom'] = $this->load->controller('common/content_bottom');
-        $data['login'] = $this->load->view('checkout/login');
         $data['footer'] = $this->load->controller('common/footer');
         $data['header'] = $this->load->controller('common/header');
 
@@ -158,5 +170,16 @@ class ControllerCheckoutCheckout extends Controller
 
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
+    }
+
+    public function getNext()
+    {
+        if ((int)$this->request->post['step_id'] === 2) {
+            $this->response->setOutput($this->load->controller('checkout/shipping_address'));
+        } elseif ((int)$this->request->post['step_id'] === 3) {
+            $this->response->setOutput($this->load->controller('checkout/payment_address'));
+        } elseif ((int)$this->request->post['step_id'] === 4) {
+            $this->response->setOutput($this->load->controller('checkout/payment_address'));
+        }
     }
 }
