@@ -3,36 +3,46 @@
     <hr>
     <div class="form-group col-sm-9">
         <label class="check_filter">Carte bancaire <span style="color: darkgrey">(gratuit)</span>
-            <input type="radio" class="checkbox">
+            <input type="radio" class="checkbox" name="payment">
             <span class="checkmark checkradio"></span>
         </label>
     </div>
     <span style="float: right">
-        <img class="pay-checkout" src="catalog/view/theme/default/image/paypal.png">
-        <img class="pay-checkout" src="catalog/view/theme/default/image/paypal.png">
+            <img class="pay-checkout" src="catalog/view/theme/default/image/master2.png">
+            <img class="pay-checkout" src="catalog/view/theme/default/image/visa2.png">
     </span>
-    <hr>
     <div class="form-group col-sm-9">
         <label class="check_filter">Paypal <span style="color: darkgrey">(gratuit)</span>
-            <input type="radio" class="checkbox">
+            <input type="radio" class="checkbox" name="payment">
             <span class="checkmark checkradio"></span>
         </label>
     </div>
     <span style="float: right">
         <img class="pay-checkout" src="catalog/view/theme/default/image/paypal.png">
     </span>
-    <hr>
     <div class="form-group col-sm-9">
         <label class="check_filter">Paiment a la livraison <span style="color: darkgrey">(gratuit)</span>
-            <input type="radio" class="checkbox">
+            <input type="radio" class="checkbox" name="payment">
             <span class="checkmark checkradio"></span>
         </label>
     </div>
     <span style="float: right">
-        <img class="pay-checkout" src="catalog/view/theme/default/image/paypal.png">
+        <img class="pay-checkout" src="catalog/view/theme/default/image/livraison2.png">
     </span>
 </div>
 <div class="col-sm-4">
     <h4>CODE PROMO & CARTE CADEAU (facultatif)</h4>
     <hr>
+    <p>Code promo: selectionnez votre moyen de paiement et entrez votre code a l'etape suivante.</p>
+    <div id="c_cart_layout_right" class="col-md-12" style="background-color: lightgrey" align="center">
+        <div class="col-sm-6 text-left checkout-text"><b>Livraison</b></div>
+        <div class="col-sm-6 text-right checkout-text"><b>gratuite</b></div>
+        <hr>
+        <hr style="border-color: grey">
+        {% set total = totals|last %}
+        <div class="col-sm-8 text-left checkout-text"><b>Total </b><span style="font-size: 14px">(TVA incluse)</span></div>
+        <div class="col-sm-4 text-right checkout-text"><b>200</b></div>
+        <button class="col-sm-12 zalark-button">Commander</button>
+        <div>vous pourrez verifier et confirmer votre command a la prochaine etape.</div>
+    </div>
 </div>
