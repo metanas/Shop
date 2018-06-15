@@ -132,6 +132,47 @@ $(document).ready(function () {
         $('#alert-box').removeClass('open');
     });
 });
+var div;
+
+function sethover() {
+    $(".product-layout").hover(function () {
+            if ($('.same', this).html().trim() === "") {
+                html = "<a href=\"" + $('.SheosName', this)[0].children[0].href + "\"><img class=\"smallSame img-default\" src=\"" + $(".img-responsive", this)[0].src + "\"></a>";
+                div = this;
+                $.ajax({
+                    url: "index.php?route=product/category/simulate&path=" + 72 + "&product_id=" + $('#product-id', this).html(),
+                    type: "GET",
+                    dataType: "json",
+                    success: function (json) {
+                        if ($('.same', div).html().trim() === "") {
+                            $.map(json, function (item) {
+                                html += "<a href=\"" + item['href'] + "\"><img class=\"smallSame\" src=\"" + item['thumb'] + "\"></a>";
+                            });
+                            $('.same', div).empty();
+                            $('.same', div).html(html);
+                            $('.same', div).show(400);
+                        }
+                        $(".smallSame").hover(
+                            function () {
+                                $(this).css('border', '1px solid black');
+                                $(this).parents('.product-thumb').find('.img-responsive')[0].src = this.src;
+                            }, function () {
+                                $(this).css('border', 'none');
+                                $(this).parents('.product-thumb').find('.img-responsive')[0].src = $(this).parents('.same').find('.img-default')[0].src;
+                            });
+                    },
+                    error: function (d, s) {
+                        console.log(s)
+                    }
+                });
+            } else {
+                $('.same', this).show(400)
+            }
+        }, function () {
+            $('.same', this).hide(400)
+        }
+    );
+}
 
 // Cart add remove functions
 var cart = {

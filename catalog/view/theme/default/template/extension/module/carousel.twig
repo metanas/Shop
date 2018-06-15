@@ -6,39 +6,39 @@
                 <div class="swiper-wrapper">
                     {% for product in products %}
                         <div class="product-layout col-lg-3 col-md-3 col-sm-4 col-xs-4 swiper-slide">
-                            <div class="product-thumb transition">
-                                <div class="image">
-                                    <a href="{{ product.href }}">
+                            <span id="product-id" style="display: none">{{ product.product_id }}</span>
+                            <a href="{{ product.href }}">
+                                <div class="product-thumb transition">
+                                    <div class="image">
                                         <img src="{{ product.thumb }}"
                                              alt="{{ product.name }}"
                                              title="{{ product.name }}"
                                              class="img-responsive"
-                                        /></a>
-                                </div>
-                                <div class="caption">
-                                    <div class="desctip col-sm-12 col-xs-12">
-                                        <h4 class="SheosName"><a href="{{ product.href }}">{{ product.name }}</a></h4>
-                                        {% if product.price %}
-                                            {% if not product.special %}
-                                                <p class="SheosPrice">{{ product.price }}</p>
-                                            {% else %}
-                                                <span class="price-old SheosPrice">{{ product.price }}</span><br>
-                                                <span class="price-new SheosPrice">{{ product.special }}</span>
+                                             style="width: 100%"
+                                        />
+                                    </div>
+                                    <div class="caption">
+                                        <div class="desctip col-sm-12 col-xs-12">
+                                            <h4 class="SheosName"><a href="{{ product.href }}">{{ product.name }}</a>
+                                            </h4>
+                                            {% if product.price %}
+                                                {% if not product.special %}
+                                                    <p class="SheosPrice">{{ product.price }}</p>
+                                                {% else %}
+                                                    <span class="price-old SheosPrice">{{ product.price }}</span><br>
+                                                    <span class="price-new SheosPrice">{{ product.special }}</span>
+                                                {% endif %}
                                             {% endif %}
-                                        {% endif %}
-                                        <div class="same">
-                                            {% if product.simulate %}
-                                                <img class="smallSame img-default" src="{{ product.thumb }}">
-                                                {% for same in product.simulate %}
-                                                    <img class="smallSame" src="{{ same.popup }}">
-                                                {% endfor %}
-                                            {% endif %}
-                                            {#<p>Disponible en plusieurs tailles</p>#}
+                                            <div class="same">
+                                                {#<p>Disponible en plusieurs tailles</p>#}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+                            </a>
+                            <div><img src="{{ product.favorite }}" class="favorite"
+                                      title="ajouter au favoris">
                             </div>
-                            <div><img src="catalog/view/theme/default/image/favorite.png" class="favorite" title="ajouter au favoris"></div>
                         </div>
                     {% endfor %}
                 </div>
@@ -70,22 +70,6 @@
 
     });
     --></script>
-<script> $(function () {
-        $(".product-layout").hover(
-            function () {
-                $('.same', this).show(400)
-            }, function () {
-                $('.same', this).hide(400)
-            })
-    });
-    $(function () {
-        $(".smallSame").hover(
-            function () {
-                $(this).css('border', '1px solid black');
-                this.parentNode.parentNode.parentNode.parentNode.children[0].children[0].children[0].src = this.src;
-            }, function () {
-                $(this).css('border', 'none');
-                this.parentNode.parentNode.parentNode.parentNode.children[0].children[0].children[0].src = this.parentNode.children[0].src;
-            });
-    });
+<script>
+    sethover();
 </script>
