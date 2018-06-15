@@ -32,10 +32,6 @@ class ControllerCheckoutLogin extends Controller
             $json['redirect'] = $this->url->link('checkout/checkout', 'language=' . $this->config->get('config_language'));
         }
 
-//        if ((!$this->cart->hasProducts() && empty($this->session->data['vouchers'])) || (!$this->cart->hasStock() && !$this->config->get('config_stock_checkout'))) {
-//            $json['redirect'] = $this->url->link('checkout/cart', 'language=' . $this->config->get('config_language'));
-//        }
-
         if (!$json) {
             $this->load->model('account/customer');
 

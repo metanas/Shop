@@ -119,7 +119,6 @@
                 $('#button-login').button('reset');
             },
             success: function (json) {
-                console.log(json);
                 if (json['session']) {
                     step.next();
                 }

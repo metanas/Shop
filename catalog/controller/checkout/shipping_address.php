@@ -63,7 +63,7 @@ class ControllerCheckoutShippingAddress extends Controller
         return $this->load->view('checkout/shipping_address', $data);
     }
 
-    public function save()
+    public function add()
     {
         $this->load->language('checkout/checkout');
 
@@ -80,9 +80,9 @@ class ControllerCheckoutShippingAddress extends Controller
 //		}
 
         // Validate cart has products and has stock.
-//		if ((!$this->cart->hasProducts() && empty($this->session->data['vouchers'])) || (!$this->cart->hasStock() && !$this->config->get('config_stock_checkout'))) {
-//			$json['redirect'] = $this->url->link('checkout/cart', 'language=' . $this->config->get('config_language'));
-//		}
+        if ((!$this->cart->hasProducts() && empty($this->session->data['vouchers'])) || (!$this->cart->hasStock() && !$this->config->get('config_stock_checkout'))) {
+            $json['redirect'] = $this->url->link('checkout/cart', 'language=' . $this->config->get('config_language'));
+        }
 
         // Validate minimum quantity requirements.
         $products = $this->cart->getProducts();
@@ -169,13 +169,62 @@ class ControllerCheckoutShippingAddress extends Controller
             }
         }
 
-        if ($json) {
+        if (!$json) {
+            $json["address_id"] = $this->session->data['shipping_address']['address_id'];
             $json['firstname'] = trim($this->request->post['firstname']);
-            $json['lastname'] =trim($this->request->post['lastname']);
+            $json['lastname'] = trim($this->request->post['lastname']);
             $json['address_1'] = trim($this->request->post['address_1']);
             $json['postcode'] = trim($this->request->post['postcode']);
             $json['city'] = trim($this->request->post['city']);
         }
+
+        $this->response->addHeader('Content-Type: application/json');
+        $this->response->setOutput(json_encode($json));
+    }
+
+    public function delete()
+    {
+        $json = array();
+
+        if (!$this->customer->isLogged()) {
+            $json['redirect'] = $this->url->link('checkout/checkout', 'language=' . $this->config->get('config_language'));
+        }
+
+        $this->load->model('account/address');
+        if (!$json) {
+            $this->model_account_address->deleteAddress($this->request->post['address_id']);
+            $json['success'] = true;
+        }
+
+        $this->response->addHeader('Content-Type: application/json');
+        $this->response->setOutput(json_encode($json));
+    }
+
+    public function save()
+    {
+        $json = array();
+        if (!$this->customer->isLogged()) {
+            $json['redirect'] = $this->url->link('checkout/checkout', 'language=' . $this->config->get('config_language'));
+        }
+
+        if($this->request->post['address_id'] == "Add"){
+            $json['not_selected'] = true;
+        }
+
+        $this->load->model('account/address');
+
+        if(!$json) {
+            $address = $this->model_account_address->getAddress($this->request->post['address_id']);
+            if(!$address){
+                $json['not_found'] = true;
+            }
+        }
+
+        if (!$json) {
+            $this->session->data['address_id'] = $this->request->post['address_id'];
+            $json['success'] = true;
+        }
+
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
