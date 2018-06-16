@@ -129,13 +129,15 @@
 
     setjava();
     $(".zalark-button").on("click", function () {
+        if($("#container-address .form-group input[name='address']:checked").length === 0){
+            return;
+        }
         $.ajax({
             url: "index.php?route=checkout/shipping_address/save",
             type: "post",
             data: {"address_id": $("#container-address .form-group input[name='address']:checked").val()},
             dataType: "json",
             success : function (json) {
-                console.log(json);
                 if(json['redirect']){
                     location = json['redirect'];
                 }else if(json['not_found']){
@@ -144,7 +146,6 @@
 
                 }else if(json['success']){
                     step.next();
-
                 }
             },
             error: function (r,df,d) {
