@@ -3,7 +3,7 @@
     <hr>
     <div class="form-group col-sm-9">
         <label class="check_filter">Carte bancaire <span style="color: darkgrey">(gratuit)</span>
-            <input type="radio" class="checkbox" name="payment">
+            <input type="radio" class="checkbox" name="payment" value="cart">
             <span class="checkmark checkradio"></span>
         </label>
     </div>
@@ -13,7 +13,7 @@
     </span>
     <div class="form-group col-sm-9">
         <label class="check_filter">Paypal <span style="color: darkgrey">(gratuit)</span>
-            <input type="radio" class="checkbox" name="payment">
+            <input type="radio" class="checkbox" name="payment" value="paypal">
             <span class="checkmark checkradio"></span>
         </label>
     </div>
@@ -22,7 +22,7 @@
     </span>
     <div class="form-group col-sm-9">
         <label class="check_filter">Paiment a la livraison <span style="color: darkgrey">(gratuit)</span>
-            <input type="radio" class="checkbox" name="payment">
+            <input type="radio" class="checkbox" name="payment" value="livraison">
             <span class="checkmark checkradio"></span>
         </label>
     </div>
@@ -40,9 +40,38 @@
         <hr>
         <hr style="border-color: grey">
         {% set total = totals|last %}
-        <div class="col-sm-8 text-left checkout-text"><b>Total </b><span style="font-size: 14px">(TVA incluse)</span></div>
+        <div class="col-sm-8 text-left checkout-text"><b>Total </b><span style="font-size: 14px">(TVA incluse)</span>
+        </div>
         <div class="col-sm-4 text-right checkout-text"><b>200</b></div>
         <button class="col-sm-12 zalark-button">Commander</button>
-        <div>vous pourrez verifier et confirmer votre command a la prochaine etape.</div>
+        <div class="col-sm-12">vous pourrez verifier et confirmer votre command a la prochaine etape.</div>
     </div>
 </div>
+<script>
+    $(".zalark-button").on("click", function () {
+        var selected = $('input[name="payment"]:checked');
+        if (selected.length === 0) {
+            return;
+        }
+        $.ajax({
+            url: "index.php?route=checkout/payment_address/save",
+            type: "post",
+            data: {"payment_type": selected.val()},
+            dataType: "json",
+            success: function (json) {
+                if (json['redirect']) {
+                    location = json['redirect'];
+                } else if (json['not_found']) {
+
+                } else if (json['not_selected']) {
+
+                } else if (json['success']) {
+                    step.next();
+                }
+            },
+            error: function (d, f, e) {
+                console.log(d, f, e);
+            }
+        })
+    });
+</script>

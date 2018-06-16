@@ -51,17 +51,6 @@ class ControllerExtensionModuleCarousel extends Controller
                         $special = false;
                     }
 
-                    if ($this->config->get('config_tax')) {
-                        $tax = $this->currency->format((float)$result['special'] ? $result['special'] : $result['price'], $this->session->data['currency']);
-                    } else {
-                        $tax = false;
-                    }
-
-                    if ($this->config->get('config_review_status')) {
-                        $rating = $result['rating'];
-                    } else {
-                        $rating = false;
-                    }
                     $simulate = array();
 
                     $results = $this->model_catalog_product->getProductImages($result['product_id']);
@@ -130,18 +119,6 @@ class ControllerExtensionModuleCarousel extends Controller
                         $special = $this->currency->format($this->tax->calculate($result['special'], $result['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
                     } else {
                         $special = false;
-                    }
-
-                    if ($this->config->get('config_tax')) {
-                        $tax = $this->currency->format((float)$result['special'] ? $result['special'] : $result['price'], $this->session->data['currency']);
-                    } else {
-                        $tax = false;
-                    }
-
-                    if ($this->config->get('config_review_status')) {
-                        $rating = $result['rating'];
-                    } else {
-                        $rating = false;
                     }
 
                     $simulate = array();

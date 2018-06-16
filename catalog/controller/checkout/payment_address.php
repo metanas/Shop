@@ -86,17 +86,9 @@ class ControllerCheckoutPaymentAddress extends Controller {
 				}
 			} else {
 				if (!$json) {
-					$address_id = $this->model_account_address->addAddress($this->customer->getId(), $this->request->post);
-
-					$this->session->data['payment_address'] = $this->model_account_address->getAddress($address_id);
-
-					// If no default address ID set we use the last address
-					if (!$this->customer->getAddressId()) {
-						$this->load->model('account/customer');
-						
-						$this->model_account_customer->editAddressId($this->customer->getId(), $address_id);
-					}
-
+				    $this->session->data['payment_type'] = $this->request->post['payment_type'];
+				    $json['test'] = $this->request->post['payment_type'];
+                    $json['success'] = true;
 					unset($this->session->data['payment_method']);
 					unset($this->session->data['payment_methods']);
 				}

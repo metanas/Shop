@@ -156,7 +156,7 @@ class ControllerCheckoutCheckout extends Controller
         } elseif ((int)$this->request->post['step_id'] === 3) {
             $this->response->setOutput($this->load->controller('checkout/payment_address'));
         } elseif ((int)$this->request->post['step_id'] === 4) {
-            $this->response->setOutput($this->load->controller('checkout/payment_address'));
+            $this->response->setOutput($this->load->controller('checkout/confirm'));
         }
     }
 }
