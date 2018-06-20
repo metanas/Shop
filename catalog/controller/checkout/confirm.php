@@ -3,6 +3,12 @@ class ControllerCheckoutConfirm extends Controller {
 	public function index() {
 		$redirect = '';
 
+        $this->load->model('account/address');
+
+		$data['shipping_address'] = $this->model_account_address->getAddress($this->session->data['address_id']);
+
+        var_dump($data['shipping_address']);
+
 //		if ($this->cart->hasShipping()) {
 //			// Validate if shipping address has been set.
 //			if (!isset($this->session->data['shipping_address'])) {
@@ -409,7 +415,7 @@ class ControllerCheckoutConfirm extends Controller {
 //		} else {
 //			$data['redirect'] = $redirect;
 //		}
-        $data = array();
+
 		return $this->load->view('checkout/confirm', $data);
 	}
 }
