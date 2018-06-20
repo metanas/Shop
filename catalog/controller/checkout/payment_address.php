@@ -47,6 +47,8 @@ class ControllerCheckoutPaymentAddress extends Controller {
 		} else {
 			$data['payment_address_custom_field'] = array();
 		}
+        $data['total'] = $this->cart->getTotal();
+        $data['currency'] = $this->session->data['currency'];
 
 		$data['language'] = $this->config->get('config_language');
 

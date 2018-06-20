@@ -39,10 +39,9 @@
         <div class="col-sm-6 text-right checkout-text"><b>gratuite</b></div>
         <hr>
         <hr style="border-color: grey">
-        {% set total = totals|last %}
-        <div class="col-sm-8 text-left checkout-text"><b>Total </b><span style="font-size: 14px">(TVA incluse)</span>
+        <div class="col-sm-7 text-left checkout-text"><b>Total </b><span style="font-size: 12px">(TVA incluse)</span>
         </div>
-        <div class="col-sm-4 text-right checkout-text"><b>200</b></div>
+        <div class="col-sm-5 text-right checkout-text"><b>{{ total }} {{ currency }}</b></div>
         <button class="col-sm-12 zalark-button">Commander</button>
         <div class="col-sm-12">vous pourrez verifier et confirmer votre command a la prochaine etape.</div>
     </div>
