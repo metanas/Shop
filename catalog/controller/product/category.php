@@ -198,17 +198,6 @@ class ControllerProductCategory extends Controller
                     $special = false;
                 }
 
-                if ($this->config->get('config_tax')) {
-                    $tax = $this->currency->format((float)$result['special'] ? $result['special'] : $result['price'], $this->session->data['currency']);
-                } else {
-                    $tax = false;
-                }
-
-                if ($this->config->get('config_review_status')) {
-                    $rating = (int)$result['rating'];
-                } else {
-                    $rating = false;
-                }
                 $simulate = array();
 
                 $results = $this->model_catalog_product->getProductImages($result['product_id']);
