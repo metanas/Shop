@@ -126,6 +126,7 @@ div.required .control-label:before {
     color: white;
     background-color: #ff1b5e;
     width: 100%;
+    padding-top: 5px;
     border-bottom: 1px solid RGB(229, 33, 92);
     height: 30px;
     font-weight: bold;

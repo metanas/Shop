@@ -436,6 +436,7 @@ class ControllerCheckoutConfirm extends Controller
                 'model' => $product['model'],
                 'image' => $this->model_tool_image->resize($product['image'], 100, 200),
                 'quantity' => $product['quantity'],
+                'color' => $product['color'],
                 'price' => $product['price']
             );
         }
