@@ -82,7 +82,7 @@ class ControllerCheckoutCheckout extends Controller
             $data['step_3'] = "disabled";
 
         } else {
-            $data['step'] = $this->load->controller('checkout/confirm');
+            $data['step'] = $this->load->controller('checkout/shipping_address');
             $data['step_1'] = "active";
             $data['step_2'] = "disabled";
             $data['step_3'] = "disabled";

@@ -24,6 +24,7 @@ body {
     font-size: 13px;
     line-height: 20px;
     width: 100%;
+    height: 100%;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -125,6 +126,7 @@ div.required .control-label:before {
     color: white;
     background-color: #ff1b5e;
     width: 100%;
+    padding-top: 5px;
     border-bottom: 1px solid RGB(229, 33, 92);
     height: 30px;
     font-weight: bold;
@@ -442,7 +444,7 @@ header {
     min-height: 600px;
 }
 #collapse-checkout-option {
-    min-height: 300px;
+    min-height: 00%;
 }
 /*.list-group{*/
 /*position: fixed;*/

@@ -18,8 +18,22 @@
     </div>
     <div class="col-sm-12"><h4>COMMANDE</h4>
         <hr>
+        {% for product in products %}
+            <div class="col-sm-12">
+                <div class="col-sm-2">
+                    <img src="{{ product.image }}">
+                </div>
+                <div class="col-sm-9" style="margin: 25px 0 0 10px">
+                    <div>{{ product.model }}</div>
+                    <div>{{ product.name }}</div>
+                    <div>Couleur: {{ product.color }}</div>
+                    <div>Taille: {{ product.quantity }}</div>
+                    <div>Quantite: {{ product.quantity }}</div>
+                    <div><b>{{ product.price }} {{ currency }}</b></div>
+                </div>
+            </div>
+        {% endfor %}
     </div>
-    <div class="col-sm-12"></div>
 </div>
 <div class="col-sm-5">
     <div class="col-sm-12"><h4>ADRESSE DE LIVRAISON</h4>
@@ -34,8 +48,30 @@
     </div>
     <div class="col-sm-12"><h4>MOYEN DE PAYEMENT</h4>
         <hr>
+        {% if shipping_payment == 'paypal' %}
+            <img class="pay-checkout" src="catalog/view/theme/default/image/paypal.png">
+        {% elseif shipping_payment == 'livraison'  %}
+            <img class="pay-checkout" src="catalog/view/theme/default/image/livraison2.png">
+        {% else %}
+            <img class="pay-checkout" src="catalog/view/theme/default/image/master2.png">
+            <img class="pay-checkout" src="catalog/view/theme/default/image/visa2.png">
+        {% endif %}
+
     </div>
     <div class="col-sm-12"><h4>CODE PROMO & CARTE CADEAU</h4>
         <hr>
+        <div class="form-group">
+            <input type="text" class="form-control" name="coupon" placeholder="Entrez votre code promo">
+        </div>
+        <div id="c_cart_layout_right" class="col-md-12" style="background-color: lightgrey" align="center">
+            <div class="col-sm-6 text-left checkout-text"><b>Livraison</b></div>
+            <div class="col-sm-6 text-right checkout-text"><b>gratuite</b></div>
+            <hr>
+            <hr style="border-color: grey">
+            <div class="col-sm-7 text-left checkout-text"><b>Total </b><span style="font-size: 12px">(TVA incluse)</span>
+            </div>
+            <div class="col-sm-5 text-right checkout-text"><b>{{ total }} {{ currency }}</b></div>
+            <button class="col-sm-12 zalark-button">VALIDER LE PAIEMENT</button>
+        </div>
     </div>
 </div>

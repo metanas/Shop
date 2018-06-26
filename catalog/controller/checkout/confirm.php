@@ -1,13 +1,24 @@
 <?php
-class ControllerCheckoutConfirm extends Controller {
-	public function index() {
-		$redirect = '';
+
+class ControllerCheckoutConfirm extends Controller
+{
+    public function index()
+    {
+        $redirect = '';
 
         $this->load->model('account/address');
 
-		$data['shipping_address'] = $this->model_account_address->getAddress($this->session->data['address_id']);
+        if (isset($this->session->data['address_id'])) {
+            $data['shipping_address'] = $this->model_account_address->getAddress($this->session->data['address_id']);
+        } else {
+            $data['shipping_address'] = "adresse non disponible";
+        }
 
-        var_dump($data['shipping_address']);
+        if (isset($this->session->data['payment_type'])) {
+            $data['shipping_payment'] = $this->session->data['payment_type'];
+        } else {
+            $data['shipping_payment'] = "methode de paiement non disponible";
+        }
 
 //		if ($this->cart->hasShipping()) {
 //			// Validate if shipping address has been set.
@@ -40,7 +51,7 @@ class ControllerCheckoutConfirm extends Controller {
 //			$redirect = $this->url->link('checkout/cart', 'language=' . $this->config->get('config_language'));
 //		}
 
-		// Validate minimum quantity requirements.
+        // Validate minimum quantity requirements.
 //		$products = $this->cart->getProducts();
 //
 //		foreach ($products as $product) {
@@ -416,6 +427,23 @@ class ControllerCheckoutConfirm extends Controller {
 //			$data['redirect'] = $redirect;
 //		}
 
-		return $this->load->view('checkout/confirm', $data);
-	}
+        $this->load->model("tool/image");
+
+        $data['products'] = array();
+        foreach ($this->cart->getProducts() as $product) {
+            $data['products'][] = array(
+                'name' => $product['name'],
+                'model' => $product['model'],
+                'image' => $this->model_tool_image->resize($product['image'], 100, 200),
+                'quantity' => $product['quantity'],
+                'color' => $product['color'],
+                'price' => $product['price']
+            );
+        }
+
+        $data['total'] = $this->cart->getTotal();
+        $data['currency'] = $this->session->data['currency'];
+
+        return $this->load->view('checkout/confirm', $data);
+    }
 }
