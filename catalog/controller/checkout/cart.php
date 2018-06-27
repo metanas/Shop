@@ -8,18 +8,6 @@ class ControllerCheckoutCart extends Controller
 
         $this->document->setTitle($this->language->get('heading_title'));
 
-        $data['breadcrumbs'] = array();
-
-        $data['breadcrumbs'][] = array(
-            'text' => $this->language->get('text_home'),
-            'href' => $this->url->link('common/home', 'language=' . $this->config->get('config_language'))
-        );
-
-        $data['breadcrumbs'][] = array(
-            'text' => $this->language->get('heading_title'),
-            'href' => $this->url->link('checkout/cart', 'language=' . $this->config->get('config_language'))
-        );
-
         if ($this->cart->hasProducts() || !empty($this->session->data['vouchers'])) {
             if (!$this->cart->hasStock() && (!$this->config->get('config_stock_checkout') || $this->config->get('config_stock_warning'))) {
                 $data['error_warning'] = $this->language->get('error_stock');
@@ -140,6 +128,8 @@ class ControllerCheckoutCart extends Controller
                     'thumb' => $image,
                     'name' => $product['name'],
                     'model' => $product['model'],
+                    'color' => $product['color'],
+                    'size' => $product['size'],
                     'option' => $option_data,
                     'recurring' => $recurring,
                     'quantity' => $product['quantity'],
@@ -275,6 +265,12 @@ class ControllerCheckoutCart extends Controller
             $product_id = 0;
         }
 
+        if (isset($this->request->post['product_size'])) {
+            $product_size = (int)$this->request->post['product_size'];
+        } else {
+            $product_size = 0;
+        }
+
         $this->load->model('catalog/product');
 
         $product_info = $this->model_catalog_product->getProduct($product_id);
@@ -321,7 +317,7 @@ class ControllerCheckoutCart extends Controller
             }
 
             if (!$json) {
-                $this->cart->add($this->request->post['product_id'], $quantity, $option, $recurring_id);
+                $this->cart->add($this->request->post['product_id'], $quantity, $option, $recurring_id, $product_size);
 
                 $json['success'] = sprintf($this->language->get('text_success'), $this->url->link('product/product', 'language=' . $this->config->get('config_language') . '&product_id=' . $this->request->post['product_id']), $product_info['name'], $this->url->link('checkout/cart', 'language=' . $this->config->get('config_language')));
 
