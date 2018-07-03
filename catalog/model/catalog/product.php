@@ -22,6 +22,7 @@ class ModelCatalogProduct extends Model {
 				'ean'              => $query->row['ean'],
 				'jan'              => $query->row['jan'],
 				'isbn'             => $query->row['isbn'],
+				'color_hex'        => $query->row['color_hex'],
 				'color'            => $query->row['color'],
 				'location'         => $query->row['location'],
 				'quantity'         => $query->row['quantity'],

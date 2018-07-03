@@ -78,10 +78,10 @@
                                     </div>
                                     <div id="color" class="ScrollStyle">
                                         {% for color in products_colors %}
-                                            <label class="check_filter check-color">{{ color }}
+                                            <label class="check_filter check-color">{{ color.color }}
                                                 <input class="checkbox" type="checkbox" name="color[]"
-                                                       value="{{ color }}">
-                                                <span class="checkmark"></span>
+                                                       value="{{ color.color }}">
+                                                <span class="checkmark" style="background-color: {{ color.color_hex }};"></span>
                                             </label>
                                         {% endfor %}
                                     </div>
