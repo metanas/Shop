@@ -582,7 +582,7 @@ class ModelCatalogProduct extends Model {
 
 	    $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "product_similar WHERE product_id = '". (int)$product_id . "'");
 
-        return $query->rows['simular_id'];
+        return $query->rows;
 	}
 
 	public function getRecurrings($product_id) {

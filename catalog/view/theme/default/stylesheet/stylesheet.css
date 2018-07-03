@@ -801,6 +801,7 @@ footer h4 {
     padding-bottom: 4px;
     display: none;
     max-height: 85px;
+    padding-left: 0;
 }
 
 .smallSame {
