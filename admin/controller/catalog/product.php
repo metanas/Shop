@@ -671,14 +671,6 @@ class ControllerCatalogProduct extends Controller {
 			$data['isbn'] = '';
 		}
 
-		if (isset($this->request->post['mpn'])) {
-			$data['mpn'] = $this->request->post['mpn'];
-		} elseif (!empty($product_info)) {
-			$data['mpn'] = $product_info['mpn'];
-		} else {
-			$data['mpn'] = '';
-		}
-
 		if (isset($this->request->post['location'])) {
 			$data['location'] = $this->request->post['location'];
 		} elseif (!empty($product_info)) {
