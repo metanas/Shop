@@ -221,7 +221,7 @@ class ControllerProductCategory extends Controller
                     $price_min = (int)((is_null($result['special'])) ? $result['price'] : $result['special']);
 
                 if ($this->customer->isLogged()) {
-                    if ($this->model_account_wishlist->isExist($result['product_id']) == 1) {
+                    if ((int)$this->model_account_wishlist->isExist($result['product_id']) == true) {
                         $favorite = $this->model_tool_image->resize("favoriteAdded.png", 100, 100);
                     } else $favorite = $this->model_tool_image->resize("favorite.png", 100, 100);
                 } else {
