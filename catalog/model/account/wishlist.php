@@ -30,8 +30,8 @@ class ModelAccountWishlist extends Model
 
     public function isExist($product_id)
     {
-        $query = $this->db->query("SELECT IF(EXISTS(SELECT * FROM " . DB_PREFIX . "customer_wishlist WHERE customer_id ='" . (int)$this->customer->getId() . "' AND product_id = '" . (int)$product_id ."'), 1, 0)");
+        $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "customer_wishlist WHERE customer_id ='" . (int)$this->customer->getId() . "' AND product_id = '" . (int)$product_id ."'");
 
-        return $query->row;
+        return !empty($query->row);
     }
 }

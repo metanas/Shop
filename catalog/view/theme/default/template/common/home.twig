@@ -13,3 +13,14 @@
         {#{{ column_right }}</div>#}
 {#</div>#}
 {{ footer }}
+<script>
+    $('.favorite').click(function () {
+        if (this.src.includes('Added')) {
+            this.src = "catalog/view/theme/default/image/favorite.png";
+            wishlist.remove(this.parentElement.parentElement.children[0].innerHTML);
+        } else {
+            this.src = "catalog/view/theme/default/image/favoriteAdded.png";
+            wishlist.add(this.parentElement.parentElement.children[0].innerHTML)
+        }
+    })
+</script>
