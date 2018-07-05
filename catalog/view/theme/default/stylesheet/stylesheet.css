@@ -854,6 +854,7 @@ footer h4 {
 .desctip {
     position: absolute;
     bottom: 0;
+    padding-left: 0;
     min-height: 50px;
     background-color: white;
 }
