@@ -47,13 +47,13 @@
     {% endfor %}
 </head>
 <body>
-<div class="container-fluid" align="center" style="background-color: #989da4;">
+<div id="header-checkout" class="container-fluid" align="center" style="background-color: #989da4;">
     <a href="{{ home }}"><img src="{{ logo }}" title="{{ name }}"
                               alt="{{ name }}"
                               class="img-responsive"
                               width="120"/></a>
 </div>
-<div class="root">
+<div id="root">
     <div class="container">
         <ul class="progressbar">
             <li value="2" class="{{ step_1 }}">Se connecter</li>
@@ -63,7 +63,7 @@
         </ul>
     </div>
 </div>
-<div class="container" align="center">
+<div id="title" class="container" align="center">
     <h1 id="title-checkout">Bienvenue</h1>
     <hr style="border-top: 3px solid #eee">
 </div>
@@ -80,6 +80,28 @@
     </div>
 </footer>
 </body>
+<script>
+    function autoHeight() {
+        $('#collapse-checkout-option').css('min-height', 0);
+        $('#collapse-checkout-option').css('min-height', (
+            $(document).height()
+            - $('#header-checkout').height()
+            - $('#root').height()
+            - $('#title').height()
+            - $('footer').height() - 41
+        ));
+    }
+
+    // onDocumentReady function bind
+    $(document).ready(function() {
+        autoHeight();
+    });
+
+    // onResize bind of the function
+    $(window).resize(function() {
+        autoHeight();
+    });
+</script>
 </html>
 {#<div id="checkout-checkout" class="container">#}
 {#<ul class="breadcrumb">#}

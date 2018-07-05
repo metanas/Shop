@@ -443,9 +443,6 @@ header {
 #content {
     min-height: 600px;
 }
-#collapse-checkout-option {
-    min-height: 00%;
-}
 /*.list-group{*/
 /*position: fixed;*/
 /*}*/
@@ -475,7 +472,6 @@ header {
 
 /* footer */
 footer {
-    margin-top: 30px;
     padding-top: 30px;
     background-color: #ececec;
     border-top: 1px solid #ddd;
