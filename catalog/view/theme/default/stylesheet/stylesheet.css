@@ -443,6 +443,7 @@ header {
 #content {
     min-height: 600px;
 }
+
 /*.list-group{*/
 /*position: fixed;*/
 /*}*/
@@ -1422,11 +1423,13 @@ ul {
     padding-top: 20px;
     padding-bottom: 20px;
 }
-.checkout-text{
+
+.checkout-text {
     font-size: 20px;
     margin-bottom: 10px;
     margin-top: 10px;
 }
+
 #c_c_total {
     background-color: white;
     margin: 0;
@@ -1662,9 +1665,20 @@ ul {
     display: none;
 }
 
-.pay-checkout{
+.pay-checkout {
     width: 60px;
     height: 30px;
     margin-right: 10px;
     border: 1px solid grey;
+}
+
+.hr-marge {
+    margin-top: -5px;
+}
+
+.delete-product {
+    position: absolute;
+    right: 0;
+    top: 25px;
+    cursor: pointer;
 }
