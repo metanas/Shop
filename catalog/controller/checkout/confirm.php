@@ -432,6 +432,7 @@ class ControllerCheckoutConfirm extends Controller
         $data['products'] = array();
         foreach ($this->cart->getProducts() as $product) {
             $data['products'][] = array(
+                'id'   => $product['product_id'],
                 'name' => $product['name'],
                 'model' => $product['model'],
                 'image' => $this->model_tool_image->resize($product['image'], 100, 200),
