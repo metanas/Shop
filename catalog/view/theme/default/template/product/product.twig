@@ -191,12 +191,12 @@
                             <hr>
                             <!-- <h3>{{ text_option }}</h3> -->
                             {% for option in options %}
-                                {% if option.type == 'Taille' %}
+                                {% if option.type == 'size' %}
                                     <div class="form-group{% if option.required %} required {% endif %}">
                                         <label class="control-label"
                                                for="input-option{{ option.product_option_id }}">{{ option.name }}</label>
                                         <select name="option[{{ option.product_option_id }}]"
-                                                id="input-option{{ option.product_option_id }}" class="form-control">
+                                                id="input-option{{ option.product_option_id }}" class="form-control taille-btn">
                                             <!-- {{ text_select }} -->
                                             <option value="">Votre taille</option>
                                             {% for option_value in option.product_option_value %}
@@ -512,6 +512,7 @@
                 $('#button-cart').button('reset');
             },
             success: function (json) {
+                console.log(json);
                 $('.alert-dismissible, .text-danger').remove();
                 $('.form-group').removeClass('has-error');
 
