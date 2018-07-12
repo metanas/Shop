@@ -9,7 +9,9 @@ class ControllerProductSearch extends Controller {
 
 		$this->load->model('tool/image');
 
-		if (isset($this->request->get['search'])) {
+        $this->load->model('account/wishlist');
+
+        if (isset($this->request->get['search'])) {
 			$search = $this->request->get['search'];
 		} else {
 			$search = '';
@@ -73,13 +75,6 @@ class ControllerProductSearch extends Controller {
 			$this->document->setTitle($this->language->get('heading_title'));
 		}
 
-		$data['breadcrumbs'] = array();
-
-		$data['breadcrumbs'][] = array(
-			'text' => $this->language->get('text_home'),
-			'href' => $this->url->link('common/home', 'language=' . $this->config->get('config_language'))
-		);
-
 		$url = '';
 
 		if (isset($this->request->get['search'])) {
@@ -118,20 +113,11 @@ class ControllerProductSearch extends Controller {
 			$url .= '&limit=' . $this->request->get['limit'];
 		}
 
-		$data['breadcrumbs'][] = array(
-			'text' => $this->language->get('heading_title'),
-			'href' => $this->url->link('product/search', 'language=' . $this->config->get('config_language') . $url)
-		);
-
 		if (isset($this->request->get['search'])) {
 			$data['heading_title'] = $this->language->get('heading_title') .  ' - ' . $this->request->get['search'];
 		} else {
 			$data['heading_title'] = $this->language->get('heading_title');
 		}
-
-		$data['text_compare'] = sprintf($this->language->get('text_compare'), (isset($this->session->data['compare']) ? count($this->session->data['compare']) : 0));
-
-		$data['compare'] = $this->url->link('product/compare', 'language=' . $this->config->get('config_language'));
 
 		$this->load->model('catalog/category');
 
@@ -209,30 +195,29 @@ class ControllerProductSearch extends Controller {
 					$special = false;
 				}
 
-				if ($this->config->get('config_tax')) {
-					$tax = $this->currency->format((float)$result['special'] ? $result['special'] : $result['price'], $this->session->data['currency']);
-				} else {
-					$tax = false;
-				}
 
-				if ($this->config->get('config_review_status')) {
-					$rating = (int)$result['rating'];
-				} else {
-					$rating = false;
-				}
+                if ($this->customer->isLogged()) {
+                    if ((int)$this->model_account_wishlist->isExist($result['product_id']) == true) {
+                        $favorite = $this->model_tool_image->resize("favoriteAdded.png", 100, 100);
+                    } else $favorite = $this->model_tool_image->resize("favorite.png", 100, 100);
+                } else {
+                    if (isset($this->session->data['wishlist']))
+                        if (in_array($result['product_id'], $this->session->data['wishlist'])) {
+                            $favorite = $this->model_tool_image->resize("favoriteAdded.png", 100, 100);
+                        } else $favorite = $this->model_tool_image->resize("favorite.png", 100, 100);
+                    else $favorite = $this->model_tool_image->resize("favorite.png", 100, 100);
+                }
 
-				$data['products'][] = array(
-					'product_id'  => $result['product_id'],
-					'thumb'       => $image,
-					'name'        => $result['name'],
-					'description' => utf8_substr(trim(strip_tags(html_entity_decode($result['description'], ENT_QUOTES, 'UTF-8'))), 0, $this->config->get('theme_' . $this->config->get('config_theme') . '_product_description_length')) . '..',
-					'price'       => $price,
-					'special'     => $special,
-					'tax'         => $tax,
-					'minimum'     => $result['minimum'] > 0 ? $result['minimum'] : 1,
-					'rating'      => $result['rating'],
-					'href'        => $this->url->link('product/product', 'language=' . $this->config->get('config_language') . '&product_id=' . $result['product_id'] . $url)
-				);
+                $data['products'][] = array(
+                    'product_id' => $result['product_id'],
+                    'thumb' => $image,
+                    'name' => (strlen($result['name']) <= 12) ? $result['name'] : utf8_substr(trim(strip_tags(html_entity_decode($result['name'], ENT_QUOTES, 'UTF-8'))), 0, $this->config->get('theme_' . $this->config->get('config_theme') . '_product_description_length')) . '..',
+                    'price' => $price,
+                    'special' => $special,
+                    'favorite' => $favorite,
+                    'minimum' => $result['minimum'] > 0 ? $result['minimum'] : 1,
+                    'href' => $this->url->link('product/product', 'language=' . $this->config->get('config_language') . '&product_id=' . $result['product_id'] . $url)
+                );
 			}
 
 			$url = '';
