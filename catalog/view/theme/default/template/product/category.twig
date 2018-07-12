@@ -274,6 +274,7 @@
     }
 
     sethover();
+    clickFav();
 
     $("#ex12c").slider({
         id: "slider12c",
@@ -432,6 +433,7 @@
         $('.product-container').empty();
         $('.product-container').html(html);
         sethover();
+        clickFav();
     }
 
     function updateFilters(json) {
@@ -474,13 +476,4 @@
         }
     }
 
-    $('.favorite').click(function () {
-        if (this.src.includes('Added')) {
-            this.src = "catalog/view/theme/default/image/favorite.png";
-            wishlist.remove(this.parentElement.parentElement.children[0].innerHTML);
-        } else {
-            this.src = "catalog/view/theme/default/image/favoriteAdded.png";
-            wishlist.add(this.parentElement.parentElement.children[0].innerHTML)
-        }
-    })
 </script>
