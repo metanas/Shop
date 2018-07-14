@@ -77,6 +77,7 @@ class ControllerCheckoutCheckout extends Controller
 
         if (!$this->customer->isLogged()) {
             $data['step'] = $this->load->controller('checkout/login');
+            $this->response->setOutput($this->load->controller('checkout/login'));
             $data['step_1'] = "disabled";
             $data['step_2'] = "disabled";
             $data['step_3'] = "disabled";
@@ -149,14 +150,16 @@ class ControllerCheckoutCheckout extends Controller
         $this->response->setOutput(json_encode($json));
     }
 
-    public function getNext()
+    public function getStep()
     {
-        if ((int)$this->request->post['step_id'] === 2) {
+        if ((int)$this->request->post['step_id'] === 2 && isset($this->session->data['customer_id'])) {
             $this->response->setOutput($this->load->controller('checkout/shipping_address'));
-        } elseif ((int)$this->request->post['step_id'] === 3) {
+        } elseif ((int)$this->request->post['step_id'] === 3 && isset($this->session->data['customer_id']) && isset($this->session->data['address_id'])) {
             $this->response->setOutput($this->load->controller('checkout/payment_address'));
-        } elseif ((int)$this->request->post['step_id'] === 4) {
+        } elseif ((int)$this->request->post['step_id'] === 4 && isset($this->session->data['customer_id']) && isset($this->session->data['address_id']) && isset($this->session->data['payment_address'])) {
             $this->response->setOutput($this->load->controller('checkout/confirm'));
+        }else{
+            $this->response->setOutput($this->load->controller('checkout/checkout'));
         }
     }
 }
