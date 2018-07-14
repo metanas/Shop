@@ -337,16 +337,25 @@ var stringChecker = {
 };
 
 var step = {
-    'next': function () {
+    'next': function (id = 0) {
+        id = (id === 0) ? $('ul.progressbar > li.disabled').get()[0].value : id;
         $.ajax({
-            url: "index.php?route=checkout/checkout/getNext",
+            url: "index.php?route=checkout/checkout/getStep",
             type: "POST",
-            data: {"step_id": $('ul.progressbar > li.disabled').get()[0].value},
+            data: {"step_id": (id === 0) ? $('ul.progressbar > li.disabled').get()[0].value : id},
             success: function (step) {
                 $('#collapse-checkout-option').empty();
                 $('#collapse-checkout-option').html(step);
-                $('ul.progressbar > li.disabled').get()[0].classList.add('active');
-                $('ul.progressbar > li.disabled').get()[0].classList.remove('disabled');
+                let progress = $('ul.progressbar li').get();
+                for (i = 0; i < 3; i++) {
+                    if (i < id-1) {
+                        progress[i].classList.add('active');
+                        progress[i].classList.remove('disabled');
+                    } else {
+                        progress[i].classList.add('disabled');
+                        progress[i].classList.remove('active');
+                    }
+                }
             },
             error: function (s, d, e) {
                 console.log(s, d, e)

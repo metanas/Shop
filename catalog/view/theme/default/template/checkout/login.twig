@@ -98,15 +98,15 @@
             return;
         }
 
-        if (stringChecker.email($('#collapse-checkout-option #login-field input[name=\'email\']').val()) === false) {
-            $('#collapse-checkout-option #login-field input[name=\'email\']').focus();
-            return;
-        }
-
-        if (stringChecker.password($('#collapse-checkout-option #login-field input[name=\'password\']').val()) === false) {
-            $('#collapse-checkout-option #login-field input[name=\'password\']').focus();
-            return;
-        }
+        // if (stringChecker.email($('#collapse-checkout-option #login-field input[name=\'email\']').val()) === false) {
+        //     $('#collapse-checkout-option #login-field input[name=\'email\']').focus();
+        //     return;
+        // }
+        //
+        // if (stringChecker.password($('#collapse-checkout-option #login-field input[name=\'password\']').val()) === false) {
+        //     $('#collapse-checkout-option #login-field input[name=\'password\']').focus();
+        //     return;
+        // }
         $.ajax({
             url: 'index.php?route=checkout/login/save&language={{ language }}',
             type: 'post',

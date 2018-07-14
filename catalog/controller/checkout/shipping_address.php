@@ -51,12 +51,8 @@ class ControllerCheckoutShippingAddress extends Controller
             }
         }
 
-        if (isset($this->session->data['shipping_address']['custom_field'])) {
-            $data['shipping_address_custom_field'] = $this->session->data['shipping_address']['custom_field'];
-        } else {
-            $data['shipping_address_custom_field'] = array();
-        }
-
+        unset($this->session->data['address_id']);
+        unset($this->session->data['payment_address']);
         $data['language'] = $this->config->get('config_language');
 
         $this->response->setOutput($this->load->view('checkout/shipping_address', $data));

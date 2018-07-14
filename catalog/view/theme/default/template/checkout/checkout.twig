@@ -68,7 +68,7 @@
     <hr style="border-top: 3px solid #eee">
 </div>
 <div id="collapse-checkout-option" class="container">
-   {{ step }}
+    {{ step }}
 </div>
 
 <footer style="background-color: lightgrey; padding-top: 10px;padding-bottom: 30px; border-top: 1px solid grey; margin-top: 30px">
@@ -81,6 +81,11 @@
 </footer>
 </body>
 <script>
+    $(".progressbar li").on("click", function () {
+        let id = this.value;
+        step.next(id - 1);
+    });
+
     function autoHeight() {
         $('#collapse-checkout-option').css('min-height', 0);
         $('#collapse-checkout-option').css('min-height', (
@@ -93,12 +98,12 @@
     }
 
     // onDocumentReady function bind
-    $(document).ready(function() {
+    $(document).ready(function () {
         autoHeight();
     });
 
     // onResize bind of the function
-    $(window).resize(function() {
+    $(window).resize(function () {
         autoHeight();
     });
 </script>
