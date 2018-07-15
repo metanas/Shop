@@ -1,14 +1,14 @@
 <?php
 // Heading
-$_['heading_title']    = 'Fixer';
+$_['heading_title']    = 'Fixateur';
 
 // Text
 $_['text_extension']   = 'Extensions';
-$_['text_success']     = 'Success: You have modified fixer currency rates!';
-$_['text_edit']        = 'Edit Fixer';
+$_['text_success']     = 'Succès: vous avez modifié les taux de change du fixeur!';
+$_['text_edit']        = 'Modifier le correcteur';
 
 // Entry
-$_['entry_status']     = 'Status';
+$_['entry_status']     = 'Statut';
 
 // Error
-$_['error_permission'] = 'Warning: You do not have permission to modify Fixer currency rates!';
+$_['error_permission'] = 'Avertissement: Vous n\'êtes pas autorisé à modifier les taux de change Fixer!';

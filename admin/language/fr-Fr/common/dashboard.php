@@ -1,6 +1,6 @@
 <?php
 // Heading
-$_['heading_title'] = 'Dashboard';
+$_['heading_title'] = 'Tableau de bord';
 
 // Error
-$_['error_install'] = 'Warning: Install folder still exists and should be deleted for security reasons!';
+$_['error_install'] = 'Avertissement: le dossier d\'installation existe toujours et devrait être supprimé pour des raisons de sécurité!';

@@ -1,23 +1,23 @@
 <?php
 // Heading
-$_['heading_title']    = 'Image Manager';
+$_['heading_title']    = 'Gestionnaire d\'image';
 
 // Text
-$_['text_uploaded']    = 'Success: Your file has been uploaded!';
-$_['text_directory']   = 'Success: Directory created!';
-$_['text_delete']      = 'Success: Your file or directory has been deleted!';
+$_['text_uploaded']    = 'Succès: votre fichier a été téléchargé!';
+$_['text_directory']   = 'Succès: Répertoire créé!';
+$_['text_delete']      = 'Succès: Votre fichier ou votre répertoire a été supprimé!';
 
 // Entry
-$_['entry_search']     = 'Search..';
-$_['entry_folder']     = 'Folder Name';
+$_['entry_search']     = 'Chercher..';
+$_['entry_folder']     = 'Nom de dossier';
 
 // Error
-$_['error_permission'] = 'Warning: Permission Denied!';
-$_['error_filename']   = 'Warning: Filename must be between 3 and 255!';
-$_['error_folder']     = 'Warning: Folder name must be between 3 and 255!';
-$_['error_exists']     = 'Warning: A file or directory with the same name already exists!';
-$_['error_directory']  = 'Warning: Directory does not exist!';
-$_['error_filesize']   = 'Warning: Incorrect file size!';
-$_['error_filetype']   = 'Warning: Incorrect file type!';
-$_['error_upload']     = 'Warning: File could not be uploaded for an unknown reason!';
-$_['error_delete']     = 'Warning: You can not delete this directory!';
+$_['error_permission'] = 'Avertissement: autorisation refusée!';
+$_['error_filename']   ='Avertissement: le nom de fichier doit être compris entre 3 et 255!';
+$_['error_folder']     = 'Avertissement: le nom du dossier doit être compris entre 3 et 255!';
+$_['error_exists']     = 'Avertissement: un fichier ou un répertoire portant le même nom existe déjà!';
+$_['error_directory']  = 'Avertissement: le répertoire n\'existe pas!';
+$_['error_filesize']   = 'Avertissement: taille de fichier incorrecte!';
+$_['error_filetype']   = 'Avertissement: type de fichier incorrect!';
+$_['error_upload']     = 'Avertissement: Le fichier n\'a pas pu être téléchargé pour une raison inconnue!';
+$_['error_delete']     = 'Avertissement: Vous ne pouvez pas supprimer ce répertoire!';

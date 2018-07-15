@@ -1,16 +1,16 @@
 <?php
 // Heading
-$_['heading_title']     = 'Reports';
+$_['heading_title']     = 'Rapports';
 
 // Text
-$_['text_success']      = 'Success: You have modified reports!';
-$_['text_list']         = 'Reports List';
+$_['text_success']      = 'Succès: vous avez modifié les rapports!';
+$_['text_list']         = 'Liste des rapports';
 
 // Column
-$_['column_name']       = 'Report Name';
-$_['column_status']     = 'Status';
-$_['column_sort_order'] = 'Sort Order';
+$_['column_name']       = 'Nom du rapport';
+$_['column_status']     = 'Statut';
+$_['column_sort_order'] = 'Ordre';
 $_['column_action']     = 'Action';
 
 // Error
-$_['error_permission']  = 'Warning: You do not have permission to modify reports!';
+$_['error_permission']  = 'Avertissement: vous n\'êtes pas autorisé à modifier les rapports!';

@@ -1,15 +1,15 @@
 <?php
 // Heading
-$_['heading_title']    = 'Feeds';
+$_['heading_title']    = 'Flux';
 
 // Text
-$_['text_success']     = 'Success: You have modified feeds!';
-$_['text_list']        = 'Feed List';
+$_['text_success']     = 'Succès: vous avez modifié les flux!';
+$_['text_list']        = 'Liste de flux';
 
 // Column
-$_['column_name']      = 'Product Feed Name';
-$_['column_status']    = 'Status';
+$_['column_name']      = 'Nom du flux de produits';
+$_['column_status']    = 'Statut';
 $_['column_action']    = 'Action';
 
 // Error
-$_['error_permission'] = 'Warning: You do not have permission to modify feeds!';
+$_['error_permission'] = 'Attention: Vous n\'êtes pas autorisé à modifier les flux!';

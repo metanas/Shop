@@ -1,17 +1,17 @@
 <?php
 // Heading
-$_['heading_title']     = 'Dashboard';
+$_['heading_title']     = 'Tableau de bord';
 
 // Text
-$_['text_success']      = 'Success: You have modified dashboards!';
-$_['text_list']         = 'Dashboard List';
+$_['text_success']      = 'Succès: vous avez modifié les tableaux de bord!';
+$_['text_list']         = 'Liste de tableau de bord';
 
 // Column
-$_['column_name']       = 'Dashboard Name';
-$_['column_width']      = 'Width';
-$_['column_status']     = 'Status';
-$_['column_sort_order'] = 'Sort Order';
+$_['column_name']       = 'Nom du tableau de bord';
+$_['column_width']      = 'Largeur';
+$_['column_status']     = 'Statut';
+$_['column_sort_order'] = 'Ordre';
 $_['column_action']     = 'Action';
 
 // Error
-$_['error_permission']  = 'Warning: You do not have permission to modify dashboards!';
+$_['error_permission']  = 'Avertissement: Vous n\'avez pas la permission de modifier les tableaux de bord!';

@@ -1,18 +1,18 @@
 <?php
 // Heading
-$_['heading_title']     = 'Payments';
+$_['heading_title']     = 'Paiements';
 
 // Text
-$_['text_success']      = 'Success: You have modified payments!';
-$_['text_list']         = 'Payment List';
-$_['text_recommended']  = 'Payments - Recommended Solutions';
+$_['text_success']      = 'Succès: vous avez modifié vos paiements!';
+$_['text_list']         = 'Liste de paiement';
+$_['text_recommended']  = 'Paiements - Solutions recommandées';
 
 
 // Column
-$_['column_name']       = 'Payment Method';
-$_['column_status']     = 'Status';
-$_['column_sort_order'] = 'Sort Order';
+$_['column_name']       = 'Mode de paiement';
+$_['column_status']     = 'Statut';
+$_['column_sort_order'] = 'Ordre';
 $_['column_action']     = 'Action';
 
 // Error
-$_['error_permission']  = 'Warning: You do not have permission to modify payments!';
+$_['error_permission']  = 'Avertissement: Vous n\'êtes pas autorisé à modifier les paiements!';

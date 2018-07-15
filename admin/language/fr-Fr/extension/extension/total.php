@@ -1,16 +1,16 @@
 <?php
 // Heading
-$_['heading_title']     = 'Order Totals';
+$_['heading_title']     = 'Totaux de commande';
 
 // Text
-$_['text_success']      = 'Success: You have modified totals!';
-$_['text_list']         = 'Order Total List';
+$_['text_success']      = 'Succès: vous avez modifié les totaux!';
+$_['text_list']         = 'Commander la liste Total';
 
 // Column
-$_['column_name']       = 'Order Totals';
-$_['column_status']     = 'Status';
-$_['column_sort_order'] = 'Sort Order';
+$_['column_name']       = 'Totaux de commande';
+$_['column_status']     = 'Statut';
+$_['column_sort_order'] = 'Ordre';
 $_['column_action']     = 'Action';
 
 // Error
-$_['error_permission']  = 'Warning: You do not have permission to modify totals!';
+$_['error_permission']  = 'Avertissement: Vous n\'avez pas la permission de modifier les totaux!';

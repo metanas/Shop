@@ -3,10 +3,10 @@
 $_['heading_title']      = 'OpenCart';
 
 // Text
-$_['text_profile']       = 'Your Profile';
-$_['text_store']         = 'Stores';
-$_['text_help']          = 'Help';
-$_['text_homepage']      = 'OpenCart Homepage';
-$_['text_support']       = 'Support Forum';
+$_['text_profile']       = 'Votre profil';
+$_['text_store']         = 'Magasins';
+$_['text_help']          = 'Aidez-moi';
+$_['text_homepage']      = 'Page d\'accueil OpenCart';
+$_['text_support']       = 'Forum d\'entraide';
 $_['text_documentation'] = 'Documentation';
-$_['text_logout']        = 'Logout';
+$_['text_logout']        = 'Deconnexion';

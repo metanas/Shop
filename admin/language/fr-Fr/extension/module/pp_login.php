@@ -1,35 +1,35 @@
 <?php
 // Heading
-$_['heading_title']        = 'Log In with PayPal';
+$_['heading_title']        = 'Se connecter avec PayPal';
 
 // Text
 $_['text_extension']       = 'Extensions';
-$_['text_success']         = 'Success: You have modified Log In with PayPal module!';
-$_['text_edit']            = 'Edit Log In with PayPal Module';
-$_['text_button_grey']     = 'Grey';
-$_['text_button_blue']     = 'Blue (Recommended)';
+$_['text_success']         = 'Succès: Vous avez modifié la connexion avec le module PayPal!';
+$_['text_edit']            = 'Modifier la connexion avec le module PayPal';
+$_['text_button_grey']     = 'Gris';
+$_['text_button_blue']     = 'Bleu (Recommandé)';
 
 // Entry
-$_['entry_client_id']      = 'Client ID';
+$_['entry_client_id']      = 'Identité du client';
 $_['entry_secret']         = 'Secret';
-$_['entry_sandbox']        = 'Sandbox Mode';
-$_['entry_debug']          = 'Debug Logging';
-$_['entry_customer_group'] = 'Customer Group';
-$_['entry_button']         = 'Button Colour';
-$_['entry_seamless']       = 'Allow "Seamless Checkout"';
-$_['entry_locale']         = 'Locale';
-$_['entry_return_url']     = 'Return URL';
-$_['entry_status']         = 'Status';
+$_['entry_sandbox']        = 'Mode sandbox';
+$_['entry_debug']          = 'Journalisation du débogage';
+$_['entry_customer_group'] = 'Groupe de clients';
+$_['entry_button']         = 'Couleur du bouton';
+$_['entry_seamless']       = 'Autoriser "Paiement transparent"';
+$_['entry_locale']         = 'Lieu';
+$_['entry_return_url']     = 'URL de retour';
+$_['entry_status']         = 'Statut';
 
 // Help
-$_['help_sandbox']         = 'Use sandbox (testing) environment?';
-$_['help_customer_group']  = 'For new customers, which Customer Group should they get created as?';
-$_['help_debug_logging']   = 'Enabling this will allow data to be added to your error log to help debug any problems.';
-$_['help_seamless']        = 'Allows auto-login when customers choose PayPal Express Checkout. To use this, the option must be enabled in your Log in With PayPal account. You must also use the same account as the one used in Express Checkout.';
-$_['help_locale']          = 'This is the PayPal locale setting for your store languages';
-$_['help_return_url']      = 'This needs to be added in the PayPal app configuration under app redirect URLs.';
+$_['help_sandbox']         = 'Utiliser l\'environnement sandbox (testing)?';
+$_['help_customer_group']  = 'Pour les nouveaux clients, quel groupe de clients devrait-il être créé?';
+$_['help_debug_logging']   = 'En activant ceci, vous pourrez ajouter des données à votre journal des erreurs pour aider à déboguer les problèmes.';
+$_['help_seamless']        = 'Autorise la connexion automatique lorsque les clients choisissent PayPal Express Checkout. Pour l\'utiliser, l\'option doit être activée dans votre compte Connexion avec PayPal. Vous devez également utiliser le même compte que celui utilisé dans Express Checkout.';
+$_['help_locale']          = 'Ceci est le paramètre régional PayPal pour les langues de votre magasin';
+$_['help_return_url']      = 'Cela doit être ajouté dans la configuration de l\'application PayPal sous les URL de redirection de l\'application.';
 
 // Error
-$_['error_permission']     = 'Warning: You do not have permission to modify Log In with PayPal module!';
-$_['error_client_id']      = 'Client ID required!';
-$_['error_secret']         = 'Secret required!';
+$_['error_permission']     = 'Avertissement: Vous n\'êtes pas autorisé à modifier la connexion avec le module PayPal!';
+$_['error_client_id']      = 'ID client requis!';
+$_['error_secret']         = 'Secret requis!';

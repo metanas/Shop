@@ -3,44 +3,44 @@
 $_['heading_title']          = 'Information';
 
 // Text
-$_['text_success']           = 'Success: You have modified information!';
-$_['text_list']              = 'Information List';
-$_['text_add']               = 'Add Information';
-$_['text_edit']              = 'Edit Information';
-$_['text_default']           = 'Default';
+$_['text_success']           = 'Succès: vous avez modifié les informations!';
+$_['text_list']              = 'Liste d\'information';
+$_['text_add']               = 'Ajouter des informations';
+$_['text_edit']              = 'Modifier les informations';
+$_['text_default']           = 'Defaut';
 $_['text_keyword']           = 'Do not use spaces, instead replace spaces with - and make sure the SEO URL is globally unique.';
 
 // Column
-$_['column_title']           = 'Information Title';
-$_['column_sort_order']      = 'Sort Order';
+$_['column_title']           = 'Titre de l\'information';
+$_['column_sort_order']      = 'Ordre';
 $_['column_action']          = 'Action';
 
 // Entry
-$_['entry_title']            = 'Information Title';
+$_['entry_title']            = 'Titre de l\'information';
 $_['entry_description']      = 'Description';
-$_['entry_meta_title']       = 'Meta Tag Title';
-$_['entry_meta_keyword']     = 'Meta Tag Keywords';
-$_['entry_meta_description'] = 'Meta Tag Description';
-$_['entry_store']            = 'Stores';
-$_['entry_keyword']          = 'Keyword';
-$_['entry_bottom']           = 'Bottom';
-$_['entry_status']           = 'Status';
-$_['entry_sort_order']       = 'Sort Order';
-$_['entry_layout']           = 'Layout Override';
+$_['entry_meta_title']       = 'Titre Meta Tag ';
+$_['entry_meta_keyword']     = ' Mot-clés Meta Tag ';
+$_['entry_meta_description'] = ' Description Meta Tag ';
+$_['entry_store']            = 'Magasin';
+$_['entry_keyword']          = 'mot-clés';
+$_['entry_bottom']           = 'Bas';
+$_['entry_status']           = 'Statut';
+$_['entry_sort_order']       = 'Order';
+$_['entry_layout']           = 'Disposition de mise en page';
 
 // Help
-$_['help_bottom']            = 'Display in the bottom footer.';
+$_['help_bottom']            = 'Afficher dans le pied de page .';
 
 // Error
-$_['error_warning']          = 'Warning: Please check the form carefully for errors!';
-$_['error_permission']       = 'Warning: You do not have permission to modify information!';
-$_['error_title']            = 'Information Title must be between 1 and 64 characters!';
-$_['error_description']      = 'Description must be more than 3 characters!';
-$_['error_meta_title']       = 'Meta Title must be greater than 1 and less than 255 characters!';
-$_['error_keyword']          = 'SEO URL already in use!';
-$_['error_unique']           = 'SEO URL must be unique!';
-$_['error_account']          = 'Warning: This information page cannot be deleted as it is currently assigned as the store account terms!';
-$_['error_checkout']         = 'Warning: This information page cannot be deleted as it is currently assigned as the store checkout terms!';
-$_['error_affiliate']        = 'Warning: This information page cannot be deleted as it is currently assigned as the store affiliate terms!';
-$_['error_return']           = 'Warning: This information page cannot be deleted as it is currently assigned as the store return terms!';
-$_['error_store']            = 'Warning: This information page cannot be deleted as it is currently used by %s stores!';
+$_['error_warning']          = 'Avertissement: Veuillez vérifier le formulaire attentivement pour les erreurs!';
+$_['error_permission']       = 'Avertissement: Vous n\'êtes pas autorisé à modifier les informations!';
+$_['error_title']            = 'Le titre de l\'information doit comporter entre 1 et 64 caractères!';
+$_['error_description']      = 'La description doit comporter plus de 3 caractères!';
+$_['error_meta_title']       = 'Le meta titre  doit être supérieur à 1 et inférieur à 255 caractères meta!';
+$_['error_keyword']          = 'URL SEO déjà utilisée!';
+$_['error_unique']           = 'L\'URL de référencement doit être unique!';
+$_['error_account']          = 'Avertissement: Cette page d\'informations ne peut pas être supprimée car elle est actuellement affectée aux termes du compte de la boutique!';
+$_['error_checkout']         = 'Avertissement: Cette page d`\'informations ne peut pas être supprimée car elle est actuellement affectée aux conditions de paiement en magasin!';
+$_['error_affiliate']        = 'Avertissement: Cette page d\'information ne peut pas être supprimée car elle est actuellement affectée aux conditions d\'affiliation du magasin!';
+$_['error_return']           = 'Avertissement: Cette page d\'information ne peut pas être supprimée car elle est actuellement affectée comme conditions de retour au magasin!';
+$_['error_store']            = 'Avertissement: Cette page d\'informations ne peut pas être supprimée car elle est actuellement utilisée par les magasins!';

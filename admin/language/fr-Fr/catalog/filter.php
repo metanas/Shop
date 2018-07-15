@@ -1,26 +1,26 @@
 <?php
 // Heading
-$_['heading_title']     = 'Filters';
+$_['heading_title']     = 'Filtre';
 
 // Text
-$_['text_success']      = 'Success: You have modified filters!';
-$_['text_list']         = 'Filter List';
-$_['text_add']          = 'Add Filter';
-$_['text_edit']         = 'Edit Filter';
-$_['text_group']        = 'Filter Group';
-$_['text_value']        = 'Filter Values';
+$_['text_success']      = 'Succès: vous avez modifié les filtres!';
+$_['text_list']         = 'Liste de filtres';
+$_['text_add']          = 'Ajouter un filtre';
+$_['text_edit']         = 'Modifier le filtre';
+$_['text_group']        = 'Groupe de filtres';
+$_['text_value']        = 'Valeurs de filtre';
 
 // Column
-$_['column_group']      = 'Filter Group';
-$_['column_sort_order'] = 'Sort Order';
+$_['column_group']      = 'Groupe de filtres';
+$_['column_sort_order'] = 'Ordre';
 $_['column_action']     = 'Action';
 
 // Entry
 $_['entry_group']       = 'Filter Group Name';
-$_['entry_name']        = 'Filter Name';
-$_['entry_sort_order']  = 'Sort Order';
+$_['entry_name']        = 'Le nom du groupe de filtre';
+$_['entry_sort_order']  = ' Ordere';
 
 // Error
-$_['error_permission']  = 'Warning: You do not have permission to modify filters!';
-$_['error_group']       = 'Filter Group Name must be between 1 and 64 characters!';
-$_['error_name']        = 'Filter Name must be between 1 and 64 characters!';
+$_['error_permission']  = 'Avertissement: Vous n\'êtes pas autorisé à modifier les filtres!';
+$_['error_group']       = 'Le nom du groupe de filtres doit comporter entre 1 et 64 caractères!';
+$_['error_name']        = 'Le nom du filtre doit comporter entre 1 et 64 caractères!';

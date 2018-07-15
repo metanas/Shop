@@ -1,36 +1,36 @@
 <?php
 // Heading
-$_['heading_title']       = 'Layouts';
+$_['heading_title']       = 'Les mises en page';
 
 // Text
-$_['text_success']        = 'Success: You have modified layouts!';
-$_['text_list']           = 'Layout List';
-$_['text_add']            = 'Add Layout';
-$_['text_edit']           = 'Edit Layout';
-$_['text_remove']         = 'Remove';
-$_['text_route']          = 'Choose the store and routes to be used with this layout';
-$_['text_module']         = 'Choose the position of the modules';
-$_['text_default']        = 'Default';
-$_['text_content_top']    = 'Content Top';
-$_['text_content_bottom'] = 'Content Bottom';
-$_['text_column_left']    = 'Column Left';
-$_['text_column_right']   = 'Column Right';
+$_['text_success']        = 'Succès: vous avez modifié les mises en page!';
+$_['text_list']           = 'Liste de mise en page';
+$_['text_add']            = 'Ajouter une mise en page';
+$_['text_edit']           = 'Modifier la mise en page';
+$_['text_remove']         = 'Retirer';
+$_['text_route']          = 'Choisissez le magasin et les itinéraires à utiliser avec cette mise en page';
+$_['text_module']         = 'Choisissez la position des modules';
+$_['text_default']        = 'Défaut';
+$_['text_content_top']    = 'Contenu Haut';
+$_['text_content_bottom'] = 'Contenu inférieur';
+$_['text_column_left']    = 'Colonne gauche';
+$_['text_column_right']   = 'Colonne Droite';
 
 // Column
-$_['column_name']         = 'Layout Name';
+$_['column_name']         = 'Nom de la mise en page';
 $_['column_action']       = 'Action';
 
 // Entry
-$_['entry_name']          = 'Layout Name';
-$_['entry_store']         = 'Store';
+$_['entry_name']          = 'Nom de la mise en page';
+$_['entry_store']         = 'le magasin';
 $_['entry_route']         = 'Route';
 $_['entry_module']        = 'Module';
 
 // Error
-$_['error_permission']    = 'Warning: You do not have permission to modify layouts!';
-$_['error_name']          = 'Layout Name must be between 3 and 64 characters!';
-$_['error_default']       = 'Warning: This layout cannot be deleted as it is currently assigned as the default store layout!';
-$_['error_store']         = 'Warning: This layout cannot be deleted as it is currently assigned to %s stores!';
-$_['error_product']       = 'Warning: This layout cannot be deleted as it is currently assigned to %s products!';
-$_['error_category']      = 'Warning: This layout cannot be deleted as it is currently assigned to %s categories!';
-$_['error_information']   = 'Warning: This layout cannot be deleted as it is currently assigned to %s information pages!';
+$_['error_permission']    = 'Avertissement: vous n\'êtes pas autorisé à modifier les mises en page!';
+$_['error_name']          = 'Le nom de la mise en page doit comporter entre 3 et 64 caractères!';
+$_['error_default']       = 'Avertissement: Cette mise en page ne peut pas être supprimée car elle est actuellement affectée comme mise en page de magasin par défaut!';
+$_['error_store']         = 'Avertissement: Cette mise en page ne peut pas être supprimée car elle est actuellement assignée aux magasins% !';
+$_['error_product']       = 'Attention: Cette mise en page ne peut pas être supprimée car elle est actuellement affectée aux produits% !';
+$_['error_category']      = 'Avertissement: Cette mise en page ne peut pas être supprimée car elle est actuellement affectée aux catégories% !';
+$_['error_information']   = 'Avertissement: Cette mise en page ne peut pas être supprimée car elle est actuellement affectée aux pages d\'informations% !';

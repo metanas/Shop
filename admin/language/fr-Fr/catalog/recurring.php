@@ -1,42 +1,42 @@
 <?php
 // Heading
-$_['heading_title']         = 'Recurring Profiles';
+$_['heading_title']         = 'Profils récurrents';
 
 // Text
-$_['text_success']          = 'Success: You have modified recurring profiles!';
-$_['text_list']             = 'Recurring Profile List';
-$_['text_add']              = 'Add Recurring Profile';
-$_['text_edit']             = 'Edit Recurring Profile';
-$_['text_day']              = 'Day';
-$_['text_week']             = 'Week';
-$_['text_semi_month']       = 'Semi Month';
-$_['text_month']            = 'Month';
-$_['text_year']             = 'Year';
+$_['text_success']          = 'Succès: vous avez modifié des profils récurrents!';
+$_['text_list']             = 'Liste de profils récurrents';
+$_['text_add']              = 'Ajouter un profil récurrent';
+$_['text_edit']             = 'Modifier le profil récurrent';
+$_['text_day']              = 'Le jour';
+$_['text_week']             = 'La semaine';
+$_['text_semi_month']       = 'Semi Mois';
+$_['text_month']            = 'le mois';
+$_['text_year']             = 'L\'an';
 $_['text_recurring']        = '<p><i class="fa fa-info-circle"></i> Recurring amounts are calculated by the frequency and cycles.</p><p>For example if you use a frequency of "week" and a cycle of "2", then the user will be billed every 2 weeks.</p><p>The duration is the number of times the user will make a payment, set this to 0 if you want payments until they are cancelled.</p>';
-$_['text_profile']          = 'Recurring Profile';
-$_['text_trial']            = 'Trial Profile';
+$_['text_profile']          = 'Profil récurrent';
+$_['text_trial']            = 'Profil d\'essai';
 
 // Entry
-$_['entry_name']            = 'Name';
-$_['entry_price']           = 'Price';
-$_['entry_duration']        = 'Duration';
+$_['entry_name']            = 'Nom';
+$_['entry_price']           = 'Prix';
+$_['entry_duration']        = 'Durée';
 $_['entry_cycle']           = 'Cycle';
-$_['entry_frequency']       = 'Frequency';
-$_['entry_trial_price']     = 'Trial price';
-$_['entry_trial_duration']  = 'Trial duration';
-$_['entry_trial_status']    = 'Trial status';
-$_['entry_trial_cycle']     = 'Trial cycle';
-$_['entry_trial_frequency'] = 'Trial frequency';
-$_['entry_status']          = 'Status';
-$_['entry_sort_order']      = 'Sort Order';
+$_['entry_frequency']       = 'Fréquence';
+$_['entry_trial_price']     = 'Prix d\'essai';
+$_['entry_trial_duration']  = 'Durée de l\'essai';
+$_['entry_trial_status']    = 'Statut d\'essai';
+$_['entry_trial_cycle']     = 'Cycle d\'essai';
+$_['entry_trial_frequency'] = 'Fréquence d\'essai';
+$_['entry_status']          = 'Statut';
+$_['entry_sort_order']      = 'Ordre';
 
 // Column
-$_['column_name']           = 'Name';
-$_['column_sort_order']     = 'Sort Order';
+$_['column_name']           = 'Nom';
+$_['column_sort_order']     = 'Ordre';
 $_['column_action']         = 'Action';
 
 // Error
-$_['error_warning']         = 'Warning: Please check the form carefully for errors!';
-$_['error_permission']      = 'Warning: You do not have permission to modify recurring profiles!';
-$_['error_name']            = 'Profile Name must be greater than 3 and less than 255 characters!';
-$_['error_product']         = 'Warning: This recurring profile cannot be deleted as it is currently assigned to %s products!';
+$_['error_warning']         = 'Avertissement: Veuillez vérifier le formulaire attentivement pour les erreurs!';
+$_['error_permission']      = 'Avertissement: vous n\'êtes pas autorisé à modifier les profils récurrents!';
+$_['error_name']            = 'Le nom du profil doit être supérieur à 3 et inférieur à 255 caractères!';
+$_['error_product']         = 'Attention: Ce profil récurrent ne peut pas être supprimé car il est actuellement affecté aux produits% !';

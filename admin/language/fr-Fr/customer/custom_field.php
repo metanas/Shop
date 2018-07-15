@@ -1,55 +1,55 @@
 <?php
 // Heading
-$_['heading_title']        = 'Custom Fields';
+$_['heading_title']        = 'Les champs personnalisés';
 
 // Text
-$_['text_success']         = 'Success: You have modified custom fields!';
-$_['text_list']            = 'Custom Field List';
-$_['text_add']             = 'Add Custom Field';
-$_['text_edit']            = 'Edit Custom Field';
-$_['text_choose']          = 'Choose';
-$_['text_select']          = 'Select';
+$_['text_success']         = 'Succès: vous avez modifié les champs personnalisés!';
+$_['text_list']            = 'Liste de champs personnalisée';
+$_['text_add']             = 'Ajouter un champ personnalisé';
+$_['text_edit']            = 'Modifier le champ personnalisé';
+$_['text_choose']          = 'Choisir';
+$_['text_select']          = 'Sélectionner';
 $_['text_radio']           = 'Radio';
-$_['text_checkbox']        = 'Checkbox';
-$_['text_input']           = 'Input';
-$_['text_text']            = 'Text';
-$_['text_textarea']        = 'Textarea';
-$_['text_file']            = 'File';
+$_['text_checkbox']        = 'Case à cocher';
+$_['text_input']           = 'Contribution';
+$_['text_text']            = 'Texte';
+$_['text_textarea']        = 'Zone de Texte';
+$_['text_file']            = 'Fichier';
 $_['text_date']            = 'Date';
 $_['text_datetime']        = 'Date &amp; Time';
-$_['text_time']            = 'Time';
-$_['text_account']         = 'Account';
-$_['text_address']         = 'Address';
-$_['text_affiliate']       = 'Affiliate';
+$_['text_time']            = 'Temps';
+$_['text_account']         = 'Compts';
+$_['text_address']         = 'Adresse';
+$_['text_affiliate']       = 'Filiale';
 $_['text_regex']           = 'Regex';
-$_['text_custom_field']    = 'Custom Field';
-$_['text_value']           = 'Custom Field Values';
+$_['text_custom_field']    = 'Champ personnalisé';
+$_['text_value']           = 'Valeurs de champ personnalisées';
 
 // Column
-$_['column_name']          = 'Custom Field Name';
-$_['column_location']      = 'Location';
+$_['column_name']          = 'Nom de champ personnalisé';
+$_['column_location']      = 'Emplacement';
 $_['column_type']          = 'Type';
-$_['column_sort_order']    = 'Sort Order';
+$_['column_sort_order']    = 'Ordre';
 $_['column_action']        = 'Action';
 
 // Entry
 $_['entry_name']           = 'Custom Field Name';
-$_['entry_location']       = 'Location';
+$_['entry_location']       = 'Emplacement';
 $_['entry_type']           = 'Type';
-$_['entry_value']          = 'Value';
+$_['entry_value']          = 'Valeur';
 $_['entry_validation']     = 'Validation';
-$_['entry_custom_value']   = 'Custom Field Value Name';
-$_['entry_customer_group'] = 'Customer Group';
-$_['entry_required']       = 'Required';
-$_['entry_status']         = 'Status';
-$_['entry_sort_order']     = 'Sort Order';
+$_['entry_custom_value']   = 'Nom de valeur de champ personnalisé';
+$_['entry_customer_group'] = 'Groupe de clients';
+$_['entry_required']       = 'Champs obligatoires';
+$_['entry_status']         = 'Statut';
+$_['entry_sort_order']     = 'Ordre';
 
 // Help
 $_['help_regex']           = 'Use regex. E.g: /[a-zA-Z0-9_-]/';
 $_['help_sort_order']      = 'Use minus to count backwards from the last field in the set.';
 
 // Error
-$_['error_permission']     = 'Warning: You do not have permission to modify custom fields!';
-$_['error_name']           = 'Custom Field Name must be between 1 and 128 characters!';
-$_['error_type']           = 'Warning: Custom Field Values required!';
-$_['error_custom_value']   = 'Custom Value Name must be between 1 and 128 characters!';
+$_['error_permission']     = 'Avertissement: Vous n\'avez pas la permission de modifier les champs personnalisés!';
+$_['error_name']           = 'Le nom de champ personnalisé doit comporter entre 1 et 128 caractères!';
+$_['error_type']           = 'Avertissement: Valeurs de champ personnalisées requises!';
+$_['error_custom_value']   = 'Le nom de la valeur personnalisée doit comporter entre 1 et 128 caractères!';
