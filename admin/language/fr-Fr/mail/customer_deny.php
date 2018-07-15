@@ -1,8 +1,8 @@
 <?php
 // Text
-$_['text_subject'] = '%s - Your Account has been denied!';
-$_['text_welcome'] = 'Welcome and thank you for registering at %s!';
-$_['text_denied']  = 'Unfortunately your request has been denied. For more information you can contact the store owner here:';
-$_['text_thanks']  = 'Thanks,';
+$_['text_subject'] = '% s - Votre compte a été refusé!';
+$_['text_welcome'] = 'Bienvenue et merci de vous être enregistré sur% s!';
+$_['text_denied']  = 'Malheureusement, votre demande a été refusée. Pour plus d\'informations, vous pouvez contacter le propriétaire du magasin ici:';
+$_['text_thanks']  = 'Merci,';
 
-$_['button_contact']    = 'Contact Us';
+$_['button_contact']    = 'Contactez nous';

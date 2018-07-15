@@ -3,15 +3,15 @@ $_['heading_title']    = 'Google Analytics';
 
 // Text
 $_['text_extension']   = 'Extensions';
-$_['text_success']	   = 'Success: You have modified Google Analytics!';
-$_['text_edit']        = 'Edit Google Analytics';
-$_['text_signup']      = 'Login to your <a href="http://www.google.com/analytics/" target="_blank"><u>Google Analytics</u></a> account and after creating your website profile copy and paste the analytics code into this field.';
-$_['text_default']     = 'Default';
+$_['text_success']	   = 'Succès: vous avez modifié Google Analytics!';
+$_['text_edit']        = 'Modifier Google Analytics';
+$_['text_signup']      = 'Connectez-vous à votre compte <a href="http://www.google.com/analytics/" target="_blank"> Google Analytics </u> </a> et après avoir créé le copier-coller de votre profil de site Web';
+$_['text_default']     = 'Défaut';
 
 // Entry
-$_['entry_code']       = 'Google Analytics Code';
-$_['entry_status']     = 'Status';
+$_['entry_code']       = 'Code Google Analytics';
+$_['entry_status']     = 'Statut';
 
 // Error
-$_['error_permission'] = 'Warning: You do not have permission to modify Google Analytics!';
-$_['error_code']	   = 'Code required!';
+$_['error_permission'] = 'Avertissement: vous n\'êtes pas autorisé à modifier Google Analytics!';
+$_['error_code']	   = 'Code requis!';

@@ -3,13 +3,13 @@
 $_['heading_title']    = 'Menu';
 
 // Text
-$_['text_success']     = 'Success: You have modified menu!';
-$_['text_list']        = 'Menu List';
+$_['text_success']     = 'Succès: Vous avez modifié le menu!';
+$_['text_list']        = 'Liste de menu';
 
 // Column
-$_['column_name']      = 'Menu Name';
-$_['column_status']    = 'Status';
+$_['column_name']      = 'Nom du menu';
+$_['column_status']    = 'Statut';
 $_['column_action']    = 'Action';
 
 // Error
-$_['error_permission'] = 'Warning: You do not have permission to modify menu!';
+$_['error_permission'] = 'Avertissement: Vous n\'êtes pas autorisé à modifier le menu!';

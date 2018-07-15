@@ -1,32 +1,32 @@
 <?php
 // Heading
-$_['heading_title']     = 'eBay Listing';
+$_['heading_title']     = 'Liste eBay';
 
 // Text
 $_['text_extension']    = 'Extensions';
-$_['text_success']      = 'Success: You have modified module eBay featured!';
-$_['text_edit']        	= 'Edit eBay module';
-$_['text_list']         = 'Layout List';
-$_['text_register']     = 'You need to register and enable OpenBay Pro for eBay!';
-$_['text_about'] 		= 'The eBay display module allows you to display products from your eBay account directly on your website.';
-$_['text_latest']       = 'Latest';
-$_['text_random']       = 'Random';
+$_['text_success']      = 'Succès: Vous avez modifié le module eBay en vedette!';
+$_['text_edit']        	= 'Modifier le module eBay';
+$_['text_list']         = 'Liste de mise en page';
+$_['text_register']     = 'Vous devez vous inscrire et activer OpenBay Pro pour eBay!';
+$_['text_about'] 		= 'Le module d\'affichage eBay vous permet d\'afficher les produits de votre compte eBay directement sur votre site Web.';
+$_['text_latest']       = 'Dernier';
+$_['text_random']       = 'au hasard';
 
 // Entry
-$_['entry_name']        = 'Module Name';
-$_['entry_username']    = 'eBay username';
-$_['entry_keywords']    = 'Search Keywords';
-$_['entry_description'] = 'Include Description Search';
-$_['entry_limit']       = 'Limit';
-$_['entry_length']      = 'Length';
-$_['entry_width']       = 'Width';
-$_['entry_height']      = 'Height';
-$_['entry_site']   		= 'eBay Site';
-$_['entry_sort']   		= 'Sort by';
-$_['entry_status']   	= 'Status';
+$_['entry_name']        = 'Nom du module';
+$_['entry_username']    = 'Nom d\'utilisateur eBay';
+$_['entry_keywords']    = 'Rechercher des mots-clés';
+$_['entry_description'] = 'Inclure la description de la recherche';
+$_['entry_limit']       = 'Limite';
+$_['entry_length']      = 'Longueur';
+$_['entry_width']       = 'Largeur';
+$_['entry_height']      = 'la taille';
+$_['entry_site']   		= 'Site d\'eBay';
+$_['entry_sort']   		= 'Trier par';
+$_['entry_status']   	= 'Statut';
 
 // Error
-$_['error_permission']  = 'Warning: You do not have permission to modify module eBay!';
-$_['error_name']        = 'Module Name must be between 3 and 64 characters!';
-$_['error_width']       = 'Width required!';
-$_['error_height']      = 'Height required!';
+$_['error_permission']  = 'Attention: Vous n\'êtes pas autorisé à modifier le module eBay!';
+$_['error_name']        = 'Le nom du module doit comporter entre 3 et 64 caractères!';
+$_['error_width']       = 'Largeur requise!';
+$_['error_height']      = 'Hauteur requise!';

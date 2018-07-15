@@ -4,13 +4,13 @@ $_['heading_title']    = 'Shipping';
 
 // Text
 $_['text_extension']   = 'Extensions';
-$_['text_success']     = 'Success: You have modified shipping total!';
-$_['text_edit']        = 'Edit Shipping Total';
+$_['text_success']     = 'Succès: Vous avez modifié le total d\'expédition!';
+$_['text_edit']        = 'Modifier le total de la livraison';
 
 // Entry
-$_['entry_estimator']  = 'Shipping Estimator';
-$_['entry_status']     = 'Status';
-$_['entry_sort_order'] = 'Sort Order';
+$_['entry_estimator']  = 'Estimateur d\'expédition';
+$_['entry_status']     = 'Statut';
+$_['entry_sort_order'] = 'Ordre';
 
 // Error
 $_['error_permission'] = 'Warning: You do not have permission to modify shipping total!';

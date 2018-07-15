@@ -1,29 +1,29 @@
 <?php
 // Heading
-$_['heading_title']     = 'SEO Regular Expression';
+$_['heading_title']     = 'SEO Expression régulière';
 
 // Text
-$_['text_success']      = 'Success: You have modified SEO Regular Expression!';
-$_['text_list']         = 'SEO Regular Expression List';
-$_['text_add']          = 'Add SEO Regular Expression';
-$_['text_edit']         = 'Edit SEO Regular Expression';
+$_['text_success']      = 'Succès: vous avez modifié l\'expression régulière SEO!';
+$_['text_list']         = 'Liste d\'expressions régulières SEO';
+$_['text_add']          = 'Ajouter une expression régulière SEO';
+$_['text_edit']         = 'Modifier l\'expression régulière SEO';
 
 // Column
-$_['column_name']       = 'Regex Name';
+$_['column_name']       = 'Nom de Regex';
 $_['column_regex']      = 'Regex';
-$_['column_sort_order'] = 'Sort Order';
+$_['column_sort_order'] = 'Ordre';
 $_['column_action']     = 'Action';
 
 // Entry
-$_['entry_name']        = 'Regex Name';
+$_['entry_name']        = 'Nom de Regex';
 $_['entry_regex']       = 'Regex';
-$_['entry_sort_order']  = 'Sort Order';
+$_['entry_sort_order']  = 'Ordre';
 
 // Help
-$_['help_regex']        = 'Regular expression to match the parts of the URL.';
+$_['help_regex']        = 'Expression régulière pour correspondre aux parties de l\'URL.';
 
 // Error
-$_['error_permission']  = 'Warning: You do not have permission to modify SEO URL!';
-$_['error_name']        = 'Regex Name required!';
-$_['error_regex']       = 'Regex required!';
-$_['error_invalid']     = 'Invalid regex!';
+$_['error_permission']  = 'Avertissement: Vous n\'êtes pas autorisé à modifier l\'URL de référencement!';
+$_['error_name']        = 'Regex Nom requis!';
+$_['error_regex']       = 'Regex requis!';
+$_['error_invalid']     = 'Regex invalide!';

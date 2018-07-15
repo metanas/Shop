@@ -4,11 +4,11 @@ $_['heading_title']    = 'Information';
 
 // Text
 $_['text_extension']   = 'Extensions';
-$_['text_success']     = 'Success: You have modified information module!';
-$_['text_edit']        = 'Edit Information Module';
+$_['text_success']     = 'Succès: Vous avez modifié le module d\'information!';
+$_['text_edit']        = 'Modifier le module d\'information';
 
 // Entry
-$_['entry_status']     = 'Status';
+$_['entry_status']     = 'Statut';
 
 // Error
-$_['error_permission'] = 'Warning: You do not have permission to modify information module!';
+$_['error_permission'] = 'Avertissement: Vous n\'avez pas la permission de modifier le module d\'information!';

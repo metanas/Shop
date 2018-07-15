@@ -1,16 +1,16 @@
 <?php
 // Heading
-$_['heading_title']     = 'Shipping';
+$_['heading_title']     = 'Livraison';
 
 // Text
-$_['text_success']      = 'Success: You have modified shipping!';
-$_['text_list']         = 'Shipping List';
+$_['text_success']      = 'Succès: Vous avez modifié l\'expédition!';
+$_['text_list']         = 'liste d\'expédition';
 
 // Column
-$_['column_name']       = 'Shipping Method';
-$_['column_status']     = 'Status';
-$_['column_sort_order'] = 'Sort Order';
+$_['column_name']       = 'Méthode d\'envoi';
+$_['column_status']     = 'Statut';
+$_['column_sort_order'] = 'Ordre';
 $_['column_action']     = 'Action';
 
 // Error
-$_['error_permission']  = 'Warning: You do not have permission to modify shipping!';
+$_['error_permission']  = 'Avertissement: Vous n\'avez pas la permission de modifier l\'envoi!';

@@ -1,22 +1,22 @@
 <?php
 // Heading
-$_['heading_title']    = 'Sales Analytics';
+$_['heading_title']    = 'Analyse des ventes';
 
 // Text
 $_['text_extension']   = 'Extensions';
-$_['text_success']     = 'Success: You have modified dashboard chart!';
-$_['text_edit']        = 'Edit Dashboard Chart';
-$_['text_order']       = 'Orders';
-$_['text_customer']    = 'Customers';
-$_['text_day']         = 'Today';
-$_['text_week']        = 'Week';
-$_['text_month']       = 'Month';
-$_['text_year']        = 'Year';
+$_['text_success']     = 'Succès: vous avez modifié le tableau de bord!';
+$_['text_edit']        = 'Modifier le graphique du tableau de bord';
+$_['text_order']       = 'Ordre';
+$_['text_customer']    = 'Les clients';
+$_['text_day']         = 'Aujourd\'hui';
+$_['text_week']        = 'La semaine';
+$_['text_month']       = 'Mois';
+$_['text_year']        = 'l\'an';
 
 // Entry
-$_['entry_status']     = 'Status';
-$_['entry_sort_order'] = 'Sort Order';
-$_['entry_width']      = 'Width';
+$_['entry_status']     = 'Statut';
+$_['entry_sort_order'] = 'Ordre';
+$_['entry_width']      = 'Largeur';
 
 // Error
-$_['error_permission'] = 'Warning: You do not have permission to modify dashboard chart!';
+$_['error_permission'] = 'Avertissement: Vous n\'avez pas l\'autorisation de modifier le tableau de bord!';

@@ -1,7 +1,7 @@
 <?php
 // Text
-$_['text_subject']  = '%s - Your affiliate account has been activated!';
-$_['text_welcome']  = 'Welcome and thank you for registering at %s!';
-$_['text_login']    = 'Your account has now been approved and you can log in by using your email address and password by visiting our website or at the following URL:';
-$_['text_services'] = 'Upon logging in, you will be able to generate tracking codes, track commission payments and edit your account information.';
-$_['text_thanks']   = 'Thanks,';
+$_['text_subject']  = '%s - Votre compte affilié a été activé!';
+$_['text_welcome']  = 'Bienvenue et merci de vous être enregistré sur% s!';
+$_['text_login']    = 'Votre compte a maintenant été approuvé et vous pouvez vous connecter en utilisant votre adresse e-mail et votre mot de passe en visitant notre site Web ou à l\'adresse suivante:';
+$_['text_services'] = 'Une fois connecté, vous serez en mesure de générer des codes de suivi, de suivre les paiements de commission et de modifier les informations de votre compte.';
+$_['text_thanks']   = 'Merci,';

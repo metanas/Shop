@@ -1,21 +1,21 @@
 <?php
 // Heading
-$_['heading_title']    = 'Slideshow';
+$_['heading_title']    = 'Diaporama';
 
 // Text
 $_['text_extension']   = 'Extensions';
-$_['text_success']     = 'Success: You have modified slideshow module!';
-$_['text_edit']        = 'Edit Slideshow Module';
+$_['text_success']     = 'Succès: Vous avez modifié le module de diaporama!';
+$_['text_edit']        = 'Modifier le module de diaporama';
 
 // Entry
-$_['entry_name']       = 'Module Name';
-$_['entry_banner']     = 'Banner';
-$_['entry_width']      = 'Width';
-$_['entry_height']     = 'Height';
-$_['entry_status']     = 'Status';
+$_['entry_name']       = 'Nom du module';
+$_['entry_banner']     = 'Bannière';
+$_['entry_width']      = 'Largeur';
+$_['entry_height']     = 'Taille';
+$_['entry_status']     = 'Statut';
 
 // Error
-$_['error_permission'] = 'Warning: You do not have permission to modify slideshow module!';
-$_['error_name']       = 'Module Name must be between 3 and 64 characters!';
-$_['error_width']      = 'Width required!';
-$_['error_height']     = 'Height required!';
+$_['error_permission'] = 'Avertissement: Vous n\'êtes pas autorisé à modifier le module de diaporama!';
+$_['error_name']       = 'Le nom du module doit comporter entre 3 et 64 caractères!';
+$_['error_width']      = 'Largeur requise!';
+$_['error_height']     = 'Hauteur requise!';

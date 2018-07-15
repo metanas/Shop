@@ -1,94 +1,98 @@
 <?php
 // Heading
-$_['heading_title']                = 'Stores';
+$_['heading_title']                = 'Magasins';
 
 // Text
-$_['text_settings']                = 'Settings';
-$_['text_success']                 = 'Success: You have modified Stores!';
-$_['text_list']                    = 'Store List';
-$_['text_add']                     = 'Add Store';
-$_['text_edit']                    = 'Edit Store';
-$_['text_items']                   = 'Items';
+$_['text_settings']                = 'Paramètres';
+$_['text_success']                 = 'Succès: vous avez modifié les magasins!';
+$_['text_list']                    = 'Liste de magasins';
+$_['text_add']                     = 'Ajouter un magasin';
+$_['text_edit']                    = 'Modifier le magasin';
+$_['text_items']                   = 'Articles';
 $_['text_tax']                     = 'Taxes';
-$_['text_account']                 = 'Account';
+$_['text_account']                 = 'Compte';
 $_['text_checkout']                = 'Checkout';
 $_['text_stock']                   = 'Stock';
-$_['text_shipping']                = 'Shipping Address';
-$_['text_payment']                 = 'Payment Address';
+$_['text_shipping']                = 'Adresse de livraison';
+$_['text_payment']                 = 'Adresse de facturation';
 
 // Column
-$_['column_name']                  = 'Store Name';
-$_['column_url']	               = 'Store URL';
+$_['column_name']                  = 'Nom du magasin';
+$_['column_url']	               = 'URL du magasin';
 $_['column_action']                = 'Action';
 
 // Entry
-$_['entry_url']                    = 'Store URL';
-$_['entry_meta_title']             = 'Meta Title';
-$_['entry_meta_description']       = 'Meta Tag Description';
-$_['entry_meta_keyword']           = 'Meta Tag Keywords';
-$_['entry_layout']                 = 'Default Layout';
-$_['entry_theme']                  = 'Theme';
-$_['entry_name']                   = 'Store Name';
-$_['entry_owner']                  = 'Store Owner';
-$_['entry_address']                = 'Address';
-$_['entry_geocode']                = 'Geocode';
+$_['entry_url']                    = 'URL du magasin';
+$_['entry_meta_title']             = 'Meta Titlee';
+$_['entry_meta_description']       = 'Description du méta-tag';
+$_['entry_meta_keyword']           = 'Mots-clés du tag méta';
+$_['entry_layout']                 = 'Disposition par défaut ';
+$_['entry_theme']                  = 'Thème';
+$_['entry_name']                   = 'Nom du magasin';
+$_['entry_owner']                  = 'Propriétaire du magasin';
+$_['entry_address']                = 'Adresse';
+$_['entry_geocode']                = 'Géocode';
 $_['entry_email']                  = 'E-Mail';
-$_['entry_telephone']              = 'Telephone';
+$_['entry_telephone']              = 'Téléphone';
 $_['entry_fax']                    = 'Fax';
 $_['entry_image']                  = 'Image';
-$_['entry_open']                   = 'Opening Times';
-$_['entry_comment']                = 'Comment';
-$_['entry_location']               = 'Store Location';
-$_['entry_country']                = 'Country';
-$_['entry_zone']                   = 'Region / State';
-$_['entry_language']               = 'Language';
-$_['entry_currency']               = 'Currency';
-$_['entry_tax']                    = 'Display Prices With Tax';
-$_['entry_tax_default']            = 'Use Store Tax Address';
-$_['entry_tax_customer']           = 'Use Customer Tax Address';
-$_['entry_customer_group']         = 'Customer Group';
-$_['entry_customer_group_display'] = 'Customer Groups';
-$_['entry_customer_price']         = 'Login Display Prices';
-$_['entry_account']                = 'Account Terms';
-$_['entry_cart_weight']            = 'Display Weight on Cart Page';
-$_['entry_checkout_guest']         = 'Guest Checkout';
-$_['entry_checkout']               = 'Checkout Terms';
-$_['entry_order_status']           = 'Order Status';
-$_['entry_stock_display']          = 'Display Stock';
+$_['entry_open']                   = 'Horaires d\'ouverture';
+$_['entry_comment']                = 'Commentaire';
+$_['entry_location']               = 'Emplacement du magasin';
+$_['entry_country']                = 'Pays';
+$_['entry_zone']                   = 'Région / État';
+$_['entry_language']               = 'La langue';
+$_['entry_currency']               = 'Devise';
+$_['entry_tax']                    = 'Afficher les prix avec taxe';
+$_['entry_tax_default']            = 'Utiliser l\'adresse fiscale du magasin';
+$_['entry_tax_customer']           = 'Utiliser l\'adresse de l\'adresse du client';
+$_['entry_customer_group']         = 'Groupe de clients';
+$_['entry_customer_group_display'] = 'Groupes de clients';
+$_['entry_customer_price']         = 'Login Afficher les prix';
+$_['entry_account']                = 'Conditions du compte';
+$_['entry_cart_weight']            = 'Afficher le poids sur la page du panier';
+$_['entry_checkout_guest']         = 'Invité Checkout';
+$_['entry_checkout']               = 'Conditions de paiement';
+$_['entry_order_status']           = 'Statut de la commande';
+$_['entry_stock_display']          = 'Afficher Stock';
 $_['entry_stock_checkout']         = 'Stock Checkout';
-$_['entry_logo']                   = 'Store Logo';
-$_['entry_icon']                   = 'Icon';
+$_['entry_logo']                   = 'Logo du magasin';
+$_['entry_icon']                   = 'Icône';
 
 // Help
-$_['help_url']                     = 'Include the full URL to your store. Make sure to add \'/\' at the end. Example: http://www.yourdomain.com/path/<br /><br />Don\'t use directories to create a new store. You should always point another domain or sub domain to your hosting.';
-$_['help_geocode']                 = 'Please enter your store location geocode manually.';
-$_['help_open']                    = 'Fill in your stores opening times.';
-$_['help_comment']                 = 'This field is for any special notes you would like to tell the customer i.e. Store does not accept cheques.';
-$_['help_location']                = 'The different store locations you have that you want displayed on the contact us form.';
-$_['help_currency']                = 'Change the default currency. Clear your browser cache to see the change and reset your existing cookie.';
-$_['help_tax_default']             = 'Use the store address to calculate taxes if customer is not logged in. You can choose to use the store address for the customer\'s shipping or payment address.';
-$_['help_tax_customer']            = 'Use the customers default address when they login to calculate taxes. You can choose to use the default address for the customer\'s shipping or payment address.';
-$_['help_customer_group']          = 'Default customer group.';
-$_['help_customer_group_display']  = 'Display customer groups that new customers can select to use such as wholesale and business when signing up.';
-$_['help_customer_price']          = 'Only show prices when a customer is logged in.';
-$_['help_account']                 = 'Forces people to agree to terms before an account can be created.';
-$_['help_checkout_guest']          = 'Allow customers to checkout without creating an account. This will not be available when a downloadable product is in the shopping cart.';
-$_['help_checkout']                = 'Forces people to agree to terms before an a customer can checkout.';
-$_['help_order_status']            = 'Set the default order status when an order is processed.';
-$_['help_stock_display']           = 'Display stock quantity on the product page.';
-$_['help_stock_checkout']          = 'Allow customers to still checkout if the products they are ordering are not in stock.';
-$_['help_icon']                    = 'The icon should be a PNG that is 16px x 16px.';
+$_['help_url']                     = 'Inclure l\'URL complète dans votre magasin. Make sure to add \'/\' at the end. Exemple: http://www.yourdomain.com/path/<br /><br />N\'utilisez pas de répertoires pour créer un nouveau magasin. Vous devriez toujours diriger un autre domaine ou sous-domaine vers votre hébergement.';
+$_['help_geocode']                 = 'Veuillez entrer manuellement le géocode de votre magasin.';
+$_['help_open']                    = 'Remplissez les horaires d\'ouverture de vos magasins.';
+$_['help_comment']                 = 'Ce champ concerne toutes les notes spéciales que vous souhaitez indiquer au client, c\'est-à-dire que Store n\'accepte pas les chèques.';
+$_['help_location']                = 'Les différents emplacements de magasin que vous avez affichés sur le formulaire de contact.';
+$_['help_currency']                = 'Changer la devise par défaut Effacez le cache de votre navigateur pour voir la modification et réinitialiser votre cookie existant
+.';
+$_['help_tax_default']             = 'Utilisez l\'adresse du magasin pour calculer les taxes si le client n\'est pas connecté. Vous pouvez choisir d\'utiliser l\'adresse du magasin pour l_\'adresse de livraison ou de paiement du client.';
+$_['help_tax_customer']            = 'Utilisez l\'adresse par défaut des clients lorsqu\'ils se connectent pour calculer les taxes. Vous pouvez choisir d\'utiliser l\'adresse par défaut pour l\'adresse de livraison ou de paiement du client
+.';
+$_['help_customer_group']          = 'Groupe de clients par défaut.';
+$_['help_customer_group_display']  = 'Afficher les groupes de clients que les nouveaux clients peuvent sélectionner, tels que le commerce de gros et l\'entreprise, lors de leur inscription.';
+$_['help_customer_price']          = 'Afficher uniquement les prix lorsqu\'un client est connecté.';
+$_['help_account']                 = 'Force les gens à accepter les conditions avant qu\'un compte puisse être créé.';
+$_['help_checkout_guest']          = 'Autoriser les clients à passer à la caisse sans créer de compte Ce ne sera pas disponible quand un produit téléchargeable est dans le panier
+.';
+$_['help_checkout']                = 'Force les gens à accepter les conditions avant qu\'un client puisse passer à la caisse.';
+$_['help_order_status']            = 'Définir le statut de la commande par défaut lorsqu\'une commande est traitée
+.';
+$_['help_stock_display']           = 'Afficher la quantité de stock sur la page du produit.';
+$_['help_stock_checkout']          = 'Autoriser les clients à toujours vérifier si les produits qu\'ils commandent ne sont pas en stock.';
+$_['help_icon']                    = 'L`\'icône doit être un PNG 16px x 16px.';
 
 // Error
 $_['error_warning']                = 'Warning: Please check the form carefully for errors!';
 $_['error_permission']             = 'Warning: You do not have permission to modify stores!';
-$_['error_url']                    = 'Store URL required!';
-$_['error_meta_title']             = 'Title must be between 3 and 32 characters!';
-$_['error_name']                   = 'Store Name must be between 3 and 32 characters!';
-$_['error_owner']                  = 'Store Owner must be between 3 and 64 characters!';
-$_['error_address']                = 'Store Address must be between 10 and 256 characters!';
-$_['error_email']                  = 'E-Mail Address does not appear to be valid!';
-$_['error_telephone']              = 'Telephone must be between 3 and 32 characters!';
-$_['error_customer_group_display'] = 'You must include the default customer group if you are going to use this feature!';
+$_['error_url']                    = 'URL du magasin requise!';
+$_['error_meta_title']             = 'Le titre doit comporter entre 3 et 32 caractères!';
+$_['error_name']                   = 'Le nom du magasin doit comporter entre 3 et 32 caractères!';
+$_['error_owner']                  = 'Le propriétaire du magasin doit avoir entre 3 et 64 caractères!';
+$_['error_address']                = 'L\'adresse du magasin doit être comprise entre 10 et 256 caractères!';
+$_['error_email']                  = 'L\'adresse email ne semble pas être valide!';
+$_['error_telephone']              = 'Le téléphone doit avoir entre 3 et 32 caractères!';
+$_['error_customer_group_display'] = 'Vous devez inclure le groupe de clients par défaut si vous souhaitez utiliser cette fonctionnalité!';
 $_['error_default']                = 'Warning: You can not delete your default store!';
 $_['error_store']                  = 'Warning: This Store cannot be deleted as it is currently assigned to %s orders!';

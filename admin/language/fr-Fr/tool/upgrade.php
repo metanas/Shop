@@ -1,43 +1,43 @@
 <?php
 // Heading
-$_['heading_title']      = 'Upgrade';
+$_['heading_title']      = 'Améliorer';
 
 // Text
-$_['text_success']       = 'Success: You are using the latest version %s!';
-$_['error_version']      = 'Your current OpenCart version is out of date! The current latest version is <strong>%s</strong>';
+$_['text_success']       = 'Succès: Vous utilisez la dernière version %s!';
+$_['error_version']      = 'Votre version OpenCart actuelle est obsolète! La dernière version actuelle est <strong>%s</strong>';
 
-$_['text_version']       = 'Check Latest Version';
-$_['text_compatibility'] = 'Compatibility';
-$_['text_upgrade']       = 'Upgrade System';
-$_['text_change']        = 'Change Log';
-$_['text_progress']      = 'Upgrade Progress';
-$_['text_log']           = 'Upgrade Log';
-$_['text_download']      = 'Downloading latest version';
-$_['text_unzip']         = 'Extracting files!';
-$_['text_move']          = 'Copying files!';
+$_['text_version']       = 'Vérifier la dernière version';
+$_['text_compatibility'] = 'Compatibilité';
+$_['text_upgrade']       = 'Système d\'amélioration';
+$_['text_change']        = 'Modifier le journal';
+$_['text_progress']      = 'Mettre à niveau';
+$_['text_log']           = 'Mettre à jour';
+$_['text_download']      = 'Télécharger la dernière version';
+$_['text_unzip']         = 'Extraction des fichiers!';
+$_['text_move']          = 'Copie de fichiers!';
 $_['text_remove']        = 'Removing unnecessary files';
-$_['text_db']            = 'Modifying database!';
-$_['text_clear']         = 'Clearing temporary files!';
-$_['text_update']        = 'Upgrade Instructions';
+$_['text_db']            = 'Modifier la base de données!';
+$_['text_clear']         = 'Effacer les fichiers temporaires!';
+$_['text_update']        = 'Mise à niveau Instructions';
 
 // Column
-$_['column_name']        = 'Extension Name';
-$_['column_compatible']  = 'Latest Version Compatible';
-$_['column_available']   = 'Available';
+$_['column_name']        = 'Nom de l\'extension';
+$_['column_compatible']  = 'Dernière version compatible';
+$_['column_available']   = 'Disponible';
 
 // Entry
-$_['entry_name']         = 'Upload Name';
-$_['entry_filename']     = 'Filename';
-$_['entry_date_added']   = 'Date Added';
-$_['entry_name']         = 'Upload Name';
+$_['entry_name']         = 'Nom de téléchargement';
+$_['entry_filename']     = 'Nom de fichier';
+$_['entry_date_added']   = 'Date ajoutée';
+$_['entry_name']         = 'Nom de téléchargement';
 
 // Button
-$_['button_start']       = 'Start';
+$_['button_start']       = 'Début';
 
 // Error
-$_['error_permission']   = 'Warning: You do not have permission to modify upgrades!';
-$_['error_connection']   = 'Could not connect to the upgrade server!';
-$_['error_download']     = 'Upgrade could not be downloaded!';
-$_['error_file']         = 'Upgrade file could not be found!';
-$_['error_directory']    = 'Upgrade directory could not be found!';
-$_['error_unzip']        = 'Zip file could not be opened!';
+$_['error_permission']   = 'Attention: Vous n\'êtes pas autorisé à modifier les mises à jour!';
+$_['error_connection']   = 'Impossible de se connecter au serveur de mise à niveau!';
+$_['error_download']     = 'La mise à niveau n\'a pas pu être téléchargée!';
+$_['error_file']         = 'Le fichier de mise à niveau n\'a pas pu être trouvé!';
+$_['error_directory']    = 'Le répertoire de mise à niveau n\'a pas pu être trouvé!';
+$_['error_unzip']        = 'Le fichier Zip n\'a pas pu être ouvert!';

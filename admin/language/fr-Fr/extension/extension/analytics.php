@@ -1,15 +1,15 @@
 <?php
 // Heading
-$_['heading_title']    = 'Analytics';
+$_['heading_title']    = 'Analytique';
 
 // Text
-$_['text_success']     = 'Success: You have modified analytics!';
-$_['text_list']        = 'Analytics List';
+$_['text_success']     = 'Succès: vous avez modifié l\'analyse!';
+$_['text_list']        = 'Liste d\'analyses ';
 
 // Column
-$_['column_name']      = 'Analytics Name';
-$_['column_status']    = 'Status';
+$_['column_name']      = 'Nom de l\'analyse';
+$_['column_status']    = 'Statut';
 $_['column_action']    = 'Action';
 
 // Error
-$_['error_permission'] = 'Warning: You do not have permission to modify analytics!';
+$_['error_permission'] = 'Avertissement: Vous n\'êtes pas autorisé à modifier les analyses!';
