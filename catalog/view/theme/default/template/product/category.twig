@@ -414,11 +414,11 @@
             html += '<div class="image"><a href="' + item['href'] + '"><img src = "' + item['thumb'] + '" alt="' + item['name'] + '" title = "' + item['name'] + '" class="img-responsive"/></a></div>';
             html += '<div class="caption" ><div class="desctip col-sm-12 col-xs-12" ><h4 class="SheosName"><a href = "' + item['href'] + '" >' + item['name'] + '</a></h4>';
             if (item.hasOwnProperty('price') === true) {
-                if (item.hasOwnProperty('special') === false) {
+                if (item.hasOwnProperty('special') === false || item['special'] === false) {
                     html += '<p class="SheosPrice" >' + item['price'] + '</p>';
                 } else {
                     html += '<span class="price-old SheosPrice" >' + item['price'] + '</span><br>';
-                    html += '<span class="price-new SheosPrice" >' + item['price'] + '</span>';
+                    html += '<span class="price-new SheosPrice" >' + item['special'] + '</span>';
                 }
             }
             html += '<div class="same"></div>';
