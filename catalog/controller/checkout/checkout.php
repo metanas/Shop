@@ -40,12 +40,6 @@ class ControllerCheckoutCheckout extends Controller
             $this->document->addScript('http://cdn.klarna.com/public/kitt/toc/v1.0/js/klarna.terms.min.js');
         }
 
-        if (is_file(DIR_IMAGE . $this->config->get('config_logo'))) {
-            $data['logo'] = $this->config->get('config_url') . 'image/' . $this->config->get('config_logo');
-        } else {
-            $data['logo'] = '';
-        }
-
         $data['text_checkout_option'] = sprintf($this->language->get('text_checkout_option'), 1);
         $data['text_checkout_account'] = sprintf($this->language->get('text_checkout_account'), 2);
         $data['text_checkout_payment_address'] = sprintf($this->language->get('text_checkout_payment_address'), 2);
