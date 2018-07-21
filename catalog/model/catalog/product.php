@@ -601,4 +601,8 @@ class ModelCatalogProduct extends Model {
 
 	    return true;
     }
+
+    public function getProductSize($option_id){
+
+    }
 }
