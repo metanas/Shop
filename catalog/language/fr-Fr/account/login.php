@@ -8,13 +8,13 @@ $_['heading_title']                ='Connexion au compte';
 // Text
 
 $_['text_account']                 ='Compte';
-$_['text_login']                   ='S`identifier';
+$_['text_login']                   ='CONNECTEZ-VOUS';
 $_['text_new_customer']            ='Nouveau client';
 $_['text_register']                ='Créer un compte';
 $_['text_register_account']        ='En créant un compte, vous pourrez acheter plus rapidement, être à jour sur le statut d`une commande et suivre les commandes que vous avez déjà effectuées.';
 $_['text_returning_customer']      ='Déjà client';
 $_['text_i_am_returning_customer'] ='Je suis un client qui retourne';
-$_['text_forgotten']               ='mot de passe oublié';
+$_['text_forgotten']               ='mot de passe oublié ?';
 
 
 // Entry
