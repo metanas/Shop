@@ -7,7 +7,8 @@ class ControllerAccountLogin extends Controller {
 			$this->response->redirect($this->url->link('account/account', 'language=' . $this->config->get('config_language')));
 		}
 
-		$this->load->language('account/login');
+        $this->load->language('account/register');
+        $this->load->language('account/login');
 
 		$this->document->setTitle($this->language->get('heading_title'));
 
@@ -46,26 +47,9 @@ class ControllerAccountLogin extends Controller {
 			if (isset($this->request->post['redirect']) && $this->request->post['redirect'] != $this->url->link('account/logout', 'language=' . $this->config->get('config_language')) && (strpos($this->request->post['redirect'], $this->config->get('config_url')) !== false)) {
 				$this->response->redirect(str_replace('&amp;', '&', $this->request->post['redirect']));
 			} else {
-				$this->response->redirect($this->url->link('account/account', 'language=' . $this->config->get('config_language')));
+				$this->response->redirect($this->url->link('account/home', 'language=' . $this->config->get('config_language')));
 			}
 		}
-
-		$data['breadcrumbs'] = array();
-
-		$data['breadcrumbs'][] = array(
-			'text' => $this->language->get('text_home'),
-			'href' => $this->url->link('common/home', 'language=' . $this->config->get('config_language'))
-		);
-
-		$data['breadcrumbs'][] = array(
-			'text' => $this->language->get('text_account'),
-			'href' => $this->url->link('account/account', 'language=' . $this->config->get('config_language'))
-		);
-
-		$data['breadcrumbs'][] = array(
-			'text' => $this->language->get('text_login'),
-			'href' => $this->url->link('account/login', 'language=' . $this->config->get('config_language'))
-		);
 
 		if (isset($this->session->data['error'])) {
 			$data['error_warning'] = $this->session->data['error'];
@@ -77,7 +61,8 @@ class ControllerAccountLogin extends Controller {
 			$data['error_warning'] = '';
 		}
 
-		$data['action'] = $this->url->link('account/login', 'language=' . $this->config->get('config_language'));
+		$data['action_register'] = $this->url->link('account/register', 'language=' . $this->config->get('config_language'));
+		$data['action_login'] = $this->url->link('account/login', 'language=' . $this->config->get('config_language'));
 		$data['register'] = $this->url->link('account/register', 'language=' . $this->config->get('config_language'));
 		$data['forgotten'] = $this->url->link('account/forgotten', 'language=' . $this->config->get('config_language'));
 

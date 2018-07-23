@@ -21,5 +21,5 @@ $_['text_download']    ='Téléchargements';
 $_['text_reward']      ='Points de récompense';
 $_['text_return']      ='Résultats';
 $_['text_transaction'] ='Transactions';
-$_['text_newsletter']  ='Bulletin';
+$_['text_newsletter']  ='Newsletter';
 $_['text_recurring']   ='Paiements récurrents';

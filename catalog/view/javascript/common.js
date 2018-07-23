@@ -177,7 +177,6 @@ function sethover() {
 
 // add to wishlist
 function clickFav() {
-    debugger;
     $('.favorite').click(function () {
         if (this.src.includes('Added')) {
             this.src = "catalog/view/theme/default/image/favorite.png";
