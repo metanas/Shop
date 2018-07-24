@@ -1,10 +1,11 @@
-<div class="row">
+<div class="row" id="cart">
     <a href="{{ cart }}">
         <div class="dropdown cart" align="center">
             <div>
                 <img src="catalog/view/theme/default/image/checkout.png"
                      width="25" height="25">
-                <p class="cart-para">{{ text_checkout }}</p><span class="quantity" {% if count_products is same as(0) %} style="display: none" {% endif %}>{{ count_products }}</span>
+                <p class="cart-para">{{ text_checkout }}</p><span
+                        class="quantity" {% if count_products is same as(0) %} style="display: none" {% endif %}>{{ count_products }}</span>
             </div>
             <ul class="dropdown-menu pull-right" style="width: 400px">
                 {% if products or vouchers %}
@@ -81,25 +82,85 @@
         </div>
     </a>
     {% if logged %}
-        <a href="{{ account }}">
-            <div class="cart" align="center">
+        <div class="dropdown cart" align="center">
+            <a href="{{ account }}">
                 <img src="catalog/view/theme/default/image/user.png" width="25" height="25">
                 <p class="cart-para">{{ text_profile }}</p>
-            </div>
-        </a>
-    {% else %}
-        <a href="{{ login }}">
-            <div class="dropdown cart" align="center">
-                <img src="catalog/view/theme/default/image/user.png" width="25" height="25">
-                <p class="cart-para">{{ text_login }}</p>
-                <div class="dropdown-menu">
-                    <input type="email" placeholder="email">
-                    <input type="password" placeholder="mot de passe">
-                    <button class="btn btn-connect">Se connecter</button>
-                    <a href="{{ register }}"><p class="inscription">nouveau client? creez un compte</p></a>
+            </a>
+            <div class="dropdown-menu">
+                <div style="font-size: 13px; line-height: 2">
+                    <div><a href="">Apercu de mon Compte</a></div>
+                    <div><a href="">Mes commandes</a></div>
+                    <div><a href="">Renvoyer un article</a></div>
+                    <div><a href="">Apercu de mon Compte</a></div>
+                    <hr>
+                    {{ logout }}
                 </div>
             </div>
-        </a>
+        </div>
+    {% else %}
+        <div class="dropdown cart" align="center">
+            <a href="{{ action_login }}">
+                <img src="catalog/view/theme/default/image/user.png" width="25" height="25">
+                <p class="cart-para">{{ text_login }}</p>
+            </a>
+            <div class="dropdown-menu" style="padding: 10px; width: 200px;border-radius: 0;margin-left: -80px;">
+                <button class="zalark-button" id="myBtn2"
+                        style="font-size: 14px; font-weight: bold;margin-bottom: 0;margin-top: 0">SE
+                    CONNECTER
+                </button>
+                <a href="{{ register }}"><p class="inscription" style="font-size: 11px">nouveau client? creez un
+                        compte</p></a>
+                <hr style="margin-top: 0;margin-bottom: 0">
+                <div style="font-size: 13px; line-height: 2">
+                    <div><a>Apercu de mon Compte</a></div>
+                    <div><a href="">Mes commandes</a></div>
+                    <div><a href="">Renvoyer un article</a></div>
+                    <div><a href="">Apercu de mon Compte</a></div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog modal-md">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-body" align="center" style="padding-right: 15%;padding-left: 15%">
+                        <h1><img src="catalog/view/theme/default/image/user.png" width="30" height="30">
+                            Connectez-vous</h1>
+                        <p>Bienvenue sur Zalark, votre compagnon mode. Reinventez votre dressing</p>
+                        <form action="{{ action_login }}" method="post" enctype="multipart/form-data">
+                            <div align="left">
+                                <div class="form-group">
+                                    <label class="control-label" for="input-email">{{ entry_email }}</label>
+                                    <input type="text" name="email" value="{{ email }}" placeholder="{{ entry_email }}"
+                                           id="input-email" class="form-control"/>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label" for="input-password">{{ entry_password }}</label>
+                                    <input type="password" name="password" value=""
+                                           placeholder="{{ entry_password }}" id="input-password" class="form-control"/>
+                                </div>
+                                <button class="zalark-button">SE CONNECTER</button>
+                            </div>
+                            <a href="{{ forgotten }}" style="text-decoration: underline">{{ text_forgotten }}</a>
+                        </form>
+                    </div>
+                    <div class="modal-footer"
+                         style="background-color: #eeeeee; padding-right: 15%;padding-left: 15%;text-align: center">
+                        <h3>{{ text_new_customer }}</h3>
+                        <form action="{{ register }}">
+                            <button type="submit" class="zalark-button-border-dark">{{ text_register }}</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            $("#myBtn2").click(function () {
+                $("#myModal").modal();
+            })
+        </script>
     {% endif %}
 </div>
 <script> $(function () {
@@ -112,4 +173,5 @@
                 $('.dropdown-menu', this).stop(true, true).fadeOut("fast");
                 $(this).toggleClass('open');
             });
-    });</script>
+    });
+</script>

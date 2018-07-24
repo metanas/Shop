@@ -116,9 +116,9 @@ class ControllerCommonCart extends Controller
         $this->load->model('account/wishlist');
 
         // favorite Product
-        if($this->model_account_wishlist->getTotalWishlist() == 0 && empty($this->session->data['wishlist']))
+        if ($this->model_account_wishlist->getTotalWishlist() == 0 && empty($this->session->data['wishlist']))
             $data['favoris'] = $this->model_tool_image->resize("favorite.png", 100, 100);
-        else{
+        else {
             $data['favoris'] = $this->model_tool_image->resize("favoriteAdded.png", 100, 100);
         }
 
@@ -144,13 +144,19 @@ class ControllerCommonCart extends Controller
             );
         }
 
-        $data['count_products'] = $this->cart->countProducts();
         $data['logged'] = $this->customer->isLogged();
+
+        if ($data['logged']) {
+            $data['logout'] = sprintf($this->language->get("text_logout"), $this->customer->getFirstName(), $this->url->link('account/logout', 'language=' . $this->config->get('config_language')));
+        }
+
+        $data['count_products'] = $this->cart->countProducts();
         $data['register'] = $this->url->link('account/register', 'language=' . $this->config->get('config_language'));
         $data['cart'] = $this->url->link('checkout/cart', 'language=' . $this->config->get('config_language'));
         $data['checkout'] = $this->url->link('checkout/checkout', 'language=' . $this->config->get('config_language'));
         $data['wishlist'] = $this->url->link('account/wishlist', 'language=' . $this->config->get('config_language'));
-        $data['login'] = $this->url->link('account/login', 'language=' . $this->config->get('config_language'));
+        $data['action_login'] = $this->url->link('account/login', 'language=' . $this->config->get('config_language'));
+        $data['forgotten'] = $this->url->link('account/forgotten', 'language=' . $this->config->get('config_language'));
 
         return $this->load->view('common/cart', $data);
     }
