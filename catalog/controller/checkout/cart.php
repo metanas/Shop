@@ -265,15 +265,9 @@ class ControllerCheckoutCart extends Controller
             $product_id = 0;
         }
 
-        if (isset($this->request->post['product_size'])) {
-            $product_size = (int)$this->request->post['product_size'];
-        } else {
-            $json['error']['option']['size'] = sprintf($this->language->get('error_required'), "Taille");
-        }
-
         $this->load->model('catalog/product');
 
-        if(!$json) {
+        if (!$json) {
             $product_info = $this->model_catalog_product->getProduct($product_id);
 
             if ($product_info) {
@@ -287,6 +281,12 @@ class ControllerCheckoutCart extends Controller
                     $option = array_filter($this->request->post['option']);
                 } else {
                     $option = array();
+                }
+
+                if(isset($this->request->post['product_size'])){
+                    $product_size = $this->request->post['product_size'];
+                }else{
+                    $product_size = 0;
                 }
 
                 $product_options = $this->model_catalog_product->getProductOptions($this->request->post['product_id']);

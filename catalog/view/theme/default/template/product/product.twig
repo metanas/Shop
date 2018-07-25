@@ -496,10 +496,6 @@
     //--></script>
 <script type="text/javascript"><!--
     $('#button-cart').on('click', function () {
-        if($(".taille-btn").val() === ""){
-            // show error
-            return;
-        }
         $.ajax({
             url: 'index.php?route=checkout/cart/add',
             type: 'post',
