@@ -1663,9 +1663,10 @@ ul {
 
 .edit-address {
     position: absolute;
-    top: 10;
+    top: 0;
     right: 20px;
     cursor: pointer;
+    z-index: 100;
 }
 
 .fa-option {
@@ -1677,10 +1678,11 @@ ul {
 
 .close-address {
     position: absolute;
-    top: 10;
+    top: 0;
     right: 20px;
-    z-index: 0;
+    z-index: 100;
     display: none;
+    cursor: pointer;
 }
 
 .pay-checkout {
@@ -1699,4 +1701,10 @@ ul {
     right: 0;
     top: 25px;
     cursor: pointer;
+}
+
+.address-selection {
+    border: 2px solid #e7e7e7;
+    padding-top: 10px;
+    cursor: pointer
 }

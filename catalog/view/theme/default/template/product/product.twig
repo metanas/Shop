@@ -153,7 +153,7 @@
                                     <h4 id="price_tag" class="prix-product-page">{{ price }}</h4>
                                 </li>
                             {% else %}
-                                <li><span style="text-decoration: line-through;">{{ price }}</span></li>
+                                <li><span style="text-decoration: line-through;">{{ price }}</span> <span style="font-size: 10px; color: #e7e7e7;">TTC incluse</span></li>
                                 <li>
                                     <h2>{{ special }}</h2>
                                 </li>
@@ -378,7 +378,7 @@
               <br/> -->
                             <button type="button" data-toggle="tooltip" class="btn btn-default btn-wish"
                                     title="{{ button_wishlist }}" onclick="wishlist.add('{{ product_id }}');"
-                                    class="wish-list"><i class="fa fa-heart"></i> Ajouter à mes préférés
+                                    class="wish-list"><img src="image/favoriteAdded.png" width="12" height="13"> Ajouter à mes préférés
                             </button>
                             <br/>
                             <button type="button" id="button-cart" data-loading-text="{{ text_loading }}"
