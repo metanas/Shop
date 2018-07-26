@@ -116,10 +116,12 @@ class ControllerCommonCart extends Controller
         $this->load->model('account/wishlist');
 
         // favorite Product
-        if ($this->model_account_wishlist->getTotalWishlist() == 0 && empty($this->session->data['wishlist']))
+        if ($this->model_account_wishlist->getTotalWishlist() == 0 && empty($this->session->data['wishlist'])) {
             $data['favoris'] = $this->model_tool_image->resize("favorite.png", 100, 100);
-        else {
+            $data['favorite_Total'] = "";
+        } else {
             $data['favoris'] = $this->model_tool_image->resize("favoriteAdded.png", 100, 100);
+            $data['favorite_Total'] = ($this->model_account_wishlist->getTotalWishlist() == 0) ? count($this->session->data['wishlist']) : $this->model_account_wishlist->getTotalWishlist();
         }
 
         // Gift Voucher

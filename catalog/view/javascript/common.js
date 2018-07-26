@@ -372,7 +372,7 @@ var wishlist = {
             dataType: 'json',
             success: function (json) {
                 $('#favorite')[0].src = json['favorite'];
-
+                $('.favorite-quantity').html(json['total'])
                 // $('.alert-dismissible').remove();
                 //
                 // if (json['redirect']) {
@@ -402,6 +402,7 @@ var wishlist = {
             dataType: 'json',
             success: function (json) {
                 $('#favorite')[0].src = json['favorite']
+                $('.favorite-quantity').html(json['total'])
             },
             error: function (s, d, f) {
 
