@@ -431,13 +431,34 @@ class ControllerCheckoutConfirm extends Controller
 
         $data['products'] = array();
         foreach ($this->cart->getProducts() as $product) {
+            $option_data = array();
+
+            foreach ($product['option'] as $option) {
+                if ($option['type'] != 'file') {
+                    $value = $option['value'];
+                } else {
+                    $upload_info = $this->model_tool_upload->getUploadByCode($option['value']);
+
+                    if ($upload_info) {
+                        $value = $upload_info['name'];
+                    } else {
+                        $value = '';
+                    }
+                }
+
+                $option_data[] = array(
+                    'name' => $option['name'],
+                    'value' => (utf8_strlen($value) > 20 ? utf8_substr($value, 0, 20) . '..' : $value)
+                );
+            }
+            var_dump($option_data);
             $data['products'][] = array(
-                'id'   => $product['product_id'],
+                'id' => $product['product_id'],
                 'name' => $product['name'],
                 'model' => $product['model'],
                 'image' => $this->model_tool_image->resize($product['image'], 100, 200),
                 'quantity' => $product['quantity'],
-                'size' => $product['size'],
+                'option' => $option_data,
                 'color' => $product['color'],
                 'price' => $product['price']
             );

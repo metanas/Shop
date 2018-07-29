@@ -28,7 +28,11 @@
                     <div>{{ product.model }}</div>
                     <div>{{ product.name }}</div>
                     <div>Couleur: {{ product.color }}</div>
-                    <div>Taille: {{ product.size }}</div>
+                    {% if product.option %}
+                        {% for option in product.option %}
+                            <div>{{ option.name }}: {{ option.value }}</div>
+                        {% endfor %}
+                    {% endif %}
                     <div>Quantite: {{ product.quantity }}</div>
                     <div><b>{{ product.price }} {{ currency }}</b></div>
                 </div>
