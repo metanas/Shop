@@ -204,10 +204,10 @@ var cart = {
             },
             success: function (json) {
                 $('.alert-dismissible, .text-danger').remove();
-
-                if (json['redirect']) {
-                    location = json['redirect'];
-                }
+                debugger;
+                // if (json['redirect']) {
+                //     location = json['redirect'];
+                // }
 
                 if (json['success']) {
                     $('#alert-box').append('<div class="alert alert-success alert-dismissible">' + json['success'] + '<button type="button" class="close" data-dismiss="alert">&times;</button></div>');
@@ -225,7 +225,7 @@ var cart = {
                 }
             },
             error: function (xhr, ajaxOptions, thrownError) {
-                alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+                // alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
             }
         });
     },

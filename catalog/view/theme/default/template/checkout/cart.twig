@@ -62,11 +62,12 @@
                                             <br/>
                                             <br/>
                                             <span>Couleur : {{ product.color }}</span><br/>
-                                            <span>Taille : {{ product.size }}</span><br/>
-
+                                            {% if product.option %}
+                                                {% for option in product.option %}
+                                                    <span>{{ option.name }}: {{ option.value }}</span><br/>
+                                                {% endfor %}
+                                            {% endif %}
                                             <br/>
-
-
                                             <span style="border:0;color: grey; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif"><button
                                                         data-toggle="tooltip"
                                                         style="background-color: inherit; border:0;"
@@ -78,10 +79,6 @@
                                                             class="glyphicon glyphicon-heart-empty"> <span
                                                                 style="color: grey; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif"> Déplacer vers mes préférés</span></span></button></span>
 
-                                            {% if product.option %}
-                                                {% for option in product.option %} <br/>
-                                                    <small>{{ option.name }}: {{ option.value }}</small> {% endfor %}
-                                            {% endif %}
                                             {% if product.reward %} <br/>
                                                 <small>{{ product.reward }}</small> {% endif %}
                                             {% if product.recurring %} <br/>
@@ -91,7 +88,7 @@
                                         {#<td id="r{{ loop.index }}" class="text-left">{{ product.model }} <button type="button" data-toggle="tooltip" title="{{ button_remove }}" class="btn btn-danger" onclick="cart.remove('{{ product.cart_id }}');"></button></td>#}
                                         <td id="r{{ loop.index }}" class="text-left">
                                             <div class="input-group btn-block" style="max-width: 200px;">
-                                                <input type="select" name="quantity[{{ product.cart_id }}]"
+                                                <input type="number" name="quantity[{{ product.cart_id }}]"
                                                        value="{{ product.quantity }}" size="1" class="form-control"/>
 
                                                 {#<div class="input-group-btn">#}
