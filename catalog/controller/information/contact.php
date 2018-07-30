@@ -119,6 +119,11 @@ class ControllerInformationContact extends Controller {
 			$data['captcha'] = '';
 		}
 
+		$data['Return_and_refund'] = $this->url->link('information/information', 'language=' . $this->config->get('config_language') . '&information_id=' . 8);
+        $data['payment'] = $this->url->link('information/information', 'language=' . $this->config->get('config_language') . '&information_id=' . 10);
+        $data['shipping_and_delivery'] = $this->url->link('information/information', 'language=' . $this->config->get('config_language') . '&information_id=' . 11);
+        $data['Voucher'] = $this->url->link('information/information', 'language=' . $this->config->get('config_language') . '&information_id=' . 12);
+
 		$data['column_left'] = $this->load->controller('common/column_left');
 		$data['column_right'] = $this->load->controller('common/column_right');
 		$data['content_top'] = $this->load->controller('common/content_top');

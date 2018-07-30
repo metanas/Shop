@@ -123,7 +123,6 @@ div.required .control-label:before {
 
 /* top */
 #top {
-    color: white;
     background-color: #ff1b5e;
     width: 100%;
     padding-top: 5px;
@@ -133,7 +132,9 @@ div.required .control-label:before {
 }
 
 #top p {
+    color: white;
     font-size: 14px;
+    text-decoration: none;
 }
 
 /* logo */
