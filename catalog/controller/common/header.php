@@ -54,6 +54,7 @@ class ControllerCommonHeader extends Controller {
         $data['text_profile'] = $this->language->get('text_profile');
         $data['text_service'] = $this->language->get('text_service');
 
+        $data['Return_and_refund'] = $this->url->link('information/information', 'language=' . $this->config->get('config_language') . '&information_id=' . 8);
 		$data['home'] = $this->url->link('common/home', 'language=' . $this->config->get('config_language'));
 		$data['wishlist'] = $this->url->link('account/wishlist', 'language=' . $this->config->get('config_language'));
 		$data['logged'] = $this->customer->isLogged();
