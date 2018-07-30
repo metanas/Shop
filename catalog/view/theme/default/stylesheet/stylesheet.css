@@ -1300,8 +1300,10 @@ ul {
     overflow-y: auto;
 }
 
-#product-product {
-
+.input-zalark {
+    border: 2px solid #e7e7e7;
+    border-radius: 0;
+    height: 40px;
 }
 
 .prix-product-page {
@@ -1485,12 +1487,14 @@ ul {
     top: 0;
     right: 0
 }
-.favorite-quantity{
+
+.favorite-quantity {
     position: absolute;
     top: 1px;
     right: 160px;
     font-size: 10px;
 }
+
 /*.modal {*/
 /*display: none; !* Hidden by default *!*/
 /*position: fixed; !* Stay in place *!*/

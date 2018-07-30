@@ -20,9 +20,10 @@ $_['text_success']   ='  <p> Votre demande a bien été envoyée au propriétair
 
 // Entry
 
-$_['entry_name']     ='votre nom';
+$_['entry_name']     ='Prénom';
 $_['entry_email']    ='Adresse e-mail';
-$_['entry_enquiry']  ='Enquête';
+$_['entry_phone']    ='Téléphone';
+$_['entry_enquiry']  ='Message';
 
 
 // Email
