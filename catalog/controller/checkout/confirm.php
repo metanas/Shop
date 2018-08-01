@@ -451,7 +451,7 @@ class ControllerCheckoutConfirm extends Controller
                     'value' => (utf8_strlen($value) > 20 ? utf8_substr($value, 0, 20) . '..' : $value)
                 );
             }
-            var_dump($option_data);
+
             $data['products'][] = array(
                 'id' => $product['product_id'],
                 'name' => $product['name'],

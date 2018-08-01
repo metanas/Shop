@@ -81,11 +81,13 @@
 </footer>
 </body>
 <script>
-    $(".progressbar li").on("click", function () {
-        let id = this.value;
-        step.next(id - 1);
-    });
-
+    function back() {
+        $(".progressbar .active").on("click", function (event) {
+            let id = this.value;
+            step.next(id - 1);
+        });
+    }
+    back();
     function autoHeight() {
         $('#collapse-checkout-option').css('min-height', 0);
         $('#collapse-checkout-option').css('min-height', (
