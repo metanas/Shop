@@ -30,6 +30,18 @@ $_['entry_confirm']        ='Confirmer le mot de passe';
 $_['entry_sex']            ='Sexe';
 $_['entry_male']           ='Male';
 $_['entry_female']         ='Femme';
+$_['entry_birthday']       ='<option value=\'01\'>janvier</option>
+                            <option value=\'02\'>février</option>
+                            <option value=\'03\'>mars</option>
+                            <option value=\'04\'>avril</option>
+                            <option value=\'05\'>mai</option>
+                            <option value=\'06\'>juin</option>
+                            <option value=\'07\'>juillet</option>
+                            <option value=\'08\'>août</option>
+                            <option value=\'09\'>septembre</option>
+                            <option value=\'10\'>octobre</option>
+                            <option value=\'11\'>novembre</option>
+                            <option value=\'12\'>décembre</option>';
 
 
 // Error

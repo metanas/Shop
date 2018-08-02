@@ -355,6 +355,7 @@ var step = {
                         progress[i].classList.remove('active');
                     }
                 }
+                back();
             },
             error: function (s, d, e) {
                 console.log(s, d, e)
