@@ -73,10 +73,10 @@
     <div class="col-sm-12"><h4>CODE PROMO & CARTE CADEAU</h4>
         <hr class="hr-marge">
         <div class="form-group">
-            <div class="inner-addon right-addon">
+            <div class="coupon-field">
                 <i class="fa fa-search" id="coupon"
                    style="position: absolute;padding: 13px;cursor: pointer;right: 15px"></i>
-                <input type="text" class="form-control input-zalark" name="coupon" placeholder="Entrez votre code promo"
+                <input type="text" class="form-control input-zalark da" name="coupon" placeholder="Entrez votre code promo"
                        style="padding-right: 30px;"/>
             </div>
         </div>
@@ -102,24 +102,20 @@
 
 
     $("#coupon").on("click", function () {
-        debugger;
         $.ajax({
             url: 'index.php?route=extension/total/coupon/coupon&language={{ language }}',
             type: 'post',
             data: 'coupon=' + encodeURIComponent($('input[name=\'coupon\']').val()),
             dataType: 'json',
             success: function (json) {
-                $('.alert-dismissible').remove();
+                $('.text-danger').remove();
                 console.log(json);
+                $('.coupon-field').removeClass('has-error');
+
                 if (json['error']) {
-                    $('.breadcrumb').after('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + '<button type="button" class="close" data-dismiss="alert">&times;</button></div>');
-
+                    $('.coupon-field').addClass('has-error');
+                    $('.coupon-field').after('<div class="text-danger"><i class="fa fa-exclamation-circle"></i>' + json['error'] + '</div>');
                 }
-
-
-                // if (json['redirect']) {
-                //     location = json['redirect'];
-                // }
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
