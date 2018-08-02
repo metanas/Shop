@@ -40,7 +40,7 @@ class ControllerExtensionTotalCoupon extends Controller {
 
 			$this->session->data['success'] = $this->language->get('text_success');
             $json['coupon'] = $coupon_info;
-			$json['redirect'] = $this->url->link('checkout/cart', 'language=' . $this->config->get('config_language'));
+//			$json['redirect'] = $this->url->link('checkout/cart', 'language=' . $this->config->get('config_language'));
 		} else {
 			$json['error'] = $this->language->get('error_coupon');
 		}
