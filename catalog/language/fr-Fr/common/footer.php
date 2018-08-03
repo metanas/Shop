@@ -6,6 +6,7 @@ $_['text_information']  ='AIDE';
 $_['text_service']      ='BON DE REDUCTION';
 $_['text_buy_shoes']    ='ACHETER DES CHAUSSURES ONLINE';
 $_['text_contact']      ='Contactez-nous';
+$_['text_faq']          ='Question fréquentes';
 $_['text_return']       ='Utiliser un bon de réduction';
 $_['text_sitemap']      ='Plan du site';
 $_['text_manufacturer'] ='Livraison gratuite';
