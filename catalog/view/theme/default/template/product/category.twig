@@ -81,7 +81,7 @@
                                             <label class="check_filter check-color">{{ color.color }}
                                                 <input class="checkbox" type="checkbox" name="color[]"
                                                        value="{{ color.color }}">
-                                                <span class="checkmark" style="background-color: {{ color.color_hex }};"></span>
+                                                <span class="checkmark checkradio" style="background-color: {{ color.color_hex }};"></span>
                                             </label>
                                         {% endfor %}
                                     </div>
@@ -366,7 +366,7 @@
             if (arr[i].value.includes(this.value))
                 $(".ScrollStyle").append("<label class=\"check_filter\">" + arr[i].value +
                     "<input class=\"checkbox\" type=\"checkbox\" name=\"" + this.name + "[]\" value=\"" + arr[i].value + "\">" +
-                    "<span class=\"checkmark\"></span>" +
+                    "<span class=\"checkmark checkradio\" style=\"background-color: ;\"></span>" +
                     "</label>");
         }
     });
@@ -443,9 +443,9 @@
                 '<span class="checkmark"></span></label>')
         });
         $.map(json['products_colors'], function (item) {
-            $("#color").append('<label class="check_filter">' + item +
-                '<input type="checkbox" name="color[]" value="' + item + '">' +
-                '<span class="checkmark"></span></label>')
+            $("#color").append('<label class="check_filter">' + item['color'] +
+                '<input type="checkbox" name="color[]" value="' + item['color'] + '">' +
+                '<span class="checkmark checkradio" style="background-color: ' + item['color_hex'] + '"></span></label>')
         });
 
         $("#ex12c").slider({
