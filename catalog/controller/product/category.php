@@ -476,12 +476,6 @@ class ControllerProductCategory extends Controller
 
                 $category_info = $this->model_catalog_category->getCategory($path_id);
 
-                if ($category_info) {
-                    $data['breadcrumbs'][] = array(
-                        'text' => $category_info['name'],
-                        'href' => $this->url->link('product/category', 'language=' . $this->config->get('config_language') . '&path=' . $path . $url)
-                    );
-                }
             }
         } else {
             $category_id = 0;
@@ -529,7 +523,7 @@ class ControllerProductCategory extends Controller
             }
 
             if (!in_array($result['color'], $products_colors))
-                $products_colors[] = $result['color'];
+                $products_colors[] = array('color' => $result['color'], 'color_hex' => $result['color_hex']);
 
             if (!in_array($result['manufacturer'], $products_models))
                 $products_models[] = $result['manufacturer'];

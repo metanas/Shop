@@ -631,45 +631,6 @@ class ControllerCatalogProduct extends Controller {
             $data['color'] = '';
         }
 
-		if (isset($this->request->post['sku'])) {
-			$data['sku'] = $this->request->post['sku'];
-		} elseif (!empty($product_info)) {
-			$data['sku'] = $product_info['sku'];
-		} else {
-			$data['sku'] = '';
-		}
-
-		if (isset($this->request->post['upc'])) {
-			$data['upc'] = $this->request->post['upc'];
-		} elseif (!empty($product_info)) {
-			$data['upc'] = $product_info['upc'];
-		} else {
-			$data['upc'] = '';
-		}
-
-		if (isset($this->request->post['ean'])) {
-			$data['ean'] = $this->request->post['ean'];
-		} elseif (!empty($product_info)) {
-			$data['ean'] = $product_info['ean'];
-		} else {
-			$data['ean'] = '';
-		}
-
-		if (isset($this->request->post['jan'])) {
-			$data['jan'] = $this->request->post['jan'];
-		} elseif (!empty($product_info)) {
-			$data['jan'] = $product_info['jan'];
-		} else {
-			$data['jan'] = '';
-		}
-
-		if (isset($this->request->post['isbn'])) {
-			$data['isbn'] = $this->request->post['isbn'];
-		} elseif (!empty($product_info)) {
-			$data['isbn'] = $product_info['isbn'];
-		} else {
-			$data['isbn'] = '';
-		}
 
 		if (isset($this->request->post['location'])) {
 			$data['location'] = $this->request->post['location'];
