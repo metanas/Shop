@@ -182,7 +182,7 @@ class ControllerProductCategory extends Controller
                     );
                 }
 
-                if (!in_array($result['color'], $products_colors))
+                if (!$this->in_array_r($result['color'], $products_colors))
                     $products_colors[] = array("color" => $result['color'], "color_hex" => $result['color_hex']);
 
                 if (!in_array($result['manufacturer'], $products_models))
@@ -601,5 +601,14 @@ class ControllerProductCategory extends Controller
 
         if (isset($data))
             $this->response->setOutput(json_encode($data));
+    }
+
+    private function in_array_r($needle, $haystack, $strict = false) {
+        foreach ($haystack as $item) {
+            if(strtolower($needle) === strtolower($item['color'])){
+                return true;
+            }
+        }
+        return false;
     }
 }
