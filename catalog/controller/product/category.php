@@ -522,7 +522,7 @@ class ControllerProductCategory extends Controller
                 $special = false;
             }
 
-            if (!in_array($result['color'], $products_colors))
+            if (!$this->in_array_r($result['color'], $products_colors))
                 $products_colors[] = array('color' => $result['color'], 'color_hex' => $result['color_hex']);
 
             if (!in_array($result['manufacturer'], $products_models))
