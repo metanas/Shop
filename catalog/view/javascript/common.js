@@ -373,7 +373,12 @@ var wishlist = {
             dataType: 'json',
             success: function (json) {
                 $('#favorite')[0].src = json['favorite'];
-                $('.favorite-quantity').html(json['total'])
+                $('.favorite-quantity').html(json['total']);
+                try {
+                    $('#fav-button')[0].src = json['favorite'];
+                }catch (e) {
+                    
+                }
                 // $('.alert-dismissible').remove();
                 //
                 // if (json['redirect']) {
