@@ -420,7 +420,7 @@ class ControllerProductCategory extends Controller
         }
     }
 
-    public function filter()
+    public function                                                 filter()
     {
 
         $this->load->model('catalog/category');

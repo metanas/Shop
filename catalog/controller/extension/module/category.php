@@ -42,7 +42,7 @@ class ControllerExtensionModuleCategory extends Controller {
 						'category_id' => $child['category_id'],
 						'name' => $child['name'],
 						'count' =>  ($this->config->get('config_product_count') ? ' (' . $this->model_catalog_product->getTotalProducts($filter_data) . ')' : ''),
-						'href' => $this->url->link('product/category', 'language=' . $this->config->get('config_language') . '&path=' . $category['category_id'] . '_' . $child['category_id'])
+						'href' => 'product/category', 'language=' . $this->config->get('config_language') . '&path=' . $category['category_id'] . '_' . $child['category_id']
 					);
 				}
 			}

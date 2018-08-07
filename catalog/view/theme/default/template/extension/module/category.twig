@@ -1,21 +1,21 @@
 <div class="groupe_list">
     {% for category in categories %}
         {% if category.category_id == category_id %}
-                <div><a href="{{ category.href }}" class="actif">{{ category.name }}</a></div>
-                {% if category.children %}
-                    {% for child in category.children %}
-                        {% if child.category_id == child_id %}
-                            <div>
-                                <a href="{{ child.href }}" class="actif">&nbsp;&nbsp;&nbsp;{{ child.name }}</a>
-                            </div>
-                        {% else %}
-                            <div>
-                                <a href="{{ child.href }}">&nbsp;&nbsp;&nbsp;{{ child.name }}</a>
-                            </div>
-                        {% endif %}
-                    {% endfor %}
-                {% endif %}
-        {#{% else %}#}
+            <div><a href="{{ category.href }}" class="actif">{{ category.name }}</a></div>
+            {% if category.children %}
+                {% for child in category.children %}
+                    {% if child.category_id == child_id %}
+                        <div class="category-filter">
+                            <a class="actif" onclick="changePath(this,'{{ category.category_id }}_{{ child.category_id }}')">&nbsp;&nbsp;&nbsp;{{ child.name }}</a>
+                        </div>
+                    {% else %}
+                        <div class="category-filter">
+                            <span onclick="changePath(this,'{{ category.category_id }}_{{ child.category_id }}')">&nbsp;&nbsp;&nbsp;{{ child.name }}</span>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+            {#{% else %}#}
             {#<div><a href="{{ category.href }}">{{ category.name }}</a></div>#}
         {% endif %}
     {% endfor %}
@@ -37,4 +37,11 @@
             $(".groupe_list").css({"position": "fixed", "top": "0"});
         }
     }
+
+    function changePath(self, path) {
+        $('.actif').removeClass('actif');
+        self.classList.add('actif');
+        updateQueryStringParam("path", path, path)
+    }
+
 </script>

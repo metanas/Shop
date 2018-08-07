@@ -81,7 +81,8 @@
                                             <label class="check_filter check-color">{{ color.color }}
                                                 <input class="checkbox" type="checkbox" name="color[]"
                                                        value="{{ color.color }}">
-                                                <span class="checkmark checkradio" style="background-color: {{ color.color_hex }};"></span>
+                                                <span class="checkmark checkradio"
+                                                      style="background-color: {{ color.color_hex }};"></span>
                                             </label>
                                         {% endfor %}
                                     </div>
@@ -326,7 +327,6 @@
     });
 
     function filterGenerator() {
-        $('body').loading({message: "chargement.."});
         $(".filter-content").empty();
         if (price.length > 0) if ($.inArray(price[0], filters) === -1) filters = filters.concat(price);
         for (i = 0; i < filters.length; i++) {
@@ -371,7 +371,7 @@
         }
     });
 
-    function updateQueryStringParam(param, value) {
+    function updateQueryStringParam(param, value, path = "") {
         baseUrl = [location.protocol, '//', location.host, location.pathname].join('');
         urlQueryString = document.location.search;
         let newParam = param + '=' + value;
@@ -386,18 +386,24 @@
                 params = urlQueryString + '&' + newParam;
             }
         } else {
-            params = urlQueryString.replace("&filter=" + $_GET("filter"), "");
+            params = urlQueryString.replace("&" + param + "=" + $_GET("'" + param + "'"), "");
         }
 
         window.history.replaceState({}, "", baseUrl + params);
+        var url = (path !== "") ? path : ($_GET('path') + "&filter=" + $_GET("filter"));
         $.ajax({
-            url: "index.php?route=product/category/filter&path=" + $_GET('path') + "&filter=" + $_GET("filter"),
+            url: "index.php?route=product/category/filter&path=" + url,
             type: "GET",
             dataType: "json",
+            beforeSend: function () {
+                $('body').loading({message: "chargement.."});
+            },
+            complete: function(){
+                $('body').loading('stop');
+            },
             success: function (json) {
                 updateFilters(json);
                 updateProducts(json['products'], json['pagination']);
-                $('body').loading('stop');
             },
             error: function (result, status, s) {
                 $('body').loading('stop');

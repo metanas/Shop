@@ -1728,3 +1728,8 @@ ul {
     padding-top: 10px;
     cursor: pointer
 }
+
+.category-filter{
+    cursor: pointer;
+    font-size: 14px;
+}
