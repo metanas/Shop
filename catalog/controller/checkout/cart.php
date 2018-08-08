@@ -434,6 +434,10 @@ class ControllerCheckoutCart extends Controller
                 'taxes' => &$taxes,
                 'total' => &$total
             );
+            $json['test'] = $this->request->post;
+            if(!$this->cart->hasProducts()){
+                $json['redirect'] = $this->url->link('checkout/cart');
+            }
 
             // Display prices
             if ($this->customer->isLogged() || !$this->config->get('config_customer_price')) {
