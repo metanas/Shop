@@ -24,7 +24,7 @@
                     <img src="{{ product.image }}">
                 </div>
                 <div class="col-sm-9" style="margin: 25px 0 0 10px">
-                    <div class="product-id" style="display: none;">{{ product.id }}</div>
+                    <div class="cart-id" style="display: none;">{{ product.cart_id }}</div>
                     <div>{{ product.model }}</div>
                     <div>{{ product.name }}</div>
                     <div>Couleur: {{ product.color }}</div>
@@ -96,8 +96,8 @@
 <script>
     $(".delete-product").on("click", function () {
         var id = this.parentNode.children[1].children[0].innerText;
-        console.log(id);
-        // cart.remove()
+        cart.remove(id.toString());
+        $(this.parentNode).remove();
     });
 
     $("#coupon").on("click", function () {
