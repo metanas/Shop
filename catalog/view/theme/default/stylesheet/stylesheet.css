@@ -268,6 +268,7 @@ div.required .control-label:before {
 .cart {
     float: right;
     margin-right: 30px;
+    position: relative;
 }
 
 .cart-para {
@@ -1496,14 +1497,7 @@ ul {
     font-size: 10px;
     position: absolute;
     top: 0;
-    right: 0
-}
-
-.favorite-quantity {
-    position: absolute;
-    top: 1px;
-    right: 160px;
-    font-size: 10px;
+    left: 55%;
 }
 
 /*.modal {*/

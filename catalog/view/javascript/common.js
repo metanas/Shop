@@ -348,7 +348,7 @@ var step = {
                 $('#collapse-checkout-option').html(step);
                 let progress = $('ul.progressbar li').get();
                 for (i = 0; i < 3; i++) {
-                    if (i < id-1) {
+                    if (i < id - 1) {
                         progress[i].classList.add('active');
                         progress[i].classList.remove('disabled');
                     } else {
@@ -373,12 +373,12 @@ var wishlist = {
             data: 'product_id=' + product_id,
             dataType: 'json',
             success: function (json) {
-                $('#favorite')[0].src = json['favorite'];
-                $('.favorite-quantity').html(json['total']);
+                $('#favorite-cart').html(json['total']);
+                $('#favorite-cart').show()
                 try {
                     $('#fav-button')[0].src = json['favorite'];
-                }catch (e) {
-                    
+                } catch (e) {
+
                 }
                 // $('.alert-dismissible').remove();
                 //
@@ -408,8 +408,10 @@ var wishlist = {
             data: 'product_id=' + product_id,
             dataType: 'json',
             success: function (json) {
-                $('#favorite')[0].src = json['favorite']
-                $('.favorite-quantity').html(json['total'])
+                $('#favorite-cart').html(json['total'])
+                if (parseInt(json['total']) === 0) {
+                    $('#favorite-cart').hide();
+                }
             },
             error: function (s, d, f) {
 
