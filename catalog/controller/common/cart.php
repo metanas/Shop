@@ -101,6 +101,7 @@ class ControllerCommonCart extends Controller
 
             $data['products'][] = array(
                 'cart_id' => $product['cart_id'],
+                'product_id' => $product['product_id'],
                 'thumb' => $image,
                 'name' => $product['name'],
                 'model' => $product['model'],
@@ -108,6 +109,7 @@ class ControllerCommonCart extends Controller
                 'recurring' => ($product['recurring'] ? $product['recurring']['name'] : ''),
                 'quantity' => $product['quantity'],
                 'price' => $price,
+                'old_price' => is_null($product['old_price']) ? null : $this->currency->format($product['old_price'], $this->session->data['currency']),
                 'total' => $total,
                 'href' => $this->url->link('product/product', 'language=' . $this->config->get('config_language') . '&product_id=' . $product['product_id'])
             );
