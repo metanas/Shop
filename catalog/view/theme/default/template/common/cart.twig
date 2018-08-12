@@ -4,7 +4,7 @@
             <div>
                 <img src="catalog/view/theme/default/image/checkout.png"
                      width="25" height="25">
-                <p class="cart-para">{{ text_checkout }}</p><span
+                <p class="cart-para">{{ text_checkout }}</p><span id="checkout"
                         class="quantity" {% if count_products is same as(0) %} style="display: none" {% endif %}>{{ count_products }}</span>
             </div>
             <div class="dropdown-menu pull-right">

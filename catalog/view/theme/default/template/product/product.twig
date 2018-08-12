@@ -540,9 +540,10 @@
                         url: 'index.php?route=checkout/cart/info',
                         dataType: 'html',
                         success: function (json) {
-                            $('.quantity').css("display", 'block');
-                            $('.quantity').empty();
-                            $('.quantity').html(json);
+                            console.log($('#checkout'));
+                            $('#checkout').css("display", 'block');
+                            $('#checkout').empty();
+                            $('#checkout').html(json);
                         },
                         error: function (xhr, ajaxOptions, thrownError) {
                             alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);

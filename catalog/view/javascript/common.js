@@ -204,7 +204,6 @@ var cart = {
             },
             success: function (json) {
                 $('.alert-dismissible, .text-danger').remove();
-                debugger;
                 // if (json['redirect']) {
                 //     location = json['redirect'];
                 // }
@@ -219,9 +218,9 @@ var cart = {
                         $('#cart > button').html('<span id="cart-total"><i class="fa fa-shopping-cart"></i> ' + json['total'] + '</span>');
                     }, 100);
 
-                    $('html, body').animate({scrollTop: 0}, 'slow');
+                    // $('html, body').animate({scrollTop: 0}, 'slow');
 
-                    $('#cart > ul').load('index.php?route=common/cart/info ul li');
+                    $('#cart').load('index.php?route=common/cart/info ul li');
                 }
             },
             error: function (xhr, ajaxOptions, thrownError) {
@@ -375,7 +374,7 @@ var wishlist = {
             dataType: 'json',
             success: function (json) {
                 $('#favorite-cart').html(json['total']);
-                $('#favorite-cart').show()
+                $('#favorite-cart').show();
                 try {
                     $('#fav-button')[0].src = json['favorite'];
                 } catch (e) {
