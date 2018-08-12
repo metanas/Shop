@@ -233,11 +233,15 @@ div.required .control-label:before {
     background: #FFFFFF;
     z-index: 1001;
     padding: 10px;
-    width: 200px;
+    width: 400px;
     border-radius: 0;
     margin-left: -80px;
     min-width: 100%;
 
+}
+#cart .scrollStyle{
+    overflow-y: auto;
+    max-height: 500px;
 }
 
 @media (max-width: 478px) {
@@ -927,14 +931,24 @@ h2.price {
     color: #444;
 }
 
-.product-thumb .price-new {
+.price-new {
     color: #cf3a3a;
     font-weight: 600;
     width: 100%;
     text-align: right;
 }
 
-.product-thumb .price-old {
+.pointer {
+    font-size: 12px;
+
+}
+
+.pointer:hover {
+    cursor: pointer;
+    color: #aaa;
+}
+
+.price-old {
     color: #999;
     text-decoration: line-through;
     margin-left: 10px;
@@ -1723,7 +1737,7 @@ ul {
     cursor: pointer
 }
 
-.category-filter{
+.category-filter {
     cursor: pointer;
     font-size: 14px;
 }

@@ -7,79 +7,109 @@
                 <p class="cart-para">{{ text_checkout }}</p><span
                         class="quantity" {% if count_products is same as(0) %} style="display: none" {% endif %}>{{ count_products }}</span>
             </div>
-            <ul class="dropdown-menu pull-right" style="width: 400px">
+            <div class="dropdown-menu pull-right">
+                <h4 class="text-center text-uppercase">Mon Panier</h4>
                 {% if products or vouchers %}
-                    <li>
-                        <table class="table table-striped">
-                            {% for product in products %}
-                                <tr>
-                                    <td class="text-center">{% if product.thumb %} <a href="{{ product.href }}"><img
+                    <div class="col-md-12 scrollStyle" style="padding: 0;">
+                        {% for product in products %}
+                            <div>
+                                {% if product.thumb %}
+                                    <div class="col-md-3">
+                                        <a href="{{ product.href }}"><img
                                                     src="{{ product.thumb }}" alt="{{ product.name }}"
-                                                    title="{{ product.name }}" class="img-thumbnail"/></a> {% endif %}
-                                    </td>
-                                    <td class="text-left"><a href="{{ product.href }}">{{ product.name }}</a>
-                                        {% if product.option %}
-                                            {% for option in product.option %} <br/>
-                                                -
-                                                <small>{{ option.name }} {{ option.value }}</small> {% endfor %}
+                                                    title="{{ product.name }}" class="img-thumbnail"/></a>
+                                    </div>
+                                {% endif %}
+                                <div class="col-md-9">
+                                    <div class="col-md-6" style="padding: 0;">
+                                        <div class="col-md-12" style="padding: 0;">
+                                            {{ product.model }}
+                                        </div>
+                                        <div class="col-md-12" style="padding: 0">
+                                            <a href="{{ product.href }}">{{ product.name }}</a>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6" style="padding: 0">
+                                        <div class="col-md-12 text-right" style="padding: 0;">
+                                            <b {% if product.old_price is not null %} class="price-new" {% endif %}>{{ product.price }}</b>
+                                        </div>
+                                        {% if product.old_price is not null %}
+                                            <div class="col-md-12 text-right" style="padding: 0;">
+                                                <small class="price-old">{{ product.old_price }}</small>
+                                            </div>
                                         {% endif %}
-                                        {% if product.recurring %} <br/>
-                                            -
-                                            <small>{{ text_recurring }} {{ product.recurring }}</small> {% endif %}
-                                    </td>
-                                    <td class="text-right">x {{ product.quantity }}</td>
-                                    <td class="text-right">{{ product.total }}</td>
-                                    <td class="text-center">
-                                        <button type="button" onclick="cart.remove('{{ product.cart_id }}');"
-                                                title="{{ button_remove }}" class="btn btn-danger btn-xs"><i
-                                                    class="fa fa-times"></i></button>
-                                    </td>
-                                </tr>
-                            {% endfor %}
-                            {% for voucher in vouchers %}
-                                <tr>
-                                    <td class="text-center"></td>
-                                    <td class="text-left">{{ voucher.description }}</td>
-                                    <td class="text-right">xY 1</td>
-                                    <td class="text-right">{{ voucher.amount }}</td>
-                                    <td class="text-center text-danger">
-                                        <button type="button" onclick="voucher.remove('{{ voucher.key }}');"
-                                                title="{{ button_remove }}" class="btn btn-danger btn-xs"><i
-                                                    class="fa fa-times"></i></button>
-                                    </td>
-                                </tr>
-                            {% endfor %}
-                        </table>
-                    </li>
-                    <li style="margin: 10px">
-                        <div>
-                            <table class="table table-bordered">
-                                {% for total in totals %}
-                                    <tr>
-                                        <td class="text-right"><strong>{{ total.title }}</strong></td>
-                                        <td class="text-right">{{ total.text }}</td>
-                                    </tr>
-                                {% endfor %}
-                            </table>
-                            <p class="text-right"><a href="{{ cart }}"><strong><i
-                                                class="fa fa-shopping-cart"></i> {{ text_cart }}</strong></a>&nbsp;&nbsp;&nbsp;<a
-                                        href="{{ checkout }}"><strong><i class="fa fa-share"></i> {{ text_checkout }}
-                                    </strong></a></p>
+                                    </div>
+                                    {% if product.option %}
+                                        {% for option in product.option %}
+                                            <div class="col-md-12"
+                                                 style="padding: 0;">{{ option.name }} : {{ option.value }}</div>
+                                        {% endfor %}
+                                    {% endif %}
+                                    {% if product.recurring %} <br/>
+                                        -
+                                        <small>{{ text_recurring }} {{ product.recurring }}</small>
+                                    {% endif %}
+                                    <div class="col-md-12" style="padding: 0;">Quantite : {{ product.quantity }}</div>
+                                    <div class="col-md-12 text-center" style="padding: 0;">
+                                        <span class="pointer" onclick="wishlist.add('{{ product.product_id }}');">Deplacer vers mes preferes</span>
+                                        |
+                                        <span class="pointer"
+                                              onclick="cart.remove('{{ product.cart_id }}');">Supprimer</span>
+                                    </div>
+                                </div>
+                                {% if product is not same as(products|last) %}
+                                    <hr class="col-md-11">
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                        {% for voucher in vouchers %}
+                            <tr>
+                                <td class="text-center"></td>
+                                <td class="text-left">{{ voucher.description }}</td>
+                                <td class="text-right">xY 1</td>
+                                <td class="text-right">{{ voucher.amount }}</td>
+                                <td class="text-center text-danger">
+                                    <button type="button" onclick="voucher.remove('{{ voucher.key }}');"
+                                            title="{{ button_remove }}" class="btn btn-danger btn-xs"><i
+                                                class="fa fa-times"></i></button>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </div>
+                    <div class="col-md-12" style="margin-top: 10px;">
+                        <hr style="box-shadow: 0 -5px 5px -5px #333;">
+                        {% for total in totals %}
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="col-md-6 text-left" style="padding: 0">
+                                        <strong>{{ total.title }}</strong></div>
+                                    <div class="col-md-6 text-right" style="padding: 0">{{ total.text }}</div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                        <a href="{{ checkout }}">
+                            <button type="button" class="zalark-button">
+                                {{ text_checkout }}
+                            </button>
+                        </a>
+                        <div class="text-center">
+                            <a href="{{ cart }}"><b><u>{{ text_checkout }}</u></b></a>
                         </div>
-                    </li>
+                    </div>
                 {% else %}
                     <li>
                         <p class="text-center">{{ text_no_results }}</p>
                     </li>
                 {% endif %}
-            </ul>
+            </div>
         </div>
     </a>
     <a href="{{ wishlist }}">
         <div class="cart" align="center">
             <img id="favorite" src="image/favorite.png" width="25" height="25">
             <p class="cart-para">{{ text_wishlist }}</p>
-            <span id="favorite-cart" class="quantity" {% if not favorite_Total %} style="display: none" {% endif %}>{{ favorite_Total }}</span>
+            <span id="favorite-cart"
+                  class="quantity" {% if not favorite_Total %} style="display: none" {% endif %}>{{ favorite_Total }}</span>
         </div>
     </a>
     {% if logged %}
@@ -139,7 +169,8 @@
                                 <div class="form-group">
                                     <label class="control-label" for="input-password">{{ entry_password }}</label>
                                     <input type="password" name="password" value=""
-                                           placeholder="{{ entry_password }}" id="input-password" class="form-control input-zalark"/>
+                                           placeholder="{{ entry_password }}" id="input-password"
+                                           class="form-control input-zalark"/>
                                 </div>
                                 <button class="zalark-button">SE CONNECTER</button>
                             </div>
