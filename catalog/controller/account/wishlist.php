@@ -29,23 +29,6 @@ class ControllerAccountWishList extends Controller
 
         $this->document->setTitle($this->language->get('heading_title'));
 
-        $data['breadcrumbs'] = array();
-
-        $data['breadcrumbs'][] = array(
-            'text' => $this->language->get('text_home'),
-            'href' => $this->url->link('common/home', 'language=' . $this->config->get('config_language'))
-        );
-
-        $data['breadcrumbs'][] = array(
-            'text' => $this->language->get('text_account'),
-            'href' => $this->url->link('account/account', 'language=' . $this->config->get('config_language'))
-        );
-
-        $data['breadcrumbs'][] = array(
-            'text' => $this->language->get('heading_title'),
-            'href' => $this->url->link('account/wishlist', 'language=' . $this->config->get('config_language'))
-        );
-
         if (isset($this->session->data['success'])) {
             $data['success'] = $this->session->data['success'];
 
@@ -200,7 +183,7 @@ class ControllerAccountWishList extends Controller
                     $this->session->data['wishlist'] = array();
                 }
 
-                if (($key = array_search($this->request->post['product_id'], $this->session->data['wishlist'])) !== false) {
+                 if (($key = array_search($this->request->post['product_id'], $this->session->data['wishlist'])) !== false) {
                     unset($this->session->data['wishlist'][$key]);
                 }
 
