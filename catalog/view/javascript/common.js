@@ -219,14 +219,13 @@ var cart = {
                     }, 100);
 
                     // $('html, body').animate({scrollTop: 0}, 'slow');
-
-                    $('#cart').load('index.php?route=common/cart/info ul li');
                 }
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 // alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
             }
         });
+        $('#cart').load('index.php?route=common/cart/info ul li');
     },
     'update': function (key, quantity) {
         $.ajax({
@@ -271,7 +270,6 @@ var cart = {
             },
             success: function (json) {
                 // Need to set timeout otherwise it wont update the total
-                console.log(json);
                 setTimeout(function () {
                     $('#cart > button').html('<span id="cart-total"><i class="fa fa-shopping-cart"></i> ' + json['total'] + '</span>');
                 }, 100);
@@ -286,6 +284,8 @@ var cart = {
                 alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
             }
         });
+
+        $('#cart').load('index.php?route=common/cart/info ul li');
     }
 };
 
@@ -373,24 +373,14 @@ var wishlist = {
             data: 'product_id=' + product_id,
             dataType: 'json',
             success: function (json) {
-                $('#favorite-cart').html(json['total']);
-                $('#favorite-cart').show();
-                try {
-                    $('#fav-button')[0].src = json['favorite'];
-                } catch (e) {
-
-                }
+                console.log(json);
+                $('#cart').load('index.php?route=common/cart/info}');
                 // $('.alert-dismissible').remove();
                 //
                 // if (json['redirect']) {
                 //     location = json['redirect'];
                 // }
                 //
-                // if (json['success']) {
-                //     $('#alert-box').append('<div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
-                //
-                //     $('#alert-box').addClass('open');
-                // }
                 //
                 // $('#wishlist-total span').html(json['total']);
                 // $('#wishlist-total').attr('title', json['total']);
@@ -408,10 +398,7 @@ var wishlist = {
             data: 'product_id=' + product_id,
             dataType: 'json',
             success: function (json) {
-                $('#favorite-cart').html(json['total'])
-                if (parseInt(json['total']) === 0) {
-                    $('#favorite-cart').hide();
-                }
+                $('#cart').load('index.php?route=common/cart/info');
             },
             error: function (s, d, f) {
 
