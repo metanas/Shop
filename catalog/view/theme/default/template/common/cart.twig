@@ -1,14 +1,14 @@
-<div class="row" id="cart">
-    <a href="{{ cart }}">
+<div class="row">
+    <a href="">
         <div class="dropdown cart" align="center">
             <div>
                 <img src="catalog/view/theme/default/image/checkout.png"
                      width="25" height="25">
-                <p class="cart-para">{{ text_checkout }}</p><span id="checkout"
+                <p class="cart-para">{{ text_cart }}</p><span id="checkout"
                         class="quantity" {% if count_products is same as(0) %} style="display: none" {% endif %}>{{ count_products }}</span>
             </div>
             <div class="dropdown-menu pull-right">
-                <h4 class="text-center text-uppercase">Mon Panier</h4>
+                <h4 class="text-center text-uppercase">{{ text_cart }}</h4>
                 {% if products or vouchers %}
                     <div class="col-md-12 scrollStyle" style="padding: 0;">
                         {% for product in products %}
@@ -25,7 +25,7 @@
                                         <div class="col-md-12" style="padding: 0;">
                                             {{ product.model }}
                                         </div>
-                                        <div class="col-md-12" style="padding: 0">
+                                        <div class="col-md-12"  style="padding: 0">
                                             <a href="{{ product.href }}">{{ product.name }}</a>
                                         </div>
                                     </div>
