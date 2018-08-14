@@ -9,6 +9,9 @@ $_['text_checkout']         ='Commander';
 $_['text_recurring']        ='Profil de paiement';
 $_['text_forgotten']        ='mot de passe oublié ?';
 $_['text_new_customer']     ='Nouveau client ?';
+$_['text_profile']          ='Profil';
+$_['text_login']            ='Se connecter';
+$_['text_wishlist']         ='mes préférés';
 $_['text_register']         ='Créer un compte';
 $_['text_logout']           ='<div>vous n\'etes pas %s ? <a href="%s">Se deconnecter</a></div>';
 
