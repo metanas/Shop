@@ -30,7 +30,10 @@ class ControllerCheckoutCheckout extends Controller
         $this->load->language('account/login');
         $this->load->language('checkout/checkout');
 
+
         $this->document->setTitle($this->language->get('heading_title'));
+
+        $data['title'] = $this->document->getTitle();
 
         $this->document->addScript('catalog/view/javascript/jquery/datetimepicker/moment/moment.min.js');
         $this->document->addScript('catalog/view/javascript/jquery/datetimepicker/moment/moment-with-locales.min.js');
@@ -141,6 +144,9 @@ class ControllerCheckoutCheckout extends Controller
                 'required' => $custom_field['required']
             );
         }
+        $data['motion_legal'] = $this->url->link('information/information', 'language=' . $this->config->get('config_language') . '&information_id=' . 13);
+        $data['terms_private'] = $this->url->link('information/information', 'language=' . $this->config->get('config_language') . '&information_id=' . 14);
+        $data['contact'] = $this->url->link('information/contact', 'language=' . $this->config->get('config_language'));
 
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));

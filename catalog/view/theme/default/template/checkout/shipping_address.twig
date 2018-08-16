@@ -1,20 +1,20 @@
 <div class="col-sm-6" align="center">
     <div class="address-selection" id="domicile" style="border-color: #ff1b5e">
-        <img src="image/house.png" width="70">
+        <img src="image/house.png" height="100">
         <p>Domicile</p>
     </div>
 </div>
 <div class="col-sm-6" align="center">
     <div class="address-selection" id="retrait">
-        <img src="image/location.png" width="70">
+        <img src="image/location.png" height="100">
         <p>Point de retrait Amana</p>
     </div>
 </div>
 <div class="col-sm-12" id="domicile-content">
-    <div class="col-md-6">
+    <div class="col-md-12">
         <h4>ADRESSE DE LIVRAISON</h4>
         <hr>
-        <div id="container-address">
+        <div class="col-md-6" id="container-address">
             {% for address in addresses %}
                 <div class="col-sm-12" id="address-form">
                     <div class="form-group">
@@ -91,11 +91,9 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div class="col-md-6 col-xs-12">
-        <h4>ADRESSE DE FACTURATION</h4>
-        <hr>
-        <button class="zalark-button">{{ button_continue }}</button>
+        <div class="col-md-6 col-xs-12">
+            <button class="zalark-button">{{ button_continue }}</button>
+        </div>
     </div>
 </div>
 <div class="col-sm-12" id="retrait-content">
