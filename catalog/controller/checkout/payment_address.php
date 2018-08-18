@@ -90,7 +90,7 @@ class ControllerCheckoutPaymentAddress extends Controller {
 				if (!$json) {
 				    $this->session->data['payment_type'] = $this->request->post['payment_type'];
                     $this->session->data['payment_address'] = $this->model_account_address->getAddress($this->session->data['address_id']);
-                    $json['test'] = $this->request->post['payment_type'];
+
                     $json['success'] = true;
 					unset($this->session->data['payment_method']);
 					unset($this->session->data['payment_methods']);

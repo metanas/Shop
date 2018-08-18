@@ -21,7 +21,7 @@
                         <label class="check_filter">
                             <input type="radio" class="checkbox" name="address"
                                    value="{{ address.address_id }}">{{ address.firstname }} {{ address.lastname }}
-                            <br>{{ address.address_1 }}<br> {{ address.postcode }}
+                            <br>{{ address.address_1 }} {{ address.address_2 }}<br> {{ address.postcode }}
                             {{ address.city }}<br> Maroc
                             <span class="checkmark checkradio"></span>
                         </label>
@@ -52,13 +52,17 @@
                             <span class="checkmark checkradio"></span>
                         </label>
                     </div>
+                    <div class="form-group" hidden>
+                        <input type="text" name="address_id" value="" id="input-address-id"
+                               class="form-control" hidden/>
+                    </div>
                     <div class="form-group">
                         <label class="control-label" for="input-firstname">{{ entry_firstname }}</label>
                         <input type="text" name="firstname" value="" placeholder="{{ entry_firstname }}" id="input-name"
                                class="form-control"/>
                     </div>
                     <div class="form-group">
-                        <label class="control-label" for="input-firstname">{{ entry_lastname }}</label>
+                        <label class="control-label" for="input-lastname">{{ entry_lastname }}</label>
                         <input type="text" name="lastname" value="" placeholder="{{ entry_lastname }}"
                                id="input-lastname"
                                class="form-control"/>
@@ -87,7 +91,10 @@
                                class="form-control"/>
                     </div>
                     <h3>Maroc</h3>
-                    <button id="save-address" class="zalark-button-border">{{ button_save_address }}</button>
+                    <button id="update-address" class="zalark-button-border text-uppercase"
+                            hidden>{{ button_update_address }}</button>
+                    <button id="save-address"
+                            class="zalark-button-border text-uppercase">{{ button_save_address }}</button>
                 </div>
             </div>
         </div>
@@ -115,17 +122,66 @@
         }, 100)
     });
 
-    $('input:radio[name="address"]').change(
-        function () {
-            if ($(this).val() === "Add") {
-                $("#add-address-field").show(200);
-            } else {
-                $("#add-address-field").hide(200);
+    $("#container-address").on('change', 'input:radio[name="address"]', function () {
+        if ($(this).val() === "Add") {
+            $("#add-address-field").show(200);
+        } else {
+            $("#add-address-field").hide(200);
+        }
+    });
+
+    $('#update-address').on('click', function () {
+        $.ajax({
+            url: 'index.php?route=checkout/shipping_address/update',
+            type: 'post',
+            data: $('#add-address-field :input'),
+            dataType: 'json',
+            success: function (json) {
+                console.log(json);
+                if (json['success']) {
+                    let result = json['result'];
+                    $('.address-form :input[value="' + result['address_id'] + '"]').parents('.address-form').remove();
+                    setAddress(result);
+                    $('input[name="address_id"]').val('');
+                    $('input[name="firstname"]').val('');
+                    $('input[name="lastname"]').val('');
+                    $('input[name="address_1"]').val('');
+                    $('input[name="address_2"]').val('');
+                    $('input[name="city"]').val('');
+                    $('input[name="postcode"]').val('');
+                    $('#update-address').hide();
+                    $('#save-address').show();
+                    $('#add-address-field').hide(200)
+                }
+            },
+            error: function (d, r, e) {
+                console.log(d, r, e);
             }
-        });
+        })
+    });
 
     $("#container-address").on("click", ".edit-address", function () {
-        console.log("in construction");
+        var id = $(this).prev().children('label').children('input').val();
+        $.ajax({
+            url: "index.php?route=checkout/shipping_address/info",
+            type: "POST",
+            data: {"address_id": id},
+            success: function (json) {
+                if (json['result'] !== false) {
+                    let result = json['result'];
+                    $('input[name="address_id"]').val(result['address_id']);
+                    $('input[name="firstname"]').val(result['firstname']);
+                    $('input[name="lastname"]').val(result['lastname']);
+                    $('input[name="address_1"]').val(result['address_1']);
+                    $('input[name="address_2"]').val(result['address_2']);
+                    $('input[name="city"]').val(result['city']);
+                    $('input[name="postcode"]').val(result['postcode']);
+                    $('#update-address').show();
+                    $('#save-address').hide();
+                    $('#add-address-field').show(200)
+                }
+            }
+        })
     });
 
     var ob;
@@ -136,7 +192,6 @@
             type: "POST",
             data: {"address_id": ob[0].children[0].children[0].children[0].value},
             success: function (json) {
-                console.log(json);
                 if (json['redirect']) {
                     location = json['redirect'];
                 } else if (json['success']) {
@@ -190,7 +245,24 @@
         $("#retrait-content").show();
     });
 
+    function setAddress(json) {
+        html = "<div class=\"col-sm-12 address-form\">";
+        html += "<div class=\"form-group\">";
+        html += "<label class=\"check_filter\">";
+        html += "<input type=\"radio\" class=\"checkbox\" name=\"address\" value='" + json['address_id'] + "'>" + json['firstname'] + " " + json['lastname'];
+        html += "<br>" + json['address_1'] + " " + json['address_2'] + "<br>" + json['postcode'] + " ";
+        html += json['city'] + "<br> Maroc";
+        html += "<span class=\"checkmark checkradio\"></span>";
+        html += "</label></div>";
+        html += "<span class=\"edit-address\"><i class=\"fa fa-pencil\"></i></span>";
+        html += "<span class=\"close-address\"><i class=\"fa fa-close\"></i></span>";
+        html += "<hr></div>";
+
+        $('#container-address').prepend(html);
+    }
+
     $("#save-address").on("click", function () {
+        debugger;
         if ($('#input-name').val().length === 0) {
             $('#input-name').focus();
             return;
@@ -218,19 +290,9 @@
             data: $('#add-address-field :input'),
             dataType: 'json',
             success: function (json) {
-                html  = "<div class=\"col-sm-12 address-form\">";
-                html += "<div class=\"form-group\">";
-                html += "<label class=\"check_filter\">";
-                html += "<input type=\"radio\" class=\"checkbox\" name=\"address\" value='" + json['address_id'] + "'>" + json['firstname'] + " " + json['lastname'];
-                html += "<br>" + json['address_1'] + "<br>" + json['postcode'];
-                html += json['city'] + "<br> Maroc";
-                html += "<span class=\"checkmark checkradio\"></span>";
-                html += "</label></div>";
-                html += "<span class=\"edit-address\"><i class=\"fa fa-pencil\"></i></span>";
-                html += "<span class=\"close-address\"><i class=\"fa fa-close\"></i></span>";
-                html += "<hr></div>";
-
-                $('#container-address').prepend(html);
+                console.log(json);
+                debugger;
+                setAddress(json);
             },
             error: function (d, r, e) {
                 console.log(d, r, e);
