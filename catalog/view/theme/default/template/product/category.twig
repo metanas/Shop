@@ -180,7 +180,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="product-container row" style="position: relative;z-index:1;">
+                <div class="product-container row">
                     {% for product in products %}
                         <div class="product-layout col-lg-4 col-md-4 col-sm-6 col-xs-12">
                             <span id="product-id" style="display: none">{{ product.product_id }}</span>
@@ -435,8 +435,6 @@
         html += '<div class="col-sm-6 text-center pagination">' + pagination + '</div></div>';
         $('.product-container').empty();
         $('.product-container').html(html);
-        sethover();
-        clickFav();
     }
 
     function updateFilters(json) {

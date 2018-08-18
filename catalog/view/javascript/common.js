@@ -135,58 +135,57 @@ $(document).ready(function () {
 // set hover to similar product
 var div;
 
-function sethover() {
-    $(".product-layout").hover(function () {
-            if ($('.same', this).html().trim() === "") {
-                html = "<a href=\"" + $('.SheosName', this)[0].children[0].href + "\"><img class=\"smallSame img-default\" src=\"" + $(".img-responsive", this)[0].src + "\"></a>";
-                div = this;
-                $.ajax({
-                    url: "index.php?route=product/category/simulate&path=" + 72 + "&product_id=" + $('#product-id', this).html(),
-                    type: "GET",
-                    dataType: "json",
-                    success: function (json) {
-                        if ($('.same', div).html().trim() === "") {
-                            $.map(json, function (item) {
-                                html += "<a href=\"" + item['href'] + "\"><img class=\"smallSame\" src=\"" + item['thumb'] + "\"></a>";
-                            });
-                            $('.same', div).empty();
-                            $('.same', div).html(html);
-                            $('.same', div).show(400);
-                        }
-                        $(".smallSame").hover(
-                            function () {
-                                $(this).css('border', '1px solid black');
-                                $(this).parents('.product-thumb').find('.img-responsive')[0].src = this.src;
-                            }, function () {
-                                $(this).css('border', 'none');
-                                $(this).parents('.product-thumb').find('.img-responsive')[0].src = $(this).parents('.same').find('.img-default')[0].src;
-                            });
-                    },
-                    error: function (d, s) {
-                        console.log(s)
-                    }
-                });
-            } else {
-                $('.same', this).show(400)
+$(document).on('mouseenter', '.product-layout', function () {
+    if ($('.same', this).html().trim() === "") {
+        html = "<a href=\"" + $('.SheosName', this)[0].children[0].href + "\"><img class=\"smallSame img-default\" src=\"" + $(".img-responsive", this)[0].src + "\"></a>";
+        div = this;
+        $.ajax({
+            url: "index.php?route=product/category/simulate&path=" + 72 + "&product_id=" + $('#product-id', this).html(),
+            type: "GET",
+            dataType: "json",
+            success: function (json) {
+                if ($('.same', div).html().trim() === "") {
+                    $.map(json, function (item) {
+                        html += "<a href=\"" + item['href'] + "\"><img class=\"smallSame\" src=\"" + item['thumb'] + "\"></a>";
+                    });
+                    $('.same', div).empty();
+                    $('.same', div).html(html);
+                    $('.same', div).show(400);
+                }
+            },
+            error: function (d, s) {
+                console.log(s)
             }
-        }, function () {
-            $('.same', this).hide(400)
-        }
-    );
-}
+        });
+    } else {
+        $('.same', this).show(400)
+    }
+});
+$(document).on('mouseenter', ".smallSame",
+    function () {
+        $(this).css('border', '1px solid black');
+        $(this).parents('.product-thumb').find('.img-responsive')[0].src = this.src;
+    });
+$(document).on('mouseleave', '.smallSame', function () {
+    $(this).css('border', 'none');
+    $(this).parents('.product-thumb').find('.img-responsive')[0].src = $(this).parents('.same').find('.img-default')[0].src;
+});
+$(document).on("mouseleave", '.product-layout', function () {
+    $('.same', this).hide(400)
+});
+
 
 // add to wishlist
-function clickFav() {
-    $('.favorite').click(function () {
-        if (this.src.includes('Added')) {
-            this.src = "catalog/view/theme/default/image/favorite.png";
-            wishlist.remove(this.parentElement.parentElement.children[0].innerHTML);
-        } else {
-            this.src = "catalog/view/theme/default/image/favoriteAdded.png";
-            wishlist.add(this.parentElement.parentElement.children[0].innerHTML)
-        }
-    })
-}
+
+$(document).on('click', '.favorite', function () {
+    if (this.src.includes('Added')) {
+        this.src = "catalog/view/theme/default/image/favorite.png";
+        wishlist.remove(this.parentElement.parentElement.children[0].innerHTML);
+    } else {
+        this.src = "catalog/view/theme/default/image/favoriteAdded.png";
+        wishlist.add(this.parentElement.parentElement.children[0].innerHTML)
+    }
+});
 
 // Cart add remove functions
 var cart = {
@@ -373,8 +372,11 @@ var wishlist = {
             data: 'product_id=' + product_id,
             dataType: 'json',
             success: function (json) {
-                console.log(json);
                 $('#cart').load('index.php?route=common/cart/info}');
+                try {
+                    $('#fav-button')[0].src = json['favorite'];
+                } catch (e) {
+                }
                 // $('.alert-dismissible').remove();
                 //
                 // if (json['redirect']) {
@@ -399,6 +401,10 @@ var wishlist = {
             dataType: 'json',
             success: function (json) {
                 $('#cart').load('index.php?route=common/cart/info');
+                try {
+                    $('#fav-button')[0].src = json['favorite'];
+                } catch (e) {
+                }
             },
             error: function (s, d, f) {
 

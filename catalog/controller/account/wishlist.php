@@ -46,7 +46,7 @@ class ControllerAccountWishList extends Controller
 
             if ($product_info) {
                 if ($product_info['image']) {
-                    $image = $this->model_tool_image->resize($product_info['image'], $this->config->get('theme_' . $this->config->get('config_theme') . '_image_wishlist_width'), $this->config->get('theme_' . $this->config->get('config_theme') . '_image_wishlist_height'));
+                    $image = $this->model_tool_image->resize($product_info['image'], $this->config->get('theme_' . $this->config->get('config_theme') . '_image_product_width'), $this->config->get('theme_' . $this->config->get('config_theme') . '_image_product_height'));
                 } else {
                     $image = false;
                 }
@@ -71,6 +71,12 @@ class ControllerAccountWishList extends Controller
                     $special = false;
                 }
 
+                if ($this->customer->isLogged()) {
+                    if ($this->model_account_wishlist->isExist($result['product_id']) == 1) {
+                        $favorite = $this->model_tool_image->resize("favoriteAdded.png", 100, 100);
+                    } else $favorite = $this->model_tool_image->resize("favorite.png", 100, 100);
+                }
+
                 $data['products'][] = array(
                     'product_id' => $product_info['product_id'],
                     'thumb' => $image,
@@ -79,6 +85,7 @@ class ControllerAccountWishList extends Controller
                     'stock' => $stock,
                     'price' => $price,
                     'special' => $special,
+                    'favorite' => $favorite,
                     'href' => $this->url->link('product/product', 'language=' . $this->config->get('config_language') . '&product_id=' . $product_info['product_id']),
                     'remove' => $this->url->link('account/wishlist', 'language=' . $this->config->get('config_language') . '&remove=' . $product_info['product_id'])
                 );

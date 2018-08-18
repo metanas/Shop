@@ -1,27 +1,27 @@
 <div class="col-sm-6" align="center">
     <div class="address-selection" id="domicile" style="border-color: #ff1b5e">
-        <img src="image/house.png" width="70">
+        <img src="image/house.png" height="100">
         <p>Domicile</p>
     </div>
 </div>
 <div class="col-sm-6" align="center">
     <div class="address-selection" id="retrait">
-        <img src="image/location.png" width="70">
+        <img src="image/location.png" height="100">
         <p>Point de retrait Amana</p>
     </div>
 </div>
 <div class="col-sm-12" id="domicile-content">
-    <div class="col-md-6">
+    <div class="col-md-12">
         <h4>ADRESSE DE LIVRAISON</h4>
         <hr>
-        <div id="container-address">
+        <div class="col-md-6" id="container-address">
             {% for address in addresses %}
-                <div class="col-sm-12" id="address-form">
+                <div class="col-sm-12 address-form">
                     <div class="form-group">
                         <label class="check_filter">
                             <input type="radio" class="checkbox" name="address"
                                    value="{{ address.address_id }}">{{ address.firstname }} {{ address.lastname }}
-                            <br>{{ address.address_1 }}<br> {{ address.postcode }}
+                            <br>{{ address.address_1 }} {{ address.address_2 }}<br> {{ address.postcode }}
                             {{ address.city }}<br> Maroc
                             <span class="checkmark checkradio"></span>
                         </label>
@@ -52,13 +52,17 @@
                             <span class="checkmark checkradio"></span>
                         </label>
                     </div>
+                    <div class="form-group" hidden>
+                        <input type="text" name="address_id" value="" id="input-address-id"
+                               class="form-control" hidden/>
+                    </div>
                     <div class="form-group">
                         <label class="control-label" for="input-firstname">{{ entry_firstname }}</label>
                         <input type="text" name="firstname" value="" placeholder="{{ entry_firstname }}" id="input-name"
                                class="form-control"/>
                     </div>
                     <div class="form-group">
-                        <label class="control-label" for="input-firstname">{{ entry_lastname }}</label>
+                        <label class="control-label" for="input-lastname">{{ entry_lastname }}</label>
                         <input type="text" name="lastname" value="" placeholder="{{ entry_lastname }}"
                                id="input-lastname"
                                class="form-control"/>
@@ -87,70 +91,119 @@
                                class="form-control"/>
                     </div>
                     <h3>Maroc</h3>
-                    <button id="save-address" class="zalark-button-border">{{ button_save_address }}</button>
+                    <button id="update-address" class="zalark-button-border text-uppercase"
+                            hidden>{{ button_update_address }}</button>
+                    <button id="save-address"
+                            class="zalark-button-border text-uppercase">{{ button_save_address }}</button>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="col-md-6 col-xs-12">
-        <h4>ADRESSE DE FACTURATION</h4>
-        <hr>
-        <button class="zalark-button">{{ button_continue }}</button>
+        <div class="col-md-6 col-xs-12">
+            <button class="zalark-button">{{ button_continue }}</button>
+        </div>
     </div>
 </div>
 <div class="col-sm-12" id="retrait-content">
 
 </div>
 <script>
-    function setjava() {
-        $('#address-form').hover(function () {
-            $(".close-address", this).show();
-            $(".edit-address", this).animate({
-                marginTop: "70px"
-            }, 100)
-        }, function () {
-            $(".close-address", this).hide();
-            $(".edit-address", this).animate({
-                marginTop: "0"
-            }, 100)
-        });
 
-        $('input:radio[name="address"]').change(
-            function () {
-                if ($(this).val() === "Add") {
-                    $("#add-address-field").show(200);
-                } else {
-                    $("#add-address-field").hide(200);
+    $("#container-address").on("mouseenter", '.address-form', function () {
+        $(".close-address", this).show();
+        $(".edit-address", this).animate({
+            marginTop: "70px"
+        }, 100)
+    });
+
+    $("#container-address").on('mouseleave', '.address-form', function () {
+        $(".close-address", this).hide();
+        $(".edit-address", this).animate({
+            marginTop: "0"
+        }, 100)
+    });
+
+    $("#container-address").on('change', 'input:radio[name="address"]', function () {
+        if ($(this).val() === "Add") {
+            $("#add-address-field").show(200);
+        } else {
+            $("#add-address-field").hide(200);
+        }
+    });
+
+    $('#update-address').on('click', function () {
+        $.ajax({
+            url: 'index.php?route=checkout/shipping_address/update',
+            type: 'post',
+            data: $('#add-address-field :input'),
+            dataType: 'json',
+            success: function (json) {
+                console.log(json);
+                if (json['success']) {
+                    let result = json['result'];
+                    $('.address-form :input[value="' + result['address_id'] + '"]').parents('.address-form').remove();
+                    setAddress(result);
+                    $('input[name="address_id"]').val('');
+                    $('input[name="firstname"]').val('');
+                    $('input[name="lastname"]').val('');
+                    $('input[name="address_1"]').val('');
+                    $('input[name="address_2"]').val('');
+                    $('input[name="city"]').val('');
+                    $('input[name="postcode"]').val('');
+                    $('#update-address').hide();
+                    $('#save-address').show();
+                    $('#add-address-field').hide(200)
                 }
-            });
+            },
+            error: function (d, r, e) {
+                console.log(d, r, e);
+            }
+        })
+    });
 
-        $(".edit-address").on("click", function () {
-            console.log("in construction");
-        });
-        var ob;
-        $(".close-address").on("click", function () {
-            ob = $(this).parent("#address-form");
-            $.ajax({
-                url: "index.php?route=checkout/shipping_address/delete",
-                type: "POST",
-                data: {"address_id": ob[0].children[0].children[0].children[0].value},
-                success: function (json) {
-                    console.log(json);
-                    if (json['redirect']) {
-                        location = json['redirect'];
-                    } else if (json['success']) {
-                        ob.remove();
-                    }
-                },
-                error: function (d, w, r) {
-                    console.log(d, w, r)
+    $("#container-address").on("click", ".edit-address", function () {
+        var id = $(this).prev().children('label').children('input').val();
+        $.ajax({
+            url: "index.php?route=checkout/shipping_address/info",
+            type: "POST",
+            data: {"address_id": id},
+            success: function (json) {
+                if (json['result'] !== false) {
+                    let result = json['result'];
+                    $('input[name="address_id"]').val(result['address_id']);
+                    $('input[name="firstname"]').val(result['firstname']);
+                    $('input[name="lastname"]').val(result['lastname']);
+                    $('input[name="address_1"]').val(result['address_1']);
+                    $('input[name="address_2"]').val(result['address_2']);
+                    $('input[name="city"]').val(result['city']);
+                    $('input[name="postcode"]').val(result['postcode']);
+                    $('#update-address').show();
+                    $('#save-address').hide();
+                    $('#add-address-field').show(200)
                 }
-            })
-        });
+            }
+        })
+    });
 
-    }
+    var ob;
+    $("#container-address").on("click", ".close-address", function () {
+        ob = $(this).parent(".address-form");
+        $.ajax({
+            url: "index.php?route=checkout/shipping_address/delete",
+            type: "POST",
+            data: {"address_id": ob[0].children[0].children[0].children[0].value},
+            success: function (json) {
+                if (json['redirect']) {
+                    location = json['redirect'];
+                } else if (json['success']) {
+                    ob.remove();
+                }
+            },
+            error: function (d, w, r) {
+                console.log(d, w, r)
+            }
+        })
+    });
 
-    setjava();
     $(".zalark-button").on("click", function () {
         if ($("#container-address .form-group input[name='address']:checked").length === 0) {
             return;
@@ -192,7 +245,24 @@
         $("#retrait-content").show();
     });
 
+    function setAddress(json) {
+        html = "<div class=\"col-sm-12 address-form\">";
+        html += "<div class=\"form-group\">";
+        html += "<label class=\"check_filter\">";
+        html += "<input type=\"radio\" class=\"checkbox\" name=\"address\" value='" + json['address_id'] + "'>" + json['firstname'] + " " + json['lastname'];
+        html += "<br>" + json['address_1'] + " " + json['address_2'] + "<br>" + json['postcode'] + " ";
+        html += json['city'] + "<br> Maroc";
+        html += "<span class=\"checkmark checkradio\"></span>";
+        html += "</label></div>";
+        html += "<span class=\"edit-address\"><i class=\"fa fa-pencil\"></i></span>";
+        html += "<span class=\"close-address\"><i class=\"fa fa-close\"></i></span>";
+        html += "<hr></div>";
+
+        $('#container-address').prepend(html);
+    }
+
     $("#save-address").on("click", function () {
+        debugger;
         if ($('#input-name').val().length === 0) {
             $('#input-name').focus();
             return;
@@ -220,19 +290,9 @@
             data: $('#add-address-field :input'),
             dataType: 'json',
             success: function (json) {
-                html = "<div class=\"form-group\">";
-                html += "<span class=\"edit-address\"><i class=\"fa fa-pencil\"></i></span>";
-                html += "<span class=\"close-address\"><i class=\"fa fa-close\"></i></span>";
-                html += "<label class=\"check_filter\">";
-                html += "<input type=\"radio\" class=\"checkbox\" name=\"address\" value='" + json['address_id'] + "'>" + json['firstname'] + " " + json['lastname'];
-                html += "<br>" + json['address_1'] + "<br>" + json['postcode'];
-                html += json['city'] + "<br> Maroc";
-                html += "<span class=\"checkmark checkradio\"></span>";
-                html += "</label>";
-                html += "<hr></div>";
-
-                $('#container-address').prepend(html);
-                setjava();
+                console.log(json);
+                debugger;
+                setAddress(json);
             },
             error: function (d, r, e) {
                 console.log(d, r, e);
