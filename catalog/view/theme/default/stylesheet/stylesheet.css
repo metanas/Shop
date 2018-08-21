@@ -205,10 +205,13 @@ div.required .control-label:before {
     font-size: 12px;
 
 }
-
+.ver-center{
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+}
 /* cart */
 #cart {
-    margin-bottom: 10px;
 }
 
 #cart > .btn {
@@ -270,9 +273,9 @@ div.required .control-label:before {
 }
 
 .cart {
-    float: right;
-    margin-right: 30px;
+    float: right !important;
     position: relative;
+    display: block;
 }
 
 .cart-para {
@@ -288,7 +291,6 @@ div.required .control-label:before {
 
 header {
     background-color: white;
-    padding-top: 24px;
 }
 
 .btn-connect {
