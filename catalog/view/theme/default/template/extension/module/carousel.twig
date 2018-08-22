@@ -1,52 +1,57 @@
 {% if products %}
     <div class="container">
-        <h1>{{ heading_title }}</h1>
-        <div class="swiper-viewport">
-            <div id="carousel{{ module }}" class="swiper-container">
-                <div class="swiper-wrapper">
-                    {% for product in products %}
-                        <div class="product-layout col-lg-3 col-md-3 col-sm-4 col-xs-4 swiper-slide">
-                            <span id="product-id" style="display: none">{{ product.product_id }}</span>
-                            <a href="{{ product.href }}">
-                                <div class="product-thumb transition">
-                                    <div class="image">
-                                        <img src="{{ product.thumb }}"
-                                             alt="{{ product.name }}"
-                                             title="{{ product.name }}"
-                                             class="img-responsive"
-                                             style="width: 100%"
-                                        />
-                                    </div>
-                                    <div class="caption">
-                                        <div class="desctip col-sm-12 col-xs-12">
-                                            <h4 class="SheosName"><a href="{{ product.href }}">{{ product.name }}</a>
-                                            </h4>
-                                            {% if product.price %}
-                                                {% if not product.special %}
-                                                    <p class="SheosPrice">{{ product.price }}</p>
-                                                {% else %}
-                                                    <span class="price-old SheosPrice">{{ product.price }}</span><br>
-                                                    <span class="price-new SheosPrice">{{ product.special }}</span>
+        <div class="row">
+
+            <h1>{{ heading_title }}</h1>
+            <div class="swiper-viewport">
+                <div id="carousel{{ module }}" class="swiper-container">
+                    <div class="swiper-wrapper">
+                        {% for product in products %}
+                            <div class="product-layout col-lg-3 col-md-3 col-sm-4 col-xs-4 swiper-slide">
+                                <span id="product-id" style="display: none">{{ product.product_id }}</span>
+                                <a href="{{ product.href }}">
+                                    <div class="product-thumb transition">
+                                        <div class="image">
+                                            <img src="{{ product.thumb }}"
+                                                 alt="{{ product.name }}"
+                                                 title="{{ product.name }}"
+                                                 class="img-responsive"
+                                                 style="width: 100%"
+                                            />
+                                        </div>
+                                        <div class="caption">
+                                            <div class="desctip col-sm-12 col-xs-12">
+                                                <h4 class="SheosName"><a
+                                                            href="{{ product.href }}">{{ product.name }}</a>
+                                                </h4>
+                                                {% if product.price %}
+                                                    {% if not product.special %}
+                                                        <p class="SheosPrice">{{ product.price }}</p>
+                                                    {% else %}
+                                                        <span class="price-old SheosPrice">{{ product.price }}</span>
+                                                        <br>
+                                                        <span class="price-new SheosPrice">{{ product.special }}</span>
+                                                    {% endif %}
                                                 {% endif %}
-                                            {% endif %}
-                                            <div class="col-sm-12 same">
-                                                {#<p>Disponible en plusieurs tailles</p>#}
+                                                <div class="col-sm-12 same">
+                                                    {#<p>Disponible en plusieurs tailles</p>#}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
+                                </a>
+                                <div><img src="{{ product.favorite }}" class="favorite"
+                                          title="ajouter au favoris">
                                 </div>
-                            </a>
-                            <div><img src="{{ product.favorite }}" class="favorite"
-                                      title="ajouter au favoris">
                             </div>
-                        </div>
-                    {% endfor %}
+                        {% endfor %}
+                    </div>
                 </div>
-            </div>
-            <div class="swiper-pagination carousel{{ module }}"></div>
-            <div class="swiper-pager">
-                <div class="swiper-button-next"></div>
-                <div class="swiper-button-prev"></div>
+                <div class="swiper-pagination carousel"></div>
+                <div class="swiper-pager">
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                </div>
             </div>
         </div>
     </div>
@@ -59,14 +64,15 @@
 <script type="text/javascript"><!--
     $('#carousel{{ module }}').swiper({
         mode: 'horizontal',
-        slidesPerView: 2,
+        slidesPerView: ($(window).width() > 1170) ? 5 : 2,
         pagination: '.carousel{{ module }}',
         paginationClickable: true,
         nextButton: '.swiper-button-next',
         prevButton: '.swiper-button-prev',
         autoplay: 2500,
         loop: false,
-        paginationType: 'costum'
-
+        paginationType: 'custom'
     });
+
+    carousel.push($('#carousel{{ module }}'))
     --></script>

@@ -136,7 +136,7 @@ $(document).ready(function () {
 var div;
 
 $(document).on('mouseenter', '.product-layout', function () {
-    if ($('.same', this).html().trim() === "") {
+    if ($('.same', this).html().trim() == "") {
         html = "<a href=\"" + $('.SheosName', this)[0].children[0].href + "\"><img class=\"smallSame img-default\" src=\"" + $(".img-responsive", this)[0].src + "\"></a>";
         div = this;
         $.ajax({
@@ -365,7 +365,6 @@ var step = {
 
 var wishlist = {
     'add': function (product_id) {
-        console.log(product_id);
         $.ajax({
             url: 'index.php?route=account/wishlist/add',
             type: 'post',
@@ -600,4 +599,32 @@ $(document).delegate('.agree', 'click', function (e) {
 
         });
     }
+
+
+
+
 })(window.jQuery);
+
+// carousel responsive
+let carousel = Array();
+$(window).resize(function () {
+    fixSwiper()
+});
+let viewPerSlide;
+function fixSwiper() {
+    if ($(window).width() < 750) {
+        viewPerSlide = 2
+    } else if ($(window).width() < 970) {
+        viewPerSlide = 3
+    } else if ($(window).width() < 1170) {
+        viewPerSlide = 4
+    }else{
+        viewPerSlide = 5
+    }
+    $.map(carousel, function (item) {
+        item.swiper({
+            slidesPerView: viewPerSlide,
+        });
+    });
+    return viewPerSlide;
+}

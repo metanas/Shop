@@ -50,15 +50,15 @@
 <nav id="top">
     <div class="container">
         <div class="row">
-            <div class="col-sm-4 hidden-sm hidden-xs">
+            <div class="col-lg-4 col-sm-4 hidden-sm hidden-xs">
                 <a href="{{ Return_and_refund }}">
                     <p>SATISFAIT OU REMBOURSE </p>
                 </a>
             </div>
-            <div class="col-md-4 col-sm-12" align="center">
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" align="center">
                 <p>{{ text_expedition }}</p>
             </div>
-            <div class="col-md-4 hidden-sm" align="right">
+            <div class="col-lg-4 col-md-4 hidden-sm hidden-xs" align="right">
                 <a href="{{ contact }}">
                     <p>
                         {{ text_service }}
@@ -71,7 +71,7 @@
 <header>
     <div class="container">
         <div class="row">
-            <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12 ver-center">
+            <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
                 <div class="row">
                     <div class="col-md-3 col-sm-2 col-xs-2">
                         {{ menu }}
@@ -81,7 +81,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-2 col-md-2 col-sm-3 col-xs-3 ver-center">
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2" style="padding-right: 0" align="center">
                 <div id="logo">{% if logo %}<a href="{{ home }}"><img src="{{ logo }}" title="{{ name }}"
                                                                       alt="{{ name }}"
                                                                       class="img-responsive"
@@ -89,7 +89,7 @@
                         <h1><a href="{{ home }}">{{ name }}</a></h1>
                     {% endif %}</div>
             </div>
-            <div class="col-lg-3 ver-center" id="cart">
+            <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-1 col-lg-3 col-md-3 col-sm-9 col-xs-10" id="cart">
                 {{ cart }}
             </div>
         </div>

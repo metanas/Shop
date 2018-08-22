@@ -1,12 +1,100 @@
 <div class="row">
-    <div class="col-md-4 dropdown cart" align="center">
-        <div>
-            <img src="catalog/view/theme/default/image/checkout.png"
-                 width="25" height="25">
-            <p class="cart-para">{{ text_cart }}</p>
-            <span id="checkout"
-                  class="quantity" {% if count_products is same as(0) %} style="display: none" {% endif %}>{{ count_products }}</span>
+    {% if logged %}
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 dropdown cart" align="center">
+            <a href="{{ account }}">
+                <img src="catalog/view/theme/default/image/user.png" width="25" height="25">
+                <p class="cart-para">{{ text_profile }}</p>
+            </a>
+            <div class="dropdown-menu">
+                <div style="font-size: 13px; line-height: 2">
+                    <div><a href="">Apercu de mon Compte</a></div>
+                    <div><a href="">Mes commandes</a></div>
+                    <div><a href="">Renvoyer un article</a></div>
+                    <div><a href="">Apercu de mon Compte</a></div>
+                    <hr>
+                    {{ logout }}
+                </div>
+            </div>
         </div>
+    {% else %}
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 dropdown cart" align="center">
+            <a href="{{ action_login }}">
+                <img src="catalog/view/theme/default/image/user.png" width="25" height="25">
+                <p class="cart-para">{{ text_login }}</p>
+            </a>
+            <div class="dropdown-menu" style="padding: 10px; width: 200px;border-radius: 0;margin-left: -80px;">
+                <button class="zalark-button" id="myBtn2"
+                        style="font-size: 14px; font-weight: bold;margin-bottom: 0;margin-top: 0">SE
+                    CONNECTER
+                </button>
+                <a href="{{ action_login }}"><p class="inscription" style="font-size: 11px">nouveau client? creez un
+                        compte</p></a>
+                <hr style="margin-top: 0;margin-bottom: 0">
+                <div style="font-size: 13px; line-height: 2">
+                    <div><a>Apercu de mon Compte</a></div>
+                    <div><a href="">Mes commandes</a></div>
+                    <div><a href="">Renvoyer un article</a></div>
+                    <div><a href="">Apercu de mon Compte</a></div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog modal-md">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-body" align="center" style="padding-right: 15%;padding-left: 15%">
+                        <h1><img src="catalog/view/theme/default/image/user.png" width="30" height="30">
+                            Connectez-vous</h1>
+                        <p>Bienvenue sur Zalark, votre compagnon mode. Reinventez votre dressing</p>
+                        <form action="{{ action_login }}" method="post" enctype="multipart/form-data">
+                            <div align="left">
+                                <div class="form-group">
+                                    <label class="control-label" for="input-email">{{ entry_email }}</label>
+                                    <input type="text" name="email" value="{{ email }}" placeholder="{{ entry_email }}"
+                                           id="input-email" class="form-control input-zalark"/>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label" for="input-password">{{ entry_password }}</label>
+                                    <input type="password" name="password" value=""
+                                           placeholder="{{ entry_password }}" id="input-password"
+                                           class="form-control input-zalark"/>
+                                </div>
+                                <button class="zalark-button">SE CONNECTER</button>
+                            </div>
+                            <a href="{{ forgotten }}" style="text-decoration: underline">{{ text_forgotten }}</a>
+                        </form>
+                    </div>
+                    <div class="modal-footer"
+                         style="background-color: #eeeeee; padding-right: 15%;padding-left: 15%;text-align: center">
+                        <h3>{{ text_new_customer }}</h3>
+                        <a href="{{ action_login }}">
+                            <button type="submit" class="zalark-button-border-dark">{{ text_register }}</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            $("#myBtn2").click(function () {
+                $("#myModal").modal();
+            })
+        </script>
+    {% endif %}
+    <div class="cart col-lg-4 col-md-4 col-sm-4 col-xs-4" align="center">
+        <a href="{{ wishlist }}">
+            <img id="favorite" src="image/favorite.png" width="25" height="25">
+            <p class="cart-para">{{ text_wishlist }}</p>
+            <span id="favorite-cart"
+                  class="quantity" {% if not favorite_Total %} style="display: none" {% endif %}>{{ favorite_Total }}</span>
+        </a>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 dropdown cart" align="center">
+        <img src="catalog/view/theme/default/image/checkout.png"
+             width="25" height="25">
+        <p class="cart-para">{{ text_cart }}</p>
+        <span id="checkout"
+              class="quantity" {% if count_products is same as(0) %} style="display: none" {% endif %}>{{ count_products }}</span>
         <div class="dropdown-menu pull-right">
             <h4 class="text-center text-uppercase">{{ text_cart }}</h4>
             {% if products or vouchers %}
@@ -103,98 +191,6 @@
             {% endif %}
         </div>
     </div>
-    <div class="cart col-md-4">
-        <a href="{{ wishlist }}">
-            <div align="center">
-                <img id="favorite" src="image/favorite.png" width="25" height="25">
-                <p class="cart-para">{{ text_wishlist }}</p>
-                <span id="favorite-cart"
-                      class="quantity" {% if not favorite_Total %} style="display: none" {% endif %}>{{ favorite_Total }}</span>
-            </div>
-        </a>
-    </div>
-    {% if logged %}
-        <div class="col-md-4 dropdown cart" align="center">
-            <a href="{{ account }}">
-                <img src="catalog/view/theme/default/image/user.png" width="25" height="25">
-                <p class="cart-para">{{ text_profile }}</p>
-            </a>
-            <div class="dropdown-menu">
-                <div style="font-size: 13px; line-height: 2">
-                    <div><a href="">Apercu de mon Compte</a></div>
-                    <div><a href="">Mes commandes</a></div>
-                    <div><a href="">Renvoyer un article</a></div>
-                    <div><a href="">Apercu de mon Compte</a></div>
-                    <hr>
-                    {{ logout }}
-                </div>
-            </div>
-        </div>
-    {% else %}
-        <div class="col-md-4 dropdown cart" align="center">
-            <a href="{{ action_login }}">
-                <img src="catalog/view/theme/default/image/user.png" width="25" height="25">
-                <p class="cart-para">{{ text_login }}</p>
-            </a>
-            <div class="dropdown-menu" style="padding: 10px; width: 200px;border-radius: 0;margin-left: -80px;">
-                <button class="zalark-button" id="myBtn2"
-                        style="font-size: 14px; font-weight: bold;margin-bottom: 0;margin-top: 0">SE
-                    CONNECTER
-                </button>
-                <a href="{{ action_login }}"><p class="inscription" style="font-size: 11px">nouveau client? creez un
-                        compte</p></a>
-                <hr style="margin-top: 0;margin-bottom: 0">
-                <div style="font-size: 13px; line-height: 2">
-                    <div><a>Apercu de mon Compte</a></div>
-                    <div><a href="">Mes commandes</a></div>
-                    <div><a href="">Renvoyer un article</a></div>
-                    <div><a href="">Apercu de mon Compte</a></div>
-                </div>
-            </div>
-        </div>
-        <div class="modal fade" id="myModal" role="dialog">
-            <div class="modal-dialog modal-md">
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-body" align="center" style="padding-right: 15%;padding-left: 15%">
-                        <h1><img src="catalog/view/theme/default/image/user.png" width="30" height="30">
-                            Connectez-vous</h1>
-                        <p>Bienvenue sur Zalark, votre compagnon mode. Reinventez votre dressing</p>
-                        <form action="{{ action_login }}" method="post" enctype="multipart/form-data">
-                            <div align="left">
-                                <div class="form-group">
-                                    <label class="control-label" for="input-email">{{ entry_email }}</label>
-                                    <input type="text" name="email" value="{{ email }}" placeholder="{{ entry_email }}"
-                                           id="input-email" class="form-control input-zalark"/>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label" for="input-password">{{ entry_password }}</label>
-                                    <input type="password" name="password" value=""
-                                           placeholder="{{ entry_password }}" id="input-password"
-                                           class="form-control input-zalark"/>
-                                </div>
-                                <button class="zalark-button">SE CONNECTER</button>
-                            </div>
-                            <a href="{{ forgotten }}" style="text-decoration: underline">{{ text_forgotten }}</a>
-                        </form>
-                    </div>
-                    <div class="modal-footer"
-                         style="background-color: #eeeeee; padding-right: 15%;padding-left: 15%;text-align: center">
-                        <h3>{{ text_new_customer }}</h3>
-                        <a href="{{ action_login }}">
-                            <button type="submit" class="zalark-button-border-dark">{{ text_register }}</button>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <script>
-            $("#myBtn2").click(function () {
-                $("#myModal").modal();
-            })
-        </script>
-    {% endif %}
 </div>
 <script> $(function () {
         $(".dropdown").hover(
