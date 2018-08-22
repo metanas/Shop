@@ -460,6 +460,8 @@ header {
 .dropdownFilter {
     background-color: white;
     cursor: pointer;
+    padding-left: 5px;
+    padding-right: 5px;
 }
 
 .select-zalark {
@@ -1253,7 +1255,7 @@ ul {
 }
 
 .model-filter {
-    width: 100%
+    width: 100%;
 }
 
 .check_filter {
