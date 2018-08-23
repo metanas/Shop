@@ -71,9 +71,9 @@
 <header>
     <div class="container">
         <div class="row">
-            <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+            <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12 ">
                 <div class="row">
-                    <div class="col-md-3 col-sm-2 col-xs-2">
+                    <div class="col-lg-3 col-md-3 col-sm-2 col-xs-2">
                         {{ menu }}
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-10 col-xs-10">
@@ -82,12 +82,14 @@
                 </div>
             </div>
             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2" style="padding-right: 0" align="center">
-                <div id="logo">{% if logo %}<a href="{{ home }}"><img src="{{ logo }}" title="{{ name }}"
-                                                                      alt="{{ name }}"
-                                                                      class="img-responsive"
-                        /></a>{% else %}
-                        <h1><a href="{{ home }}">{{ name }}</a></h1>
-                    {% endif %}</div>
+                <div class="row">
+                    <div id="logo">{% if logo %}<a href="{{ home }}"><img src="{{ logo }}" title="{{ name }}"
+                                                                          alt="{{ name }}"
+                                                                          class="img-responsive"
+                            /></a>{% else %}
+                            <h1><a href="{{ home }}">{{ name }}</a></h1>
+                        {% endif %}</div>
+                </div>
             </div>
             <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-1 col-lg-3 col-md-3 col-sm-9 col-xs-10" id="cart">
                 {{ cart }}

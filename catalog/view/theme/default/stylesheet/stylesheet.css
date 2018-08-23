@@ -176,7 +176,6 @@ div.required .control-label:before {
     content: '';
     height: 2px;
     background-color: #ff1b5e;
-    width: 100%;
     position: absolute;
     bottom: 6px;
     left: 0;

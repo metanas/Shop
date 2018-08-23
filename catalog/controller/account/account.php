@@ -11,18 +11,6 @@ class ControllerAccountAccount extends Controller {
 
 		$this->document->setTitle($this->language->get('heading_title'));
 
-		$data['breadcrumbs'] = array();
-
-		$data['breadcrumbs'][] = array(
-			'text' => $this->language->get('text_home'),
-			'href' => $this->url->link('common/home', 'language=' . $this->config->get('config_language'))
-		);
-
-		$data['breadcrumbs'][] = array(
-			'text' => $this->language->get('text_account'),
-			'href' => $this->url->link('account/account', 'language=' . $this->config->get('config_language'))
-		);
-
 		if (isset($this->session->data['success'])) {
 			$data['success'] = $this->session->data['success'];
 
@@ -35,22 +23,22 @@ class ControllerAccountAccount extends Controller {
 		$data['password'] = $this->url->link('account/password', 'language=' . $this->config->get('config_language'));
 		$data['address'] = $this->url->link('account/address', 'language=' . $this->config->get('config_language'));
 		
-		$data['credit_cards'] = array();
+//		$data['credit_cards'] = array();
 		
-		$files = glob(DIR_APPLICATION . 'controller/extension/credit_card/*.php');
-		
-		foreach ($files as $file) {
-			$code = basename($file, '.php');
-			
-			if ($this->config->get('payment_' . $code . '_status') && $this->config->get('payment_' . $code . '_card')) {
-				$this->load->language('extension/credit_card/' . $code, 'extension');
-
-				$data['credit_cards'][] = array(
-					'name' => $this->language->get('extension')->get('heading_title'),
-					'href' => $this->url->link('extension/credit_card/' . $code, 'language=' . $this->config->get('config_language'))
-				);
-			}
-		}
+//		$files = glob(DIR_APPLICATION . 'controller/extension/credit_card/*.php');
+//
+//		foreach ($files as $file) {
+//			$code = basename($file, '.php');
+//
+//			if ($this->config->get('payment_' . $code . '_status') && $this->config->get('payment_' . $code . '_card')) {
+//				$this->load->language('extension/credit_card/' . $code, 'extension');
+//
+//				$data['credit_cards'][] = array(
+//					'name' => $this->language->get('extension')->get('heading_title'),
+//					'href' => $this->url->link('extension/credit_card/' . $code, 'language=' . $this->config->get('config_language'))
+//				);
+//			}
+//		}
 		
 		$data['wishlist'] = $this->url->link('account/wishlist', 'language=' . $this->config->get('config_language'));
 		$data['order'] = $this->url->link('account/order', 'language=' . $this->config->get('config_language'));
@@ -67,21 +55,21 @@ class ControllerAccountAccount extends Controller {
 		$data['newsletter'] = $this->url->link('account/newsletter', 'language=' . $this->config->get('config_language'));
 		$data['recurring'] = $this->url->link('account/recurring', 'language=' . $this->config->get('config_language'));
 		
-		$this->load->model('account/affiliate');
+//		$this->load->model('account/affiliate');
+//
+//		$affiliate_info = $this->model_account_affiliate->getAffiliate($this->customer->getId());
 		
-		$affiliate_info = $this->model_account_affiliate->getAffiliate($this->customer->getId());
-		
-		if (!$affiliate_info) {	
-			$data['affiliate'] = $this->url->link('account/affiliate/add', 'language=' . $this->config->get('config_language'));
-		} else {
-			$data['affiliate'] = $this->url->link('account/affiliate/edit', 'language=' . $this->config->get('config_language'));
-		}
-		
-		if ($affiliate_info) {		
-			$data['tracking'] = $this->url->link('account/tracking', 'language=' . $this->config->get('config_language'));
-		} else {
-			$data['tracking'] = '';
-		}
+//		if (!$affiliate_info) {
+//			$data['affiliate'] = $this->url->link('account/affiliate/add', 'language=' . $this->config->get('config_language'));
+//		} else {
+//			$data['affiliate'] = $this->url->link('account/affiliate/edit', 'language=' . $this->config->get('config_language'));
+//		}
+//
+//		if ($affiliate_info) {
+//			$data['tracking'] = $this->url->link('account/tracking', 'language=' . $this->config->get('config_language'));
+//		} else {
+//			$data['tracking'] = '';
+//		}
 		
 		$data['column_left'] = $this->load->controller('common/column_left');
 		$data['column_right'] = $this->load->controller('common/column_right');

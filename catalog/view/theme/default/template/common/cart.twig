@@ -5,12 +5,12 @@
                 <img src="catalog/view/theme/default/image/user.png" width="25" height="25">
                 <p class="cart-para">{{ text_profile }}</p>
             </a>
-            <div class="dropdown-menu">
+            <div class="dropdown-menu" style="width: 200px;">
                 <div style="font-size: 13px; line-height: 2">
-                    <div><a href="">Apercu de mon Compte</a></div>
-                    <div><a href="">Mes commandes</a></div>
-                    <div><a href="">Renvoyer un article</a></div>
-                    <div><a href="">Apercu de mon Compte</a></div>
+                    <div><a href="{{ account }}">Apercu de mon Compte</a></div>
+                    <div><a href="{{ order }}">Mes commandes</a></div>
+                    <div><a href="{{ return }}">Renvoyer un article</a></div>
+                    <div><a href="{{ contact }}">Aide</a></div>
                     <hr>
                     {{ logout }}
                 </div>
@@ -31,10 +31,10 @@
                         compte</p></a>
                 <hr style="margin-top: 0;margin-bottom: 0">
                 <div style="font-size: 13px; line-height: 2">
-                    <div><a>Apercu de mon Compte</a></div>
-                    <div><a href="">Mes commandes</a></div>
-                    <div><a href="">Renvoyer un article</a></div>
-                    <div><a href="">Apercu de mon Compte</a></div>
+                    <div><a href="{{ account }}">Apercu de mon Compte</a></div>
+                    <div><a href="{{ order }}">Mes commandes</a></div>
+                    <div><a href="{{ return }}">Renvoyer un article</a></div>
+                    <div><a href="{{ contact }}">Aide</a></div>
                 </div>
             </div>
         </div>
