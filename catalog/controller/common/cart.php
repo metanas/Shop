@@ -151,7 +151,10 @@ class ControllerCommonCart extends Controller
         }
 
         $data['count_products'] = $this->cart->countProducts();
-        $data['register'] = $this->url->link('account/register', 'language=' . $this->config->get('config_language'));
+        $data['account'] = $this->url->link('account/account', 'language=' . $this->config->get('config_language'));
+        $data['order'] = $this->url->link('account/order', 'language=' . $this->config->get('config_language'));
+        $data['return'] = $this->url->link('account/return', 'language=' . $this->config->get('config_language'));
+        $data['contact'] = $this->url->link('information/contact', 'language=' . $this->config->get('config_language'));
         $data['cart'] = $this->url->link('checkout/cart', 'language=' . $this->config->get('config_language'));
         $data['checkout'] = $this->url->link('checkout/checkout', 'language=' . $this->config->get('config_language'));
         $data['wishlist'] = $this->url->link('account/wishlist', 'language=' . $this->config->get('config_language'));

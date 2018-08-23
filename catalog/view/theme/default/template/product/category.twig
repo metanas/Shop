@@ -11,7 +11,7 @@
         {% endif %}
         <div id="content" class="{{ class }}">
             {{ content_top }}
-            <h1 style="font-weight: bold">{{ heading_title }}</h1>
+            <h1>{{ heading_title }}</h1>
             {% if thumb or description %}
                 <div class="row">
                     {% if thumb %}
@@ -26,12 +26,12 @@
             {% if products %}
                 <div class="row" style="position: relative; z-index: 2;margin-bottom: 15px">
                     <div style="height: 35px; z-index: 2;position: relative">
-                        <div class="col-md-3">
-                            <div class="col-md-11 dropdownFilter"
-                                 style="position: absolute;border: 1px solid #e7e7e7; line-height: 30px;font-weight: normal;">
+                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6" style="margin-bottom: 10px">
+                            <div class="dropdownFilter"
+                                 style="position: relative;border: 1px solid #e7e7e7; line-height: 30px;font-weight: normal;">
                                 <div class="model-filter">
                                     {{ text_filter_marque }}<i class="fa fa-angle-down"
-                                                               style="float: right; line-height: 30px"></i>
+                                                               style="float: right; padding: 8px"></i>
                                 </div>
                                 <div class="dropdown-filter">
                                     <div id="search" class="field input-group stylish-input-group input-append">
@@ -59,12 +59,12 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-3">
-                            <div class="col-md-11 dropdownFilter"
-                                 style="position: absolute;border: 1px solid #e7e7e7; line-height: 30px;font-weight: normal;">
+                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6" style="margin-bottom: 10px">
+                            <div class="dropdownFilter"
+                                 style="position: relative; border: 1px solid #e7e7e7; line-height: 30px;font-weight: normal;">
                                 <div class="model-filter">
                                     {{ text_filter_color }}<i class="fa fa-angle-down"
-                                                              style="float: right; line-height: 30px"></i>
+                                                              style="float: right; padding: 8px"></i>
                                 </div>
                                 <div class="dropdown-filter">
                                     <div id="search" class="field input-group stylish-input-group input-append">
@@ -93,12 +93,12 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-3">
-                            <div class="col-md-11 dropdownFilter"
-                                 style="position: absolute;border: 1px solid #e7e7e7; line-height: 30px;font-weight: normal;">
+                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6" style="margin-bottom: 10px">
+                            <div class="dropdownFilter"
+                                 style="position: relative;border: 1px solid #e7e7e7; line-height: 30px;font-weight: normal;">
                                 <div class="model-filter">
                                     {{ text_filter_price }}<i class="fa fa-angle-down"
-                                                              style="float: right; line-height: 30px"></i>
+                                                              style="float: right; padding: 8px"></i>
                                 </div>
                                 <div class="dropdown-filter">
                                     <div>
@@ -122,12 +122,12 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-3">
-                            <div class="col-md-11 dropdownFilter"
-                                 style="position: absolute;border: 1px solid #e7e7e7; line-height: 30px;font-weight: normal;">
+                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6" style="margin-bottom: 10px">
+                            <div class="dropdownFilter"
+                                 style="position: relative; border: 1px solid #e7e7e7; line-height: 30px;font-weight: normal;">
                                 <div class="model-filter">
                                     {{ text_filter_size }}<i class="fa fa-angle-down"
-                                                             style="float: right; line-height: 30px"></i>
+                                                             style="float: right; padding: 8px"></i>
                                 </div>
                                 <div class="dropdown-filter">
                                     <div id="search" class="field input-group stylish-input-group input-append">
@@ -182,7 +182,7 @@
                 </div>
                 <div class="product-container row">
                     {% for product in products %}
-                        <div class="product-layout col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <div class="product-layout col-lg-4 col-md-4 col-sm-6 col-xs-6">
                             <span id="product-id" style="display: none">{{ product.product_id }}</span>
                             <a href="{{ product.href }}">
                                 <div class="product-thumb transition">
@@ -242,11 +242,13 @@
                 if ($(".dropdown-filter", this.parentNode).css('display') === 'block') {
                     $(".dropdown-filter", this.parentNode).hide(200);
                     $(this.parentNode).css({"border": "1px solid #e7e7e7"});
+                    $(this.parentNode).css({"position": "relative"});
                 } else {
-                    $('.dropdown-filter').hide(200);
+                    $('.dropdown-filter').hide(100);
                     $('.dropdownFilter').css({"border": "1px solid #e7e7e7"});
                     $(".dropdown-filter", this.parentNode).show(200);
                     $(this.parentNode).css({"border": "2px solid black"});
+                    $(this.parentNode).css({"position": "absolute"});
                 }
             }
         );
@@ -341,6 +343,7 @@
 
         $('.dropdown-filter').hide(200);
         $('.dropdownFilter').css({"border": "1px solid #e7e7e7"});
+        $('.dropdownFilter').css({"position" : "relative"});
     }
 
     let models = $('input[name*=\'model[]\']').get();
@@ -414,7 +417,7 @@
     function updateProducts(products, pagination) {
         html = "";
         $.map(products, function (item) {
-            html += '<div class="product-layout col-lg-4 col-md-4 col-sm-6 col-xs-12">';
+            html += '<div class="product-layout col-lg-4 col-md-4 col-sm-6 col-xs-6">';
             html += '<span id="product-id" style="display: none">' + item['product_id'] + '</span><a href="' + item['href'] + '">';
             html += '<div class="product-thumb transition">';
             html += '<div class="image"><a href="' + item['href'] + '"><img src = "' + item['thumb'] + '" alt="' + item['name'] + '" title = "' + item['name'] + '" class="img-responsive"/></a></div>';
