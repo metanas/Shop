@@ -7,7 +7,7 @@ class ControllerAccountEdit extends Controller
     public function index()
     {
         if (!$this->customer->isLogged()) {
-            $this->session->data['redirect'] = $this->url->link('account/edit', 'language=' . $this->config->get('config_language'));
+            $this->session->data['redirect'] = $this->url->link('account/edit', array('action' => 'edit', 'language' => $this->config->get('config_language')));
 
             $this->response->redirect($this->url->link('account/login', 'language=' . $this->config->get('config_language')));
         }
@@ -22,31 +22,6 @@ class ControllerAccountEdit extends Controller
         $this->document->addStyle('catalog/view/javascript/jquery/datetimepicker/bootstrap-datetimepicker.min.css');
 
         $this->load->model('account/customer');
-
-        if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
-            $this->model_account_customer->editCustomer($this->customer->getId(), $this->request->post);
-
-            $this->session->data['success'] = $this->language->get('text_success');
-
-            $this->response->redirect($this->url->link('account/account', 'language=' . $this->config->get('config_language')));
-        }
-
-        $data['breadcrumbs'] = array();
-
-        $data['breadcrumbs'][] = array(
-            'text' => $this->language->get('text_home'),
-            'href' => $this->url->link('common/home', 'language=' . $this->config->get('config_language'))
-        );
-
-        $data['breadcrumbs'][] = array(
-            'text' => $this->language->get('text_account'),
-            'href' => $this->url->link('account/account', 'language=' . $this->config->get('config_language'))
-        );
-
-        $data['breadcrumbs'][] = array(
-            'text' => $this->language->get('text_edit'),
-            'href' => $this->url->link('account/edit', 'language=' . $this->config->get('config_language'))
-        );
 
         if (isset($this->error['warning'])) {
             $data['error_warning'] = $this->error['warning'];
@@ -84,7 +59,7 @@ class ControllerAccountEdit extends Controller
             $data['error_custom_field'] = array();
         }
 
-        $data['action'] = $this->url->link('account/edit', 'language=' . $this->config->get('config_language'));
+        $data['action_edit'] = $this->url->link('account/edit/edit_info', 'language=' . $this->config->get('config_language'));
 
         if ($this->request->server['REQUEST_METHOD'] != 'POST') {
             $customer_info = $this->model_account_customer->getCustomer($this->customer->getId());
@@ -143,18 +118,32 @@ class ControllerAccountEdit extends Controller
             $data['account_custom_field'] = array();
         }
 
-        $data['back'] = $this->url->link('account/account', 'language=' . $this->config->get('config_language'));
 
         $data['language'] = $this->config->get('config_language');
 
-        $data['column_left'] = $this->load->controller('common/column_left');
-        $data['column_right'] = $this->load->controller('common/column_right');
-        $data['content_top'] = $this->load->controller('common/content_top');
-        $data['content_bottom'] = $this->load->controller('common/content_bottom');
         $data['footer'] = $this->load->controller('common/footer');
         $data['header'] = $this->load->controller('common/header');
 
         return $this->load->view('account/edit', $data);
+    }
+
+    public function edit_info()
+    {
+        if (!$this->customer->isLogged()) {
+            $this->session->data['redirect'] = $this->url->link('account/edit', array('action' => 'edit', 'language' => $this->config->get('config_language')));
+
+            $this->response->redirect($this->url->link('account/login', 'language=' . $this->config->get('config_language')));
+        }
+
+        if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
+            $this->model_account_customer->editCustomer($this->customer->getId(), $this->request->post);
+
+            $this->session->data['success'] = $this->language->get('text_success');
+
+            $this->session->data['redirect'] = $this->url->link('account/edit', array('action' => 'edit', 'language' => $this->config->get('config_language')));
+        }
+
+        $this->response->redirect($this->url->link('account/edit', array('action' => 'edit', 'language' => $this->config->get('config_language'))));
     }
 
     protected function validate()
