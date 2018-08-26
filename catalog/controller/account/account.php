@@ -1,66 +1,72 @@
 <?php
-class ControllerAccountAccount extends Controller {
-	public function index() {
-		if (!$this->customer->isLogged()) {
-			$this->session->data['redirect'] = $this->url->link('account/account', 'language=' . $this->config->get('config_language'));
 
-			$this->response->redirect($this->url->link('account/login', 'language=' . $this->config->get('config_language')));
-		}
+class ControllerAccountAccount extends Controller
+{
+    public function index()
+    {
+        if (!$this->customer->isLogged()) {
+            $this->session->data['redirect'] = $this->url->link('account/account', 'language=' . $this->config->get('config_language'));
 
-		$this->load->language('account/account');
-        if($this->request->get['action'] === 'edit'){
+            $this->response->redirect($this->url->link('account/login', 'language=' . $this->config->get('config_language')));
+        }
+
+        $this->load->language('account/account');
+
+        $this->document->setTitle($this->language->get('heading_title'));
+
+        if (isset($this->session->data['success'])) {
+            $data['success'] = $this->session->data['success'];
+
+            unset($this->session->data['success']);
+        } else {
+            $data['success'] = '';
+        }
+
+        if ($this->request->get['action'] === 'edit') {
             $data['content'] = $this->load->controller('account/edit');
         }
-		$this->document->setTitle($this->language->get('heading_title'));
 
-		if (isset($this->session->data['success'])) {
-			$data['success'] = $this->session->data['success'];
-
-			unset($this->session->data['success']);
-		} else {
-			$data['success'] = '';
-		} 
-		
-		$data['edit'] = $this->url->link('account/edit', array('action' => 'edit' , 'language' => $this->config->get('config_language')));
-		$data['address'] = $this->url->link('account/address', 'language=' . $this->config->get('config_language'));
-		$data['wishlist'] = $this->url->link('account/wishlist', 'language=' . $this->config->get('config_language'));
-		$data['order'] = $this->url->link('account/order', 'language=' . $this->config->get('config_language'));
+        $data['edit'] = $this->url->link('account/account', array('action' => 'edit', 'language' => $this->config->get('config_language')));
+        $data['address'] = $this->url->link('account/address', 'language=' . $this->config->get('config_language'));
+        $data['wishlist'] = $this->url->link('account/wishlist', 'language=' . $this->config->get('config_language'));
+        $data['order'] = $this->url->link('account/order', 'language=' . $this->config->get('config_language'));
         $data['return'] = $this->url->link('account/return', 'language=' . $this->config->get('config_language'));
 
 
         $data['transaction'] = $this->url->link('account/transaction', 'language=' . $this->config->get('config_language'));
-		$data['newsletter'] = $this->url->link('account/newsletter', 'language=' . $this->config->get('config_language'));
-		$data['recurring'] = $this->url->link('account/recurring', 'language=' . $this->config->get('config_language'));
+        $data['newsletter'] = $this->url->link('account/newsletter', 'language=' . $this->config->get('config_language'));
+        $data['recurring'] = $this->url->link('account/recurring', 'language=' . $this->config->get('config_language'));
 
-		$data['footer'] = $this->load->controller('common/footer');
-		$data['header'] = $this->load->controller('common/header');
-		
-		$this->response->setOutput($this->load->view('account/account', $data));
-	}
+        $data['footer'] = $this->load->controller('common/footer');
+        $data['header'] = $this->load->controller('common/header');
 
-	public function country() {
-		$json = array();
+        $this->response->setOutput($this->load->view('account/account', $data));
+    }
 
-		$this->load->model('localisation/country');
+    public function country()
+    {
+        $json = array();
 
-		$country_info = $this->model_localisation_country->getCountry($this->request->get['country_id']);
+        $this->load->model('localisation/country');
 
-		if ($country_info) {
-			$this->load->model('localisation/zone');
+        $country_info = $this->model_localisation_country->getCountry($this->request->get['country_id']);
 
-			$json = array(
-				'country_id'        => $country_info['country_id'],
-				'name'              => $country_info['name'],
-				'iso_code_2'        => $country_info['iso_code_2'],
-				'iso_code_3'        => $country_info['iso_code_3'],
-				'address_format'    => $country_info['address_format'],
-				'postcode_required' => $country_info['postcode_required'],
-				'zone'              => $this->model_localisation_zone->getZonesByCountryId($this->request->get['country_id']),
-				'status'            => $country_info['status']
-			);
-		}
+        if ($country_info) {
+            $this->load->model('localisation/zone');
 
-		$this->response->addHeader('Content-Type: application/json');
-		$this->response->setOutput(json_encode($json));
-	}
+            $json = array(
+                'country_id' => $country_info['country_id'],
+                'name' => $country_info['name'],
+                'iso_code_2' => $country_info['iso_code_2'],
+                'iso_code_3' => $country_info['iso_code_3'],
+                'address_format' => $country_info['address_format'],
+                'postcode_required' => $country_info['postcode_required'],
+                'zone' => $this->model_localisation_zone->getZonesByCountryId($this->request->get['country_id']),
+                'status' => $country_info['status']
+            );
+        }
+
+        $this->response->addHeader('Content-Type: application/json');
+        $this->response->setOutput(json_encode($json));
+    }
 }

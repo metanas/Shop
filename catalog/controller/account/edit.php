@@ -23,47 +23,18 @@ class ControllerAccountEdit extends Controller
 
         $this->load->model('account/customer');
 
-        if (isset($this->error['warning'])) {
-            $data['error_warning'] = $this->error['warning'];
-        } else {
-            $data['error_warning'] = '';
+        if (isset($this->session->data['error'])) {
+            $this->error = $this->session->data['error'];
+
+            unset($this->session->data['error']);
         }
 
-        if (isset($this->error['firstname'])) {
-            $data['error_firstname'] = $this->error['firstname'];
-        } else {
-            $data['error_firstname'] = '';
-        }
-
-        if (isset($this->error['lastname'])) {
-            $data['error_lastname'] = $this->error['lastname'];
-        } else {
-            $data['error_lastname'] = '';
-        }
-
-        if (isset($this->error['email'])) {
-            $data['error_email'] = $this->error['email'];
-        } else {
-            $data['error_email'] = '';
-        }
-
-        if (isset($this->error['telephone'])) {
-            $data['error_telephone'] = $this->error['telephone'];
-        } else {
-            $data['error_telephone'] = '';
-        }
-
-        if (isset($this->error['custom_field'])) {
-            $data['error_custom_field'] = $this->error['custom_field'];
-        } else {
-            $data['error_custom_field'] = array();
-        }
+        $data['error'] = $this->validate();
 
         $data['action_edit'] = $this->url->link('account/edit/edit_info', 'language=' . $this->config->get('config_language'));
+        $data['action_password'] = $this->url->link('account/edit/edit_password', 'language=' . $this->config->get('config_language'));
 
-        if ($this->request->server['REQUEST_METHOD'] != 'POST') {
-            $customer_info = $this->model_account_customer->getCustomer($this->customer->getId());
-        }
+        $customer_info = $this->model_account_customer->getCustomer($this->customer->getId());
 
         if (isset($this->request->post['firstname'])) {
             $data['firstname'] = $this->request->post['firstname'];
@@ -73,25 +44,19 @@ class ControllerAccountEdit extends Controller
             $data['firstname'] = '';
         }
 
-        if (isset($this->request->post['lastname'])) {
-            $data['lastname'] = $this->request->post['lastname'];
-        } elseif (!empty($customer_info)) {
+        if (!empty($customer_info)) {
             $data['lastname'] = $customer_info['lastname'];
         } else {
             $data['lastname'] = '';
         }
 
-        if (isset($this->request->post['email'])) {
-            $data['email'] = $this->request->post['email'];
-        } elseif (!empty($customer_info)) {
+        if (!empty($customer_info)) {
             $data['email'] = $customer_info['email'];
         } else {
             $data['email'] = '';
         }
 
-        if (isset($this->request->post['telephone'])) {
-            $data['telephone'] = $this->request->post['telephone'];
-        } elseif (!empty($customer_info)) {
+        if (!empty($customer_info)) {
             $data['telephone'] = $customer_info['telephone'];
         } else {
             $data['telephone'] = '';
@@ -110,19 +75,13 @@ class ControllerAccountEdit extends Controller
             }
         }
 
-        if (isset($this->request->post['custom_field']['account'])) {
-            $data['account_custom_field'] = $this->request->post['custom_field']['account'];
-        } elseif (isset($customer_info)) {
+        if (isset($customer_info)) {
             $data['account_custom_field'] = json_decode($customer_info['custom_field'], true);
         } else {
             $data['account_custom_field'] = array();
         }
 
-
         $data['language'] = $this->config->get('config_language');
-
-        $data['footer'] = $this->load->controller('common/footer');
-        $data['header'] = $this->load->controller('common/header');
 
         return $this->load->view('account/edit', $data);
     }
@@ -135,19 +94,47 @@ class ControllerAccountEdit extends Controller
             $this->response->redirect($this->url->link('account/login', 'language=' . $this->config->get('config_language')));
         }
 
-        if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
+        if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate_edit()) {
+            $this->load->model('account/customer');
+
             $this->model_account_customer->editCustomer($this->customer->getId(), $this->request->post);
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $this->session->data['redirect'] = $this->url->link('account/edit', array('action' => 'edit', 'language' => $this->config->get('config_language')));
+            $this->session->data['redirect'] = $this->url->link('account/account', array('action' => 'edit', 'language' => $this->config->get('config_language')));
+        } else {
+            $this->session->data['error'] = $this->error;
         }
 
-        $this->response->redirect($this->url->link('account/edit', array('action' => 'edit', 'language' => $this->config->get('config_language'))));
+        $this->response->redirect($this->url->link('account/account', array('action' => 'edit', 'language' => $this->config->get('config_language'))));
     }
 
-    protected function validate()
+    public function edit_password()
     {
+
+        if (!$this->customer->isLogged()) {
+            $this->session->data['redirect'] = $this->url->link('account/edit', array('action' => 'edit', 'language' => $this->config->get('config_language')));
+
+            $this->response->redirect($this->url->link('account/login', 'language=' . $this->config->get('config_language')));
+        }
+
+        if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
+            $this->load->model('account/customer');
+
+            $this->model_account_customer->editPassword($this->customer->getEmail(), $this->request->post['password']);
+
+            $this->session->data['success'] = $this->language->get('text_success');
+
+            $this->response->redirect($this->url->link('account/account', 'language=' . $this->config->get('config_language')));
+        } else {
+            $this->session->data['error'] = $this->error;
+        }
+    }
+
+    protected function validate_edit()
+    {
+        $this->load->language('account/edit');
+
         if ((utf8_strlen(trim($this->request->post['firstname'])) < 1) || (utf8_strlen(trim($this->request->post['firstname'])) > 32)) {
             $this->error['firstname'] = $this->language->get('error_firstname');
         }
@@ -185,4 +172,58 @@ class ControllerAccountEdit extends Controller
 
         return !$this->error;
     }
+
+    protected function validate_password()
+    {
+        $this->load->language('account/password');
+
+        if ((utf8_strlen(html_entity_decode($this->request->post['password'], ENT_QUOTES, 'UTF-8')) < 4) || (utf8_strlen(html_entity_decode($this->request->post['password'], ENT_QUOTES, 'UTF-8')) > 40)) {
+            $this->error['password'] = $this->language->get('error_password');
+        }
+
+        if ($this->request->post['confirm'] != $this->request->post['password']) {
+            $this->error['confirm'] = $this->language->get('error_confirm');
+        }
+
+        return !$this->error;
+    }
+
+    protected function validate()
+    {
+        $data = array();
+        if (isset($this->error['warning'])) {
+            $data['error_warning'] = $this->error['warning'];
+        }
+
+        if (isset($this->error['firstname'])) {
+            $data['error_firstname'] = $this->error['firstname'];
+        }
+
+        if (isset($this->error['lastname'])) {
+            $data['error_lastname'] = $this->error['lastname'];
+        }
+
+        if (isset($this->error['email'])) {
+            $data['error_email'] = $this->error['email'];
+        }
+
+        if (isset($this->error['telephone'])) {
+            $data['error_telephone'] = $this->error['telephone'];
+        }
+
+        if (isset($this->error['custom_field'])) {
+            $data['error_custom_field'] = $this->error['custom_field'];
+        }
+
+        if (isset($this->error['password'])) {
+            $data['error_password'] = $this->error['password'];
+        }
+
+        if (isset($this->error['confirm'])) {
+            $data['error_confirm'] = $this->error['confirm'];
+        }
+
+        return $data;
+    }
+
 }

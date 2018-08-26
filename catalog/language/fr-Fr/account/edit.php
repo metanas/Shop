@@ -35,3 +35,8 @@ $_['error_telephone']             ='Le téléphone doit avoir entre 3 et 32 ​�
 $_['error_custom_field']          ='%s requis!';
 $_['error_password']              ='Le mot de passe doit être compris entre 8 et 20 caractères!';
 $_['error_confirm']               ='La confirmation du mot de passe ne correspond pas au mot de passe!';
+
+
+// Button
+
+$_['button_save']                 ='Enregistrer';
