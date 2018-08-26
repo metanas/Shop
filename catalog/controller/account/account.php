@@ -24,10 +24,12 @@ class ControllerAccountAccount extends Controller
 
         if ($this->request->get['action'] === 'edit') {
             $data['content'] = $this->load->controller('account/edit');
+        }elseif ($this->request->get['action'] === 'address'){
+            $data['content'] = $this->load->controller('account/address');
         }
 
         $data['edit'] = $this->url->link('account/account', array('action' => 'edit', 'language' => $this->config->get('config_language')));
-        $data['address'] = $this->url->link('account/address', 'language=' . $this->config->get('config_language'));
+        $data['address'] = $this->url->link('account/account', array('action' => 'address' ,'language' . $this->config->get('config_language')));
         $data['wishlist'] = $this->url->link('account/wishlist', 'language=' . $this->config->get('config_language'));
         $data['order'] = $this->url->link('account/order', 'language=' . $this->config->get('config_language'));
         $data['return'] = $this->url->link('account/return', 'language=' . $this->config->get('config_language'));
