@@ -11,7 +11,7 @@
         {% endif %}
         <div id="content" class="{{ class }}">
             {{ content_top }}
-            <h1 style="font-weight: bold">{{ heading_title }}</h1>
+            <h1>{{ heading_title }}</h1>
             {% if thumb or description %}
                 <div class="row">
                     {% if thumb %}
@@ -26,12 +26,12 @@
             {% if products %}
                 <div class="row" style="position: relative; z-index: 2;margin-bottom: 15px">
                     <div style="height: 35px; z-index: 2;position: relative">
-                        <div class="col-md-3">
-                            <div class="col-md-11 dropdownFilter"
-                                 style="position: absolute;border: 1px solid #e7e7e7; line-height: 30px;font-weight: normal;">
+                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6" style="margin-bottom: 10px">
+                            <div class="dropdownFilter"
+                                 style="position: relative;border: 1px solid #e7e7e7; line-height: 30px;font-weight: normal;">
                                 <div class="model-filter">
                                     {{ text_filter_marque }}<i class="fa fa-angle-down"
-                                                               style="float: right; line-height: 30px"></i>
+                                                               style="float: right; padding: 8px"></i>
                                 </div>
                                 <div class="dropdown-filter">
                                     <div id="search" class="field input-group stylish-input-group input-append">
@@ -59,12 +59,12 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-3">
-                            <div class="col-md-11 dropdownFilter"
-                                 style="position: absolute;border: 1px solid #e7e7e7; line-height: 30px;font-weight: normal;">
+                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6" style="margin-bottom: 10px">
+                            <div class="dropdownFilter"
+                                 style="position: relative; border: 1px solid #e7e7e7; line-height: 30px;font-weight: normal;">
                                 <div class="model-filter">
                                     {{ text_filter_color }}<i class="fa fa-angle-down"
-                                                              style="float: right; line-height: 30px"></i>
+                                                              style="float: right; padding: 8px"></i>
                                 </div>
                                 <div class="dropdown-filter">
                                     <div id="search" class="field input-group stylish-input-group input-append">
@@ -78,10 +78,11 @@
                                     </div>
                                     <div id="color" class="ScrollStyle">
                                         {% for color in products_colors %}
-                                            <label class="check_filter check-color">{{ color }}
+                                            <label class="check_filter check-color">{{ color.color }}
                                                 <input class="checkbox" type="checkbox" name="color[]"
-                                                       value="{{ color }}">
-                                                <span class="checkmark"></span>
+                                                       value="{{ color.color }}">
+                                                <span class="checkmark checkradio"
+                                                      style="background-color: {{ color.color_hex }};"></span>
                                             </label>
                                         {% endfor %}
                                     </div>
@@ -92,12 +93,12 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-3">
-                            <div class="col-md-11 dropdownFilter"
-                                 style="position: absolute;border: 1px solid #e7e7e7; line-height: 30px;font-weight: normal;">
+                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6" style="margin-bottom: 10px">
+                            <div class="dropdownFilter"
+                                 style="position: relative;border: 1px solid #e7e7e7; line-height: 30px;font-weight: normal;">
                                 <div class="model-filter">
                                     {{ text_filter_price }}<i class="fa fa-angle-down"
-                                                              style="float: right; line-height: 30px"></i>
+                                                              style="float: right; padding: 8px"></i>
                                 </div>
                                 <div class="dropdown-filter">
                                     <div>
@@ -121,12 +122,12 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-3">
-                            <div class="col-md-11 dropdownFilter"
-                                 style="position: absolute;border: 1px solid #e7e7e7; line-height: 30px;font-weight: normal;">
+                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6" style="margin-bottom: 10px">
+                            <div class="dropdownFilter"
+                                 style="position: relative; border: 1px solid #e7e7e7; line-height: 30px;font-weight: normal;">
                                 <div class="model-filter">
                                     {{ text_filter_size }}<i class="fa fa-angle-down"
-                                                             style="float: right; line-height: 30px"></i>
+                                                             style="float: right; padding: 8px"></i>
                                 </div>
                                 <div class="dropdown-filter">
                                     <div id="search" class="field input-group stylish-input-group input-append">
@@ -179,9 +180,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="product-container row" style="position: relative;z-index:1;">
+                <div class="product-container row">
                     {% for product in products %}
-                        <div class="product-layout col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <div class="product-layout col-lg-4 col-md-4 col-sm-6 col-xs-6">
                             <span id="product-id" style="display: none">{{ product.product_id }}</span>
                             <a href="{{ product.href }}">
                                 <div class="product-thumb transition">
@@ -206,12 +207,6 @@
                                                 {% endif %}
                                             {% endif %}
                                             <div class="same">
-                                                {% if product.simulate %}
-                                                    <img class="smallSame img-default" src="{{ product.thumb }}">
-                                                    {% for same in product.simulate %}
-                                                        <a href=""></a><img class="smallSame" src="{{ same.popup }}">
-                                                    {% endfor %}
-                                                {% endif %}
                                                 {#<p>Disponible en plusieurs tailles</p>#}
                                             </div>
                                         </div>
@@ -224,8 +219,8 @@
                         </div>
                     {% endfor %}
                     <div class="row col-sm-12" style="margin: 30px 0 30px 0">
-                        {#<div class="col-sm-6 text-center">{{ pagination }}</div>#}
-                        <div class="col-sm-12 text-center pagination">{{ results }}</div>
+                        <div class="col-sm-6 text-center pagination">{{ pagination }}</div>
+                        {#<div class="col-sm-12 text-center ">{{ results }}</div>#}
                     </div>
                 </div>
             {% endif %}
@@ -247,11 +242,13 @@
                 if ($(".dropdown-filter", this.parentNode).css('display') === 'block') {
                     $(".dropdown-filter", this.parentNode).hide(200);
                     $(this.parentNode).css({"border": "1px solid #e7e7e7"});
+                    $(this.parentNode).css({"position": "relative"});
                 } else {
-                    $('.dropdown-filter').hide(200);
+                    $('.dropdown-filter').hide(100);
                     $('.dropdownFilter').css({"border": "1px solid #e7e7e7"});
                     $(".dropdown-filter", this.parentNode).show(200);
                     $(this.parentNode).css({"border": "2px solid black"});
+                    $(this.parentNode).css({"position": "absolute"});
                 }
             }
         );
@@ -277,47 +274,6 @@
             return vars[param] ? vars[param] : null;
         }
         return vars;
-    }
-
-    var div;
-    sethover();
-
-    function sethover() {
-        $(".product-layout").hover(function () {
-                if ($('.same', this).html().trim() === "") {
-                    html = "<a href=\"" + $('.SheosName', this)[0].children[0].href + "\"><img class=\"smallSame img-default\" src=\"" + $(".img-responsive", this)[0].src + "\"></a>";
-                    div = this;
-                    $.ajax({
-                        url: "index.php?route=product/category/simulate&path=" + $_GET('path') + "&product_id=" + $('#product-id', this).html(),
-                        type: "GET",
-                        dataType: "json",
-                        success: function (json) {
-                            $.map(json, function (item) {
-                                html += "<a href=\"" + item['href'] + "\"><img class=\"smallSame\" src=\"" + item['thumb'] + "\"></a>";
-                            });
-                            $('.same', div).empty();
-                            $('.same', div).html(html);
-                            $('.same', div).show(400);
-                            $(".smallSame").hover(
-                                function () {
-                                    $(this).css('border', '1px solid black');
-                                    $(this).parents('.product-thumb').find('.img-responsive')[0].src = this.src;
-                                }, function () {
-                                    $(this).css('border', 'none');
-                                    $(this).parents('.product-thumb').find('.img-responsive')[0].src = $(this).parents('.same').find('.img-default')[0].src;
-                                });
-                        },
-                        error: function (d, s) {
-                            console.log(s)
-                        }
-                    });
-                } else {
-                    $('.same', this).show(400)
-                }
-            }, function () {
-                $('.same', this).hide(400)
-            }
-        );
     }
 
     $("#ex12c").slider({
@@ -373,7 +329,6 @@
     });
 
     function filterGenerator() {
-        $('body').loading({message: "chargement.."});
         $(".filter-content").empty();
         if (price.length > 0) if ($.inArray(price[0], filters) === -1) filters = filters.concat(price);
         for (i = 0; i < filters.length; i++) {
@@ -388,6 +343,7 @@
 
         $('.dropdown-filter').hide(200);
         $('.dropdownFilter').css({"border": "1px solid #e7e7e7"});
+        $('.dropdownFilter').css({"position" : "relative"});
     }
 
     let models = $('input[name*=\'model[]\']').get();
@@ -413,12 +369,12 @@
             if (arr[i].value.includes(this.value))
                 $(".ScrollStyle").append("<label class=\"check_filter\">" + arr[i].value +
                     "<input class=\"checkbox\" type=\"checkbox\" name=\"" + this.name + "[]\" value=\"" + arr[i].value + "\">" +
-                    "<span class=\"checkmark\"></span>" +
+                    "<span class=\"checkmark checkradio\" style=\"background-color: ;\"></span>" +
                     "</label>");
         }
     });
 
-    function updateQueryStringParam(param, value) {
+    function updateQueryStringParam(param, value, path = "") {
         baseUrl = [location.protocol, '//', location.host, location.pathname].join('');
         urlQueryString = document.location.search;
         let newParam = param + '=' + value;
@@ -433,18 +389,24 @@
                 params = urlQueryString + '&' + newParam;
             }
         } else {
-            params = urlQueryString.replace("&filter=" + $_GET("filter"), "");
+            params = urlQueryString.replace("&" + param + "=" + $_GET("'" + param + "'"), "");
         }
 
         window.history.replaceState({}, "", baseUrl + params);
+        var url = (path !== "") ? path : ($_GET('path') + "&filter=" + $_GET("filter"));
         $.ajax({
-            url: "index.php?route=product/category/filter&path=" + $_GET('path') + "&filter=" + $_GET("filter"),
+            url: "index.php?route=product/category/filter&path=" + url,
             type: "GET",
             dataType: "json",
+            beforeSend: function () {
+                $('body').loading({message: "chargement.."});
+            },
+            complete: function(){
+                $('body').loading('stop');
+            },
             success: function (json) {
                 updateFilters(json);
                 updateProducts(json['products'], json['pagination']);
-                $('body').loading('stop');
             },
             error: function (result, status, s) {
                 $('body').loading('stop');
@@ -455,17 +417,17 @@
     function updateProducts(products, pagination) {
         html = "";
         $.map(products, function (item) {
-            html += '<div class="product-layout col-lg-4 col-md-4 col-sm-6 col-xs-12">';
+            html += '<div class="product-layout col-lg-4 col-md-4 col-sm-6 col-xs-6">';
             html += '<span id="product-id" style="display: none">' + item['product_id'] + '</span><a href="' + item['href'] + '">';
             html += '<div class="product-thumb transition">';
             html += '<div class="image"><a href="' + item['href'] + '"><img src = "' + item['thumb'] + '" alt="' + item['name'] + '" title = "' + item['name'] + '" class="img-responsive"/></a></div>';
             html += '<div class="caption" ><div class="desctip col-sm-12 col-xs-12" ><h4 class="SheosName"><a href = "' + item['href'] + '" >' + item['name'] + '</a></h4>';
             if (item.hasOwnProperty('price') === true) {
-                if (item.hasOwnProperty('special') === false) {
+                if (item.hasOwnProperty('special') === false || item['special'] === false) {
                     html += '<p class="SheosPrice" >' + item['price'] + '</p>';
                 } else {
                     html += '<span class="price-old SheosPrice" >' + item['price'] + '</span><br>';
-                    html += '<span class="price-new SheosPrice" >' + item['price'] + '</span>';
+                    html += '<span class="price-new SheosPrice" >' + item['special'] + '</span>';
                 }
             }
             html += '<div class="same"></div>';
@@ -476,7 +438,6 @@
         html += '<div class="col-sm-6 text-center pagination">' + pagination + '</div></div>';
         $('.product-container').empty();
         $('.product-container').html(html);
-        sethover();
     }
 
     function updateFilters(json) {
@@ -489,9 +450,9 @@
                 '<span class="checkmark"></span></label>')
         });
         $.map(json['products_colors'], function (item) {
-            $("#color").append('<label class="check_filter">' + item +
-                '<input type="checkbox" name="color[]" value="' + item + '">' +
-                '<span class="checkmark"></span></label>')
+            $("#color").append('<label class="check_filter">' + item['color'] +
+                '<input type="checkbox" name="color[]" value="' + item['color'] + '">' +
+                '<span class="checkmark checkradio" style="background-color: ' + item['color_hex'] + '"></span></label>')
         });
 
         $("#ex12c").slider({
@@ -519,13 +480,4 @@
         }
     }
 
-    $('.favorite').click(function () {
-        if (this.src.includes('Added')) {
-            this.src = "catalog/view/theme/default/image/favorite.png";
-            wishlist.remove(this.parentElement.parentElement.children[0].innerHTML);
-        } else {
-            this.src = "catalog/view/theme/default/image/favoriteAdded.png";
-            wishlist.add(this.parentElement.parentElement.children[0].innerHTML)
-        }
-    })
 </script>

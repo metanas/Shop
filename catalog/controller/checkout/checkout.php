@@ -4,10 +4,10 @@ class ControllerCheckoutCheckout extends Controller
 {
     public function index()
     {
-//        // Validate cart has products and has stock.
-//        if ((!$this->cart->hasProducts() && empty($this->session->data['vouchers'])) || (!$this->cart->hasStock() && !$this->config->get('config_stock_checkout'))) {
-//            $this->response->redirect($this->url->link('checkout/cart', 'language=' . $this->config->get('config_language')));
-//        }
+        // Validate cart has products and has stock.
+        if ((!$this->cart->hasProducts() && empty($this->session->data['vouchers'])) || (!$this->cart->hasStock() && !$this->config->get('config_stock_checkout'))) {
+            $this->response->redirect($this->url->link('checkout/cart', 'language=' . $this->config->get('config_language')));
+        }
 
         // Validate minimum quantity requirements.
         $products = $this->cart->getProducts();
@@ -26,9 +26,14 @@ class ControllerCheckoutCheckout extends Controller
             }
         }
 
+        $this->load->language('account/register');
+        $this->load->language('account/login');
         $this->load->language('checkout/checkout');
 
+
         $this->document->setTitle($this->language->get('heading_title'));
+
+        $data['title'] = $this->document->getTitle();
 
         $this->document->addScript('catalog/view/javascript/jquery/datetimepicker/moment/moment.min.js');
         $this->document->addScript('catalog/view/javascript/jquery/datetimepicker/moment/moment-with-locales.min.js');
@@ -38,29 +43,6 @@ class ControllerCheckoutCheckout extends Controller
         // Required by klarna
         if ($this->config->get('payment_klarna_account') || $this->config->get('payment_klarna_invoice')) {
             $this->document->addScript('http://cdn.klarna.com/public/kitt/toc/v1.0/js/klarna.terms.min.js');
-        }
-
-        $data['breadcrumbs'] = array();
-
-        $data['breadcrumbs'][] = array(
-            'text' => $this->language->get('text_home'),
-            'href' => $this->url->link('common/home', 'language=' . $this->config->get('config_language'))
-        );
-
-        $data['breadcrumbs'][] = array(
-            'text' => $this->language->get('text_cart'),
-            'href' => $this->url->link('checkout/cart', 'language=' . $this->config->get('config_language'))
-        );
-
-        $data['breadcrumbs'][] = array(
-            'text' => $this->language->get('heading_title'),
-            'href' => $this->url->link('checkout/checkout', 'language=' . $this->config->get('config_language'))
-        );
-
-        if (is_file(DIR_IMAGE . $this->config->get('config_logo'))) {
-            $data['logo'] = $this->config->get('config_url') . 'image/' . $this->config->get('config_logo');
-        } else {
-            $data['logo'] = '';
         }
 
         $data['text_checkout_option'] = sprintf($this->language->get('text_checkout_option'), 1);
@@ -94,6 +76,7 @@ class ControllerCheckoutCheckout extends Controller
 
         if (!$this->customer->isLogged()) {
             $data['step'] = $this->load->controller('checkout/login');
+            $this->response->setOutput($this->load->controller('checkout/login'));
             $data['step_1'] = "disabled";
             $data['step_2'] = "disabled";
             $data['step_3'] = "disabled";
@@ -108,13 +91,7 @@ class ControllerCheckoutCheckout extends Controller
         $data['shipping_required'] = $this->cart->hasShipping();
 
         $data['language'] = $this->config->get('config_language');
-
-        $data['column_left'] = $this->load->controller('common/column_left');
-        $data['column_right'] = $this->load->controller('common/column_right');
-        $data['content_top'] = $this->load->controller('common/content_top');
-        $data['content_bottom'] = $this->load->controller('common/content_bottom');
-        $data['footer'] = $this->load->controller('common/footer');
-        $data['header'] = $this->load->controller('common/header');
+        $data['home'] = $this->url->link('common/home', 'language=' . $this->config->get('config_language'));
 
         $this->response->setOutput($this->load->view('checkout/checkout', $data));
     }
@@ -167,19 +144,24 @@ class ControllerCheckoutCheckout extends Controller
                 'required' => $custom_field['required']
             );
         }
+        $data['motion_legal'] = $this->url->link('information/information', 'language=' . $this->config->get('config_language') . '&information_id=' . 13);
+        $data['terms_private'] = $this->url->link('information/information', 'language=' . $this->config->get('config_language') . '&information_id=' . 14);
+        $data['contact'] = $this->url->link('information/contact', 'language=' . $this->config->get('config_language'));
 
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
 
-    public function getNext()
+    public function getStep()
     {
-        if ((int)$this->request->post['step_id'] === 2) {
+        if ((int)$this->request->post['step_id'] === 2 && isset($this->session->data['customer_id'])) {
             $this->response->setOutput($this->load->controller('checkout/shipping_address'));
-        } elseif ((int)$this->request->post['step_id'] === 3) {
+        } elseif ((int)$this->request->post['step_id'] === 3 && isset($this->session->data['customer_id']) && isset($this->session->data['address_id'])) {
             $this->response->setOutput($this->load->controller('checkout/payment_address'));
-        } elseif ((int)$this->request->post['step_id'] === 4) {
-            $this->response->setOutput($this->load->controller('checkout/payment_address'));
+        } elseif ((int)$this->request->post['step_id'] === 4 && isset($this->session->data['customer_id']) && isset($this->session->data['address_id']) && isset($this->session->data['payment_address'])) {
+            $this->response->setOutput($this->load->controller('checkout/confirm'));
+        }else{
+            $this->response->setOutput($this->load->controller('checkout/checkout'));
         }
     }
 }

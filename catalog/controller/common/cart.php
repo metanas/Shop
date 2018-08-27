@@ -61,7 +61,7 @@ class ControllerCommonCart extends Controller
 
         foreach ($this->cart->getProducts() as $product) {
             if ($product['image']) {
-                $image = $this->model_tool_image->resize($product['image'], $this->config->get('theme_' . $this->config->get('config_theme') . '_image_cart_width'), $this->config->get('theme_' . $this->config->get('config_theme') . '_image_cart_height'));
+                $image = $this->model_tool_image->resize($product['image'], 55, 80);
             } else {
                 $image = '';
             }
@@ -101,6 +101,7 @@ class ControllerCommonCart extends Controller
 
             $data['products'][] = array(
                 'cart_id' => $product['cart_id'],
+                'product_id' => $product['product_id'],
                 'thumb' => $image,
                 'name' => $product['name'],
                 'model' => $product['model'],
@@ -108,6 +109,7 @@ class ControllerCommonCart extends Controller
                 'recurring' => ($product['recurring'] ? $product['recurring']['name'] : ''),
                 'quantity' => $product['quantity'],
                 'price' => $price,
+                'old_price' => is_null($product['old_price']) ? null : $this->currency->format($product['old_price'], $this->session->data['currency']),
                 'total' => $total,
                 'href' => $this->url->link('product/product', 'language=' . $this->config->get('config_language') . '&product_id=' . $product['product_id'])
             );
@@ -116,10 +118,8 @@ class ControllerCommonCart extends Controller
         $this->load->model('account/wishlist');
 
         // favorite Product
-        if($this->model_account_wishlist->getTotalWishlist() == 0 && empty($this->session->data['wishlist']))
-            $data['favoris'] = $this->model_tool_image->resize("favorite.png", 100, 100);
-        else{
-            $data['favoris'] = $this->model_tool_image->resize("favoriteAdded.png", 100, 100);
+        if (!$this->model_account_wishlist->getTotalWishlist() == 0 || !empty($this->session->data['wishlist'])) {
+            $data['favorite_Total'] = ($this->model_account_wishlist->getTotalWishlist() == 0) ? count($this->session->data['wishlist']) : $this->model_account_wishlist->getTotalWishlist();
         }
 
         // Gift Voucher
@@ -144,13 +144,22 @@ class ControllerCommonCart extends Controller
             );
         }
 
-        $data['count_products'] = $this->cart->countProducts();
         $data['logged'] = $this->customer->isLogged();
-        $data['register'] = $this->url->link('account/register', 'language=' . $this->config->get('config_language'));
+
+        if ($data['logged']) {
+            $data['logout'] = sprintf($this->language->get("text_logout"), $this->customer->getFirstName(), $this->url->link('account/logout', 'language=' . $this->config->get('config_language')));
+        }
+
+        $data['count_products'] = $this->cart->countProducts();
+        $data['account'] = $this->url->link('account/account', array('action' => 'edit' , 'language' => $this->config->get('config_language')));
+        $data['order'] = $this->url->link('account/order', 'language=' . $this->config->get('config_language'));
+        $data['return'] = $this->url->link('account/return', 'language=' . $this->config->get('config_language'));
+        $data['contact'] = $this->url->link('information/contact', 'language=' . $this->config->get('config_language'));
         $data['cart'] = $this->url->link('checkout/cart', 'language=' . $this->config->get('config_language'));
         $data['checkout'] = $this->url->link('checkout/checkout', 'language=' . $this->config->get('config_language'));
         $data['wishlist'] = $this->url->link('account/wishlist', 'language=' . $this->config->get('config_language'));
-        $data['login'] = $this->url->link('account/login', 'language=' . $this->config->get('config_language'));
+        $data['action_login'] = $this->url->link('account/login', 'language=' . $this->config->get('config_language'));
+        $data['forgotten'] = $this->url->link('account/forgotten', 'language=' . $this->config->get('config_language'));
 
         return $this->load->view('common/cart', $data);
     }

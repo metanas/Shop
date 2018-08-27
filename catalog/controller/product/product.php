@@ -5,13 +5,6 @@ class ControllerProductProduct extends Controller {
 	public function index() {
 		$this->load->language('product/product');
 
-		$data['breadcrumbs'] = array();
-
-		$data['breadcrumbs'][] = array(
-			'text' => $this->language->get('text_home'),
-			'href' => $this->url->link('common/home', 'language=' . $this->config->get('config_language'))
-		);
-
 		$this->load->model('catalog/category');
 
 		if (isset($this->request->get['path'])) {
@@ -70,10 +63,6 @@ class ControllerProductProduct extends Controller {
 		$this->load->model('catalog/manufacturer');
 
 		if (isset($this->request->get['manufacturer_id'])) {
-			$data['breadcrumbs'][] = array(
-				'text' => $this->language->get('text_brand'),
-				'href' => $this->url->link('product/manufacturer', 'language=' . $this->config->get('config_language'))
-			);
 
 			$url = '';
 
@@ -95,12 +84,6 @@ class ControllerProductProduct extends Controller {
 
 			$manufacturer_info = $this->model_catalog_manufacturer->getManufacturer($this->request->get['manufacturer_id']);
 
-			if ($manufacturer_info) {
-				$data['breadcrumbs'][] = array(
-					'text' => $manufacturer_info['name'],
-					'href' => $this->url->link('product/manufacturer/info', 'language=' . $this->config->get('config_language') . '&manufacturer_id=' . $this->request->get['manufacturer_id'] . $url)
-				);
-			}
 		}
 
 		if (isset($this->request->get['search']) || isset($this->request->get['tag'])) {
@@ -142,10 +125,6 @@ class ControllerProductProduct extends Controller {
 				$url .= '&limit=' . $this->request->get['limit'];
 			}
 
-			$data['breadcrumbs'][] = array(
-				'text' => $this->language->get('text_search'),
-				'href' => $this->url->link('product/search', 'language=' . $this->config->get('config_language') . $url)
-			);
 		}
 
 		if (isset($this->request->get['product_id'])) {
@@ -170,19 +149,18 @@ class ControllerProductProduct extends Controller {
 		
 		$product_similar = $this->model_catalog_product->getSimilarProduct($product_id);
 
-    $data['product_similar'] = array();
+        $data['product_similar'] = array();
 
-    
-    foreach ($product_similar as $result) {
-    	$data['product_similar'][] = array(
-    		'product_id' => $result['product_id'],
-    		'color' => $result['color'],
-    		'price' => $this->currency->format($this->tax->calculate($result['price'], $product_info['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']),
-    		'image' => $this->model_tool_image->resize($result['image'], $this->config->get('theme_' . $this->config->get('config_theme') . '_image_additional_width'), $this->config->get('theme_' . $this->config->get('config_theme') . '_image_additional_height')),
-    		'popup' => $this->model_tool_image->resize($result['image'], $this->config->get('theme_' . $this->config->get('config_theme') . '_image_popup_width'), $this->config->get('theme_' . $this->config->get('config_theme') . '_image_popup_height')),
-    		'href' => $this->url->link('product/product', 'language=' . $this->config->get('config_language') . '&product_id=' . $result['product_id'])
-    	);
-    }
+        foreach ($product_similar as $result) {
+            $data['product_similar'][] = array(
+                'product_id' => $result['product_id'],
+                'color' => $result['color'],
+                'price' => $this->currency->format($this->tax->calculate($result['price'], $product_info['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']),
+                'image' => $this->model_tool_image->resize($result['image'], $this->config->get('theme_' . $this->config->get('config_theme') . '_image_additional_width'), $this->config->get('theme_' . $this->config->get('config_theme') . '_image_additional_height')),
+                'popup' => $this->model_tool_image->resize($result['image'], $this->config->get('theme_' . $this->config->get('config_theme') . '_image_popup_width'), $this->config->get('theme_' . $this->config->get('config_theme') . '_image_popup_height')),
+                'href' => $this->url->link('product/product', 'language=' . $this->config->get('config_language') . '&product_id=' . $result['product_id'])
+            );
+        }
     
 		if ($product_info) {
 			$url = '';
@@ -234,11 +212,6 @@ class ControllerProductProduct extends Controller {
 			if (isset($this->request->get['limit'])) {
 				$url .= '&limit=' . $this->request->get['limit'];
 			}
-
-			$data['breadcrumbs'][] = array(
-				'text' => $product_info['name'],
-				'href' => $this->url->link('product/product', 'language=' . $this->config->get('config_language') . $url . '&product_id=' . $this->request->get['product_id'])
-			);
 
 			$this->document->setTitle($product_info['meta_title']);
 			$this->document->setDescription($product_info['meta_description']);
@@ -531,10 +504,6 @@ class ControllerProductProduct extends Controller {
 				$url .= '&limit=' . $this->request->get['limit'];
 			}
 
-			$data['breadcrumbs'][] = array(
-				'text' => $this->language->get('text_error'),
-				'href' => $this->url->link('product/product', 'language=' . $this->config->get('config_language') . $url . '&product_id=' . $product_id)
-			);
 
 			$this->document->setTitle($this->language->get('text_error'));
 

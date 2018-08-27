@@ -8,18 +8,6 @@ class ControllerCheckoutCart extends Controller
 
         $this->document->setTitle($this->language->get('heading_title'));
 
-        $data['breadcrumbs'] = array();
-
-        $data['breadcrumbs'][] = array(
-            'text' => $this->language->get('text_home'),
-            'href' => $this->url->link('common/home', 'language=' . $this->config->get('config_language'))
-        );
-
-        $data['breadcrumbs'][] = array(
-            'text' => $this->language->get('heading_title'),
-            'href' => $this->url->link('checkout/cart', 'language=' . $this->config->get('config_language'))
-        );
-
         if ($this->cart->hasProducts() || !empty($this->session->data['vouchers'])) {
             if (!$this->cart->hasStock() && (!$this->config->get('config_stock_checkout') || $this->config->get('config_stock_warning'))) {
                 $data['error_warning'] = $this->language->get('error_stock');
@@ -140,6 +128,7 @@ class ControllerCheckoutCart extends Controller
                     'thumb' => $image,
                     'name' => $product['name'],
                     'model' => $product['model'],
+                    'color' => $product['color'],
                     'option' => $option_data,
                     'recurring' => $recurring,
                     'quantity' => $product['quantity'],
@@ -269,8 +258,8 @@ class ControllerCheckoutCart extends Controller
 
         $json = array();
 
-        if (isset($this->request->post['product_id'])) {
-            $product_id = (int)$this->request->post['product_id'];
+        if (isset($this->request->get['product_id'])) {
+            $product_id = (int)$this->request->get['product_id'];
         } else {
             $product_id = 0;
         }
@@ -292,7 +281,7 @@ class ControllerCheckoutCart extends Controller
                 $option = array();
             }
 
-            $product_options = $this->model_catalog_product->getProductOptions($this->request->post['product_id']);
+            $product_options = $this->model_catalog_product->getProductOptions($product_id);
 
             foreach ($product_options as $product_option) {
                 if ($product_option['required'] && empty($option[$product_option['product_option_id']])) {
@@ -321,9 +310,9 @@ class ControllerCheckoutCart extends Controller
             }
 
             if (!$json) {
-                $this->cart->add($this->request->post['product_id'], $quantity, $option, $recurring_id);
+                $this->cart->add($product_id, $quantity, $option, $recurring_id);
 
-                $json['success'] = sprintf($this->language->get('text_success'), $this->url->link('product/product', 'language=' . $this->config->get('config_language') . '&product_id=' . $this->request->post['product_id']), $product_info['name'], $this->url->link('checkout/cart', 'language=' . $this->config->get('config_language')));
+                $json['success'] = sprintf($this->language->get('text_success'), $this->url->link('product/product', 'language=' . $this->config->get('config_language') . '&product_id=' . $product_id), $product_info['name'], $this->url->link('checkout/cart', 'language=' . $this->config->get('config_language')));
 
                 // Unset all shipping and payment methods
                 unset($this->session->data['shipping_method']);
@@ -377,7 +366,7 @@ class ControllerCheckoutCart extends Controller
 
                 $json['total'] = sprintf($this->language->get('text_items'), $this->cart->countProducts() + (isset($this->session->data['vouchers']) ? count($this->session->data['vouchers']) : 0), $this->currency->format($total, $this->session->data['currency']));
             } else {
-                $json['redirect'] = str_replace('&amp;', '&', $this->url->link('product/product', 'language=' . $this->config->get('config_language') . '&product_id=' . $this->request->post['product_id']));
+                $json['redirect'] = str_replace('&amp;', '&', $this->url->link('product/product', 'language=' . $this->config->get('config_language') . '&product_id=' . $product_id));
             }
         }
 
@@ -445,6 +434,10 @@ class ControllerCheckoutCart extends Controller
                 'taxes' => &$taxes,
                 'total' => &$total
             );
+            $json['test'] = $this->request->post;
+            if(!$this->cart->hasProducts()){
+                $json['redirect'] = $this->url->link('checkout/cart');
+            }
 
             // Display prices
             if ($this->customer->isLogged() || !$this->config->get('config_customer_price')) {

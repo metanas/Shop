@@ -1,51 +1,136 @@
-{% if not redirect %}
-<div class="table-responsive">
-  <table class="table table-bordered table-hover">
-    <thead>
-      <tr>
-        <td class="text-left">{{ column_name }}</td>
-        <td class="text-left">{{ column_model }}</td>
-        <td class="text-right">{{ column_quantity }}</td>
-        <td class="text-right">{{ column_price }}</td>
-        <td class="text-right">{{ column_total }}</td>
-      </tr>
-    </thead>
-    <tbody>
-    {% for product in products %}
-    <tr>
-      <td class="text-left"><a href="{{ product.href }}">{{ product.name }}</a> {% for option in product.option %} <br />
-        &nbsp;<small> - {{ option.name }}: {{ option.value }}</small> {% endfor %}
-        {% if product.recurring %} <br />
-        <span class="label label-info">{{ text_recurring_item }}</span> <small>{{ product.recurring }}</small> {% endif %}</td>
-      <td class="text-left">{{ product.model }}</td>
-      <td class="text-right">{{ product.quantity }}</td>
-      <td class="text-right">{{ product.price }}</td>
-      <td class="text-right">{{ product.total }}</td>
-    </tr>
-    {% endfor %}
-    {% for voucher in vouchers %}
-    <tr>
-      <td class="text-left">{{ voucher.description }}</td>
-      <td class="text-left"></td>
-      <td class="text-right">1</td>
-      <td class="text-right">{{ voucher.amount }}</td>
-      <td class="text-right">{{ voucher.amount }}</td>
-    </tr>
-    {% endfor %}
-      </tbody>
-    <tfoot>
-    {% for total in totals %}
-    <tr>
-      <td colspan="4" class="text-right"><strong>{{ total.title }}:</strong></td>
-      <td class="text-right">{{ total.text }}</td>
-    </tr>
-    {% endfor %}
-      </tfoot>
-  </table>
+<div class="col-sm-7">
+    <div class="col-sm-12"><h4>LIVRAISON</h4>
+        <hr class="hr-marge">
+        <div class="col-sm-10 form-group">
+            <label class="check_filter">test<h5>Livraison Standard</h5>
+                <input type="radio" class="checkbox" name="livraison" value="standard">
+                <span class="checkmark checkradio"></span>
+            </label>
+        </div>
+        <div class="col-sm-2">gratuit</div>
+        {#<div class="col-sm-10 form-group">#}
+        {#<label class="check_filter">test<h5>Livraison express</h5>#}
+        {#<input type="radio" class="checkbox" name="livraison" value="express">#}
+        {#<span class="checkmark checkradio"></span>#}
+        {#</label>#}
+        {#</div>#}
+        {#<div class="col-sm-2">gratuit</div>#}
+    </div>
+    <div class="col-sm-12"><h4>COMMANDE</h4>
+        <hr class="hr-marge">
+        {% for product in products %}
+            <div class="product col-sm-12">
+                <div class="col-sm-2">
+                    <img src="{{ product.image }}">
+                </div>
+                <div class="col-sm-9" style="margin: 25px 0 0 10px">
+                    <div class="cart-id" style="display: none;">{{ product.cart_id }}</div>
+                    <div>{{ product.model }}</div>
+                    <div>{{ product.name }}</div>
+                    <div>Couleur: {{ product.color }}</div>
+                    {% if product.option %}
+                        {% for option in product.option %}
+                            <div>{{ option.name }}: {{ option.value }}</div>
+                        {% endfor %}
+                    {% endif %}
+                    <div>Quantite: {{ product.quantity }}</div>
+                    <div><b>{{ product.price }} {{ currency }}</b></div>
+                </div>
+                <div class="delete-product"><i class="fa fa-close"></i></div>
+            </div>
+        {% endfor %}
+    </div>
 </div>
-{{ payment }}
-{% else %}
-<script type="text/javascript"><!--
-location = '{{ redirect }}';
-//--></script>
-{% endif %}
+<div class="col-sm-5">
+    <div class="col-sm-12">
+        <div class="fa-option" id="address-edit"><i class="fa fa-edit"></i></div>
+        <h4>ADRESSE DE LIVRAISON</h4>
+        <hr class="hr-marge">
+        <span>{{ shipping_address.firstname }} {{ shipping_address.lastname }}</span>
+        <div>{{ shipping_address.address_1 }}</div>
+        <div>{{ shipping_address.postcode }} {{ shipping_address.city }}</div>
+        <div>Maroc</div>
+    </div>
+    <div class="col-sm-12">
+        <div class="fa-option" id="fac-edit"><i class="fa fa-edit"></i></div>
+        <h4>ADRESSE DE FACTURATION</h4>
+        <hr class="hr-marge">
+        Identique a l'adresse de livraison
+    </div>
+    <div class="col-sm-12">
+        <div class="fa-option" id="pay-edit"><i class="fa fa-edit"></i></div>
+        <h4>MOYEN DE PAYEMENT</h4>
+        <hr class="hr-marge">
+        {% if shipping_payment == 'paypal' %}
+            <img class="pay-checkout" src="catalog/view/theme/default/image/paypal.png">
+        {% elseif shipping_payment == 'livraison' %}
+            <img class="pay-checkout" src="catalog/view/theme/default/image/livraison2.png">
+        {% else %}
+            <img class="pay-checkout" src="catalog/view/theme/default/image/master2.png">
+            <img class="pay-checkout" src="catalog/view/theme/default/image/visa2.png">
+        {% endif %}
+    </div>
+    <div class="col-sm-12"><h4>CODE PROMO & CARTE CADEAU</h4>
+        <hr class="hr-marge">
+        <div class="form-group">
+            <div class="coupon-field">
+                <i class="fa fa-search" id="coupon"
+                   style="position: absolute;padding: 13px;cursor: pointer;right: 15px"></i>
+                <input type="text" class="form-control input-zalark da" name="coupon" placeholder="Entrez votre code promo"
+                       style="padding-right: 30px;"/>
+            </div>
+        </div>
+        <div id="c_cart_layout_right" class="col-md-12" style="background-color: lightgrey; border-radius: 5px"
+             align="center">
+            <div class="col-sm-6 text-left checkout-text"><b>Livraison</b></div>
+            <div class="col-sm-6 text-right checkout-text"><b>gratuite</b></div>
+            <hr style="border-color: grey">
+            <div class="col-sm-7 text-left checkout-text"><b>Total </b><span
+                        style="font-size: 12px">(TVA incluse)</span>
+            </div>
+            <div class="col-sm-5 text-right checkout-text"><b>{{ total }} {{ currency }}</b></div>
+            <button class="col-sm-12 zalark-button">VALIDER LE PAIEMENT</button>
+        </div>
+    </div>
+</div>
+<script>
+    $(".delete-product").on("click", function () {
+        var id = this.parentNode.children[1].children[0].innerText;
+        cart.remove(id.toString());
+        $(this.parentNode).remove();
+    });
+
+    $("#coupon").on("click", function () {
+        $.ajax({
+            url: 'index.php?route=extension/total/coupon/coupon&language={{ language }}',
+            type: 'post',
+            data: 'coupon=' + encodeURIComponent($('input[name=\'coupon\']').val()),
+            dataType: 'json',
+            success: function (json) {
+                $('.text-danger').remove();
+                console.log(json);
+                $('.coupon-field').removeClass('has-error');
+
+                if (json['error']) {
+                    $('.coupon-field').addClass('has-error');
+                    $('.coupon-field').after('<div class="text-danger"><i class="fa fa-exclamation-circle"></i>' + json['error'] + '</div>');
+                }
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+            }
+        })
+    });
+
+    $("#address-edit").on('click', function () {
+        step.next(2)
+    });
+
+    $("#fac-edit").on('click', function () {
+        step.next(2)
+    });
+
+    $("#pay-edit").on('click', function () {
+        step.next(3)
+    });
+</script>

@@ -1,28 +1,28 @@
 <?php
 // Heading
-$_['heading_title']     = 'Banners';
+$_['heading_title']     = 'Bannières';
 
 // Text
-$_['text_success']      = 'Success: You have modified banners!';
-$_['text_list']         = 'Banner List';
-$_['text_add']          = 'Add Banner';
-$_['text_edit']         = 'Edit Banner';
-$_['text_default']      = 'Default';
+$_['text_success']      = 'Succès: Vous avez modifié des bannières!';
+$_['text_list']         = 'Liste des bannières';
+$_['text_add']          = 'Ajouter une bannière';
+$_['text_edit']         = 'Modifier la bannière';
+$_['text_default']      = 'Défaut';
 
 // Column
-$_['column_name']       = 'Banner Name';
-$_['column_status']     = 'Status';
+$_['column_name']       = 'Nom de la bannière';
+$_['column_status']     = 'Statut';
 $_['column_action']     = 'Action';
 
 // Entry
-$_['entry_name']        = 'Banner Name';
-$_['entry_title']       = 'Title';
-$_['entry_link']        = 'Link';
+$_['entry_name']        = 'Nom de la bannière';
+$_['entry_title']       = 'Titre';
+$_['entry_link']        = 'Liens';
 $_['entry_image']       = 'Image';
-$_['entry_status']      = 'Status';
-$_['entry_sort_order']  = 'Sort Order';
+$_['entry_status']      = 'Statut';
+$_['entry_sort_order']  = 'Ordre';
 
 // Error
-$_['error_permission'] = 'Warning: You do not have permission to modify banners!';
-$_['error_name']       = 'Banner Name must be between 3 and 64 characters!';
-$_['error_title']      = 'Banner Title must be between 2 and 64 characters!';
+$_['error_permission'] = 'Avertissment: Vous n\'êtes pas autorisé à modifier les bannières!';
+$_['error_name']       = 'Le nom du bandeau doit comporter entre 3 et 64 caractères!';
+$_['error_title']      = 'Le titre de la bannière doit comporter entre 2 et 64 caractères!';

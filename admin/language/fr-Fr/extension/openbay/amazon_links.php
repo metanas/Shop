@@ -1,29 +1,30 @@
 <?php
 // Heading
-$_['heading_title']				= 'Item links';
+$_['heading_title']				= 'Liens d\'éléments';
 $_['text_openbay']				= 'OpenBay Pro';
 $_['text_amazon']				= 'Amazon EU';
 
 // Text
-$_['text_desc1']                = 'Linking your items will allow for stock control on your Amazon listings.';
-$_['text_desc2'] 				= 'For each item that is updated the local stock (the stock available in your OpenCart store) will update your Amazon listing';
-$_['text_desc3']                = 'You can link items manually by entering Amazon SKU and product name or load all unlinked products and then enter amazon SKUs. (Uploading products from OpenCart to Amazon will automatically add links)';
-$_['text_new_link']             = 'New link';
-$_['text_autocomplete_product'] = 'Product (Auto complete from name)';
+$_['text_desc1']                = 'Lier vos articles permettra un contrôle des stocks sur vos annonces Amazon.';
+$_['text_desc2'] 				= 'Pour chaque article mis à jour le stock local (le stock disponible dans votre magasin OpenCart) mettra à jour votre liste Amazon';
+$_['text_desc3']                = 'Vous pouvez lier des éléments manuellement en entrant Amazon SKU et le nom du produit ou charger tous les produits non liés, puis entrer des références Amazon. (Le téléchargement de produits depuis OpenCart vers Amazon ajoutera automatiquement des liens)';
+$_['text_new_link']             = 'Nouveau lien';
+$_['text_autocomplete_product'] = 'Produit (saisie semi-automatique à partir du nom)';
 $_['text_amazon_sku']           = 'Amazon item SKU';
 $_['text_action']               = 'Action';
-$_['text_linked_items']         = 'Linked items';
-$_['text_unlinked_items']       = 'Unlinked items';
-$_['text_name']                 = 'Name';
-$_['text_model']                = 'Model';
-$_['text_combination']          = 'Variant Combination';
-$_['text_sku']                  = 'Product SKU';
+$_['text_linked_items']         = 'Articles liés';
+$_['text_unlinked_items']       = 'Éléments non liés';
+$_['text_name']                 = 'Nom';
+$_['text_model']                = 'Modéle';
+$_['text_combination']          = 'Combinaison de variantes';
+$_['text_sku']                  = 'SKU du produit';
 $_['text_sku_variant']          = 'Variant SKU';
 
 // Button
-$_['button_load']               = 'Load';
+$_['button_load']               = 'Charge';
 
 // Error
-$_['error_empty_sku']        	= 'Amazon SKU can not be empty!';
-$_['error_empty_name']       	= 'Product name can not be empty!';
-$_['error_no_product_exists']   = 'Product does not exist. Please use auto complete values.';
+$_['error_empty_sku']        	= 'Amazon SKU ne peut pas être vide!';
+$_['error_empty_name']       	= 'Le nom du produit ne peut pas être vide!';
+$_['error_no_product_exists']   = 'Le produit n\'existe pas. Veuillez utiliser des valeurs de saisie semi-automatique.
+';

@@ -368,6 +368,7 @@ class ControllerCatalogProduct extends Controller {
 				'name'       => $result['name'],
 				'model'      => $result['model'],
 				'color'      => $result['color'],
+				'color_hex'  => $result['color_hex'],
 				'price'      => $this->currency->format($result['price'], $this->config->get('config_currency')),
 				'special'    => $special,
 				'quantity'   => $result['quantity'],
@@ -631,53 +632,13 @@ class ControllerCatalogProduct extends Controller {
             $data['color'] = '';
         }
 
-		if (isset($this->request->post['sku'])) {
-			$data['sku'] = $this->request->post['sku'];
-		} elseif (!empty($product_info)) {
-			$data['sku'] = $product_info['sku'];
-		} else {
-			$data['sku'] = '';
-		}
-
-		if (isset($this->request->post['upc'])) {
-			$data['upc'] = $this->request->post['upc'];
-		} elseif (!empty($product_info)) {
-			$data['upc'] = $product_info['upc'];
-		} else {
-			$data['upc'] = '';
-		}
-
-		if (isset($this->request->post['ean'])) {
-			$data['ean'] = $this->request->post['ean'];
-		} elseif (!empty($product_info)) {
-			$data['ean'] = $product_info['ean'];
-		} else {
-			$data['ean'] = '';
-		}
-
-		if (isset($this->request->post['jan'])) {
-			$data['jan'] = $this->request->post['jan'];
-		} elseif (!empty($product_info)) {
-			$data['jan'] = $product_info['jan'];
-		} else {
-			$data['jan'] = '';
-		}
-
-		if (isset($this->request->post['isbn'])) {
-			$data['isbn'] = $this->request->post['isbn'];
-		} elseif (!empty($product_info)) {
-			$data['isbn'] = $product_info['isbn'];
-		} else {
-			$data['isbn'] = '';
-		}
-
-		if (isset($this->request->post['mpn'])) {
-			$data['mpn'] = $this->request->post['mpn'];
-		} elseif (!empty($product_info)) {
-			$data['mpn'] = $product_info['mpn'];
-		} else {
-			$data['mpn'] = '';
-		}
+        if (isset($this->request->post['color_hex'])) {
+            $data['color_hex'] = $this->request->post['color_hex'];
+        } elseif (!empty($product_info)) {
+            $data['color_hex'] = $product_info['color_hex'];
+        } else {
+            $data['color_hex'] = '';
+        }
 
 		if (isset($this->request->post['location'])) {
 			$data['location'] = $this->request->post['location'];
@@ -1105,17 +1066,17 @@ class ControllerCatalogProduct extends Controller {
 		}
 
         if (isset($this->request->post['product_similar'])) {
-            $products = $this->request->post['product_similar'];
+            $similar_products = $this->request->post['product_similar'];
         } elseif (isset($this->request->get['product_id'])) {
-            $products = $this->model_catalog_product->getProductSimilars($this->request->get['product_id']);
+            $similar_products = $this->model_catalog_product->getProductSimilars($this->request->get['product_id']);
         } else {
-            $products = array();
+            $similar_products = array();
         }
 
         $data['product_similars'] = array();
 
-        foreach ($products as $product_id) {
-            $related_info = $this->model_catalog_product->getProduct($product_id);
+        foreach ($similar_products as $product) {
+            $related_info = $this->model_catalog_product->getProduct($product['similar_id']);
 
             if ($related_info) {
                 $data['product_similars'][] = array(

@@ -102,4 +102,5 @@ $_['error_payment']                  ='Avertissement: Méthode de paiement requi
 $_['error_no_payment']               ='Avertissement: Aucune option de paiement n`est disponible. S`il vous plaît.  <a href="%s"> Contactez nous </a> à l`aide!';
 $_['error_custom_field']             ='%s requis!';
 
-$_['button_save_address']            ='ENREGISTRER L\'ADRESSE';
+$_['button_save_address']            ='Enregistrer l\'adresse';
+$_['button_update_address']          ='Modifier l\'adresse';

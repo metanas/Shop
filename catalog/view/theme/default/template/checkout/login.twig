@@ -6,13 +6,13 @@
             <div class="form-group">
                 <label class="control-label" for="input-email">{{ entry_email_address }}</label>
                 <input type="text" name="email" value="" placeholder="{{ entry_email }}" id="sign-email"
-                       class="form-control"/>
+                       class="form-control input-zalark"/>
             </div>
             <div class="form-group">
                 <label class="control-label" for="input-password">{{ entry_password }}</label>
                 <input type="password" name="password" value="" placeholder="{{ entry_password }}"
                        id="sign-password"
-                       class="form-control"/>
+                       class="form-control input-zalark"/>
             </div>
         </div>
         <input type="button" value="{{ button_login }}" id="button-login" data-loading-text="{{ text_loading }}"
@@ -32,26 +32,54 @@
             <div class="form-group">
                 <label class="control-label" for="input-firstname">{{ entry_firstname }}</label>
                 <input type="text" name="firstname" value="" placeholder="{{ entry_firstname }}" id="input-name"
-                       class="form-control"/>
+                       class="form-control input-zalark"/>
             </div>
             <div class="form-group">
                 <label class="control-label" for="input-lastname">{{ entry_lastname }}</label>
                 <input type="text" name="lastname" value="" placeholder="{{ entry_lastname }}" id="input-lastname"
-                       class="form-control"/>
+                       class="form-control input-zalark"/>
+            </div>
+            <label class="control-label" for="input-birthday">{{ entry_password }}</label>
+            <div class="form-group">
+                <div class="col-md-3" style="padding: 0">
+                    <select name="birthday[]" class="select-zalark">
+                        <option value="0" selected>Select Jour:</option>
+                        {% for i in 1..31 %}
+                            <option value="{{ i }}">{{ i }}</option>
+                        {% endfor %}
+                    </select>
+                    <i class="fa fa-angle-down"
+                       style="position: absolute;padding: 13px;cursor: pointer;right: 0"></i>
+                </div>
+                <div class="col-md-6"><select name="birthday[]" class="select-zalark">
+                        <option value="0" selected>Select Mois:</option>
+                        {{ entry_birthday }}
+                    </select>
+                    <i class="fa fa-angle-down"
+                       style="position: absolute;padding: 13px;cursor: pointer;right: 15px"></i></div>
+                <div class="col-md-3" style="padding: 0">
+                    <select name="birthday[]" class="select-zalark">
+                        <option value="0" selected>Select Annee:</option>
+                        {% for i in 2000..1900 %}
+                        <option value="{{ i }}">{{ i }}</option>
+                        {% endfor %}
+                    </select>
+                    <i class="fa fa-angle-down"
+                       style="position: absolute;padding: 13px;cursor: pointer;right: 0"></i>
+                </div>
             </div>
 
-
             <div class="form-group">
-                <label class="control-label" for="input-firstname">{{ entry_email_address }}</label>
+                <label class="control-label" for="input-email">{{ entry_email_address }}</label>
                 <input type="text" name="email" value="" placeholder="{{ entry_email }}" id="input-email"
-                       class="form-control"/>
+                       class="form-control input-zalark"/>
             </div>
 
             <div class="form-group">
                 <label class="control-label" for="input-password">{{ entry_password }}</label>
                 <input type="password" name="password" value="" placeholder="{{ entry_password }}"
                        id="input-password"
-                       class="form-control"/>
+                       class="form-control input-zalark"/>
                 <span class="description">{{ text_description_password }}</span>
             </div>
             <div class="form-group">
@@ -68,8 +96,8 @@
                 </label>
             </div>
             <div class="form-group" style="margin-top: 30px">
-                <label for="input-newsletter" class="check_filter">{{ text_newsletter }}
-                    <input type="checkbox" name="newsletter">
+                <label class="check_filter">{{ text_newsletter }}
+                    <input type="checkbox" name="newsletter" value="Agree">
                     <span class="checkmark"></span>
                 </label>
             </div>
@@ -98,15 +126,15 @@
             return;
         }
 
-        if (stringChecker.email($('#collapse-checkout-option #login-field input[name=\'email\']').val()) === false) {
-            $('#collapse-checkout-option #login-field input[name=\'email\']').focus();
-            return;
-        }
-
-        if (stringChecker.password($('#collapse-checkout-option #login-field input[name=\'password\']').val()) === false) {
-            $('#collapse-checkout-option #login-field input[name=\'password\']').focus();
-            return;
-        }
+        // if (stringChecker.email($('#collapse-checkout-option #login-field input[name=\'email\']').val()) === false) {
+        //     $('#collapse-checkout-option #login-field input[name=\'email\']').focus();
+        //     return;
+        // }
+        //
+        // if (stringChecker.password($('#collapse-checkout-option #login-field input[name=\'password\']').val()) === false) {
+        //     $('#collapse-checkout-option #login-field input[name=\'password\']').focus();
+        //     return;
+        // }
         $.ajax({
             url: 'index.php?route=checkout/login/save&language={{ language }}',
             type: 'post',
@@ -119,7 +147,6 @@
                 $('#button-login').button('reset');
             },
             success: function (json) {
-                console.log(json);
                 if (json['session']) {
                     step.next();
                 }

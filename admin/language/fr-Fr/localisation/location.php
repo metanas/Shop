@@ -1,38 +1,38 @@
 <?php
 // Heading
-$_['heading_title']    = 'Store Locations';
+$_['heading_title']    = 'Emplacements des magasins';
 
 // Text
-$_['text_success']     = 'Success: You have modified store locations!';
-$_['text_list']        = 'Store Location List';
-$_['text_add']         = 'Add Store Location';
-$_['text_edit']        = 'Edit Store Location';
-$_['text_default']     = 'Default';
-$_['text_time']        = 'Opening Times';
-$_['text_geocode']     = 'Geocode was not successful for the following reason:';
+$_['text_success']     = 'Succès: vous avez modifié l`\'emplacement des magasins!';
+$_['text_list']        = 'Liste des emplacements de magasin';
+$_['text_add']         = 'Ajouter un magasin';
+$_['text_edit']        = 'Modifier l\'emplacement du magasin';
+$_['text_default']     = 'Défaut';
+$_['text_time']        = 'Horaires d\'ouverture';
+$_['text_geocode']     = 'Geocode n\'a pas réussi pour la raison suivante:';
 
 // Column
-$_['column_name']      = 'Store Name';
-$_['column_address']   = 'Address';
+$_['column_name']      = 'Nom du magasin';
+$_['column_address']   = 'Adresse';
 $_['column_action']    = 'Action';
 
 // Entry
-$_['entry_name']       = 'Store Name';
-$_['entry_address']    = 'Address';
-$_['entry_geocode']    = 'Geocode';
-$_['entry_telephone']  = 'Telephone';
+$_['entry_name']       = 'Nom du magasin';
+$_['entry_address']    = 'Adresse';
+$_['entry_geocode']    = 'Géocode';
+$_['entry_telephone']  = 'Téléphone';
 $_['entry_fax']        = 'Fax';
 $_['entry_image']      = 'Image';
-$_['entry_open']       = 'Opening Times';
-$_['entry_comment']    = 'Comment';
+$_['entry_open']       = 'Horaires d\'ouvertureaire';
+$_['entry_comment']    = 'Commentaire';
 
 // Help
-$_['help_geocode']     = 'Please enter your store location geocode manually.';
-$_['help_open']        = 'Fill in your stores opening times.';
-$_['help_comment']     = 'This field is for any special notes you would like to tell the customer i.e. Store does not accept cheques.';
+$_['help_geocode']     = 'Veuillez entrer manuellement le géocode de votre magasin.';
+$_['help_open']        = 'Remplissez les horaires d\'ouverture de vos magasins.';
+$_['help_comment']     = 'Ce champ concerne toutes les notes spéciales que vous souhaitez indiquer au client, c\'est-à-dire que le magasin n\'accepte pas les chèques..';
 
 // Error
 $_['error_permission'] = 'Warning: You do not have permission to modify store locations!';
-$_['error_name']       = 'Store name must be between 3 and 32 characters!';
-$_['error_address']    = 'Address must be between 3 and 128 characters!';
-$_['error_telephone']  = 'Telephone must be between 3 and 32 characters!';
+$_['error_name']       = 'Le nom du magasin doit comporter entre 3 et 32 caractères!';
+$_['error_address']    = 'L\'adresse doit être comprise entre 3 et 128 caractères!';
+$_['error_telephone']  = 'Le téléphone doit avoir entre 3 et 32 caractères!';

@@ -2,6 +2,8 @@
 
 class ControllerCheckoutShippingAddress extends Controller
 {
+    private $error = array();
+
     public function index()
     {
         $this->load->language('checkout/checkout');
@@ -51,19 +53,15 @@ class ControllerCheckoutShippingAddress extends Controller
             }
         }
 
-        if (isset($this->session->data['shipping_address']['custom_field'])) {
-            $data['shipping_address_custom_field'] = $this->session->data['shipping_address']['custom_field'];
-        } else {
-            $data['shipping_address_custom_field'] = array();
-        }
-
+        unset($this->session->data['address_id']);
+        unset($this->session->data['payment_address']);
         $data['language'] = $this->config->get('config_language');
 
         $this->response->setOutput($this->load->view('checkout/shipping_address', $data));
         return $this->load->view('checkout/shipping_address', $data);
     }
 
-    public function save()
+    public function add()
     {
         $this->load->language('checkout/checkout');
 
@@ -74,33 +72,9 @@ class ControllerCheckoutShippingAddress extends Controller
             $json['redirect'] = $this->url->link('checkout/checkout', 'language=' . $this->config->get('config_language'));
         }
 
-//		 Validate if shipping is required. If not the customer should not have reached this page.
-//		if (!$this->cart->hasShipping()) {
-//			$json['redirect'] = $this->url->link('checkout/checkout', 'language=' . $this->config->get('config_language'));
-//		}
-
         // Validate cart has products and has stock.
-//		if ((!$this->cart->hasProducts() && empty($this->session->data['vouchers'])) || (!$this->cart->hasStock() && !$this->config->get('config_stock_checkout'))) {
-//			$json['redirect'] = $this->url->link('checkout/cart', 'language=' . $this->config->get('config_language'));
-//		}
-
-        // Validate minimum quantity requirements.
-        $products = $this->cart->getProducts();
-
-        foreach ($products as $product) {
-            $product_total = 0;
-
-            foreach ($products as $product_2) {
-                if ($product_2['product_id'] == $product['product_id']) {
-                    $product_total += $product_2['quantity'];
-                }
-            }
-
-            if ($product['minimum'] > $product_total) {
-                $json['redirect'] = $this->url->link('checkout/cart', 'language=' . $this->config->get('config_language'));
-
-                break;
-            }
+        if ((!$this->cart->hasProducts() && empty($this->session->data['vouchers'])) || (!$this->cart->hasStock() && !$this->config->get('config_stock_checkout'))) {
+            $json['redirect'] = $this->url->link('checkout/cart', 'language=' . $this->config->get('config_language'));
         }
 
         if (!$json) {
@@ -120,36 +94,13 @@ class ControllerCheckoutShippingAddress extends Controller
                     unset($this->session->data['shipping_methods']);
                 }
             } else {
-                if ((utf8_strlen(trim($this->request->post['firstname'])) < 1) || (utf8_strlen(trim($this->request->post['firstname'])) > 32)) {
-                    $json['error']['firstname'] = $this->language->get('error_firstname');
-                }
 
-                if ((utf8_strlen(trim($this->request->post['lastname'])) < 1) || (utf8_strlen(trim($this->request->post['lastname'])) > 32)) {
-                    $json['error']['lastname'] = $this->language->get('error_lastname');
-                }
-
-                if ((utf8_strlen(trim($this->request->post['address_1'])) < 3) || (utf8_strlen(trim($this->request->post['address_1'])) > 128)) {
-                    $json['error']['address_1'] = $this->language->get('error_address_1');
-                }
-
-                if ((utf8_strlen(trim($this->request->post['city'])) < 2) || (utf8_strlen(trim($this->request->post['city'])) > 128)) {
-                    $json['error']['city'] = $this->language->get('error_city');
+                if ($this->validateForm()) {
+                    $json['error'] = $this->error;
                 }
 
                 // Custom field validation
                 $this->load->model('account/custom_field');
-
-//				$custom_fields = $this->model_account_custom_field->getCustomFields($this->config->get('config_customer_group_id'));
-//
-//				foreach ($custom_fields as $custom_field) {
-//					if ($custom_field['location'] == 'address') {
-//						if ($custom_field['required'] && empty($this->request->post['custom_field'][$custom_field['location']][$custom_field['custom_field_id']])) {
-//							$json['error']['custom_field' . $custom_field['custom_field_id']] = sprintf($this->language->get('error_custom_field'), $custom_field['name']);
-//						} elseif (($custom_field['type'] == 'text') && !empty($custom_field['validation']) && !filter_var($this->request->post['custom_field'][$custom_field['location']][$custom_field['custom_field_id']], FILTER_VALIDATE_REGEXP, array('options' => array('regexp' => $custom_field['validation'])))) {
-//							$json['error']['custom_field' . $custom_field['custom_field_id']] = sprintf($this->language->get('error_custom_field'), $custom_field['name']);
-//						}
-//					}
-//				}
 
                 if (!$json) {
                     $address_id = $this->model_account_address->addAddress($this->customer->getId(), $this->request->post);
@@ -169,14 +120,125 @@ class ControllerCheckoutShippingAddress extends Controller
             }
         }
 
-        if ($json) {
-            $json['firstname'] = trim($this->request->post['firstname']);
-            $json['lastname'] =trim($this->request->post['lastname']);
-            $json['address_1'] = trim($this->request->post['address_1']);
-            $json['postcode'] = trim($this->request->post['postcode']);
-            $json['city'] = trim($this->request->post['city']);
+        if (!$json) {
+            $json = $this->request->post;
+            $json["address_id"] = $this->session->data['shipping_address']['address_id'];
         }
+
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
+    }
+
+    public function delete()
+    {
+        $json = array();
+
+        if (!$this->customer->isLogged()) {
+            $json['redirect'] = $this->url->link('checkout/checkout', 'language=' . $this->config->get('config_language'));
+        }
+
+        $this->load->model('account/address');
+
+        if (!$json) {
+            $this->model_account_address->deleteAddress($this->request->post['address_id']);
+            $json['success'] = true;
+        }
+
+        $this->response->addHeader('Content-Type: application/json');
+        $this->response->setOutput(json_encode($json));
+    }
+
+    public function save()
+    {
+        $json = array();
+
+        if (!$this->customer->isLogged()) {
+            $json['redirect'] = $this->url->link('checkout/checkout', 'language=' . $this->config->get('config_language'));
+        }
+
+        if ($this->request->post['address_id'] == "Add") {
+            $json['not_selected'] = true;
+        }
+
+        $this->load->model('account/address');
+
+        if (!$json) {
+            $address = $this->model_account_address->getAddress($this->request->post['address_id']);
+            if (!$address) {
+                $json['not_found'] = true;
+            }
+        }
+
+        if (!$json) {
+            $this->session->data['address_id'] = $this->request->post['address_id'];
+            $json['success'] = true;
+        }
+
+        $this->response->addHeader('Content-Type: application/json');
+        $this->response->setOutput(json_encode($json));
+    }
+
+    public function update()
+    {
+        $json = array();
+
+        if (!$this->customer->isLogged()) {
+            $json['redirect'] = $this->url->link('checkout/checkout', 'language=' . $this->config->get('config_language'));
+        }
+
+        if (filter_var((int)$this->request->post['address_id'], FILTER_VALIDATE_INT) && !$this->validateForm()) {
+            $this->load->model('account/address');
+
+            $this->model_account_address->editAddress($this->request->post['address_id'], $this->request->post);
+
+            $json['success'] = true;
+            $json['result'] = $this->request->post;
+        } else {
+            $json['error'] = $this->validateForm();
+        }
+
+        $this->response->addHeader('Content-Type: application/json');
+        $this->response->setOutput(json_encode($json));
+    }
+
+    public function info()
+    {
+        $json = array();
+
+        if (filter_var($this->request->post['address_id'], FILTER_VALIDATE_INT)) {
+
+            $this->load->model('account/address');
+            $json['result'] = $this->model_account_address->getAddress($this->request->post['address_id']);
+        } else {
+            $json['error'] = true;
+        }
+
+        $this->response->addHeader('Content-Type: application/json');
+        $this->response->setOutput(json_encode($json));
+    }
+
+    private function validateForm()
+    {
+        if ((utf8_strlen(trim($this->request->post['firstname'])) < 1) || (utf8_strlen(trim($this->request->post['firstname'])) > 32)) {
+            $this->error['firstname'] = $this->language->get('error_firstname');
+        }
+
+        if ((utf8_strlen(trim($this->request->post['lastname'])) < 1) || (utf8_strlen(trim($this->request->post['lastname'])) > 32)) {
+            $this->error['lastname'] = $this->language->get('error_lastname');
+        }
+
+        if ((utf8_strlen(trim($this->request->post['address_1'])) < 3) || (utf8_strlen(trim($this->request->post['address_1'])) > 128)) {
+            $this->error['address_1'] = $this->language->get('error_address_1');
+        }
+
+        if (!is_numeric($this->request->post['postcode'])) {
+            $this->error['postcode'] = $this->language->get('error_postcode');
+        }
+
+        if ((utf8_strlen(trim($this->request->post['city'])) < 2) || (utf8_strlen(trim($this->request->post['city'])) > 128)) {
+            $this->error['city'] = $this->language->get('error_city');
+        }
+
+        return $this->error;
     }
 }

@@ -44,13 +44,6 @@ class ControllerProductCategory extends Controller
             $limit = $this->config->get('theme_' . $this->config->get('config_theme') . '_product_limit');
         }
 
-        $data['breadcrumbs'] = array();
-
-        $data['breadcrumbs'][] = array(
-            'text' => $this->language->get('text_home'),
-            'href' => $this->url->link('common/home', 'language=' . $this->config->get('config_language'))
-        );
-
         if (isset($this->request->get['path'])) {
             $url = '';
 
@@ -73,24 +66,11 @@ class ControllerProductCategory extends Controller
             $category_id = (int)array_pop($parts);
 
             $filter_count = array('filter_category_id' => $category_id, 'filter_sub_category' => true);
+
             $countProd = $this->model_catalog_product->getTotalProducts($filter_count);
+
             $data['count'] = $countProd;
-            foreach ($parts as $path_id) {
-                if (!$path) {
-                    $path = (int)$path_id;
-                } else {
-                    $path .= '_' . (int)$path_id;
-                }
 
-                $category_info = $this->model_catalog_category->getCategory($path_id);
-
-                if ($category_info) {
-                    $data['breadcrumbs'][] = array(
-                        'text' => $category_info['name'],
-                        'href' => $this->url->link('product/category', 'language=' . $this->config->get('config_language') . '&path=' . $path . $url)
-                    );
-                }
-            }
         } else {
             $category_id = 0;
         }
@@ -105,12 +85,6 @@ class ControllerProductCategory extends Controller
             $data['heading_title'] = $category_info['name'];
 
             $data['text_compare'] = sprintf($this->language->get('text_compare'), (isset($this->session->data['compare']) ? count($this->session->data['compare']) : 0));
-
-            // Set the last category breadcrumb
-            $data['breadcrumbs'][] = array(
-                'text' => $category_info['name'],
-                'href' => $this->url->link('product/category', 'language=' . $this->config->get('config_language') . '&path=' . $this->request->get['path'])
-            );
 
             if ($category_info['image']) {
                 $data['thumb'] = $this->model_tool_image->resize($category_info['image'], $this->config->get('theme_' . $this->config->get('config_theme') . '_image_category_width'), $this->config->get('theme_' . $this->config->get('config_theme') . '_image_category_height'));
@@ -198,17 +172,6 @@ class ControllerProductCategory extends Controller
                     $special = false;
                 }
 
-                if ($this->config->get('config_tax')) {
-                    $tax = $this->currency->format((float)$result['special'] ? $result['special'] : $result['price'], $this->session->data['currency']);
-                } else {
-                    $tax = false;
-                }
-
-                if ($this->config->get('config_review_status')) {
-                    $rating = (int)$result['rating'];
-                } else {
-                    $rating = false;
-                }
                 $simulate = array();
 
                 $results = $this->model_catalog_product->getProductImages($result['product_id']);
@@ -219,8 +182,8 @@ class ControllerProductCategory extends Controller
                     );
                 }
 
-                if (!in_array($result['color'], $products_colors))
-                    $products_colors[] = $result['color'];
+                if (!$this->in_array_r($result['color'], $products_colors))
+                    $products_colors[] = array("color" => $result['color'], "color_hex" => $result['color_hex']);
 
                 if (!in_array($result['manufacturer'], $products_models))
                     $products_models[] = $result['manufacturer'];
@@ -232,7 +195,7 @@ class ControllerProductCategory extends Controller
                     $price_min = (int)((is_null($result['special'])) ? $result['price'] : $result['special']);
 
                 if ($this->customer->isLogged()) {
-                    if ($this->model_account_wishlist->isExist($result['product_id']) == 1) {
+                    if ((int)$this->model_account_wishlist->isExist($result['product_id']) == true) {
                         $favorite = $this->model_tool_image->resize("favoriteAdded.png", 100, 100);
                     } else $favorite = $this->model_tool_image->resize("favorite.png", 100, 100);
                 } else {
@@ -440,11 +403,6 @@ class ControllerProductCategory extends Controller
                 $url .= '&limit=' . $this->request->get['limit'];
             }
 
-            $data['breadcrumbs'][] = array(
-                'text' => $this->language->get('text_error'),
-                'href' => $this->url->link('product/category', 'language=' . $this->config->get('config_language') . $url)
-            );
-
             $this->document->setTitle($this->language->get('text_error'));
 
             $data['continue'] = $this->url->link('common/home', 'language=' . $this->config->get('config_language'));
@@ -462,7 +420,7 @@ class ControllerProductCategory extends Controller
         }
     }
 
-    public function filter()
+    public function                                                 filter()
     {
 
         $this->load->model('catalog/category');
@@ -518,12 +476,6 @@ class ControllerProductCategory extends Controller
 
                 $category_info = $this->model_catalog_category->getCategory($path_id);
 
-                if ($category_info) {
-                    $data['breadcrumbs'][] = array(
-                        'text' => $category_info['name'],
-                        'href' => $this->url->link('product/category', 'language=' . $this->config->get('config_language') . '&path=' . $path . $url)
-                    );
-                }
             }
         } else {
             $category_id = 0;
@@ -570,8 +522,8 @@ class ControllerProductCategory extends Controller
                 $special = false;
             }
 
-            if (!in_array($result['color'], $products_colors))
-                $products_colors[] = $result['color'];
+            if (!$this->in_array_r($result['color'], $products_colors))
+                $products_colors[] = array('color' => $result['color'], 'color_hex' => $result['color_hex']);
 
             if (!in_array($result['manufacturer'], $products_models))
                 $products_models[] = $result['manufacturer'];
@@ -649,5 +601,14 @@ class ControllerProductCategory extends Controller
 
         if (isset($data))
             $this->response->setOutput(json_encode($data));
+    }
+
+    private function in_array_r($needle, $haystack, $strict = false) {
+        foreach ($haystack as $item) {
+            if(strtolower($needle) === strtolower($item['color'])){
+                return true;
+            }
+        }
+        return false;
     }
 }

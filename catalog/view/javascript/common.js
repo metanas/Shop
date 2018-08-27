@@ -132,6 +132,60 @@ $(document).ready(function () {
         $('#alert-box').removeClass('open');
     });
 });
+// set hover to similar product
+var div;
+
+$(document).on('mouseenter', '.product-layout', function () {
+    if ($('.same', this).html().trim() == "") {
+        html = "<a href=\"" + $('.SheosName', this)[0].children[0].href + "\"><img class=\"smallSame img-default\" src=\"" + $(".img-responsive", this)[0].src + "\"></a>";
+        div = this;
+        $.ajax({
+            url: "index.php?route=product/category/simulate&path=" + 72 + "&product_id=" + $('#product-id', this).html(),
+            type: "GET",
+            dataType: "json",
+            success: function (json) {
+                if ($('.same', div).html().trim() === "") {
+                    $.map(json, function (item) {
+                        html += "<a href=\"" + item['href'] + "\"><img class=\"smallSame\" src=\"" + item['thumb'] + "\"></a>";
+                    });
+                    $('.same', div).empty();
+                    $('.same', div).html(html);
+                    $('.same', div).show(400);
+                }
+            },
+            error: function (d, s) {
+                console.log(s)
+            }
+        });
+    } else {
+        $('.same', this).show(400)
+    }
+});
+$(document).on('mouseenter', ".smallSame",
+    function () {
+        $(this).css('border', '1px solid black');
+        $(this).parents('.product-thumb').find('.img-responsive')[0].src = this.src;
+    });
+$(document).on('mouseleave', '.smallSame', function () {
+    $(this).css('border', 'none');
+    $(this).parents('.product-thumb').find('.img-responsive')[0].src = $(this).parents('.same').find('.img-default')[0].src;
+});
+$(document).on("mouseleave", '.product-layout', function () {
+    $('.same', this).hide(400)
+});
+
+
+// add to wishlist
+
+$(document).on('click', '.favorite', function () {
+    if (this.src.includes('Added')) {
+        this.src = "catalog/view/theme/default/image/favorite.png";
+        wishlist.remove(this.parentElement.parentElement.children[0].innerHTML);
+    } else {
+        this.src = "catalog/view/theme/default/image/favoriteAdded.png";
+        wishlist.add(this.parentElement.parentElement.children[0].innerHTML)
+    }
+});
 
 // Cart add remove functions
 var cart = {
@@ -149,10 +203,9 @@ var cart = {
             },
             success: function (json) {
                 $('.alert-dismissible, .text-danger').remove();
-
-                if (json['redirect']) {
-                    location = json['redirect'];
-                }
+                // if (json['redirect']) {
+                //     location = json['redirect'];
+                // }
 
                 if (json['success']) {
                     $('#alert-box').append('<div class="alert alert-success alert-dismissible">' + json['success'] + '<button type="button" class="close" data-dismiss="alert">&times;</button></div>');
@@ -164,15 +217,14 @@ var cart = {
                         $('#cart > button').html('<span id="cart-total"><i class="fa fa-shopping-cart"></i> ' + json['total'] + '</span>');
                     }, 100);
 
-                    $('html, body').animate({scrollTop: 0}, 'slow');
-
-                    $('#cart > ul').load('index.php?route=common/cart/info ul li');
+                    // $('html, body').animate({scrollTop: 0}, 'slow');
                 }
             },
             error: function (xhr, ajaxOptions, thrownError) {
-                alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+                // alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
             }
         });
+        $('#cart').load('index.php?route=common/cart/info ul li');
     },
     'update': function (key, quantity) {
         $.ajax({
@@ -221,7 +273,7 @@ var cart = {
                     $('#cart > button').html('<span id="cart-total"><i class="fa fa-shopping-cart"></i> ' + json['total'] + '</span>');
                 }, 100);
 
-                if (getURLVar('route') == 'checkout/cart' || getURLVar('route') == 'checkout/checkout') {
+                if (getURLVar('route') == 'checkout/cart' || (getURLVar('route') == 'checkout/checkout' && json['redirect'])) {
                     location = 'index.php?route=checkout/cart';
                 } else {
                     $('#cart > ul').load('index.php?route=common/cart/info ul li');
@@ -231,6 +283,8 @@ var cart = {
                 alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
             }
         });
+
+        $('#cart').load('index.php?route=common/cart/info ul li');
     }
 };
 
@@ -281,20 +335,29 @@ var stringChecker = {
 };
 
 var step = {
-    'next': function () {
+    'next': function (id = 0) {
+        id = (id === 0) ? $('ul.progressbar > li.disabled').get()[0].value : id;
         $.ajax({
-            url: "index.php?route=checkout/checkout/getNext",
+            url: "index.php?route=checkout/checkout/getStep",
             type: "POST",
-            data: {"step_id": $('ul.progressbar > li.disabled').get()[0].value},
-            success: function (step,data) {
-                console.log(data);
+            data: {"step_id": (id === 0) ? $('ul.progressbar > li.disabled').get()[0].value : id},
+            success: function (step) {
                 $('#collapse-checkout-option').empty();
                 $('#collapse-checkout-option').html(step);
-                $('ul.progressbar > li.disabled').get()[0].classList.add('active');
-                $('ul.progressbar > li.disabled').get()[0].classList.remove('disabled');
+                let progress = $('ul.progressbar li').get();
+                for (i = 0; i < 3; i++) {
+                    if (i < id - 1) {
+                        progress[i].classList.add('active');
+                        progress[i].classList.remove('disabled');
+                    } else {
+                        progress[i].classList.add('disabled');
+                        progress[i].classList.remove('active');
+                    }
+                }
+                back();
             },
             error: function (s, d, e) {
-
+                console.log(s, d, e)
             }
         });
     }
@@ -308,19 +371,17 @@ var wishlist = {
             data: 'product_id=' + product_id,
             dataType: 'json',
             success: function (json) {
-                $('#favorite')[0].src = json['favorite'];
-
+                $('#cart').load('index.php?route=common/cart/info}');
+                try {
+                    $('#fav-button')[0].src = json['favorite'];
+                } catch (e) {
+                }
                 // $('.alert-dismissible').remove();
                 //
                 // if (json['redirect']) {
                 //     location = json['redirect'];
                 // }
                 //
-                // if (json['success']) {
-                //     $('#alert-box').append('<div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
-                //
-                //     $('#alert-box').addClass('open');
-                // }
                 //
                 // $('#wishlist-total span').html(json['total']);
                 // $('#wishlist-total').attr('title', json['total']);
@@ -338,7 +399,11 @@ var wishlist = {
             data: 'product_id=' + product_id,
             dataType: 'json',
             success: function (json) {
-                $('#favorite')[0].src = json['favorite']
+                $('#cart').load('index.php?route=common/cart/info');
+                try {
+                    $('#fav-button')[0].src = json['favorite'];
+                } catch (e) {
+                }
             },
             error: function (s, d, f) {
 
@@ -534,4 +599,32 @@ $(document).delegate('.agree', 'click', function (e) {
 
         });
     }
+
+
+
+
 })(window.jQuery);
+
+// carousel responsive
+let carousel = Array();
+$(window).resize(function () {
+    fixSwiper()
+});
+let viewPerSlide;
+function fixSwiper() {
+    if ($(window).width() < 750) {
+        viewPerSlide = 2
+    } else if ($(window).width() < 970) {
+        viewPerSlide = 3
+    } else if ($(window).width() < 1170) {
+        viewPerSlide = 4
+    }else{
+        viewPerSlide = 5
+    }
+    $.map(carousel, function (item) {
+        item.swiper({
+            slidesPerView: viewPerSlide,
+        });
+    });
+    return viewPerSlide;
+}

@@ -4,20 +4,20 @@ $_['heading_title']      = 'Australia Post';
 
 // Text
 $_['text_extension']     = 'Extensions';
-$_['text_success']       = 'Success: You have modified Australia Post shipping!';
-$_['text_edit']          = 'Edit Australia Post Shipping';
+$_['text_success']       = 'Succès: Vous avez modifié l\'expédition de courrier d\'Australie!';
+$_['text_edit']          = 'Modifier Australia Post Shipping';
 
 // Entry
-$_['entry_api']          = 'API Key';
-$_['entry_postcode']     = 'Post Code';
-$_['entry_weight_class'] = 'Weight Class';
-$_['entry_tax_class']    = 'Tax Class';
-$_['entry_geo_zone']     = 'Geo Zone';
-$_['entry_status']       = 'Status';
-$_['entry_sort_order']   = 'Sort Order';
+$_['entry_api']          = 'clé APICode postal';
+$_['entry_postcode']     = 'Code postal';
+$_['entry_weight_class'] = 'Catégorie de poidsClasse d\'impôt';
+$_['entry_tax_class']    = 'Classe d\'impôt';
+$_['entry_geo_zone']     = 'Zone géographique';
+$_['entry_status']       = 'Statut';
+$_['entry_sort_order']   = 'Ordre';
 
 // Help
-$_['help_weight_class']  = 'Set to kilograms.';
+$_['help_weight_class']  = 'Mettre en kilogrammes.';
 
 // Error
 $_['error_permission']   = 'Warning: You do not have permission to modify Australia Post shipping!';

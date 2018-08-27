@@ -1,28 +1,28 @@
 <?php
 // Heading
-$_['heading_title']    = 'Important Security Notification!';
+$_['heading_title']    = 'Notification de sécurité importante!';
 
 // Text
-$_['text_success']     = 'Success: You have modified the storage folder!';
-$_['text_security']    = 'It is very imporant that you move the storage directory outside of the web directory (e.g. public_html, www or htdocs).';
-$_['text_choose']      = 'Choose how to move the storage directory';
-$_['text_automatic']   = 'Automatically Move';
-$_['text_manual']      = 'Manually Move';
-$_['text_move']        = 'Move';
-$_['text_to']          = 'to';
-$_['text_admin']       = 'In the admin/config.php file, replace the line';
-$_['text_config']      = 'In the config.php file, replace the line';
-$_['text_by']          = 'by';
+$_['text_success']     = 'Succès: Vous avez modifié le dossier de stockage!';
+$_['text_security']    = 'Il est très important de déplacer le répertoire de stockage hors du répertoire Web(e.g. public_html, www or htdocs).';
+$_['text_choose']      = 'Choisissez comment déplacer le répertoire de stockage';
+$_['text_automatic']   = 'Déplacer automatiquement';
+$_['text_manual']      = 'Déplacer manuellement';
+$_['text_move']        = 'Bouge toi';
+$_['text_to']          = 'à';
+$_['text_admin']       = 'Dans le fichier admin / config.php, remplacez la ligne';
+$_['text_config']      = 'Dans le fichier config.php, remplacez la ligne';
+$_['text_by']          = 'Par';
 
 // Entry
-$_['entry_directory']  = 'Directory';
+$_['entry_directory']  = 'Annuaire';
 
 // Button
-$_['button_move']      = 'Move';
+$_['button_move']      = 'Bouge toi';
 
 // Error
-$_['error_permission'] = 'Warning: You do not have permission to modify the storage directory!';
-$_['error_path']       = 'Warning: Invalid path!';
-$_['error_directory']  = 'Warning: Invalid directory!';
-$_['error_exists']     = 'Warning: Directory already exists!';
-$_['error_writable']   = 'Warning: config.php and admin/config.php need to be made writable!';
+$_['error_permission'] = 'Avertissement: Vous n\'êtes pas autorisé à modifier le répertoire de stockage!';
+$_['error_path']       = 'Avertissement: chemin invalide!';
+$_['error_directory']  = 'Avertissement: répertoire invalide!!';
+$_['error_exists']     = 'Avertissement: le répertoire existe déjà!';
+$_['error_writable']   = 'Avertissement: config.php et admin / config.php doivent être accessibles en écriture!';

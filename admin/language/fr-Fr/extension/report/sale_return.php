@@ -1,30 +1,30 @@
 <?php
 // Heading
-$_['heading_title']     = 'Returns Report';
+$_['heading_title']     = 'Rapport de retour';
 
 // Text
 $_['text_extension']    = 'Extensions';
-$_['text_edit']         = 'Edit Returns Report';
-$_['text_success']      = 'Success: You have modified returns report!';
-$_['text_filter']       = 'Filter';
-$_['text_year']         = 'Years';
-$_['text_month']        = 'Months';
-$_['text_week']         = 'Weeks';
-$_['text_day']          = 'Days';
-$_['text_all_status']   = 'All Statuses';
+$_['text_edit']         = 'Modifier le rapport sur les retours';
+$_['text_success']      = 'Succès: vous avez modifié le rapport des retours!';
+$_['text_filter']       = 'Filtre';
+$_['text_year']         = 'Années';
+$_['text_month']        = 'Mois';
+$_['text_week']         = 'Semaines';
+$_['text_day']          = 'Journées';
+$_['text_all_status']   = 'Tous le Statut';
 
 // Column
-$_['column_date_start'] = 'Date Start';
-$_['column_date_end']   = 'Date End';
-$_['column_returns']    = 'No. Returns';
+$_['column_date_start'] = 'Datede depart';
+$_['column_date_end']   = 'Date de fin';
+$_['column_returns']    = 'Aucun retour';
 
 // Entry
-$_['entry_date_start']  = 'Date Start';
-$_['entry_date_end']    = 'Date End';
-$_['entry_group']       = 'Group By';
-$_['entry_status']      = 'Return Status';
-$_['entry_status']      = 'Status';
-$_['entry_sort_order']  = 'Sort Order';
+$_['entry_date_start']  = 'Date de depart';
+$_['entry_date_end']    = 'Date de fin';
+$_['entry_group']       = 'Par group';
+$_['entry_status']      = 'Statut de retour';
+$_['entry_status']      = 'Statut';
+$_['entry_sort_order']  = 'Ordre';
 
 // Error
 $_['error_permission']  = 'Warning: You do not have permission to modify returns report!';

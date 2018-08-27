@@ -6,6 +6,7 @@
                     <h4>{{ text_information }}</h4>
                     <ul class="list-unstyled">
                         <li><a href="{{ contact }}">{{ text_contact }}</a></li>
+                        <li><a href="{{ contact }}">{{ text_faq }}</a></li>
                         {% for information in informations %}
                             <li><a href="{{ information.href }}">{{ information.title }}</a></li>
                         {% endfor %}
@@ -21,7 +22,8 @@
             <div class="col-sm-3">
                 <h4>{{ text_buy_shoes }}</h4>
                 <ul class="list-unstyled">
-                    <li><img class="terms" src="catalog/view/theme/default/image/trans.png" style="margin-right: 5px;width: 15px"><a
+                    <li><img class="terms" src="catalog/view/theme/default/image/trans.png"
+                             style="margin-right: 5px;width: 15px"><a
                                 href="{{ manufacturer }}">{{ text_manufacturer }}</a></li>
                     <li><img class="terms" src="catalog/view/theme/default/image/reset.png"><a
                                 href="{{ voucher }}">{{ text_voucher }}</a></li>
@@ -76,8 +78,8 @@
         </div>
     </div>
     <div class="container-fluid">
-        <span><a href="#">{{ text_mention }}</a></span>-
-        <span><a href="#">{{ text_condition }}</a></span>
+        <span><a href="{{ motion_legal }}">{{ text_mention }}</a></span>-
+        <span><a href="{{ terms_private }}">{{ text_condition }}</a></span>
         {#<span><a href="#">{{ text_copyright }}</a></span>#}
     </div>
 </footer>

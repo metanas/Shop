@@ -19,3 +19,4 @@ image/cache/catalog
 # IDE Project files
 /.idea
 /vendor/
+image/cache

@@ -12,9 +12,9 @@ $_['text_register']        ='Créez un compte';
 $_['text_account_already'] ='Si vous avez déjà un compte avec nous, connectez-vous au <a href="%s"> page de connexion </a> .';
 $_['text_your_details']    ='Vos informations personnelles';
 $_['text_your_address']    ='Votre adresse';
-$_['text_newsletter']      ='Bulletin';
 $_['text_your_password']   ='Votre mot de passe';
 $_['text_agree']           ='j`ai lu et accepté les <a href="%s" class="agree">  <b> %s </b>  </a> ';
+$_['text_newsletter']      ='Oui, je veux recevoir par e-mail des infos sur les dernieres tendances<br>Desinscription possible a tout moment. (facultatif)';
 
 
 // Entry
@@ -27,6 +27,21 @@ $_['entry_telephone']      ='Téléphone';
 $_['entry_newsletter']     ='Souscrire';
 $_['entry_password']       ='Mot de passe';
 $_['entry_confirm']        ='Confirmer le mot de passe';
+$_['entry_sex']            ='Sexe';
+$_['entry_male']           ='Male';
+$_['entry_female']         ='Femme';
+$_['entry_birthday']       ='<option value=\'01\'>janvier</option>
+                            <option value=\'02\'>février</option>
+                            <option value=\'03\'>mars</option>
+                            <option value=\'04\'>avril</option>
+                            <option value=\'05\'>mai</option>
+                            <option value=\'06\'>juin</option>
+                            <option value=\'07\'>juillet</option>
+                            <option value=\'08\'>août</option>
+                            <option value=\'09\'>septembre</option>
+                            <option value=\'10\'>octobre</option>
+                            <option value=\'11\'>novembre</option>
+                            <option value=\'12\'>décembre</option>';
 
 
 // Error

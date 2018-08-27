@@ -1,31 +1,31 @@
 <?php
 // Heading
-$_['heading_title']         = 'Customer Orders Report';
+$_['heading_title']         = 'Rapport sur les commandes client';
 
 // Text
 $_['text_extension']        = 'Extensions';
-$_['text_edit']             = 'Edit Customer Orders Report';
-$_['text_success']          = 'Success: You have modified customer orders report!';
-$_['text_filter']           = 'Filter';
-$_['text_all_status']       = 'All Statuses';
+$_['text_edit']             = 'Modifier le rapport sur les commandes client';
+$_['text_success']          = 'Succès: Vous avez modifié le rapport des commandes client!';
+$_['text_filter']           = 'Filtre';
+$_['text_all_status']       = 'Tous les statuts';
 
 // Column
-$_['column_customer']       = 'Customer Name';
+$_['column_customer']       = 'Nom du client';
 $_['column_email']          = 'E-Mail';
-$_['column_customer_group'] = 'Customer Group';
-$_['column_status']         = 'Status';
-$_['column_orders']         = 'No. Orders';
-$_['column_products']       = 'No. Products';
+$_['column_customer_group'] = 'Groupe de clients';
+$_['column_status']         = 'Statut';
+$_['column_orders']         = 'Aucune Commandes';
+$_['column_products']       = 'Aucun produit';
 $_['column_total']          = 'Total';
 $_['column_action']         = 'Action';
 
 // Entry
-$_['entry_date_start']      = 'Date Start';
-$_['entry_date_end']        = 'Date End';
-$_['entry_customer']        = 'Customer';
-$_['entry_status']          = 'Order Status';
-$_['entry_status']          = 'Status';
-$_['entry_sort_order']      = 'Sort Order';
+$_['entry_date_start']      = 'date de depart';
+$_['entry_date_end']        = 'Date de fin';
+$_['entry_customer']        = 'Client';
+$_['entry_status']          = 'Statut de la commande';
+$_['entry_status']          = 'Statut';
+$_['entry_sort_order']      = 'Ordre';
 
 // Error
 $_['error_permission']  = 'Warning: You do not have permission to modify customer orders report!';

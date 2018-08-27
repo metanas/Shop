@@ -1,6 +1,6 @@
 <?php
 // Text
-$_['text_subject']  = '%s - Password reset request';
-$_['text_greeting'] = 'A new password was requested for %s administration.';
-$_['text_change']   = 'To reset your password click on the link below:';
-$_['text_ip']       = 'The IP used to make this request was:';
+$_['text_subject']  = '% s - Demande de réinitialisation du mot de passe';
+$_['text_greeting'] = 'Un nouveau mot de passe a été demandé pour l\'administration de% s.';
+$_['text_change']   = 'Pour réinitialiser votre mot de passe, cliquez sur le lien ci-dessous:';
+$_['text_ip']       = 'L\'adresse IP utilisée pour faire cette demande était:';
