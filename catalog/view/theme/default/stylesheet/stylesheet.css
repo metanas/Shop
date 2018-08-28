@@ -817,6 +817,7 @@ footer h4 {
 .product-thumb {
     background-color: #f5f5f5;
     /*border: 1px solid #ddd;*/
+    height: 350px;
     margin-bottom: 20px;
     overflow: hidden;
 }
