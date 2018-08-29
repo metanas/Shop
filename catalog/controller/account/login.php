@@ -4,7 +4,7 @@ class ControllerAccountLogin extends Controller {
 
 	public function index() {
 		if ($this->customer->isLogged()) {
-			$this->response->redirect($this->url->link('account/account', 'language=' . $this->config->get('config_language')));
+			$this->response->redirect($this->url->link('account/account', array('action' => 'edit', 'language' , $this->config->get('config_language'))));
 		}
 
         $this->load->language('account/register');
