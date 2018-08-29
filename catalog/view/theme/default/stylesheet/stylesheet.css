@@ -1259,7 +1259,6 @@ ul {
 }
 
 .check_filter {
-    display: block;
     position: relative;
     padding-left: 35px;
     margin-bottom: 12px;
@@ -1287,6 +1286,7 @@ ul {
     left: 0;
     height: 25px;
     width: 25px;
+    margin-top: -3px;
     background-color: #eee;
 }
 

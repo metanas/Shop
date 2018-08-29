@@ -7,7 +7,7 @@ class ControllerAccountAddress extends Controller
     public function index()
     {
         if (!$this->customer->isLogged()) {
-            $this->session->data['redirect'] = $this->url->link('account/address', 'language=' . $this->config->get('config_language'));
+            $this->session->data['redirect'] = $this->url->link('account/address', array('action' => 'address', 'language' => $this->config->get('config_language')));
 
             $this->response->redirect($this->url->link('account/login', 'language=' . $this->config->get('config_language')));
         }
@@ -194,8 +194,6 @@ class ControllerAccountAddress extends Controller
         $data['column_right'] = $this->load->controller('common/column_right');
         $data['content_top'] = $this->load->controller('common/content_top');
         $data['content_bottom'] = $this->load->controller('common/content_bottom');
-        $data['footer'] = $this->load->controller('common/footer');
-        $data['header'] = $this->load->controller('common/header');
 
         return $this->load->view('account/address_list', $data);
     }
