@@ -26,7 +26,7 @@ class ControllerCommonFooter extends Controller {
 		$data['voucher'] = $this->url->link('account/voucher', 'language=' . $this->config->get('config_language'));
 		$data['affiliate'] = $this->url->link('affiliate/login', 'language=' . $this->config->get('config_language'));
 		$data['special'] = $this->url->link('product/special', 'language=' . $this->config->get('config_language'));
-		$data['account'] = $this->url->link('account/account', 'language=' . $this->config->get('config_language'));
+		$data['account'] = $this->url->link('account/account', array('action' => 'edit', 'language' => $this->config->get('config_language')));
 		$data['order'] = $this->url->link('account/order', 'language=' . $this->config->get('config_language'));
 		$data['wishlist'] = $this->url->link('account/wishlist', 'language=' . $this->config->get('config_language'));
 		$data['newsletter'] = $this->url->link('account/newsletter', 'language=' . $this->config->get('config_language'));
