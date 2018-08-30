@@ -24,23 +24,6 @@ class ControllerAccountLogout extends Controller {
 
 		$this->document->setTitle($this->language->get('heading_title'));
 
-		$data['breadcrumbs'] = array();
-
-		$data['breadcrumbs'][] = array(
-			'text' => $this->language->get('text_home'),
-			'href' => $this->url->link('common/home', 'language=' . $this->config->get('config_language'))
-		);
-
-		$data['breadcrumbs'][] = array(
-			'text' => $this->language->get('text_account'),
-			'href' => $this->url->link('account/account', 'language=' . $this->config->get('config_language'))
-		);
-
-		$data['breadcrumbs'][] = array(
-			'text' => $this->language->get('text_logout'),
-			'href' => $this->url->link('account/logout', 'language=' . $this->config->get('config_language'))
-		);
-
 		$data['continue'] = $this->url->link('common/home', 'language=' . $this->config->get('config_language'));
 
 		$data['column_left'] = $this->load->controller('common/column_left');

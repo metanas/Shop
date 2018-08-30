@@ -94,7 +94,7 @@ class ControllerAccountWishList extends Controller
             }
         }
 
-        $data['continue'] = $this->url->link('account/account', 'language=' . $this->config->get('config_language'));
+        $data['continue'] = $this->url->link('common/home', 'language=' . $this->config->get('config_language'));
 
         $data['column_left'] = $this->load->controller('common/column_left');
         $data['column_right'] = $this->load->controller('common/column_right');
@@ -190,7 +190,7 @@ class ControllerAccountWishList extends Controller
                     $this->session->data['wishlist'] = array();
                 }
 
-                 if (($key = array_search($this->request->post['product_id'], $this->session->data['wishlist'])) !== false) {
+                if (($key = array_search($this->request->post['product_id'], $this->session->data['wishlist'])) !== false) {
                     unset($this->session->data['wishlist'][$key]);
                 }
 
