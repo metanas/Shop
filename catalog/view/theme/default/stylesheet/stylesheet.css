@@ -206,11 +206,13 @@ div.required .control-label:before {
     font-size: 12px;
 
 }
-.ver-center{
+
+.ver-center {
     display: inline-block;
     vertical-align: middle;
     float: none;
 }
+
 /* cart */
 #cart {
 }
@@ -243,7 +245,8 @@ div.required .control-label:before {
     min-width: 100%;
 
 }
-#cart .scrollStyle{
+
+#cart .scrollStyle {
     overflow-y: auto;
     max-height: 500px;
 }
@@ -464,9 +467,12 @@ header {
 }
 
 .select-zalark {
+    position: relative;
     width: 100%;
     height: 40px;
+    z-index: 1;
     border-radius: 0;
+    padding: 5px;
     background: transparent;
     border: 2px solid #e1e1e1;
     -webkit-appearance: none;
@@ -800,15 +806,16 @@ footer h4 {
     content: '\f054';
     font-family: FontAwesome;
 }
+
 /* product list */
 
-@media (min-width : 1170px) {
+@media (min-width: 1170px) {
     .swiper-wrapper .product-layout .product-thumb {
         height: 300px;
     }
 }
 
-@media (max-width : 480px) {
+@media (max-width: 480px) {
     .swiper-wrapper .product-layout .product-thumb {
         height: 190px;
     }

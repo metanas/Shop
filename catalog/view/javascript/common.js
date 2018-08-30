@@ -221,9 +221,10 @@ var cart = {
                 }
             },
             error: function (xhr, ajaxOptions, thrownError) {
-                // alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+                alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
             }
         });
+
         $('#cart').load('index.php?route=common/cart/info ul li');
     },
     'update': function (key, quantity) {

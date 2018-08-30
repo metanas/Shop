@@ -30,7 +30,9 @@ $_['entry_confirm']        ='Confirmer le mot de passe';
 $_['entry_sex']            ='Sexe';
 $_['entry_male']           ='Male';
 $_['entry_female']         ='Femme';
-$_['entry_birthday']       ='<option value=\'01\'>janvier</option>
+$_['entry_female']         ='Femme';
+$_['entry_birthday']       ='Date de naissance';
+$_['entry_month']          ='<option value=\'01\'>janvier</option>
                             <option value=\'02\'>février</option>
                             <option value=\'03\'>mars</option>
                             <option value=\'04\'>avril</option>
