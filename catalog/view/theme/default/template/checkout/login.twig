@@ -39,7 +39,7 @@
                 <input type="text" name="lastname" value="" placeholder="{{ entry_lastname }}" id="input-lastname"
                        class="form-control input-zalark"/>
             </div>
-            <label class="control-label" for="input-birthday">{{ entry_password }}</label>
+            <label class="control-label" for="input-lastname">{{ entry_birthday }}</label>
             <div class="form-group">
                 <div class="col-md-3" style="padding: 0">
                     <select name="birthday[]" class="select-zalark">
@@ -49,14 +49,14 @@
                         {% endfor %}
                     </select>
                     <i class="fa fa-angle-down"
-                       style="position: absolute;padding: 13px;cursor: pointer;right: 0"></i>
+                       style="position: absolute;padding: 13px;cursor: pointer;right: 0;top: 0;"></i>
                 </div>
                 <div class="col-md-6"><select name="birthday[]" class="select-zalark">
                         <option value="0" selected>Select Mois:</option>
-                        {{ entry_birthday }}
+                        {{ entry_month }}
                     </select>
                     <i class="fa fa-angle-down"
-                       style="position: absolute;padding: 13px;cursor: pointer;right: 15px"></i></div>
+                       style="position: absolute;padding: 13px;cursor: pointer;right: 15px;top: 0;"></i></div>
                 <div class="col-md-3" style="padding: 0">
                     <select name="birthday[]" class="select-zalark">
                         <option value="0" selected>Select Annee:</option>
@@ -65,11 +65,11 @@
                         {% endfor %}
                     </select>
                     <i class="fa fa-angle-down"
-                       style="position: absolute;padding: 13px;cursor: pointer;right: 0"></i>
+                       style="position: absolute;padding: 13px;cursor: pointer;right: 0;top: 0;"></i>
                 </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group" style="margin-top: 54px">
                 <label class="control-label" for="input-email">{{ entry_email_address }}</label>
                 <input type="text" name="email" value="" placeholder="{{ entry_email }}" id="input-email"
                        class="form-control input-zalark"/>
@@ -177,16 +177,6 @@
             return;
         }
 
-        if (stringChecker.email($('#collapse-checkout-option #sign-up-field input[name=\'email\']').val()) === false) {
-            $('#collapse-checkout-option #sign-up-field input[name=\'email\']').focus();
-            return;
-        }
-
-        if (stringChecker.password($('#collapse-checkout-option #sign-up-field input[name=\'password\']').val()) === false) {
-            $('#collapse-checkout-option #sign-up-field input[name=\'password\']').focus();
-            return;
-        }
-
         $.ajax({
             url: 'index.php?route=checkout/register/save&language={{ language }}',
             type: 'post',
@@ -199,7 +189,9 @@
                 $('#button-register').button('reset');
             },
             success: function (json) {
-                console.log(json)
+                if (json['success']) {
+                    step.next();
+                }
                 //     $('.alert-dismissible, .text-danger').remove();
                 //     $('.form-group').removeClass('has-error');
                 //

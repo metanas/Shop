@@ -8,8 +8,8 @@ class ControllerCheckoutShippingAddress extends Controller
     {
         $this->load->language('checkout/checkout');
 
-        if (isset($this->session->data['shipping_address']['address_id'])) {
-            $data['address_id'] = $this->session->data['shipping_address']['address_id'];
+        if (isset($this->session->data['shipping_address'])) {
+            $data['address_id'] = $this->session->data['shipping_address'];
         } else {
             $data['address_id'] = $this->customer->getAddressId();
         }
@@ -18,27 +18,6 @@ class ControllerCheckoutShippingAddress extends Controller
 
         $data['addresses'] = $this->model_account_address->getAddresses();
 
-        if (isset($this->session->data['shipping_address']['postcode'])) {
-            $data['postcode'] = $this->session->data['shipping_address']['postcode'];
-        } else {
-            $data['postcode'] = '';
-        }
-
-        if (isset($this->session->data['shipping_address']['country_id'])) {
-            $data['country_id'] = $this->session->data['shipping_address']['country_id'];
-        } else {
-            $data['country_id'] = $this->config->get('config_country_id');
-        }
-
-        if (isset($this->session->data['shipping_address']['zone_id'])) {
-            $data['zone_id'] = $this->session->data['shipping_address']['zone_id'];
-        } else {
-            $data['zone_id'] = '';
-        }
-
-        $this->load->model('localisation/country');
-
-        $data['countries'] = $this->model_localisation_country->getCountries();
 
         // Custom Fields
         $data['custom_fields'] = array();
@@ -53,11 +32,8 @@ class ControllerCheckoutShippingAddress extends Controller
             }
         }
 
-        unset($this->session->data['address_id']);
-        unset($this->session->data['payment_address']);
         $data['language'] = $this->config->get('config_language');
 
-        $this->response->setOutput($this->load->view('checkout/shipping_address', $data));
         return $this->load->view('checkout/shipping_address', $data);
     }
 
@@ -87,12 +63,6 @@ class ControllerCheckoutShippingAddress extends Controller
                     $json['error']['warning'] = $this->language->get('error_address');
                 }
 
-                if (!$json) {
-                    $this->session->data['shipping_address'] = $this->model_account_address->getAddress($this->request->post['address_id']);
-
-                    unset($this->session->data['shipping_method']);
-                    unset($this->session->data['shipping_methods']);
-                }
             } else {
 
                 if ($this->validateForm()) {
@@ -105,24 +75,19 @@ class ControllerCheckoutShippingAddress extends Controller
                 if (!$json) {
                     $address_id = $this->model_account_address->addAddress($this->customer->getId(), $this->request->post);
 
-                    $this->session->data['shipping_address'] = $this->model_account_address->getAddress($address_id);
-
                     // If no default address ID set we use the last address
                     if (!$this->customer->getAddressId()) {
                         $this->load->model('account/customer');
 
                         $this->model_account_customer->editAddressId($this->customer->getId(), $address_id);
                     }
-
-                    unset($this->session->data['shipping_method']);
-                    unset($this->session->data['shipping_methods']);
                 }
             }
         }
 
         if (!$json) {
             $json = $this->request->post;
-            $json["address_id"] = $this->session->data['shipping_address']['address_id'];
+            $json["address_id"] = $address_id;
         }
 
         $this->response->addHeader('Content-Type: application/json');
@@ -170,7 +135,7 @@ class ControllerCheckoutShippingAddress extends Controller
         }
 
         if (!$json) {
-            $this->session->data['address_id'] = $this->request->post['address_id'];
+            $this->session->data['shipping_address'] = $this->request->post['address_id'];
             $json['success'] = true;
         }
 

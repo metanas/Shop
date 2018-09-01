@@ -156,9 +156,9 @@ class ControllerCheckoutCheckout extends Controller
     {
         if ((int)$this->request->post['step_id'] === 2 && isset($this->session->data['customer_id'])) {
             $this->response->setOutput($this->load->controller('checkout/shipping_address'));
-        } elseif ((int)$this->request->post['step_id'] === 3 && isset($this->session->data['customer_id']) && isset($this->session->data['address_id'])) {
+        } elseif ((int)$this->request->post['step_id'] === 3 && isset($this->session->data['customer_id']) && isset($this->session->data['shipping_address'])) {
             $this->response->setOutput($this->load->controller('checkout/payment_address'));
-        } elseif ((int)$this->request->post['step_id'] === 4 && isset($this->session->data['customer_id']) && isset($this->session->data['address_id']) && isset($this->session->data['payment_address'])) {
+        } elseif ((int)$this->request->post['step_id'] === 4 && isset($this->session->data['customer_id']) && isset($this->session->data['shipping_address']) && isset($this->session->data['payment_method'])) {
             $this->response->setOutput($this->load->controller('checkout/confirm'));
         }else{
             $this->response->setOutput($this->load->controller('checkout/checkout'));

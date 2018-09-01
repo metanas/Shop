@@ -222,7 +222,7 @@ class ControllerCheckoutRegister extends Controller
             unset($this->session->data['payment_methods']);
         }
 
-        if (!$json) {
+        if (isset($customer_id)) {
             $json['success'] = true;
         }
 

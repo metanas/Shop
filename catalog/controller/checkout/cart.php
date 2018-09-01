@@ -57,6 +57,7 @@ class ControllerCheckoutCart extends Controller
             $products = $this->cart->getProducts();
 
             $data['total_products'] = count($products);
+            $this->load->model('catalog/product');
 
             foreach ($products as $product) {
                 $product_total = 0;
@@ -131,13 +132,14 @@ class ControllerCheckoutCart extends Controller
                     'color' => $product['color'],
                     'option' => $option_data,
                     'recurring' => $recurring,
-                    'quantity' => $product['quantity'],
+                    'quantity' => $this->model_catalog_product->getProductOptionByName($product['product_id'], 'size', $option_data[0]['value'])['quantity'],
                     'stock' => $product['stock'] ? true : !(!$this->config->get('config_stock_checkout') || $this->config->get('config_stock_warning')),
                     'reward' => ($product['reward'] ? sprintf($this->language->get('text_points'), $product['reward']) : ''),
                     'price' => $price,
                     'total' => $total,
                     'href' => $this->url->link('product/product', 'language=' . $this->config->get('config_language') . '&product_id=' . $product['product_id'])
                 );
+                var_dump($data['products']);
             }
 
             // Gift Voucher
@@ -435,7 +437,7 @@ class ControllerCheckoutCart extends Controller
                 'total' => &$total
             );
             $json['test'] = $this->request->post;
-            if(!$this->cart->hasProducts()){
+            if (!$this->cart->hasProducts()) {
                 $json['redirect'] = $this->url->link('checkout/cart');
             }
 
