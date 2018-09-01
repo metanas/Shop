@@ -87,13 +87,15 @@
 
                                         {#<td id="r{{ loop.index }}" class="text-left">{{ product.model }} <button type="button" data-toggle="tooltip" title="{{ button_remove }}" class="btn btn-danger" onclick="cart.remove('{{ product.cart_id }}');"></button></td>#}
                                         <td id="r{{ loop.index }}" class="text-left">
-                                            <div class="input-group btn-block" style="max-width: 200px;">
-                                                <select name="quantity[{{ product.cart_id }}]" class="form-control">
+                                            <div class="input-group btn-block" style="max-width: 200px">
+                                                <select name="quantity[{{ product.cart_id }}]" class="select-zalark">
                                                     <option value="1" selected>1</option>
                                                     {% for i in 2..product.quantity %}
                                                         <option value="i">{{ i }}</option>
                                                     {% endfor %}
                                                 </select>
+                                                <i class="fa fa-angle-down"
+                                                   style="position: absolute;padding: 13px;cursor: pointer;right: 0;top: 0;"></i>
                                                 {#<div class="input-group-btn">#}
                                                 {#<button type="submit" data-toggle="tooltip" title="{{ button_update }}" class="btn btn-primary"><i class="fa fa-refresh"></i></button>#}
 
