@@ -45,7 +45,7 @@
                                     </div>
                                     <div id="model" class="ScrollStyle">
                                         {% for model in products_models %}
-                                            <label class="check_filter check-model">{{ model }}
+                                            <label class="check_filter check-model" style="display: block">{{ model }}
                                                 <input class="checkbox" type="checkbox" name="model[]"
                                                        value="{{ model }}">
                                                 <span class="checkmark"></span>
@@ -78,7 +78,7 @@
                                     </div>
                                     <div id="color" class="ScrollStyle">
                                         {% for color in products_colors %}
-                                            <label class="check_filter check-color">{{ color.color }}
+                                            <label class="check_filter check-color" style="display: block">{{ color.color }}
                                                 <input class="checkbox" type="checkbox" name="color[]"
                                                        value="{{ color.color }}">
                                                 <span class="checkmark checkradio"
@@ -141,7 +141,7 @@
                                     </div>
                                     <div id="size" class="ScrollStyle">
                                         {#{% for color in products_colors %}#}
-                                        {#<label class="check_filter">{{ color }}#}
+                                        {#<label class="check_filter" style="display: block">{{ color }}#}
                                         {#<input type="checkbox" name="color[]" value="{{ color }}">#}
                                         {#<span class="checkmark"></span>#}
                                         {#</label>#}
