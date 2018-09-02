@@ -7,10 +7,6 @@ class ControllerCheckoutPaymentAddress extends Controller
 
         $this->load->language('checkout/checkout');
 
-        if (!isset($this->session->data['shi'])) {
-            $data['payment_method'] = $this->session->data['payment_method'];
-        }
-
         if (isset($this->session->data['payment_method'])) {
             $data['payment_method'] = $this->session->data['payment_method'];
         }

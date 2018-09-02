@@ -58,7 +58,6 @@
                                         <td id="r{{ loop.index }}" class="text-left">
 
                                             <a href="{{ product.href }}">{{ product.model }}<br/>{{ product.name }}</a>
-                                            {% if not product.stock %} <span class="text-danger">***</span> {% endif %}
                                             <br/>
                                             <br/>
                                             <span>Couleur : {{ product.color }}</span><br/>
@@ -89,9 +88,8 @@
                                         <td id="r{{ loop.index }}" class="text-left">
                                             <div class="input-group btn-block" style="max-width: 200px">
                                                 <select name="quantity[{{ product.cart_id }}]" class="select-zalark">
-                                                    <option value="1" selected>1</option>
-                                                    {% for i in 2..product.quantity %}
-                                                        <option value="i">{{ i }}</option>
+                                                    {% for i in 1..product.max_quantity %}
+                                                        <option value="{{ i }}" {% if product.quantity == i %} selected {% endif %}>{{ i }}</option>
                                                     {% endfor %}
                                                 </select>
                                                 <i class="fa fa-angle-down"
@@ -174,17 +172,17 @@
                     <div class="col-sm-12">
                         {% set tot = totals|first %}
 
-                        <div class="text-left col-sm-8" style="margin-bottom: 20px">{{ tot.title }}</div>
-                        <div class="text-right col-sm-4" style="margin-bottom: 20px">{{ tot.text }}</div>
+                        <div class="text-left col-sm-6" style="margin-bottom: 20px">{{ tot.title }}</div>
+                        <div class="text-right col-sm-6" style="margin-bottom: 20px">{{ tot.text }}</div>
                         <br>
 
                         <div class="text-left col-sm-8" style="margin-bottom: 20px">Livraison</div>
                         <div class="text-right col-sm-4" style="margin-bottom: 20px">gratuite</div>
                         <br>
                         {% set total = totals|last %}
-                        <div class="text-left col-sm-8" style="margin-bottom: 20px"><strong>{{ total.title }}(TVA
+                        <div class="text-left col-sm-6" style="margin-bottom: 20px"><strong>{{ total.title }}(TVA
                                 incluse)</strong></div>
-                        <div class="text-right col-sm-4" style="margin-bottom: 20px"><strong>{{ total.text }}</strong>
+                        <div class="text-right col-sm-6" style="margin-bottom: 20px"><strong>{{ total.text }}</strong>
                         </div>
                         <br>
 
@@ -205,4 +203,25 @@
             {{ content_bottom }}</div>
         {{ column_right }}</div>
 </div>
+<script>
+    $(".select-zalark").change(function () {
+        var name = this.name.split("[")[1];
+        var cart_id = name.substr(0, name.length);
+        var quantity = this.value;
+        $.ajax({
+            url: "index.php?route=checkout/cart/edit",
+            type: "POST",
+            data: {"cart_id": cart_id, "quantity": quantity},
+            success: function (json) {
+                console.log(json);
+                if (json['success']) {
+
+                }
+            },
+            error: function () {
+                
+            }
+        })
+    })
+</script>
 {{ footer }}
