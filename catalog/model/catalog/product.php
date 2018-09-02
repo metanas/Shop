@@ -396,6 +396,13 @@ class ModelCatalogProduct extends Model
         return $product_option_data;
     }
 
+    public function getProductOptionByName($product_id, $option_name, $option_value)
+    {
+        $query = $this->db->query("SELECT * FROM oc_option o left join oc_option_value_description pvd on(o.option_id=pvd.option_id) left join oc_product_option_value pov on(pov.option_value_id=pvd.option_value_id) where o.type='" . $option_name . "' and pvd.name='" . $option_value . "' and pov.product_id='" . (int)$product_id . "'");
+
+        return $query->row;
+    }
+
     public function getProductDiscounts($product_id)
     {
         $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "product_discount WHERE product_id = '" . (int)$product_id . "' AND customer_group_id = '" . (int)$this->config->get('config_customer_group_id') . "' AND quantity > 1 AND ((date_start = '0000-00-00' OR date_start < NOW()) AND (date_end = '0000-00-00' OR date_end > NOW())) ORDER BY quantity ASC, priority ASC, price ASC");
