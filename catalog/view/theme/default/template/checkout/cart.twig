@@ -103,8 +103,7 @@
                                             <br/>
                                             <br/>
                                             <br/>
-                                            <span id="r{{ loop.index }}"
-                                                  class="c_price pull-right">{{ product.total }}</span>
+                                            <span id="r{{ loop.index }}" class="c_price pull-right">{{ product.total }}</span>
                                         </td>
                                         {#<td id="r{{ loop.index }}" class="text-right">{{ product.price }}</td>#}
 
@@ -173,7 +172,7 @@
                         {% set tot = totals|first %}
 
                         <div class="text-left col-sm-6" style="margin-bottom: 20px">{{ tot.title }}</div>
-                        <div class="text-right col-sm-6" style="margin-bottom: 20px">{{ tot.text }}</div>
+                        <div class="text-right col-sm-6" id="sub-total" style="margin-bottom: 20px">{{ tot.text }}</div>
                         <br>
 
                         <div class="text-left col-sm-8" style="margin-bottom: 20px">Livraison</div>
@@ -182,7 +181,8 @@
                         {% set total = totals|last %}
                         <div class="text-left col-sm-6" style="margin-bottom: 20px"><strong>{{ total.title }}(TVA
                                 incluse)</strong></div>
-                        <div class="text-right col-sm-6" style="margin-bottom: 20px"><strong>{{ total.text }}</strong>
+                        <div class="text-right col-sm-6" id="total" style="margin-bottom: 20px">
+                            <strong>{{ total.text }}</strong>
                         </div>
                         <br>
 
@@ -208,6 +208,8 @@
         var name = this.name.split("[")[1];
         var cart_id = name.substr(0, name.length);
         var quantity = this.value;
+        var s = $(this);
+        debugger;
         $.ajax({
             url: "index.php?route=checkout/cart/edit",
             type: "POST",
@@ -215,11 +217,13 @@
             success: function (json) {
                 console.log(json);
                 if (json['success']) {
-
+                    $('#sub-total').html(json['total']);
+                    $('#total').html("<b>" + json['total'] + "</b>");
+                    s.parents('.text-left').children('.c_price').html(json['product_price'])
                 }
             },
             error: function () {
-                
+
             }
         })
     })

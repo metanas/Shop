@@ -376,7 +376,10 @@ class ControllerCheckoutCart extends Controller
 
             $this->cart->update($this->request->post['cart_id'], $this->request->post['quantity']);
 
-           $json['success'] = $this->language->get('text_remove');
+            $json['success'] = $this->language->get('text_remove');
+
+            $json['total'] = $this->currency->format($this->cart->getTotal() , $this->session->data['currency']);
+            $json['product_price'] = $this->currency->format($this->cart->getProduct($this->request->post['cart_id'])['price'] * $this->request->post['quantity'] , $this->session->data['currency']);
 
             unset($this->session->data['shipping_method']);
             unset($this->session->data['payment_method']);
