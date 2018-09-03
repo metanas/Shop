@@ -102,8 +102,14 @@
                                             <br/>
                                             <br/>
                                             <br/>
-                                            <br/>
-                                            <span id="r{{ loop.index }}" class="c_price pull-right">{{ product.total }}</span>
+                                            {% if product.old_price %}
+                                                <span class="pull-right price-old">{{ product.old_price }}</span><br>
+                                                <span id="r{{ loop.index }}"
+                                                      class="c_price pull-right price-new">{{ product.total }}</span>
+                                            {% else %}
+                                                <span id="r{{ loop.index }}"
+                                                      class="c_price pull-right">{{ product.total }}</span>
+                                            {% endif %}
                                         </td>
                                         {#<td id="r{{ loop.index }}" class="text-right">{{ product.price }}</td>#}
 
@@ -209,7 +215,6 @@
         var cart_id = name.substr(0, name.length);
         var quantity = this.value;
         var s = $(this);
-        debugger;
         $.ajax({
             url: "index.php?route=checkout/cart/edit",
             type: "POST",
@@ -219,7 +224,10 @@
                 if (json['success']) {
                     $('#sub-total').html(json['total']);
                     $('#total').html("<b>" + json['total'] + "</b>");
-                    s.parents('.text-left').children('.c_price').html(json['product_price'])
+                    s.parents('.text-left').children('.c_price').html(json['price']);
+                    if(json['old_price']){
+                        s.parents('.text-left').children('.price-old').html(json['old_price'])
+                    }
                 }
             },
             error: function () {

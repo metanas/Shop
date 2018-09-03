@@ -95,6 +95,9 @@ class ControllerCheckoutCart extends Controller
 
                     $price = $this->currency->format($unit_price, $this->session->data['currency']);
                     $total = $this->currency->format($unit_price * $product['quantity'], $this->session->data['currency']);
+                    if ($product['old_price']) {
+                        $old_price = $this->currency->format($product['old_price'] * $product['quantity'], $this->session->data['currency']);
+                    }
                 } else {
                     $price = false;
                     $total = false;
@@ -126,6 +129,7 @@ class ControllerCheckoutCart extends Controller
                     'stock' => $product['stock'] ? true : !(!$this->config->get('config_stock_checkout') || $this->config->get('config_stock_warning')),
                     'reward' => ($product['reward'] ? sprintf($this->language->get('text_points'), $product['reward']) : ''),
                     'price' => $price,
+                    'old_price' => isset($old_price) ? $old_price : null,
                     'total' => $total,
                     'href' => $this->url->link('product/product', 'language=' . $this->config->get('config_language') . '&product_id=' . $product['product_id'])
                 );
@@ -378,8 +382,15 @@ class ControllerCheckoutCart extends Controller
 
             $json['success'] = $this->language->get('text_remove');
 
-            $json['total'] = $this->currency->format($this->cart->getTotal() , $this->session->data['currency']);
-            $json['product_price'] = $this->currency->format($this->cart->getProduct($this->request->post['cart_id'])['price'] * $this->request->post['quantity'] , $this->session->data['currency']);
+            $json['total'] = $this->currency->format($this->cart->getTotal(), $this->session->data['currency']);
+
+            $prices = $this->cart->getProduct($this->request->post['cart_id']);
+            if ($prices['price']) {
+                $json['old_price'] = $this->currency->format($prices['old_price'] * $this->request->post['quantity'], $this->session->data['currency']);
+                $json['price'] = $this->currency->format($prices['price'] * $this->request->post['quantity'], $this->session->data['currency']);
+            } else {
+                $json['price'] = $this->currency->format($prices['old_price'] * $this->request->post['quantity'], $this->session->data['currency']);
+            }
 
             unset($this->session->data['shipping_method']);
             unset($this->session->data['payment_method']);

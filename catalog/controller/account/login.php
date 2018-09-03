@@ -50,7 +50,7 @@ class ControllerAccountLogin extends Controller
             if (isset($this->request->post['redirect']) && $this->request->post['redirect'] != $this->url->link('account/logout', 'language=' . $this->config->get('config_language')) && (strpos($this->request->post['redirect'], $this->config->get('config_url')) !== false)) {
                 $this->response->redirect(str_replace('&amp;', '&', $this->request->post['redirect']));
             } else {
-                $this->response->redirect($this->url->link('account/home', 'language=' . $this->config->get('config_language')));
+                $this->response->redirect($this->url->link('common/home', 'language=' . $this->config->get('config_language')));
             }
         }
 
