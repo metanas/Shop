@@ -18,31 +18,14 @@ class ControllerAccountNewsletter extends Controller {
 
 			$this->session->data['success'] = $this->language->get('text_success');
 
-			$this->response->redirect($this->url->link('account/account', 'language=' . $this->config->get('config_language')));
+			$this->response->redirect($this->url->link('account/account', array('action' => 'edit', 'language' => $this->config->get('config_language'))));
 		}
-
-		$data['breadcrumbs'] = array();
-
-		$data['breadcrumbs'][] = array(
-			'text' => $this->language->get('text_home'),
-			'href' => $this->url->link('common/home', 'language=' . $this->config->get('config_language'))
-		);
-
-		$data['breadcrumbs'][] = array(
-			'text' => $this->language->get('text_account'),
-			'href' => $this->url->link('account/account', 'language=' . $this->config->get('config_language'))
-		);
-
-		$data['breadcrumbs'][] = array(
-			'text' => $this->language->get('text_newsletter'),
-			'href' => $this->url->link('account/newsletter', 'language=' . $this->config->get('config_language'))
-		);
 
 		$data['action'] = $this->url->link('account/newsletter', 'language=' . $this->config->get('config_language'));
 
 		$data['newsletter'] = $this->customer->getNewsletter();
 
-		$data['back'] = $this->url->link('account/account', 'language=' . $this->config->get('config_language'));
+		$data['back'] = $this->url->link('account/account', array('action' => 'edit', 'language' => $this->config->get('config_language')));
 
 		$data['column_left'] = $this->load->controller('common/column_left');
 		$data['column_right'] = $this->load->controller('common/column_right');

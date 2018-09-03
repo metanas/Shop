@@ -8,67 +8,44 @@ class ControllerCheckoutConfirm extends Controller
 
         $this->load->model('account/address');
 
-        if (isset($this->session->data['address_id'])) {
-            $data['shipping_address'] = $this->model_account_address->getAddress($this->session->data['address_id']);
-        } else {
-            $data['shipping_address'] = "adresse non disponible";
+        if ($this->cart->hasShipping()) {
+            // Validate if shipping address has been set.
+            if (isset($this->session->data['shipping_address'])) {
+                $data['shipping_address'] = $this->model_account_address->getAddress($this->session->data['shipping_address']);
+            } else {
+                $this->response->redirect($this->url->link("checkout/checkout",'language=' . $this->config->get('config_language') ));
+            }
+
+            // Validate if payment method has been set.
+            if (isset($this->session->data['payment_method'])) {
+                $data['payment_method'] = $this->session->data['payment_method'];
+            } else {
+                $this->response->redirect($this->url->link("checkout/checkout",'language=' . $this->config->get('config_language') ));
+            }
         }
 
-        if (isset($this->session->data['payment_type'])) {
-            $data['shipping_payment'] = $this->session->data['payment_type'];
-        } else {
-            $data['shipping_payment'] = "methode de paiement non disponible";
-        }
+		// Validate cart has products and has stock.
+		if ((!$this->cart->hasProducts() && empty($this->session->data['vouchers']))) {
+            $this->response->redirect($this->url->link('checkout/cart', 'language=' . $this->config->get('config_language')));
+		}
 
-//		if ($this->cart->hasShipping()) {
-//			// Validate if shipping address has been set.
-//			if (!isset($this->session->data['shipping_address'])) {
-//				$redirect = $this->url->link('checkout/checkout', 'language=' . $this->config->get('config_language'));
-//			}
-//
-//			// Validate if shipping method has been set.
-//			if (!isset($this->session->data['shipping_method'])) {
-//				$redirect = $this->url->link('checkout/checkout', 'language=' . $this->config->get('config_language'));
-//			}
-//		} else {
-//			unset($this->session->data['shipping_address']);
-//			unset($this->session->data['shipping_method']);
-//			unset($this->session->data['shipping_methods']);
-//		}
-//
-//		// Validate if payment address has been set.
-//		if (!isset($this->session->data['payment_address'])) {
-//			$redirect = $this->url->link('checkout/checkout', 'language=' . $this->config->get('config_language'));
-//		}
-//
-//		// Validate if payment method has been set.
-//		if (!isset($this->session->data['payment_method'])) {
-//			$redirect = $this->url->link('checkout/checkout', 'language=' . $this->config->get('config_language'));
-//		}
-//
-//		// Validate cart has products and has stock.
-//		if ((!$this->cart->hasProducts() && empty($this->session->data['vouchers'])) || (!$this->cart->hasStock() && !$this->config->get('config_stock_checkout'))) {
-//			$redirect = $this->url->link('checkout/cart', 'language=' . $this->config->get('config_language'));
-//		}
+		// Validate minimum quantity requirements.
+		$products = $this->cart->getProducts();
 
-        // Validate minimum quantity requirements.
-//		$products = $this->cart->getProducts();
-//
-//		foreach ($products as $product) {
-//			$product_total = 0;
-//
-//			foreach ($products as $product_2) {
-//				if ($product_2['product_id'] == $product['product_id']) {
-//					$product_total += $product_2['quantity'];
-//				}
-//			}
-//
-//			if ($product['minimum'] > $product_total) {
-//				$redirect = $this->url->link('checkout/cart', 'language=' . $this->config->get('config_language'));
-//
-//				break;
-//			}
-//		}
+		foreach ($products as $product) {
+			$product_total = 0;
+
+			foreach ($products as $product_2) {
+				if ($product_2['product_id'] == $product['product_id']) {
+					$product_total += $product_2['quantity'];
+				}
+			}
+
+			if ($product['minimum'] > $product_total) {
+                $this->response->redirect($this->url->link('checkout/cart', 'language=' . $this->config->get('config_language')));
+				break;
+			}
+		}
 //
 //		if (!$redirect) {
 //			$order_data = array();
@@ -430,7 +407,8 @@ class ControllerCheckoutConfirm extends Controller
         $this->load->model("tool/image");
 
         $data['products'] = array();
-        foreach ($this->cart->getProducts() as $product) {
+
+        foreach ($products as $product) {
             $option_data = array();
 
             foreach ($product['option'] as $option) {

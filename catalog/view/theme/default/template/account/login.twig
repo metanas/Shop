@@ -46,7 +46,7 @@
                             style="display: none;">{{ button_login }}</button>
                 </div>
                 <div class="col-sm-6">
-                    <h3>{{ text_login }}</h3>
+                    <h3 class="text-uppercase">{{ text_register }}</h3>
                     <hr style="margin-top: -5px">
                     <form action="{{ action_register }}" id="sign-up-field" method="post" enctype="multipart/form-data"
                           style="display: none">
@@ -61,6 +61,7 @@
                             <input type="text" name="lastname" placeholder="{{ entry_lastname }}"
                                    id="input-lastname" class="form-control input-zalark"/>
                         </div>
+                        <label class="control-label" for="input-lastname">{{ entry_birthday }}</label>
                         <div class="form-group">
                             <div class="col-md-3" style="padding: 0">
                                 <select name="birthday[]" class="select-zalark">
@@ -70,27 +71,27 @@
                                     {% endfor %}
                                 </select>
                                 <i class="fa fa-angle-down"
-                                   style="position: absolute;padding: 13px;cursor: pointer;right: 0"></i>
+                                   style="position: absolute;padding: 13px;cursor: pointer;right: 0;top: 0;"></i>
                             </div>
                             <div class="col-md-6"><select name="birthday[]" class="select-zalark">
                                     <option value="0" selected>Select Mois:</option>
-                                    {{ entry_birthday }}
+                                    {{ entry_month }}
                                 </select>
                                 <i class="fa fa-angle-down"
-                                   style="position: absolute;padding: 13px;cursor: pointer;right: 15px"></i></div>
+                                   style="position: absolute;padding: 13px;cursor: pointer;right: 15px;top: 0;"></i></div>
                             <div class="col-md-3" style="padding: 0">
-                                <select name="birthday[]" class="select-zalark">
+                                <select name="birthday[]" class="select-zalark" >
                                     <option value="0" selected>Select Annee:</option>
-                                    {% for i in 2000..1900 %}
+                                    {% for i in 2010..1900 %}
                                         <option value="{{ i }}">{{ i }}</option>
                                     {% endfor %}
                                 </select>
                                 <i class="fa fa-angle-down"
-                                   style="position: absolute;padding: 13px;cursor: pointer;right: 0"></i>
+                                   style="position: absolute;padding: 13px;cursor: pointer;right: 0;top: 0;"></i>
                             </div>
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group" style="margin-top: 54px">
                             <label class="control-label" for="input-email">{{ entry_email }}</label>
                             <input type="text" name="email" value="{{ email }}" placeholder="{{ entry_email }}"
                                    id="input-email" class="form-control input-zalark"/>
@@ -114,15 +115,15 @@
                                 <span class="checkmark checkradio"></span>
                             </label>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" style="margin-top: 25px">
                             <label class="check_filter">{{ text_newsletter }}
                                 <input type="checkbox" name="newsletter" value="Agree">
                                 <span class="checkmark"></span>
                             </label>
                         </div>
-                        <input type="submit" value="{{ text_register }}" class="zalark-button-border"/>
+                        <input type="submit" value="{{ button_register }}" class="zalark-button-border"/>
                     </form>
-                    <button class="zalark-button-border" id="register-action">{{ text_register }}</button>
+                    <button class="zalark-button-border" id="register-action">{{ button_register }}</button>
                 </div>
             </div>
             {{ content_bottom }}</div>
