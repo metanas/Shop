@@ -447,4 +447,8 @@ class ControllerCheckoutConfirm extends Controller
 
         return $this->load->view('checkout/confirm', $data);
     }
+
+    public function add(){
+
+    }
 }

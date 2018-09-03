@@ -52,10 +52,10 @@
         <div>Maroc</div>
     </div>
     {#<div class="col-sm-12">#}
-        {#<div class="fa-option" id="fac-edit"><i class="fa fa-edit"></i></div>#}
-        {#<h4>ADRESSE DE FACTURATION</h4>#}
-        {#<hr class="hr-marge">#}
-        {#Identique a l'adresse de livraison#}
+    {#<div class="fa-option" id="fac-edit"><i class="fa fa-edit"></i></div>#}
+    {#<h4>ADRESSE DE FACTURATION</h4>#}
+    {#<hr class="hr-marge">#}
+    {#Identique a l'adresse de livraison#}
     {#</div>#}
     <div class="col-sm-12">
         <div class="fa-option" id="pay-edit"><i class="fa fa-edit"></i></div>
@@ -76,19 +76,24 @@
             <div class="coupon-field">
                 <i class="fa fa-search" id="coupon"
                    style="position: absolute;padding: 13px;cursor: pointer;right: 15px"></i>
-                <input type="text" class="form-control input-zalark da" name="coupon" placeholder="Entrez votre code promo"
+                <input type="text" class="form-control input-zalark da" name="coupon"
+                       placeholder="Entrez votre code promo"
                        style="padding-right: 30px;"/>
             </div>
         </div>
-        <div id="c_cart_layout_right" class="col-md-12" style="background-color: lightgrey; border-radius: 5px"
-             align="center">
-            <div class="col-sm-6 text-left checkout-text"><b>Livraison</b></div>
-            <div class="col-sm-6 text-right checkout-text"><b>gratuite</b></div>
-            <hr style="border-color: grey">
-            <div class="col-sm-7 text-left checkout-text"><b>Total </b><span
-                        style="font-size: 12px">(TVA incluse)</span>
+        <div id="c_cart_layout_right" class="col-md-12" style="background-color: lightgrey; border-radius: 5px">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-sm-6 text-left checkout-text"><b>Livraison</b></div>
+                    <div class="col-sm-6 text-right checkout-text"><b>gratuite</b></div>
+                </div>
             </div>
-            <div class="col-sm-5 text-right checkout-text"><b>{{ total }} {{ currency }}</b></div>
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-sm-6 text-left checkout-text"><b>Total </b><span style="font-size: 12px">(TVA incluse)</span></div>
+                    <div class="col-sm-6 text-right checkout-text"  id="total"><b>{{ total }} {{ currency }}</b></div>
+                </div>
+            </div>
             <button class="col-sm-12 zalark-button">VALIDER LE PAIEMENT</button>
         </div>
     </div>
@@ -108,12 +113,18 @@
             dataType: 'json',
             success: function (json) {
                 $('.text-danger').remove();
-                console.log(json);
                 $('.coupon-field').removeClass('has-error');
-
                 if (json['error']) {
                     $('.coupon-field').addClass('has-error');
                     $('.coupon-field').after('<div class="text-danger"><i class="fa fa-exclamation-circle"></i>' + json['error'] + '</div>');
+                } else if (json['success']) {
+                    $('.coupon-field').addClass('has-success');
+                    var html = "<div class='col-md-12'><div class='row'><div class=\"col-sm-6 text-left checkout-text\"><b>Coupon</b></div>";
+                    html += "<div class=\"col-sm-6 text-right checkout-text\"><b>" + json['discount'] + "</b></div></div></div>";
+                    html += "<div class='col-md-12'><div class='row'><div class=\"col-sm-6 text-left checkout-text\"><b>Total</b></div>";
+                    html += "<div class=\"col-sm-6 text-right checkout-text price-new \"><b>" + json['total'] + "</b></div></div></div>";
+                    $('#total').after(html);
+                    $('#total').addClass('price-old');
                 }
             },
             error: function (xhr, ajaxOptions, thrownError) {
