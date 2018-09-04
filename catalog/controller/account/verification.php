@@ -19,7 +19,10 @@ class ControllerAccountVerification extends Controller {
         $customer_id = $this->request->get['u'];
         $verification_code = $this->request->get['v'];
 
+        $this->load->model('account/verification');
+
         $customer = $this->db->query("SELECT verification_code FROM " . DB_PREFIX . "customer_verification WHERE customer_id='" . $customer_id . "'");
+//        $customer = $this->model_account_verification->getVerificationCodeByCustomerId($customer_id);
 
         if ($customer->row['verification_code'] != $verification_code) {
             header('Location: '.HTTP_SERVER);die();
