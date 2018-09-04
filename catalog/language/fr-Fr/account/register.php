@@ -15,6 +15,7 @@ $_['text_your_address']    ='Votre adresse';
 $_['text_your_password']   ='Votre mot de passe';
 $_['text_agree']           ='j`ai lu et accepté les <a href="%s" class="agree">  <b> %s </b>  </a> ';
 $_['text_newsletter']      ='Oui, je veux recevoir par e-mail des infos sur les dernieres tendances<br>Desinscription possible a tout moment. (facultatif)';
+/* CUSTOM */$_['text_captcha_explanation'] = 'S\'il vous plaît entrer les chiffres et les lettres affichées sur l\'image ci-dessous.';
 
 
 // Entry
@@ -44,6 +45,8 @@ $_['entry_month']          ='<option value=\'01\'>janvier</option>
                             <option value=\'10\'>octobre</option>
                             <option value=\'11\'>novembre</option>
                             <option value=\'12\'>décembre</option>';
+/* CUSTOM */$_['entry_captcha']        = 'Vérification Captcha:';
+
 
 
 // Error
@@ -57,3 +60,4 @@ $_['error_custom_field']   ='%s requis!';
 $_['error_password']       ='Le mot de passe doit être compris entre 4 et 20 caractères!';
 $_['error_confirm']        ='La confirmation du mot de passe ne correspond pas au mot de passe!';
 $_['error_agree']          ='Avertissement: Vous devez accepter les %s!';
+/* CUSTOM */$_['error_captcha']        = 'Le Captcha était incorrect. Veuillez écrire les lettres et les chiffres affichées sur l\'image.';
