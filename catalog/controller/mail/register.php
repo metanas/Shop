@@ -3,12 +3,37 @@ class ControllerMailRegister extends Controller {
 	public function index(&$route, &$args, &$output) {
 		$this->load->language('mail/register');
 
+        /* CUSTOM [ */
+		$this->load->model('account/customer');
+
+		$customer_id = $this->model_account_customer->getCustomerByEmail($args[0]['email']);
+
+
+        $customer_id = (int)$customer_id['customer_id'];
+        var_dump($customer_id);
+
+
+
+        list($usec, $sec) = explode(' ', microtime());
+        srand((float) $sec + ((float) $usec * 100000));
+        $verification_code = md5($customer_id . ':' . rand());
+        $this->db->query("DELETE FROM ".DB_PREFIX."customer_verification WHERE customer_id = '".(int)$customer_id."'");
+        $this->db->query("INSERT INTO ".DB_PREFIX."customer_verification SET customer_id = '".(int)$customer_id."', verification_code = '".$verification_code."'");
+        $verification_link = $this->url->link('account/verification') . '&v=' . $verification_code . '&u=' . (int)$customer_id;
+        /* ] */
+
+
+
 		$data['text_welcome'] = sprintf($this->language->get('text_welcome'), html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8'));
 		$data['text_login'] = $this->language->get('text_login');
 		$data['text_approval'] = $this->language->get('text_approval');
 		$data['text_service'] = $this->language->get('text_service');
 		$data['text_thanks'] = $this->language->get('text_thanks');
 		$data['button_login'] = $this->language->get('button_login');
+
+		$data['text_email_verification'] = $this->language->get('text_email_verification') . "\n\n";
+		$data['verification_link'] = $verification_link;
+
 
 		$this->load->model('account/customer_group');
 

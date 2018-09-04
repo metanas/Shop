@@ -10,6 +10,7 @@ $_['text_your_details']    = 'Your Personal Details';
 $_['text_newsletter']      = 'Newsletter';
 $_['text_your_password']   = 'Your Password';
 $_['text_agree']           = 'I have read and agree to the <a href="%s" class="agree"><b>%s</b></a>';
+/* CUSTOM */$_['text_captcha_explanation'] = 'Please enter the numbers and letters displayed on the picture below.';
 
 // Entry
 $_['entry_customer_group'] = 'Customer Group';
@@ -20,6 +21,7 @@ $_['entry_telephone']      = 'Telephone';
 $_['entry_newsletter']     = 'Subscribe';
 $_['entry_password']       = 'Password';
 $_['entry_confirm']        = 'Password Confirm';
+/* CUSTOM */$_['entry_captcha']        = 'Captcha Verification:';
 
 // Error
 $_['error_exists']         = 'Warning: E-Mail Address is already registered!';
@@ -31,3 +33,4 @@ $_['error_custom_field']   = '%s required!';
 $_['error_password']       = 'Password must be between 4 and 20 characters!';
 $_['error_confirm']        = 'Password confirmation does not match password!';
 $_['error_agree']          = 'Warning: You must agree to the %s!';
+/* CUSTOM */$_['error_captcha']        = 'The Captcha was incorrect. Please write the lettes and numbers displayed on the picture.';

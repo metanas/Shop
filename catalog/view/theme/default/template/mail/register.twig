@@ -31,13 +31,15 @@
             <p>{{ text_service }}</p>
           {% else %}
             <p>{{ text_approval }}</p>
+            <p>{{ text_email_verification }}</p>
+            <p>{{ verification_link }}</p>
             <p>
               <br/>
             </p>
             <p style="text-align: center; font-weight: bold;"><a href="{{ login }}" style="border-radius:4px; color:#fff; text-decoration: none; background-color: #01b3e8; padding-left:18px; padding-right:18px; padding-top:10px; padding-bottom:10px; font-size:18px;">
                 {{ button_login }}
               </a></p>
-            <p>
+
               <br/>
             </p>
           {% endif %}
