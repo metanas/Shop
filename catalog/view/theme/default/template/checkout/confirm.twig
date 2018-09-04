@@ -43,7 +43,7 @@
 </div>
 <div class="col-sm-5">
     <div class="col-sm-12">
-        <div class="fa-option" id="address-edit"><i class="fa fa-edit"></i></div>
+        <div class="fa-option" id="address-edit" onclick="step.next(2)"><i class="fa fa-edit"></i></div>
         <h4>ADRESSE DE LIVRAISON</h4>
         <hr class="hr-marge">
         <span>{{ shipping_address.firstname }} {{ shipping_address.lastname }}</span>
@@ -58,7 +58,7 @@
     {#Identique a l'adresse de livraison#}
     {#</div>#}
     <div class="col-sm-12">
-        <div class="fa-option" id="pay-edit"><i class="fa fa-edit"></i></div>
+        <div class="fa-option" id="pay-edit" onclick="step.next(3)"><i class="fa fa-edit"></i></div>
         <h4>MOYEN DE PAYEMENT</h4>
         <hr class="hr-marge">
         {% if payment_method == '01' %}
@@ -131,17 +131,5 @@
                 alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
             }
         })
-    });
-
-    $("#address-edit").on('click', function () {
-        step.next(2)
-    });
-
-    $("#fac-edit").on('click', function () {
-        step.next(2)
-    });
-
-    $("#pay-edit").on('click', function () {
-        step.next(3)
     });
 </script>

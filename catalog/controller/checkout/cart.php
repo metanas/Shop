@@ -116,6 +116,8 @@ class ControllerCheckoutCart extends Controller
                         $recurring .= sprintf($this->language->get('text_payment_cancel'), $this->currency->format($this->tax->calculate($product['recurring']['price'] * $product['quantity'], $product['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']), $product['recurring']['cycle'], $frequencies[$product['recurring']['frequency']], $product['recurring']['duration']);
                     }
                 }
+                $product_option = $this->model_catalog_product->getProductOptionByName($product['product_id'], 'size', $option_data[0]['value']);
+
                 $data['products'][] = array(
                     'cart_id' => $product['cart_id'],
                     'thumb' => $image,
@@ -125,7 +127,7 @@ class ControllerCheckoutCart extends Controller
                     'option' => $option_data,
                     'recurring' => $recurring,
                     'quantity' => $product['quantity'],
-                    'max_quantity' => $this->model_catalog_product->getProductOptionByName($product['product_id'], 'size', $option_data[0]['value'])['quantity'],
+                    'max_quantity' => isset($product_option['quantity']) ? $product_option['quantity'] : 1,
                     'stock' => $product['stock'] ? true : !(!$this->config->get('config_stock_checkout') || $this->config->get('config_stock_warning')),
                     'reward' => ($product['reward'] ? sprintf($this->language->get('text_points'), $product['reward']) : ''),
                     'price' => $price,

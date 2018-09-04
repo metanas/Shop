@@ -44,7 +44,7 @@ class ControllerExtensionTotalCoupon extends Controller
 
                 $json['total'] = $this->currency->format($total - ($total * $coupon_info['discount']) / 100, $this->session->data['currency']);
 
-                $json['discount'] = (int)$coupon_info['discount'];
+                $json['discount'] = (int)$coupon_info['discount'] . "%";
 
                 $json['success'] = $this->language->get('text_success');
                 $this->session->data['coupon'] = $this->request->post['coupon'];
@@ -56,5 +56,11 @@ class ControllerExtensionTotalCoupon extends Controller
         }
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
+    }
+
+    public function remove(){
+        $json = array();
+
+        unset($this->session->data['coupon']);
     }
 }
