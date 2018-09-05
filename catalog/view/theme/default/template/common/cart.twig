@@ -84,7 +84,7 @@
     <div class="cart col-lg-4 col-md-4 col-sm-4 col-xs-4" align="center">
         <a href="{{ wishlist }}">
             <img id="favorite" src="image/favorite.png" width="25" height="25">
-            <p class="cart-para">{{ text_wishlist }}</p>
+            <p class="cart-para text-capitalize">{{ text_wishlist }}</p>
             <span id="favorite-cart"
                   class="quantity" {% if not favorite_Total %} style="display: none" {% endif %}>{{ favorite_Total }}</span>
         </a>

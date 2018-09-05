@@ -345,7 +345,6 @@ class ControllerCatalogOption extends Controller {
         $this->load->model('tool/image');
 
         $data['option_values'] = array();
-
         foreach ($option_values as $option_value) {
             if (is_file(DIR_IMAGE . $option_value['image'])) {
                 $image = $option_value['image'];
@@ -390,6 +389,7 @@ class ControllerCatalogOption extends Controller {
 
         if (isset($this->request->post['option_value'])) {
             foreach ($this->request->post['option_value'] as $option_value_id => $option_value) {
+                var_dump($option_value);
                 foreach ($option_value['option_value_description'] as $language_id => $option_value_description) {
                     if ((utf8_strlen($option_value_description['name']) < 1) || (utf8_strlen($option_value_description['name']) > 128)) {
                         $this->error['option_value'][$option_value_id][$language_id] = $this->language->get('error_option_value');
