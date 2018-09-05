@@ -74,9 +74,11 @@
         <hr class="hr-marge">
         <div class="form-group">
             <div class="coupon-field">
+                <i class="fa fa-remove" id="remove-coupon"
+                   style="position: absolute;padding: 13px;cursor: pointer;right: 15px;display: {% if coupon %} inline-block{% else %} none {% endif %};"></i>
                 <i class="fa fa-search" id="coupon"
-                   style="position: absolute;padding: 13px;cursor: pointer;right: 15px"></i>
-                <input type="text" class="form-control input-zalark da" name="coupon"
+                   style="position: absolute;padding: 13px;cursor: pointer;right: 15px;display: {% if coupon %} none {% else %} inline-block {% endif %};"></i>
+                <input type="text" class="form-control input-zalark" name="coupon"
                        placeholder="Entrez votre code promo"
                        style="padding-right: 30px;"/>
             </div>
@@ -90,8 +92,9 @@
             </div>
             <div class="col-md-12">
                 <div class="row">
-                    <div class="col-sm-6 text-left checkout-text"><b>Total </b><span style="font-size: 12px">(TVA incluse)</span></div>
-                    <div class="col-sm-6 text-right checkout-text"  id="total"><b>{{ total }} {{ currency }}</b></div>
+                    <div class="col-sm-6 text-left checkout-text"><b>Total </b><span style="font-size: 12px">(TVA incluse)</span>
+                    </div>
+                    <div class="col-sm-6 text-right checkout-text" id="total"><b>{{ total }} {{ currency }}</b></div>
                 </div>
             </div>
             <button class="col-sm-12 zalark-button">VALIDER LE PAIEMENT</button>
@@ -119,12 +122,14 @@
                     $('.coupon-field').after('<div class="text-danger"><i class="fa fa-exclamation-circle"></i>' + json['error'] + '</div>');
                 } else if (json['success']) {
                     $('.coupon-field').addClass('has-success');
-                    var html = "<div class='col-md-12'><div class='row'><div class=\"col-sm-6 text-left checkout-text\"><b>Coupon</b></div>";
+                    var html = "<div class='col-md-12 discount-apply'><div class='row'><div class=\"col-sm-6 text-left checkout-text\"><b>Coupon</b></div>";
                     html += "<div class=\"col-sm-6 text-right checkout-text\"><b>" + json['discount'] + "</b></div></div></div>";
-                    html += "<div class='col-md-12'><div class='row'><div class=\"col-sm-6 text-left checkout-text\"><b>Total</b></div>";
+                    html += "<div class='col-md-12 coupon-apply'><div class='row'><div class=\"col-sm-6 text-left checkout-text\"><b>Total</b></div>";
                     html += "<div class=\"col-sm-6 text-right checkout-text price-new \"><b>" + json['total'] + "</b></div></div></div>";
                     $('#total').after(html);
                     $('#total').addClass('price-old');
+                    $("#coupon").hide();
+                    $("#remove-coupon").show();
                 }
             },
             error: function (xhr, ajaxOptions, thrownError) {
@@ -132,4 +137,23 @@
             }
         })
     });
+
+    $("#remove-coupon").on('click', function () {
+        $.ajax({
+            url: 'index.php?route=extension/total/coupon/remove&language={{ language }}',
+            dataType: 'json',
+            success: function (json) {
+                if (json['success']) {
+                    $("#coupon").show();
+                    $("input[name='coupon']").val('');
+                    $("#remove-coupon").hide();
+                    $('.text-danger').remove();
+                    $('.discount-apply').remove();
+                    $('.coupon-apply').remove();
+                    $('.coupon-field').removeClass('has-success');
+                    $('.coupon-field').removeClass('has-error');
+                }
+            }
+        })
+    })
 </script>
