@@ -27,15 +27,19 @@ class ControllerExtensionTotalCoupon extends Controller
 
         unset($this->session->data['coupon']);
 
-        $this->load->model('extension/total/coupon');
-
         if (isset($this->request->post['coupon'])) {
             $coupon = $this->request->post['coupon'];
         } else {
             $json['error'] = $this->language->get('error_empty');
         }
 
+        if(!$this->customer->isLogged()){
+            $json['error'] = "403";
+        }
+
         if (!$json) {
+            $this->load->model('extension/total/coupon');
+
             $coupon_info = $this->model_extension_total_coupon->getCoupon($coupon);
 
             if ($coupon_info) {
@@ -62,5 +66,10 @@ class ControllerExtensionTotalCoupon extends Controller
         $json = array();
 
         unset($this->session->data['coupon']);
+
+        $json['success'] = true;
+
+        $this->response->addHeader('Content-Type: application/json');
+        $this->response->setOutput(json_encode($json));
     }
 }
