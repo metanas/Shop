@@ -799,10 +799,6 @@ class ControllerCustomerCustomer extends Controller {
 			$data['confirm'] = '';
 		}
 
-		$this->load->model('localisation/country');
-
-		$data['countries'] = $this->model_localisation_country->getCountries();
-
 		if (isset($this->request->post['address'])) {
 			$data['addresses'] = $this->request->post['address'];
 		} elseif (isset($this->request->get['customer_id'])) {

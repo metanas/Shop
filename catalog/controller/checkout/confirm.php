@@ -517,14 +517,16 @@ class ControllerCheckoutConfirm extends Controller
             if ($this->session->data['payment_method'] == '20') {
                 $order_data['payment_method'] = "VISA";
             } elseif ($this->session->data['payment_method'] == '17') {
-                $order_data['payment_method'] = "PAYPAL";
-            } elseif ($this->session->data['payment_method'] == '01') {
                 $order_data['payment_method'] = "DELIVERY";
+            } elseif ($this->session->data['payment_method'] == '01') {
+                $order_data['payment_method'] = "PAYPAL";
             }
         }
 
-        $order_data['shipping_method'] = 'STANDARD';
-        $order_data['shipping_code'] = 200117;
+        if (isset($this->request->post['delivery'])) {
+            $order_data['shipping_method'] = 'STANDARD';
+            $order_data['shipping_code'] = 200117;
+        }
 
         $this->load->language('checkout/checkout');
 
@@ -666,8 +668,13 @@ class ControllerCheckoutConfirm extends Controller
 
         $order_data['totals'] = $totals;
 
+        $order_data['total'] = $total_data['total'];
+
+
         $this->load->model('checkout/order');
 
         $this->session->data['order_id'] = $this->model_checkout_order->addOrder($order_data);
+
+        $this->response->redirect($this->url->link('checkout/success'));
     }
 }
