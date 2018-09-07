@@ -7,7 +7,7 @@ class ModelCustomerCustomer extends Model {
 
 		if (isset($data['address'])) {
 			foreach ($data['address'] as $address) {
-				$this->db->query("INSERT INTO " . DB_PREFIX . "address SET customer_id = '" . (int)$customer_id . "', firstname = '" . $this->db->escape($address['firstname']) . "', lastname = '" . $this->db->escape($address['lastname']) . "', company = '" . $this->db->escape($address['company']) . "', address_1 = '" . $this->db->escape($address['address_1']) . "', address_2 = '" . $this->db->escape($address['address_2']) . "', city = '" . $this->db->escape($address['city']) . "', postcode = '" . $this->db->escape($address['postcode']) . "', country_id = '" . (int)$address['country_id'] . "', zone_id = '" . (int)$address['zone_id'] . "', custom_field = '" . $this->db->escape(isset($address['custom_field']) ? json_encode($address['custom_field']) : json_encode(array())) . "'");
+				$this->db->query("INSERT INTO " . DB_PREFIX . "address SET customer_id = '" . (int)$customer_id . "', firstname = '" . $this->db->escape($address['firstname']) . "', lastname = '" . $this->db->escape($address['lastname']) . "', address_1 = '" . $this->db->escape($address['address_1']) . "', address_2 = '" . $this->db->escape($address['address_2']) . "', city = '" . $this->db->escape($address['city']) . "', postcode = '" . $this->db->escape($address['postcode']) . "', custom_field = '" . $this->db->escape(isset($address['custom_field']) ? json_encode($address['custom_field']) : json_encode(array())) . "'");
 
 				if (isset($address['default'])) {
 					$address_id = $this->db->getLastId();
@@ -31,7 +31,7 @@ class ModelCustomerCustomer extends Model {
 
 		if (isset($data['address'])) {
 			foreach ($data['address'] as $address) {
-				$this->db->query("INSERT INTO " . DB_PREFIX . "address SET address_id = '" . (int)$address['address_id'] . "', customer_id = '" . (int)$customer_id . "', firstname = '" . $this->db->escape($address['firstname']) . "', lastname = '" . $this->db->escape($address['lastname']) . "', company = '" . $this->db->escape($address['company']) . "', address_1 = '" . $this->db->escape($address['address_1']) . "', address_2 = '" . $this->db->escape($address['address_2']) . "', city = '" . $this->db->escape($address['city']) . "', postcode = '" . $this->db->escape($address['postcode']) . "', country_id = '" . (int)$address['country_id'] . "', zone_id = '" . (int)$address['zone_id'] . "', custom_field = '" . $this->db->escape(isset($address['custom_field']) ? json_encode($address['custom_field']) : json_encode(array())) . "'");
+				$this->db->query("INSERT INTO " . DB_PREFIX . "address SET address_id = '" . (int)$address['address_id'] . "', customer_id = '" . (int)$customer_id . "', firstname = '" . $this->db->escape($address['firstname']) . "', lastname = '" . $this->db->escape($address['lastname']) . "', address_1 = '" . $this->db->escape($address['address_1']) . "', address_2 = '" . $this->db->escape($address['address_2']) . "', city = '" . $this->db->escape($address['city']) . "', postcode = '" . $this->db->escape($address['postcode']) . "', custom_field = '" . $this->db->escape(isset($address['custom_field']) ? json_encode($address['custom_field']) : json_encode(array())) . "'");
 
 				if (isset($address['default'])) {
 					$address_id = $this->db->getLastId();
@@ -143,48 +143,16 @@ class ModelCustomerCustomer extends Model {
 		$address_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "address WHERE address_id = '" . (int)$address_id . "'");
 
 		if ($address_query->num_rows) {
-			$country_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "country` WHERE country_id = '" . (int)$address_query->row['country_id'] . "'");
-
-			if ($country_query->num_rows) {
-				$country = $country_query->row['name'];
-				$iso_code_2 = $country_query->row['iso_code_2'];
-				$iso_code_3 = $country_query->row['iso_code_3'];
-				$address_format = $country_query->row['address_format'];
-			} else {
-				$country = '';
-				$iso_code_2 = '';
-				$iso_code_3 = '';
-				$address_format = '';
-			}
-
-			$zone_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "zone` WHERE zone_id = '" . (int)$address_query->row['zone_id'] . "'");
-
-			if ($zone_query->num_rows) {
-				$zone = $zone_query->row['name'];
-				$zone_code = $zone_query->row['code'];
-			} else {
-				$zone = '';
-				$zone_code = '';
-			}
 
 			return array(
 				'address_id'     => $address_query->row['address_id'],
 				'customer_id'    => $address_query->row['customer_id'],
 				'firstname'      => $address_query->row['firstname'],
 				'lastname'       => $address_query->row['lastname'],
-				'company'        => $address_query->row['company'],
 				'address_1'      => $address_query->row['address_1'],
 				'address_2'      => $address_query->row['address_2'],
 				'postcode'       => $address_query->row['postcode'],
 				'city'           => $address_query->row['city'],
-				'zone_id'        => $address_query->row['zone_id'],
-				'zone'           => $zone,
-				'zone_code'      => $zone_code,
-				'country_id'     => $address_query->row['country_id'],
-				'country'        => $country,
-				'iso_code_2'     => $iso_code_2,
-				'iso_code_3'     => $iso_code_3,
-				'address_format' => $address_format,
 				'custom_field'   => json_decode($address_query->row['custom_field'], true)
 			);
 		}
