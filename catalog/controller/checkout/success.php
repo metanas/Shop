@@ -6,6 +6,7 @@ class ControllerCheckoutSuccess extends Controller {
 		if (isset($this->session->data['order_id'])) {
 			$this->cart->clear();
 
+
 			unset($this->session->data['shipping_method']);
 			unset($this->session->data['payment_method']);
 			unset($this->session->data['order_id']);
