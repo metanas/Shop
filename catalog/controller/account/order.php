@@ -5,7 +5,7 @@ class ControllerAccountOrder extends Controller
     public function index()
     {
         if (!$this->customer->isLogged()) {
-            $this->session->data['redirect'] = $this->url->link('account/order', 'language=' . $this->config->get('config_language'));
+            $this->session->data['redirect'] = $this->url->link('account/account', array('action' => 'order', 'language=' . $this->config->get('config_language')));
 
             $this->response->redirect($this->url->link('account/login', 'language=' . $this->config->get('config_language')));
         }
@@ -53,7 +53,7 @@ class ControllerAccountOrder extends Controller
         $pagination->total = $order_total;
         $pagination->page = $page;
         $pagination->limit = 10;
-        $pagination->url = $this->url->link('account/order', 'language=' . $this->config->get('config_language') . '&page={page}');
+        $pagination->url = $this->url->link('account/account', array('action' => 'order', 'language' => $this->config->get('config_language'), 'page' => '{page}'));
 
         $data['pagination'] = $pagination->render();
 
@@ -65,10 +65,8 @@ class ControllerAccountOrder extends Controller
         $data['column_right'] = $this->load->controller('common/column_right');
         $data['content_top'] = $this->load->controller('common/content_top');
         $data['content_bottom'] = $this->load->controller('common/content_bottom');
-        $data['footer'] = $this->load->controller('common/footer');
-        $data['header'] = $this->load->controller('common/header');
 
-        $this->response->setOutput($this->load->view('account/order_list', $data));
+        return $this->load->view('account/order_list', $data);
     }
 
     public function info()
@@ -127,7 +125,7 @@ class ControllerAccountOrder extends Controller
 
             $data['payment_method'] = $order_info['payment_method'];
 
-            $format = '{firstname} {lastname}' . "\n" . '{address_1}' . "\n" . '{address_2}' . "\n" . '{city} {postcode}';
+            $format = '{firstname} {lastname}' . "\n" . '{address_1}' . "\n" . '{address_2}' . "\n" . '{city} {postcode}' . "\n" . '{country}';
 
 
             $find = array(
@@ -136,7 +134,8 @@ class ControllerAccountOrder extends Controller
                 '{address_1}',
                 '{address_2}',
                 '{city}',
-                '{postcode}'
+                '{postcode}',
+                '{country}'
             );
 
             $replace = array(
@@ -146,6 +145,7 @@ class ControllerAccountOrder extends Controller
                 'address_2' => $order_info['shipping_address_2'],
                 'city' => $order_info['shipping_city'],
                 'postcode' => $order_info['shipping_postcode'],
+                'country' => $order_info['shipping_country'],
             );
 
             $data['shipping_address'] = str_replace(array("\r\n", "\r", "\n"), '<br />', preg_replace(array("/\s\s+/", "/\r\r+/", "/\n\n+/"), '<br />', trim(str_replace($find, $replace, $format))));
@@ -241,7 +241,7 @@ class ControllerAccountOrder extends Controller
                 );
             }
 
-            $data['continue'] = $this->url->link('account/order', 'language=' . $this->config->get('config_language'));
+            $data['continue'] = $this->url->link('account/account', array('action' => 'order', 'language' => $this->config->get('config_language')));
 
             $data['column_left'] = $this->load->controller('common/column_left');
             $data['column_right'] = $this->load->controller('common/column_right');
