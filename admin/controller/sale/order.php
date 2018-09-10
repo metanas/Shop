@@ -545,9 +545,6 @@ class ControllerSaleOrder extends Controller
             }
 
             $data['order_status_id'] = $order_info['order_status_id'];
-            $data['comment'] = $order_info['comment'];
-            $data['affiliate_id'] = $order_info['affiliate_id'];
-            $data['affiliate'] = $order_info['affiliate_firstname'] . ' ' . $order_info['affiliate_lastname'];
             $data['currency_code'] = $order_info['currency_code'];
         } else {
             $data['order_id'] = 0;
@@ -1408,6 +1405,12 @@ class ControllerSaleOrder extends Controller
 
         $data['title'] = $this->language->get('text_invoice');
 
+        if (is_file(DIR_IMAGE . $this->config->get('config_logo'))) {
+            $data['logo'] = $this->config->get('config_url') . 'image/' . $this->config->get('config_logo');
+        } else {
+            $data['logo'] = '';
+        }
+
         $data['base'] = HTTP_SERVER;
         $data['direction'] = $this->language->get('direction');
         $data['lang'] = $this->language->get('code');
@@ -1451,7 +1454,7 @@ class ControllerSaleOrder extends Controller
                 }
 
 
-                $format = '{firstname} {lastname}' . "\n" . '{address_1}' . "\n" . '{address_2}' . "\n" . '{city} {postcode}' . "\n". '{country}';
+                $format = '{firstname} {lastname}' . "\n" . '{address_1}' . "\n" . '{address_2}' . "\n" . '{city} {postcode}' . "\n" . '{country}';
 
 
                 $find = array(
@@ -1471,7 +1474,7 @@ class ControllerSaleOrder extends Controller
                     'address_2' => $order_info['shipping_address_2'],
                     'city' => $order_info['shipping_city'],
                     'postcode' => $order_info['shipping_postcode'],
-                    'country' => "Maroc"
+                    'country' => $order_info['shipping_country']
                 );
 
                 $shipping_address = str_replace(array("\r\n", "\r", "\n"), '<br />', preg_replace(array("/\s\s+/", "/\r\r+/", "/\n\n+/"), '<br />', trim(str_replace($find, $replace, $format))));
@@ -1541,6 +1544,7 @@ class ControllerSaleOrder extends Controller
                 $data['orders'][] = array(
                     'order_id' => $order_id,
                     'invoice_no' => $invoice_no,
+                    'customer' => $order_info['firstname'] . " " . $order_info['lastname'],
                     'date_added' => date($this->language->get('date_format_short'), strtotime($order_info['date_added'])),
                     'store_name' => $order_info['store_name'],
                     'store_url' => rtrim($order_info['store_url'], '/'),
@@ -1712,7 +1716,6 @@ class ControllerSaleOrder extends Controller
                     'shipping_address' => $shipping_address,
                     'shipping_method' => $order_info['shipping_method'],
                     'product' => $product_data,
-                    'comment' => nl2br($order_info['comment'])
                 );
             }
         }
