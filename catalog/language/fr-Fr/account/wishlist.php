@@ -20,7 +20,7 @@ $_['text_empty']    ='Votre liste de souhaits est vide.';
 
 $_['column_image']  ='Image';
 $_['column_name']   ='Nom du produit';
-$_['column_model']  ='maquette';
+$_['column_model']  ='Modèle';
 $_['column_stock']  ='Stock';
 $_['column_price']  ='Prix ​​unitaire';
 $_['column_action'] ='action';
