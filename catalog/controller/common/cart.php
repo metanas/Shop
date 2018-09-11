@@ -135,14 +135,14 @@ class ControllerCommonCart extends Controller
             }
         }
 
-        $data['totals'] = array();
-
-        foreach ($totals as $total) {
-            $data['totals'][] = array(
-                'title' => $total['title'],
-                'text' => $this->currency->format($total['value'], $this->session->data['currency']),
-            );
-        }
+//        $data['totals'] = array();
+//
+//        foreach ($totals as $total) {
+//            $data['totals'][] = array(
+//                'title' => $total['title'],
+//                'text' => $this->currency->format($total['value'], $this->session->data['currency']),
+//            );
+//        }
 
         $data['logged'] = $this->customer->isLogged();
 
@@ -151,6 +151,7 @@ class ControllerCommonCart extends Controller
         }
 
         $data['count_products'] = $this->cart->countProducts();
+        $data['totals'] = $this->currency->format($this->cart->getTotal(), $this->session->data['currency']);
         $data['account'] = $this->url->link('account/account', array('action' => 'edit', 'language' => $this->config->get('config_language')));
         $data['order'] = $this->url->link('account/account', array('action' => 'order', 'language' => $this->config->get('config_language')));
         $data['return'] = $this->url->link('account/return', 'language=' . $this->config->get('config_language'));
