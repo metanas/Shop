@@ -20,9 +20,12 @@
                     <div class="form-group">
                         <label class="check_filter">
                             <input type="radio" class="checkbox" name="address"
-                                   value="{{ address.address_id }}">{{ address.firstname }} {{ address.lastname }}
+                                   value="{{ address.address_id }}" {% if address_id == address.address_id %} checked="checked" {% endif %}>{{ address.firstname }} {{ address.lastname }}
                             <br>{{ address.address_1 }} {{ address.address_2 }}<br> {{ address.postcode }}
-                            {{ address.city }}<br> Maroc
+                            {{ address.city }}<br> Maroc <br>
+                            {% if address.telephone %}
+                                T: {{ address.telephone }}
+                            {% endif %}
                             <span class="checkmark checkradio"></span>
                         </label>
                     </div>
@@ -56,18 +59,18 @@
                         <input type="text" name="address_id" value="" id="input-address-id"
                                class="form-control input-zalark" hidden/>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group required">
                         <label class="control-label" for="input-firstname">{{ entry_firstname }}</label>
                         <input type="text" name="firstname" value="" placeholder="{{ entry_firstname }}" id="input-name"
                                class="form-control input-zalark"/>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group required">
                         <label class="control-label" for="input-lastname">{{ entry_lastname }}</label>
                         <input type="text" name="lastname" value="" placeholder="{{ entry_lastname }}"
                                id="input-lastname"
-                               class="form-control"/>
+                               class="form-control input-zalark"/>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group required">
                         <label class="control-label" for="input-address-1">{{ entry_address_1 }}</label>
                         <input type="text" name="address_1" value="" placeholder="{{ entry_address_1 }}"
                                id="input-address-1"
@@ -79,15 +82,22 @@
                                id="input-address-2"
                                class="form-control input-zalark"/>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group required">
                         <label class="control-label" for="input-postcode">{{ entry_postcode }}</label>
                         <input type="text" name="postcode" value="" placeholder="{{ entry_postcode }}"
                                id="input-postcode"
                                class="form-control input-zalark"/>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group required">
                         <label class="control-label" for="input-city">{{ entry_city }}</label>
                         <input type="text" name="city" value="" placeholder="{{ entry_city }}" id="input-city"
+                               class="form-control input-zalark"/>
+                    </div>
+
+                    <div class="form-group required">
+                        <label class="control-label" for="input-telephone">{{ entry_telephone }}</label>
+                        <input type="text" name="telephone" value="" placeholder="{{ entry_telephone }}"
+                               id="input-telephone"
                                class="form-control input-zalark"/>
                     </div>
                     <h3>Maroc</h3>
@@ -149,6 +159,7 @@
                     $('input[name="address_2"]').val('');
                     $('input[name="city"]').val('');
                     $('input[name="postcode"]').val('');
+                    $('input[name="telephone"]').val('');
                     $('#update-address').hide();
                     $('#save-address').show();
                     $('#add-address-field').hide(200)
@@ -176,6 +187,7 @@
                     $('input[name="address_2"]').val(result['address_2']);
                     $('input[name="city"]').val(result['city']);
                     $('input[name="postcode"]').val(result['postcode']);
+                    $('input[name="telephone"]').val(result['telephone']);
                     $('#update-address').show();
                     $('#save-address').hide();
                     $('#add-address-field').show(200)
@@ -251,7 +263,7 @@
         html += "<label class=\"check_filter\">";
         html += "<input type=\"radio\" class=\"checkbox\" name=\"address\" value='" + json['address_id'] + "'>" + json['firstname'] + " " + json['lastname'];
         html += "<br>" + json['address_1'] + " " + json['address_2'] + "<br>" + json['postcode'] + " ";
-        html += json['city'] + "<br> Maroc";
+        html += json['city'] + "<br> Maroc <br> T:" + json['telephone'];
         html += "<span class=\"checkmark checkradio\"></span>";
         html += "</label></div>";
         html += "<span class=\"edit-address\"><i class=\"fa fa-pencil\"></i></span>";
@@ -262,7 +274,6 @@
     }
 
     $("#save-address").on("click", function () {
-        debugger;
         if ($('#input-name').val().length === 0) {
             $('#input-name').focus();
             return;

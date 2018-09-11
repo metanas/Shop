@@ -18,7 +18,6 @@ class ControllerCheckoutShippingAddress extends Controller
 
         $data['addresses'] = $this->model_account_address->getAddresses();
 
-
         // Custom Fields
         $data['custom_fields'] = array();
 
@@ -202,6 +201,10 @@ class ControllerCheckoutShippingAddress extends Controller
 
         if ((utf8_strlen(trim($this->request->post['city'])) < 2) || (utf8_strlen(trim($this->request->post['city'])) > 128)) {
             $this->error['city'] = $this->language->get('error_city');
+        }
+
+        if ((utf8_strlen(trim($this->request->post['telephone'])) < 2) || (utf8_strlen(trim($this->request->post['telephone'])) > 128)) {
+            $this->error['telephone'] = $this->language->get('error_telephone');
         }
 
         return $this->error;

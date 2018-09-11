@@ -277,7 +277,7 @@ var cart = {
                 if (getURLVar('route') == 'checkout/cart' || (getURLVar('route') == 'checkout/checkout' && json['redirect'])) {
                     location = 'index.php?route=checkout/cart';
                 } else {
-                    $('#cart > ul').load('index.php?route=common/cart/info ul li');
+                    $('#cart > ul').load('index.php?route=common/cart/info');
                 }
             },
             error: function (xhr, ajaxOptions, thrownError) {
@@ -285,7 +285,7 @@ var cart = {
             }
         });
 
-        $('#cart').load('index.php?route=common/cart/info ul li');
+        $('#cart').load('index.php?route=common/cart/info');
     }
 };
 
@@ -382,7 +382,6 @@ var wishlist = {
                 // if (json['redirect']) {
                 //     location = json['redirect'];
                 // }
-                //
                 //
                 // $('#wishlist-total span').html(json['total']);
                 // $('#wishlist-total').attr('title', json['total']);
