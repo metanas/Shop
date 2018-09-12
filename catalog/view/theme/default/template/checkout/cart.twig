@@ -67,16 +67,17 @@
                                                 {% endfor %}
                                             {% endif %}
                                             <br/>
-                                            <span style="border:0;color: grey; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif"><button
-                                                        data-toggle="tooltip"
-                                                        style="background-color: inherit; border:0;"
-                                                        onclick="cart.remove('{{ product.cart_id }}');"><span
-                                                            class="glyphicon glyphicon-trash"> <span
-                                                                style="color: grey; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif"> Supprimer</span></span></button><span> | </span><button
-                                                        data-toggle="tooltip"
-                                                        style="background-color: inherit; border:0" onclick=""><span
-                                                            class="glyphicon glyphicon-heart-empty"> <span
-                                                                style="color: grey; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif"> Déplacer vers mes préférés</span></span></button></span>
+                                            <span style="border:0;color: grey;">
+                                                <button style="background-color: inherit; border:0;"
+                                                        onclick="cart.remove('{{ product.cart_id }}');">
+                                                    <span class="glyphicon glyphicon-trash" style="color: grey;"> Supprimer</span>
+                                                </button>
+                                                |
+                                                <button style="background-color: inherit; border:0"
+                                                        onclick="wishlist.add('{{ product.cart_id }}')">
+                                                    <span class="glyphicon glyphicon-heart-empty" style="color: grey;">Déplacer vers mes préférés</span>
+                                                </button>
+                                            </span>
 
                                             {% if product.reward %} <br/>
                                                 <small>{{ product.reward }}</small> {% endif %}
@@ -220,12 +221,11 @@
             type: "POST",
             data: {"cart_id": cart_id, "quantity": quantity},
             success: function (json) {
-                console.log(json);
                 if (json['success']) {
                     $('#sub-total').html(json['total']);
                     $('#total').html("<b>" + json['total'] + "</b>");
                     s.parents('.text-left').children('.c_price').html(json['price']);
-                    if(json['old_price']){
+                    if (json['old_price']) {
                         s.parents('.text-left').children('.price-old').html(json['old_price'])
                     }
                 }

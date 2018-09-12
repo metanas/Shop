@@ -176,7 +176,6 @@ $(document).on("mouseleave", '.product-layout', function () {
 
 
 // add to wishlist
-
 $(document).on('click', '.favorite', function () {
     if (this.src.includes('Added')) {
         this.src = "catalog/view/theme/default/image/favorite.png";
@@ -269,6 +268,7 @@ var cart = {
                 $('#cart > button').button('reset');
             },
             success: function (json) {
+                debugger;
                 // Need to set timeout otherwise it wont update the total
                 setTimeout(function () {
                     $('#cart > button').html('<span id="cart-total"><i class="fa fa-shopping-cart"></i> ' + json['total'] + '</span>');
@@ -601,8 +601,6 @@ $(document).delegate('.agree', 'click', function (e) {
     }
 
 
-
-
 })(window.jQuery);
 
 // carousel responsive
@@ -611,6 +609,7 @@ $(window).resize(function () {
     fixSwiper()
 });
 let viewPerSlide;
+
 function fixSwiper() {
     if ($(window).width() < 750) {
         viewPerSlide = 2
@@ -618,7 +617,7 @@ function fixSwiper() {
         viewPerSlide = 3
     } else if ($(window).width() < 1170) {
         viewPerSlide = 4
-    }else{
+    } else {
         viewPerSlide = 5
     }
     $.map(carousel, function (item) {

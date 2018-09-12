@@ -158,6 +158,7 @@ class ModelCheckoutOrder extends Model
                 'shipping_address_2' => $order_query->row['shipping_address_2'],
                 'shipping_postcode' => $order_query->row['shipping_postcode'],
                 'shipping_city' => $order_query->row['shipping_city'],
+                'shipping_country' => $order_query->row['shipping_country'],
                 'shipping_custom_field' => json_decode($order_query->row['shipping_custom_field'], true),
                 'shipping_method' => $order_query->row['shipping_method'],
                 'shipping_code' => $order_query->row['shipping_code'],

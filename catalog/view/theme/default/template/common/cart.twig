@@ -166,15 +166,27 @@
                 </div>
                 <div class="col-md-12" style="margin-top: 10px;">
                     <hr style="box-shadow: 0 -5px 5px -5px #333;">
-                    {% for total in totals %}
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="col-md-6 text-left" style="padding: 0">
-                                    <strong>{{ total.title }}</strong></div>
-                                <div class="col-md-6 text-right" style="padding: 0">{{ total.text }}</div>
-                            </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-6 text-left" style="padding: 0">
+                            <strong>Livraison</strong></div>
+                            <div class="col-md-6 text-right" style="padding: 0">Gratuit</div>
                         </div>
-                    {% endfor %}
+                        <div class="col-md-12">
+                            <div class="col-md-6 text-left" style="padding: 0">
+                                <strong>Total</strong></div>
+                            <div class="col-md-6 text-right" style="padding: 0"><b>{{ totals }}</b></div>
+                        </div>
+                    </div>
+                    {#{% for total in totals %}#}
+                        {#<div class="row">#}
+                            {#<div class="col-md-12">#}
+                                {#<div class="col-md-6 text-left" style="padding: 0">#}
+                                    {#<strong>{{ total.title }}</strong></div>#}
+                                {#<div class="col-md-6 text-right" style="padding: 0">{{ total.text }}</div>#}
+                            {#</div>#}
+                        {#</div>#}
+                    {#{% endfor %}#}
                     <div style="margin-top: 10px">
                         <a href="{{ checkout }}">
                             <button type="button" class="zalark-button text-uppercase">
