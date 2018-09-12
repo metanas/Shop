@@ -243,7 +243,7 @@ div.required .control-label:before {
 
 #cart .scrollStyle {
     overflow-y: auto;
-    max-height: 300px;
+    max-height: 150px;
 }
 
 @media (max-width: 478px) {
