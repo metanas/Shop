@@ -376,6 +376,7 @@ var wishlist = {
                 try {
                     $('#fav-button')[0].src = json['favorite'];
                 } catch (e) {
+
                 }
                 // $('.alert-dismissible').remove();
                 //
