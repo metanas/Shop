@@ -509,7 +509,7 @@ class ControllerCheckoutConfirm extends Controller
             $order_data['shipping_address_2'] = $address_info['address_2'];
             $order_data['shipping_city'] = $address_info['city'];
             $order_data['shipping_postcode'] = $address_info['postcode'];
-            $order_data['shipping_country'] = "Maroc";
+            $order_data['shipping_country'] = $address_info['postcode'];
         }
 
         if (isset($this->session->data['payment_method'])) {
@@ -532,19 +532,17 @@ class ControllerCheckoutConfirm extends Controller
 
         $products = $this->cart->getProducts();
 
+        $this->load->model('catalog/product');
+
         foreach ($products as $product) {
-            $product_total = 0;
-
-            foreach ($products as $product_2) {
-                if ($product_2['product_id'] == $product['product_id']) {
-                    $product_total += $product_2['quantity'];
+            foreach ($product['option'] as $option) {
+                if ($option['type'] == "size") {
+                    $max_quantity = $this->model_catalog_product->getProductOptionByName($product['product_id'], $option['type'], $option['value']);
+                    if ($product['quantity'] > (int)$max_quantity['quantity']) {
+                        $this->response->redirect($this->url->link('checkout/cart', 'language=' . $this->config->get('config_language')));
+                    }
+                    break;
                 }
-            }
-
-            // review this
-            if ($product['minimum'] > $product_total) {
-                $this->response->redirect($this->url->link('checkout/cart', 'language=' . $this->config->get('config_language')));
-                break;
             }
         }
 
@@ -675,6 +673,17 @@ class ControllerCheckoutConfirm extends Controller
 
         $this->session->data['order_id'] = $this->model_checkout_order->addOrder($order_data);
 
+        if ($this->session->data['order_id']) {
+            foreach ($products as $product) {
+                foreach ($product['option'] as $option) {
+                    if ($option['type'] == "size") {
+                        $product_size = $this->model_catalog_product->getProductOptionByName($product['product_id'], $option['type'], $option['value']);
+                        $this->model_catalog_product->updateOptionSizeForProduct($product['quantity'], $product_size['product_option_value_id']);
+                        break;
+                    }
+                }
+            }
+        }
         $this->response->redirect($this->url->link('checkout/success'));
     }
 }
