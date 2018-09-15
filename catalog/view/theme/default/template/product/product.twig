@@ -377,7 +377,8 @@
               <br/> -->
                             <button type="button" data-toggle="tooltip" class="btn btn-default btn-wish wish-list"
                                     title="{{ button_wishlist }}" onclick="wishlist.add('{{ product_id }}');"
-                            ><img src="image/favorite.png" width="12" height="13" id="fav-button"> Ajouter à mes préférés
+                            ><img src="image/favorite.png" width="12" height="13" id="fav-button"> Ajouter à mes
+                                préférés
                             </button>
                             <br/>
                             <button type="button" id="button-cart" data-loading-text="{{ text_loading }}"
@@ -631,18 +632,12 @@
 <script>
     // Galery
     $('document').ready(function () {
-
-        images = $('.image-additional .thumbnail img');
-
-        img = document.getElementById('main_img');
-
-
+        img = $('#main_img');
         img_container = document.getElementById('main_img_cont');
 
-        images.each(
+        $('.image-additional .thumbnail img').each(
             function (index, elm) {
                 elm.onmouseover = function (e) {
-
                     img.src = elm.alt;
                     link = img.src.replace("cache/", "").split("-");
                     link[link.length - 1] = "-.png";
@@ -663,32 +658,31 @@
 </script>
 <script>
 
-    var img = document.getElementById('main_img');
-    var main_thumb = document.getElementById('main_thumb');
+    var img = $('#main_img');
+    var main_thumb = $('#main_thumb');
     var default_src = img.src;
 
-    color_text = document.getElementById('color_text');
-    default_color = color_text.innerHTML;
+    color_text = $('#color_text');
+    default_color = color_text.html();
 
-    price = document.getElementById('price_tag');
-    default_price = price.innerHTML;
+    price = $('#price_tag');
+    default_price = price.html();
 
     $('.similar_img').each(
         function (index, elm) {
-
             elm.onmouseover = function (e) {
-                color_text.innerHTML = $(elm).attr("data-color");
-                price.innerHTML = $(elm).attr("data-price");
+                color_text.html($(elm).attr("data-color"));
+                price.html($(elm).attr("data-price"));
                 img.src = elm.alt;
-                main_thumb.style.borderBottom = "0";
+                main_thumb.css("border-bottom", "0");
                 elm.style.borderBottom = "2px black solid";
 
             };
             elm.onmouseout = function (e) {
                 elm.style.borderBottom = "0";
-                main_thumb.style.borderBottom = "2px black solid";
-                color_text.innerHTML = default_color;
-                price.innerHTML = default_price;
+                main_thumb.css("border-bottom", "2px black solid");
+                color_text.html(default_color);
+                price.html(default_price);
                 img.src = default_src;
                 link = img.src.replace("cache/", "").split("-");
                 link[link.length - 1] = "-.png";

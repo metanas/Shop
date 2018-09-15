@@ -32,42 +32,41 @@
                         {% else %}
                             ({{ total_products }} article)
                         {% endif %} </h2>
-                    <form id="c_products_form" action="{{ action }}" method="post" enctype="multipart/form-data">
-                        <div class="table-responsive">
-                            <table class="table">
-                                {#<thead>#}
-                                {#<tr>#}
-                                {#<td class="text-center">{{ column_image }}</td>#}
-                                {#<td class="text-left">{{ column_name }}</td>#}
-                                {#<td class="text-left">{{ column_model }}</td>#}
-                                {#<td class="text-left">{{ column_quantity }}</td>#}
-                                {#<td class="text-right">{{ column_price }}</td>#}
-                                {#<td class="text-right">{{ column_total }}</td>#}
-                                {#</tr>#}
-                                {#</thead>#}
-                                <tbody>
-                                {% for product in products %}
-                                    <tr>
-                                        <td id="r{{ loop.index }}" class="text-left"
-                                            style="padding-left: 23px; width: 160px">{% if product.thumb %} <a
-                                                    href="{{ product.href }}"><img src="{{ product.thumb }}"
-                                                                                   alt="{{ product.name }}"
-                                                                                   title="{{ product.name }}"
-                                                                                   class="img-thumbnail cart-thumb"/></a> {% endif %}
-                                        </td>
-                                        <td id="r{{ loop.index }}" class="text-left">
+                    <div class="table-responsive">
+                        <table class="table">
+                            {#<thead>#}
+                            {#<tr>#}
+                            {#<td class="text-center">{{ column_image }}</td>#}
+                            {#<td class="text-left">{{ column_name }}</td>#}
+                            {#<td class="text-left">{{ column_model }}</td>#}
+                            {#<td class="text-left">{{ column_quantity }}</td>#}
+                            {#<td class="text-right">{{ column_price }}</td>#}
+                            {#<td class="text-right">{{ column_total }}</td>#}
+                            {#</tr>#}
+                            {#</thead>#}
+                            <tbody>
+                            {% for product in products %}
+                                <tr>
+                                    <td id="r{{ loop.index }}" class="text-left"
+                                        style="padding-left: 23px; width: 160px">{% if product.thumb %} <a
+                                                href="{{ product.href }}"><img src="{{ product.thumb }}"
+                                                                               alt="{{ product.name }}"
+                                                                               title="{{ product.name }}"
+                                                                               class="img-thumbnail cart-thumb"/></a> {% endif %}
+                                    </td>
+                                    <td id="r{{ loop.index }}" class="text-left">
 
-                                            <a href="{{ product.href }}">{{ product.model }}<br/>{{ product.name }}</a>
-                                            <br/>
-                                            <br/>
-                                            <span>Couleur : {{ product.color }}</span><br/>
-                                            {% if product.option %}
-                                                {% for option in product.option %}
-                                                    <span>{{ option.name }}: {{ option.value }}</span><br/>
-                                                {% endfor %}
-                                            {% endif %}
-                                            <br/>
-                                            <span style="border:0;color: grey;">
+                                        <a href="{{ product.href }}">{{ product.model }}<br/>{{ product.name }}</a>
+                                        <br/>
+                                        <br/>
+                                        <span>Couleur : {{ product.color }}</span><br/>
+                                        {% if product.option %}
+                                            {% for option in product.option %}
+                                                <span>{{ option.name }}: {{ option.value }}</span><br/>
+                                            {% endfor %}
+                                        {% endif %}
+                                        <br/>
+                                        <span style="border:0;color: grey;">
                                                 <button style="background-color: inherit; border:0;"
                                                         onclick="cart.remove('{{ product.cart_id }}');">
                                                     <span class="glyphicon glyphicon-trash" style="color: grey;"> Supprimer</span>
@@ -79,72 +78,69 @@
                                                 </button>
                                             </span>
 
-                                            {% if product.reward %} <br/>
-                                                <small>{{ product.reward }}</small> {% endif %}
-                                            {% if product.recurring %} <br/>
-                                                <span class="label label-info">{{ text_recurring_item }}</span>
-                                                <small>{{ product.recurring }}</small> {% endif %}</td>
+                                        {% if product.reward %} <br/>
+                                            <small>{{ product.reward }}</small> {% endif %}
+                                        {% if product.recurring %} <br/>
+                                            <span class="label label-info">{{ text_recurring_item }}</span>
+                                            <small>{{ product.recurring }}</small> {% endif %}</td>
 
-                                        {#<td id="r{{ loop.index }}" class="text-left">{{ product.model }} <button type="button" data-toggle="tooltip" title="{{ button_remove }}" class="btn btn-danger" onclick="cart.remove('{{ product.cart_id }}');"></button></td>#}
-                                        <td id="r{{ loop.index }}" class="text-left">
-                                            <div class="input-group btn-block" style="max-width: 200px">
-                                                <select name="quantity[{{ product.cart_id }}]" class="select-zalark">
-                                                    {% for i in 1..product.max_quantity %}
-                                                        <option value="{{ i }}" {% if product.quantity == i %} selected {% endif %}>{{ i }}</option>
-                                                    {% endfor %}
-                                                </select>
-                                                <i class="fa fa-angle-down"
-                                                   style="position: absolute;padding: 13px;cursor: pointer;right: 0;top: 0;"></i>
-                                                {#<div class="input-group-btn">#}
-                                                {#<button type="submit" data-toggle="tooltip" title="{{ button_update }}" class="btn btn-primary"><i class="fa fa-refresh"></i></button>#}
+                                    {#<td id="r{{ loop.index }}" class="text-left">{{ product.model }} <button type="button" data-toggle="tooltip" title="{{ button_remove }}" class="btn btn-danger" onclick="cart.remove('{{ product.cart_id }}');"></button></td>#}
+                                    <td id="r{{ loop.index }}" class="text-left">
+                                        <div class="input-group btn-block" style="max-width: 200px">
+                                            <select name="quantity[{{ product.cart_id }}]" class="select-zalark">
+                                                {% for i in 1..product.max_quantity %}
+                                                    <option value="{{ i }}" {% if product.quantity == i %} selected {% endif %}>{{ i }}</option>
+                                                {% endfor %}
+                                            </select>
+                                            <i class="fa fa-angle-down"
+                                               style="position: absolute;padding: 13px;cursor: pointer;right: 0;top: 0;"></i>
+                                            {#<div class="input-group-btn">#}
+                                            {#<button type="submit" data-toggle="tooltip" title="{{ button_update }}" class="btn btn-primary"><i class="fa fa-refresh"></i></button>#}
 
-                                                {#</div>#}
+                                            {#</div>#}
+                                        </div>
+                                        <br/>
+                                        <br/>
+                                        <br/>
+                                        {% if product.old_price %}
+                                            <span class="pull-right price-old">{{ product.old_price }}</span><br>
+                                            <span id="r{{ loop.index }}"
+                                                  class="c_price pull-right price-new">{{ product.total }}</span>
+                                        {% else %}
+                                            <span id="r{{ loop.index }}"
+                                                  class="c_price pull-right">{{ product.total }}</span>
+                                        {% endif %}
+                                    </td>
+                                    {#<td id="r{{ loop.index }}" class="text-right">{{ product.price }}</td>#}
+
+                                </tr>
+                            {% endfor %}
+                            {% for voucher in vouchers %}
+                                <tr>
+                                    <td></td>
+                                    <td class="text-left">{{ voucher.description }}</td>
+                                    <td class="text-left"></td>
+                                    <td class="text-left">
+                                        <div class="input-group btn-block" style="max-width: 200px;">
+                                            <input type="text" name="" value="1" size="1" disabled="disabled"
+                                                   class="form-control"/>
+                                            <div class="input-group-btn">
+                                                <button type="button" data-toggle="tooltip"
+                                                        title="{{ button_remove }}" class="btn btn-danger"
+                                                        onclick="voucher.remove('{{ voucher.key }}');"><i
+                                                            class="fa fa-times-circle"></i></button>
                                             </div>
-                                            <br/>
-                                            <br/>
-                                            <br/>
-                                            {% if product.old_price %}
-                                                <span class="pull-right price-old">{{ product.old_price }}</span><br>
-                                                <span id="r{{ loop.index }}"
-                                                      class="c_price pull-right price-new">{{ product.total }}</span>
-                                            {% else %}
-                                                <span id="r{{ loop.index }}"
-                                                      class="c_price pull-right">{{ product.total }}</span>
-                                            {% endif %}
-                                        </td>
-                                        {#<td id="r{{ loop.index }}" class="text-right">{{ product.price }}</td>#}
-
-                                    </tr>
-                                {% endfor %}
-                                {% for voucher in vouchers %}
-                                    <tr>
-                                        <td></td>
-                                        <td class="text-left">{{ voucher.description }}</td>
-                                        <td class="text-left"></td>
-                                        <td class="text-left">
-                                            <div class="input-group btn-block" style="max-width: 200px;">
-                                                <input type="text" name="" value="1" size="1" disabled="disabled"
-                                                       class="form-control"/>
-                                                <div class="input-group-btn">
-                                                    <button type="button" data-toggle="tooltip"
-                                                            title="{{ button_remove }}" class="btn btn-danger"
-                                                            onclick="voucher.remove('{{ voucher.key }}');"><i
-                                                                class="fa fa-times-circle"></i></button>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="text-right">{{ voucher.amount }}</td>
-                                        <td class="text-right">{{ voucher.amount }}</td>
-                                    </tr>
-                                {% endfor %}
-                                </tbody>
-                            </table>
-                        </div>
-                    </form>
+                                        </div>
+                                    </td>
+                                    <td class="text-right">{{ voucher.amount }}</td>
+                                    <td class="text-right">{{ voucher.amount }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
                     <p class="c_info"><span class="glyphicon glyphicon-asterisk"></span> Les articles dans le panier ne
                         sont pas reservés</p>
-
-
                 </div>
                 {#{% if modules %}#}
                 {#<h2>{{ text_next }}</h2>#}
@@ -172,7 +168,6 @@
                 </div>
             </div>
             <div id="c_cart_layout_right" class="col-md-4 col-xs-12">
-
                 <div id="c_c_total" class="row">
                     <h2 id="c_cart_head_title">Total</h2>
                     <div class="col-sm-12">

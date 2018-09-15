@@ -684,6 +684,7 @@ class ControllerCheckoutConfirm extends Controller
                 }
             }
         }
+
         $this->response->redirect($this->url->link('checkout/success'));
     }
 }
