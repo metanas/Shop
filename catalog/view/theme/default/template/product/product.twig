@@ -17,114 +17,38 @@
                 {% endif %}
                 <div class="{{ class }}"> {% if thumb or images %}
                         <div class="thumbnails-hover">
-                            {% if images %}
-                                <ul class="verticalim col-sm-2 hidden-sm-dowm">
-                                    <li class="image-additional"><a class="thumbnail"
-                                                                    title="{{ heading_title }}"> <img src="{{ thumb }}"
-                                                                                                      title="{{ heading_title }}"
-                                                                                                      alt="{{ popup }}"/></a>
-                                    </li>
-                                    {% for image in images %}
-                                        <li class="image-additional"><a class="thumbnail" href="{{ image.popup }}"
+                            <div class="row">
+                                {% if images %}
+                                    {% set class = 'col-sm-10' %}
+                                    <ul class="verticalim col-sm-2">
+                                        <li class="image-additional"><a class="thumbnail"
                                                                         title="{{ heading_title }}"> <img
-                                                        src="{{ image.thumb }}" title="{{ heading_title }}"
-                                                        alt="{{ image.popup }}"/></a></li>
-                                    {% endfor %}
-                                </ul>
-                            {% endif %}
-                            {% if thumb %}
-                                <div class="col-sm-10"><a id="main_img_cont" style="border:0px"
-                                                          class="thumbnail previeus-hover"
-                                                          title="{{ heading_title }}"><img id="main_img"
-                                                                                           src="{{ popup }}"
-                                                                                           alt="{{ heading_title }}"/></a>
-                                </div>
-                            {% endif %}
+                                                        src="{{ thumb }}"
+                                                        title="{{ heading_title }}"
+                                                        alt="{{ popup }}"/></a>
+                                        </li>
+                                        {% for image in images %}
+                                            <li class="image-additional"><a class="thumbnail" href="{{ image.popup }}"
+                                                                            title="{{ heading_title }}"> <img
+                                                            src="{{ image.thumb }}" title="{{ heading_title }}"
+                                                            alt="{{ image.popup }}"/></a></li>
+                                        {% endfor %}
+                                    </ul>
+                                {% else %}
+                                    {% set class = 'col-sm-12' %}
+                                {% endif %}
+                                {% if thumb %}
+                                    <div class="{{ class }}"><a id="main_img_cont" style="border:0px"
+                                                                class="thumbnail previeus-hover"
+                                                                title="{{ heading_title }}"><img id="main_img"
+                                                                                                 class="img-responsive"
+                                                                                                 src="{{ popup }}"
+                                                                                                 alt="{{ heading_title }}"/></a>
+                                    </div>
+                                {% endif %}
+                            </div>
                         </div>
                     {% endif %}
-                    {#<ul class="nav nav-tabs">#}
-                    {#<li class="active"><a href="#tab-description" data-toggle="tab">{{ tab_description }}</a></li>#}
-                    {#{% if attribute_groups %}#}
-                    {#<li><a href="#tab-specification" data-toggle="tab">{{ tab_attribute }}</a></li>#}
-                    {#{% endif %}#}
-                    {#{% if review_status %}#}
-                    {#<li><a href="#tab-review" data-toggle="tab">{{ tab_review }}</a></li>#}
-                    {#{% endif %}#}
-                    {#</ul>#}
-                    <div class="tab-content">
-                        <div class="tab-pane active" id="tab-description">{{ description }}</div>
-                        {% if attribute_groups %}
-                            <div class="tab-pane" id="tab-specification">
-                                <table class="table table-bordered">
-                                    {% for attribute_group in attribute_groups %}
-                                        <thead>
-                                        <tr>
-                                            <td colspan="2"><strong>{{ attribute_group.name }}</strong></td>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        {% for attribute in attribute_group.attribute %}
-                                            <tr>
-                                                <td>{{ attribute.name }}</td>
-                                                <td>{{ attribute.text }}</td>
-                                            </tr>
-                                        {% endfor %}
-                                        </tbody>
-                                    {% endfor %}
-                                </table>
-                            </div>
-                        {% endif %}
-                        {% if review_status %}
-                            <div class="tab-pane" id="tab-review">
-                                <form class="form-horizontal" id="form-review">
-                                    <div id="review"></div>
-                                    <h2>{{ text_write }}</h2>
-                                    {% if review_guest %}
-                                        <div class="form-group required">
-                                            <div class="col-sm-12">
-                                                <label class="control-label" for="input-name">{{ entry_name }}</label>
-                                                <input type="text" name="name" value="{{ customer_name }}"
-                                                       id="input-name" class="form-control"/>
-                                            </div>
-                                        </div>
-                                        <div class="form-group required">
-                                            <div class="col-sm-12">
-                                                <label class="control-label"
-                                                       for="input-review">{{ entry_review }}</label> <textarea
-                                                        name="text" rows="5" id="input-review"
-                                                        class="form-control"></textarea>
-                                                <div class="help-block">{{ text_note }}</div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group required">
-                                            <div class="col-sm-12">
-                                                <label class="control-label">{{ entry_rating }}</label>
-                                                &nbsp;&nbsp;&nbsp; {{ entry_bad }}&nbsp;
-                                                <input type="radio" name="rating" value="1"/>
-                                                &nbsp;
-                                                <input type="radio" name="rating" value="2"/>
-                                                &nbsp;
-                                                <input type="radio" name="rating" value="3"/>
-                                                &nbsp;
-                                                <input type="radio" name="rating" value="4"/>
-                                                &nbsp;
-                                                <input type="radio" name="rating" value="5"/>
-                                                &nbsp;{{ entry_good }}</div>
-                                        </div>
-                                        {{ captcha }}
-                                        <div class="buttons clearfix">
-                                            <div class="pull-right">
-                                                <button type="button" id="button-review"
-                                                        data-loading-text="{{ text_loading }}"
-                                                        class="btn btn-primary">{{ button_continue }}</button>
-                                            </div>
-                                        </div>
-                                    {% else %}
-                                        {{ text_login }}
-                                    {% endif %}
-                                </form>
-                            </div>
-                        {% endif %}</div>
                 </div>
                 {% if column_left or column_right %}
                     {% set class = 'col-sm-6' %}
@@ -132,16 +56,18 @@
                     {% set class = 'col-sm-5' %}
                 {% endif %}
                 <div class="{{ class }}">
-
-                    <!--  <h1>{{ heading_title }}</h1> -->
-
-                    <img src="{{ manufacturer_img }}">
+                    {% if manufacturer_img %}
+                        <img src="{{ manufacturer_img }}">
+                        <h4>{{ heading_title }}</h4>
+                    {% else %}
+                        <h1>{{ heading_title }}</h1>
+                    {% endif %}
                     <ul class="list-unstyled">
-                        <li><h3>{{ model }} - {{ category }}</h3></li>
+                        <li><h3>{{ model }}</h3></li>
                         {% if reward %}
                             <li>{{ text_reward }} {{ reward }}</li>
                         {% endif %}
-                        <!-- <li>{{ text_stock }} {{ stock }}</li> -->
+                        <li>{{ text_stock }} {{ stock }}</li>
                     </ul>
                     {% if price %}
                         <ul class="list-unstyled">
@@ -150,17 +76,13 @@
                                     <h4 id="price_tag" class="prix-product-page">{{ price }}</h4>
                                 </li>
                             {% else %}
-                                <li><span style="text-decoration: line-through;">{{ price }}</span> <span
-                                            style="font-size: 10px; color: #e7e7e7;">TTC incluse</span></li>
+                                <li>
+                                    <span class="price-old">{{ price }}</span>
+                                    <span class="description">TTC incluse</span>
+                                </li>
                                 <li>
                                     <h2>{{ special }}</h2>
                                 </li>
-                            {% endif %}
-                            <!-- {% if tax %}
-                <li>{{ text_tax }} {{ tax }}</li>
-              {% endif %} -->
-                            {% if points %}
-                                <li>{{ text_points }} {{ points }}</li>
                             {% endif %}
                             {% if discounts %}
                                 <li>
@@ -175,7 +97,7 @@
                     {% endif %}
 
                     <div id="samecolor">
-                        <a> <img id="main_thumb" style="width:74px; border-bottom: 2px black solid" src="{{ thumb }}"
+                        <a><img id="main_thumb" style="width:74px; border-bottom: 2px black solid" src="{{ thumb }}"
                                  alt="{{ popup }}"/></a>
                         {% for similar in product_similar %}
                             <a href="{{ similar.href }}"><img class="similar_img" src="{{ similar.image }}"
@@ -355,26 +277,7 @@
                                 {% endif %}
                             {% endfor %}
                         {% endif %}
-
-                        {% if recurrings %}
-                            <hr>
-                            <h3>{{ text_payment_recurring }}</h3>
-                            <div class="form-group required">
-                                <select name="recurring_id" class="form-control">
-                                    <option value="">{{ text_select }}</option>
-                                    {% for recurring in recurrings %}
-                                        <option value="{{ recurring.recurring_id }}">{{ recurring.name }}</option>
-                                    {% endfor %}
-                                </select>
-                                <div class="help-block" id="recurring-description"></div>
-                            </div>
-                        {% endif %}
-
-
                         <div class="form-group">
-
-                            <!-- <label class="control-label" for="input-quantity">{{ entry_qty }}</label> <input type="text" name="quantity" value="{{ minimum }}" size="2" id="input-quantity" class="form-control"/> <input type="hidden" name="product_id" value="{{ product_id }}"/>
-              <br/> -->
                             <button type="button" data-toggle="tooltip" class="btn btn-default btn-wish wish-list"
                                     title="{{ button_wishlist }}" onclick="wishlist.add('{{ product_id }}');"
                             ><img src="image/favorite.png" width="12" height="13" id="fav-button"> Ajouter à mes
@@ -395,7 +298,8 @@
             </div>
             {% if attribute_groups %}
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 attribute">
-                    <div class="col-md-5 col-sm-12 col-xs-12 col-md-push-7 col-lg-push-7" align="center"><img src="{{ popup }}" alt="{{ heading_title }}" class="img-responsive"/></div>
+                    <div class="col-md-5 col-sm-12 col-xs-12 col-md-push-7 col-lg-push-7" align="center"><img
+                                src="{{ popup }}" alt="{{ heading_title }}" class="img-responsive"/></div>
                     <div class="col-md-7 col-sm-12 col-xs-12 col-md-pull-5 col-lg-pull-5">
                         <div class="h3 zalark-title">DESCRIPTION</div>
                         {% for attribute_group in attribute_groups %}
@@ -627,22 +531,23 @@
     // Galery
     $('document').ready(function () {
         img = $('#main_img');
-        img_container = document.getElementById('main_img_cont');
-
         $('.image-additional .thumbnail img').each(
             function (index, elm) {
                 elm.onmouseover = function (e) {
                     img.src = elm.alt;
-                    link = img.src.replace("cache/", "").split("-");
+                    link = img[0].src.replace("cache/", "").split("-");
+                    console.log(link);
                     link[link.length - 1] = "-.png";
+                    console.log(link);
                     link = link.join("-").replace("--", "");
+                    console.log(link);
                     $('.previeus-hover').zoom({url: link});
                 };
             }
         );
 
 
-        link = img.src.replace("cache/", "").split("-");
+        link = img[0].src.replace("cache/", "").split("-");
         link[link.length - 1] = "-.png";
         link = link.join("-").replace("--", "");
         $('.previeus-hover').zoom({url: link});
@@ -654,7 +559,7 @@
 
     var img = $('#main_img');
     var main_thumb = $('#main_thumb');
-    var default_src = img.src;
+    var default_src = img[0].src;
 
     color_text = $('#color_text');
     default_color = color_text.html();
@@ -667,7 +572,10 @@
             elm.onmouseover = function (e) {
                 color_text.html($(elm).attr("data-color"));
                 price.html($(elm).attr("data-price"));
-                img.src = elm.alt;
+                console.log(img);
+                console.log(elm.alt);
+                img[0].src = elm.alt;
+                console.log(img[0].src);
                 main_thumb.css("border-bottom", "0");
                 elm.style.borderBottom = "2px black solid";
 
@@ -677,8 +585,8 @@
                 main_thumb.css("border-bottom", "2px black solid");
                 color_text.html(default_color);
                 price.html(default_price);
-                img.src = default_src;
-                link = img.src.replace("cache/", "").split("-");
+                img[0].src = default_src;
+                link = img[0].src.replace("cache/", "").split("-");
                 link[link.length - 1] = "-.png";
                 link = link.join("-").replace("--", "");
                 $('.previeus-hover').zoom({url: link});
