@@ -39,7 +39,7 @@
                                 {% endif %}
                                 {% if thumb %}
                                     <div class="{{ class }}"><a id="main_img_cont" style="border:0px"
-                                                                class="thumbnail previeus-hover"
+                                                                class="thumbnail previous-hover"
                                                                 title="{{ heading_title }}"><img id="main_img"
                                                                                                  class="img-responsive"
                                                                                                  src="{{ popup }}"
@@ -534,14 +534,11 @@
         $('.image-additional .thumbnail img').each(
             function (index, elm) {
                 elm.onmouseover = function (e) {
-                    img.src = elm.alt;
+                    img[0].src = elm.alt;
                     link = img[0].src.replace("cache/", "").split("-");
-                    console.log(link);
                     link[link.length - 1] = "-.png";
-                    console.log(link);
                     link = link.join("-").replace("--", "");
-                    console.log(link);
-                    $('.previeus-hover').zoom({url: link});
+                    $('.previous-hover').zoom({url: link});
                 };
             }
         );
@@ -550,7 +547,7 @@
         link = img[0].src.replace("cache/", "").split("-");
         link[link.length - 1] = "-.png";
         link = link.join("-").replace("--", "");
-        $('.previeus-hover').zoom({url: link});
+        $('.previous-hover').zoom({url: link});
 
 
     });
@@ -572,10 +569,7 @@
             elm.onmouseover = function (e) {
                 color_text.html($(elm).attr("data-color"));
                 price.html($(elm).attr("data-price"));
-                console.log(img);
-                console.log(elm.alt);
                 img[0].src = elm.alt;
-                console.log(img[0].src);
                 main_thumb.css("border-bottom", "0");
                 elm.style.borderBottom = "2px black solid";
 
@@ -589,7 +583,7 @@
                 link = img[0].src.replace("cache/", "").split("-");
                 link[link.length - 1] = "-.png";
                 link = link.join("-").replace("--", "");
-                $('.previeus-hover').zoom({url: link});
+                $('.previous-hover').zoom({url: link});
             }
         });
 </script>
