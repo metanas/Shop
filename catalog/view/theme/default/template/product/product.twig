@@ -393,26 +393,20 @@
 
                 </div>
             </div>
-            <div class="col-md-12" style="background-color: #f7f7f7; margin-bottom: 30px">
-                <div class="col-md-7">
-                    <br/>
-                    <br/>
-                    <span style="font-weight:bold; border-bottom: 2px #ff1b5e solid; margin: 0 0 20px 90px;">DESCRIPTION</span><br/><br/><br/>
-                    <span style="font-weight:bold; margin: 0 0 20px 90px">MATIERE ET ENTRETIEN</span><br/>
-                    <span style="font-weight:bold; margin: 0 0 20px 90px">Dessus / Tige : </span><br/>
-                    <span style="font-weight:bold; margin: 0 0 20px 90px">Doublure : </span><br/>
-                    <span style="font-weight:bold; margin: 0 0 20px 90px">Semelle de propreté : </span><br/>
-                    <span style="font-weight:bold; margin: 0 0 20px 90px">Semelle d'usure : </span><br/>
-                    <span style="font-weight:bold; margin: 0 0 20px 90px">Epesseure de la doublure : </span><br/><br/><br/>
-                    <span style="font-weight:bold; margin: 0 0 20px 90px">DETAILS DU PRODUIT</span><br/>
-                    <span style="font-weight:bold; margin: 0 0 20px 90px">Bout de la chaussure</span><br/>
-                    <span style="font-weight:bold; margin: 0 0 20px 90px">Forme du talon : </span><br/>
-                    <span style="font-weight:bold; margin: 0 0 20px 90px">Détails : </span><br/>
-                    <span style="font-weight:bold; margin: 0 0 20px 90px">Fermeture : </span><br/>
-                    <span style="font-weight:bold; margin: 0 0 20px 90px">Référence : </span><br/>
+            {% if attribute_groups %}
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 attribute">
+                    <div class="col-md-5 col-sm-12 col-xs-12 col-md-push-7 col-lg-push-7" align="center"><img src="{{ popup }}" alt="{{ heading_title }}" class="img-responsive"/></div>
+                    <div class="col-md-7 col-sm-12 col-xs-12 col-md-pull-5 col-lg-pull-5">
+                        <div class="h3 zalark-title">DESCRIPTION</div>
+                        {% for attribute_group in attribute_groups %}
+                            <h4 class="text-uppercase">{{ attribute_group.name }}</h4>
+                            {% for attribute in attribute_group.attribute %}
+                                <p><b>{{ attribute.name }}:</b> {{ attribute.text }}</p>
+                            {% endfor %}
+                        {% endfor %}
+                    </div>
                 </div>
-                <div class="col-md-5"><img style="" src="{{ popup }}" alt="{{ heading_title }}"/></div>
-            </div>
+            {% endif %}
             {% if tags %}
                 <p>{{ text_tags }}
                     {% for i in 0..tags|length %}

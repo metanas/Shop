@@ -19,15 +19,6 @@ class ControllerProductProduct extends Controller {
 				} else {
 					$path .= '_' . $path_id;
 				}
-
-				$category_info = $this->model_catalog_category->getCategory($path_id);
-
-				if ($category_info) {
-					$data['breadcrumbs'][] = array(
-						'text' => $category_info['name'],
-						'href' => $this->url->link('product/category', 'language=' . $this->config->get('config_language') . '&path=' . $path)
-					);
-				}
 			}
 
 			// Set the last category breadcrumb
@@ -51,12 +42,6 @@ class ControllerProductProduct extends Controller {
 				if (isset($this->request->get['limit'])) {
 					$url .= '&limit=' . $this->request->get['limit'];
 				}
-
-				$data['breadcrumbs'][] = array(
-					'text' => $category_info['name'],
-					'href' => $this->url->link('product/category', 'language=' . $this->config->get('config_language') . '&path=' . $this->request->get['path'] . $url)
-				);
-
 			}
 		}
 

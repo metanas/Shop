@@ -1647,6 +1647,14 @@ ul {
     color: white
 }
 
+.zalark-title {
+    display: inline-block;
+    font-weight: bold;
+    border-bottom: 2px #ff1b5e solid;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
 .zalark-button {
     border: transparent !important;
     background-color: #ff1b5e;
@@ -1681,6 +1689,17 @@ ul {
     margin-top: 20px;
     margin-bottom: 20px;
     height: 40px;
+}
+
+@media (min-width: 992px) {
+    .attribute {
+        padding-left: 90px;
+    }
+}
+
+.attribute {
+    background-color: #f7f7f7;
+    margin-bottom: 30px;
 }
 
 .description {
