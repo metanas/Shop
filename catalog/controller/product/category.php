@@ -14,8 +14,8 @@ class ControllerProductCategory extends Controller
 
         $this->load->model('account/wishlist');
 
-        if (isset($this->request->get['filter'])) {
-            $filter = $this->request->get['filter'];
+        if (isset($this->request->get['filt'])) {
+            $filter = $this->request->get['filt'];
         } else {
             $filter = '';
         }
@@ -97,8 +97,8 @@ class ControllerProductCategory extends Controller
 
             $url = '';
 
-            if (isset($this->request->get['filter'])) {
-                $url .= '&filter=' . $this->request->get['filter'];
+            if (isset($this->request->get['filt'])) {
+                $url .= '&filter=' . $this->request->get['filt'];
             }
 
             if (isset($this->request->get['sort'])) {
@@ -182,11 +182,20 @@ class ControllerProductCategory extends Controller
                     );
                 }
 
-                if (!$this->in_array_r($result['color'], $products_colors))
-                    $products_colors[] = array("color" => $result['color'], "color_hex" => $result['color_hex']);
+                if (isset($this->request->get['filt'])) {
+                    if (strpos($this->request->get['filt'], '_')) {
+                        $filterTri = $this->tri_filter(explode($this->request->get['filt'], '_'));
+                    } else {
+                        $filterTri = $this->tri_filter(array($this->request->get['filt']));
+                    }
+                }
 
-                if (!in_array($result['manufacturer'], $products_models))
-                    $products_models[] = $result['manufacturer'];
+                if (!$this->in_array_r($result['color'], $products_colors, 'color')) {
+                    $products_colors[] = array("color" => $result['color'], "color_hex" => $result['color_hex'], 'isChecked' => (isset($filterTri) && in_array($result['color'], $filterTri['color'])) ? true : false);
+                }
+
+                if (!$this->in_array_r($result['manufacturer'], $products_models, 'manufacturer'))
+                    $products_models[] = array('manufacturer' => $result['manufacturer'], 'isChecked' => (isset($filterTri) && in_array($result['manufacturer'], $filterTri['model'])) ? true : false);
 
                 if ((int)$price_max < (int)((is_null($result['special'])) ? $result['price'] : $result['special']))
                     $price_max = (int)((is_null($result['special'])) ? $result['price'] : $result['special']);
@@ -222,11 +231,12 @@ class ControllerProductCategory extends Controller
             $data['currency'] = $this->session->data['currency'];
             $data['products_colors'] = $products_colors;
             $data['products_models'] = $products_models;
+            var_dump($products_models);
 
             $url = '';
 
-            if (isset($this->request->get['filter'])) {
-                $url .= '&filter=' . $this->request->get['filter'];
+            if (isset($this->request->get['filt'])) {
+                $url .= '&filter=' . $this->request->get['filt'];
             }
 
             if (isset($this->request->get['limit'])) {
@@ -293,8 +303,8 @@ class ControllerProductCategory extends Controller
 
             $url = '';
 
-            if (isset($this->request->get['filter'])) {
-                $url .= '&filter=' . $this->request->get['filter'];
+            if (isset($this->request->get['filt'])) {
+                $url .= '&filter=' . $this->request->get['filt'];
             }
 
             if (isset($this->request->get['sort'])) {
@@ -321,8 +331,8 @@ class ControllerProductCategory extends Controller
 
             $url = '';
 
-            if (isset($this->request->get['filter'])) {
-                $url .= '&filter=' . $this->request->get['filter'];
+            if (isset($this->request->get['filt'])) {
+                $url .= '&filter=' . $this->request->get['filt'];
             }
 
             if (isset($this->request->get['sort'])) {
@@ -390,8 +400,8 @@ class ControllerProductCategory extends Controller
                 $url .= '&path=' . $this->request->get['path'];
             }
 
-            if (isset($this->request->get['filter'])) {
-                $url .= '&filter=' . $this->request->get['filter'];
+            if (isset($this->request->get['filt'])) {
+                $url .= '&filter=' . $this->request->get['filt'];
             }
 
             if (isset($this->request->get['sort'])) {
@@ -440,8 +450,8 @@ class ControllerProductCategory extends Controller
 
         $this->load->model('account/wishlist');
 
-        if (isset($this->request->get['filter'])) {
-            $filter = $this->request->get['filter'];
+        if (isset($this->request->get['filt'])) {
+            $filter = $this->request->get['filt'];
         } else {
             $filter = '';
         }
@@ -523,8 +533,8 @@ class ControllerProductCategory extends Controller
 
             $url = '';
 
-            if (isset($this->request->get['filter'])) {
-                $url .= '&filter=' . $this->request->get['filter'];
+            if (isset($this->request->get['filt'])) {
+                $url .= '&filter=' . $this->request->get['filt'];
             }
 
             if (isset($this->request->get['sort'])) {
@@ -608,11 +618,20 @@ class ControllerProductCategory extends Controller
                     );
                 }
 
-                if (!$this->in_array_r($result['color'], $products_colors))
-                    $products_colors[] = array("color" => $result['color'], "color_hex" => $result['color_hex']);
+                if (isset($this->request->get['filt'])) {
+                    if (strpos($this->request->get['filt'], '_')) {
+                        $filterTri = $this->tri_filter(explode($this->request->get['filt'], '_'));
+                    } else {
+                        $filterTri = $this->tri_filter(array($this->request->get['filt']));
+                    }
+                }
 
-                if (!in_array($result['manufacturer'], $products_models))
-                    $products_models[] = $result['manufacturer'];
+                if (!$this->in_array_r($result['color'], $products_colors, 'color')) {
+                    $products_colors[] = array("color" => $result['color'], "color_hex" => $result['color_hex'], 'isChecked' => (isset($filterTri) && in_array($result['color'], $filterTri['color'])) ? true : false);
+                }
+
+                if (!$this->in_array_r($result['manufacturer'], $products_models, 'manufacturer'))
+                    $products_models[] = array('manufacturer' => $result['manufacturer'], 'isChecked' => (isset($filterTri) && in_array($result['manufacturer'], $filterTri['model'])) ? true : false);
 
                 if ((int)$price_max < (int)((is_null($result['special'])) ? $result['price'] : $result['special']))
                     $price_max = (int)((is_null($result['special'])) ? $result['price'] : $result['special']);
@@ -651,8 +670,8 @@ class ControllerProductCategory extends Controller
 
             $url = '';
 
-            if (isset($this->request->get['filter'])) {
-                $url .= '&filter=' . $this->request->get['filter'];
+            if (isset($this->request->get['filt'])) {
+                $url .= '&filter=' . $this->request->get['filt'];
             }
 
             if (isset($this->request->get['limit'])) {
@@ -719,8 +738,8 @@ class ControllerProductCategory extends Controller
 
             $url = '';
 
-            if (isset($this->request->get['filter'])) {
-                $url .= '&filter=' . $this->request->get['filter'];
+            if (isset($this->request->get['filt'])) {
+                $url .= '&filter=' . $this->request->get['filt'];
             }
 
             if (isset($this->request->get['sort'])) {
@@ -747,8 +766,8 @@ class ControllerProductCategory extends Controller
 
             $url = '';
 
-            if (isset($this->request->get['filter'])) {
-                $url .= '&filter=' . $this->request->get['filter'];
+            if (isset($this->request->get['filt'])) {
+                $url .= '&filter=' . $this->request->get['filt'];
             }
 
             if (isset($this->request->get['sort'])) {
@@ -807,8 +826,8 @@ class ControllerProductCategory extends Controller
                 $url .= '&path=' . $this->request->get['path'];
             }
 
-            if (isset($this->request->get['filter'])) {
-                $url .= '&filter=' . $this->request->get['filter'];
+            if (isset($this->request->get['filt'])) {
+                $url .= '&filter=' . $this->request->get['filt'];
             }
 
             if (isset($this->request->get['sort'])) {
@@ -874,14 +893,23 @@ class ControllerProductCategory extends Controller
             $this->response->setOutput(json_encode($data));
     }
 
-    private
-    function in_array_r($needle, $haystack, $strict = false)
+    private function in_array_r($needle, $haystack, $column, $strict = false)
     {
         foreach ($haystack as $item) {
-            if (strtolower($needle) === strtolower($item['color'])) {
+            if (strtolower($needle) === strtolower($item[$column])) {
                 return true;
             }
         }
         return false;
+    }
+
+    private function tri_filter($filters)
+    {
+        $filtersTrie = array('color' => array(), 'model' => array(), 'price' => array(), 'size' => array());
+        foreach ($filters as $filter) {
+            list($key, $value) = explode('[]', $filter);
+            $filtersTrie[$key][] = $value;
+        }
+        return $filtersTrie;
     }
 }

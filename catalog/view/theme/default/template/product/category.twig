@@ -43,9 +43,10 @@
                                     </div>
                                     <div id="model" class="ScrollStyle">
                                         {% for model in products_models %}
-                                            <label class="check_filter check-model" style="display: block">{{ model }}
+                                            <label class="check_filter check-model"
+                                                   style="display: block">{{ model.manufacturer }}
                                                 <input class="checkbox" type="checkbox" name="model[]"
-                                                       value="{{ model }}">
+                                                       value="{{ model.manufacturer }}" {% if model.isChecked %} checked {% endif %}>
                                                 <span class="checkmark"></span>
                                             </label>
                                         {% endfor %}
@@ -79,7 +80,7 @@
                                             <label class="check_filter check-color"
                                                    style="display: block">{{ color.color }}
                                                 <input class="checkbox" type="checkbox" name="color[]"
-                                                       value="{{ color.color }}">
+                                                       value="{{ color.color }}" {% if color.isChecked %} checked {% endif %}>
                                                 <span class="checkmark checkradio"
                                                       style="background-color: {{ color.color_hex }};"></span>
                                             </label>
@@ -250,7 +251,7 @@
                 }
             );
 
-            filterGenerator();
+            setFilter();
         });
 
         $("#ex12c").slider({
@@ -271,6 +272,19 @@
         });
 
         $("#product-category").on('click', 'input:checkbox', function (event) {
+            var param = '';
+            const filt = getURLVar('filt');
+            const newFilt = event.target.name + event.target.value;
+            if (event.target.checked) {
+                if (filt !== '') {
+                    param = filt + "_" + newFilt;
+                } else {
+                    param = newFilt;
+                }
+            } else {
+                param = filt.replace(newFilt, '');
+            }
+            updateQueryStringParam('filt', param);
             event.stopPropagation();
         });
 
@@ -279,7 +293,12 @@
         });
 
         function removeFilter(e) {
-            filterGenerator()
+            const tar = e.innerText.replace(':', '[]');
+            var param = String(getURLVar('filt')).replace(tar, '');
+            param = param.replace("__", '_');
+            console.log(param);
+            updateQueryStringParam('filt', param);
+            filterGenerator();
         }
 
         $(document).on('click', '', function (e) {
@@ -291,35 +310,38 @@
         });
 
         function filterGenerator() {
-            let s = getURLVar("filter");
-            console.log(s);
+            var url = "index.php?route=product/category/filter&path=" + String(getURLVar("path"));
+            if (String(getURLVar("filt")) !== '') {
+                url += "&filt=" + String(getURLVar("filt"));
+            }
+            $.ajax({
+                url: url,
+                type: "GET",
+                beforeSend: function () {
+                    $('body').loading({message: "chargement.."});
+                },
+                complete: function () {
+                    $('body').loading('stop');
+                },
+                success: function (json) {
+                    $('#product-category').empty();
+                    $('#product-category').html(json);
+                },
+                error: function (result, status, s) {
+                    $('body').loading('stop');
+                },
+            });
+        }
+
+        function setFilter() {
+            const s = String(getURLVar("filt"));
             if (s !== '') {
                 var filters = s.split('_');
                 $(".filter-content").empty();
                 if (price.length > 0) if ($.inArray(price[0], filters) === -1) filters = filters.concat(price);
                 for (i = 0; i < filters.length; i++) {
-                    $(".filter-content").append('<span class="filter-generate" onclick="removeFilter(this)">' + (($.inArray(filters[i], price) !== -1) ? filters[i].replace('[]', ":") : filters[i].split('[]')[1]) + '<i class="fa fa-close" style="margin-left: 5px"></i></span>');
+                    $(".filter-content").append('<span class="filter-generate" onclick="removeFilter(this)">' + (filters[i].replace('[]', ":")) + '<i class="fa fa-close" style="margin-left: 5px"></i></span>');
                 }
-
-                let url = updateQueryStringParam("filter", filters.join("_"));
-
-                $.ajax({
-                    url: "index.php?route=product/category/filter&path=" + url,
-                    type: "GET",
-                    beforeSend: function () {
-                        $('body').loading({message: "chargement.."});
-                    },
-                    complete: function () {
-                        $('body').loading('stop');
-                    },
-                    success: function (json) {
-                        $('#product-category').empty();
-                        $('#product-category').html(json);
-                    },
-                    error: function (result, status, s) {
-                        $('body').loading('stop');
-                    },
-                });
 
                 if (filters.length >= 3 && $('.clear-all-filters').get().length === 0) {
                     $(".filter-content").prepend('<span class="filter-generate clear-all-filters" onclick="removeAllFilters()">{{ text_clear_filter }}<i class="fa fa-close" style="margin-left: 5px"></i></span>');
@@ -332,27 +354,10 @@
         }
 
         function removeAllFilters() {
-            filterGenerator();
+            updateQueryStringParam('filt', '');
         }
 
-        // $(".field-input-filter").on('input', function () {
-        //     $(".ScrollStyle").empty();
-        //     let arr = Array();
-        //     if (this.name === "color") {
-        //         arr = colors;
-        //     } else if (this.name === "model") {
-        //         arr = models;
-        //     }
-        //     for (i = 0; i < arr.length; i++) {
-        //         if (arr[i].value.includes(this.value))
-        //             $(".ScrollStyle").append("<label class=\"check_filter\">" + arr[i].value +
-        //                 "<input class=\"checkbox\" type=\"checkbox\" name=\"" + this.name + "[]\" value=\"" + arr[i].value + "\">" +
-        //                 "<span class=\"checkmark checkradio\" style=\"background-color: ;\"></span>" +
-        //                 "</label>");
-        //     }
-        // });
-
-        function updateQueryStringParam(param, value, path = "") {
+        function updateQueryStringParam(param, value) {
             baseUrl = [location.protocol, '//', location.host, location.pathname].join('');
             urlQueryString = document.location.search;
             let newParam = param + '=' + value;
@@ -367,11 +372,10 @@
                     params = urlQueryString + '&' + newParam;
                 }
             } else {
-                params = urlQueryString.replace("&" + param + "=" + getURLVar("'" + param + "'"), "");
+                params = urlQueryString.replace("&" + param + "=" + getURLVar(param), "");
             }
 
             window.history.replaceState({}, "", baseUrl + params);
-            return (path !== "") ? path : (getURLVar('path') + "&filter=" + getURLVar("filter"));
         }
     </script>
 </div>

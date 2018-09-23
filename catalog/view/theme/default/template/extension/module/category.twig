@@ -41,7 +41,8 @@
     function changePath(self, path) {
         $('.actif').removeClass('actif');
         self.classList.add('actif');
-        updateQueryStringParam("path", path, path)
+        updateQueryStringParam("path", path, path);
+        filterGenerator();
     }
 
 </script>
