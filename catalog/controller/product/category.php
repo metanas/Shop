@@ -14,6 +14,10 @@ class ControllerProductCategory extends Controller
 
         $this->load->model('account/wishlist');
 
+        $this->document->addScript('catalog/view/javascript/filter.js');
+        $this->document->addScript('catalog/view/javascript/loading.js');
+        $this->document->addStyle('catalog/view/theme/default/stylesheet/loading.css');
+
         if (isset($this->request->get['filt'])) {
             $filter = $this->request->get['filt'];
         } else {
@@ -184,7 +188,7 @@ class ControllerProductCategory extends Controller
 
                 if (isset($this->request->get['filt'])) {
                     if (strpos($this->request->get['filt'], '_')) {
-                        $filterTri = $this->tri_filter(explode($this->request->get['filt'], '_'));
+                        $filterTri = $this->tri_filter(explode('_', $this->request->get['filt']));
                     } else {
                         $filterTri = $this->tri_filter(array($this->request->get['filt']));
                     }
@@ -226,12 +230,10 @@ class ControllerProductCategory extends Controller
                     'href' => $this->url->link('product/product', 'language=' . $this->config->get('config_language') . '&path=' . $this->request->get['path'] . '&product_id=' . $result['product_id'] . $url)
                 );
             }
-            $data['price_max'] = $price_max;
-            $data['price_min'] = $price_min;
-            $data['currency'] = $this->session->data['currency'];
+            $data['price_max'] = $this->currency->format($price_max, $this->session->data['currency']);
+            $data['price_min'] = $this->currency->format($price_min, $this->session->data['currency']);
             $data['products_colors'] = $products_colors;
             $data['products_models'] = $products_models;
-            var_dump($products_models);
 
             $url = '';
 
@@ -620,7 +622,7 @@ class ControllerProductCategory extends Controller
 
                 if (isset($this->request->get['filt'])) {
                     if (strpos($this->request->get['filt'], '_')) {
-                        $filterTri = $this->tri_filter(explode($this->request->get['filt'], '_'));
+                        $filterTri = $this->tri_filter(explode('_', $this->request->get['filt']));
                     } else {
                         $filterTri = $this->tri_filter(array($this->request->get['filt']));
                     }

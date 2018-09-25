@@ -16,7 +16,8 @@ class ControllerCheckoutShippingAddress extends Controller
 
         $this->load->model('account/address');
 
-        $data['addresses'] = $this->model_account_address->getAddresses();
+        $data['addresses'] = $this->model_account_address->getShippingAddresses();
+        $data['billing_addresses'] = $this->model_account_address->getBillingAddresses();
 
         // Custom Fields
         $data['custom_fields'] = array();
@@ -41,6 +42,7 @@ class ControllerCheckoutShippingAddress extends Controller
         $this->load->language('checkout/checkout');
 
         $json = array();
+        $json = $this->request->post;
 
         // Validate if customer is logged in.
         if (!$this->customer->isLogged()) {
@@ -134,6 +136,9 @@ class ControllerCheckoutShippingAddress extends Controller
         }
 
         if (!$json) {
+            if ($this->model_account_address->getAddess($this->request->post['billing_id'])) {
+                $this->session->data['billing_address'] = $this->request->post['billing_id'];
+            }
             $this->session->data['shipping_address'] = $this->request->post['address_id'];
             $json['success'] = true;
         }
@@ -205,6 +210,10 @@ class ControllerCheckoutShippingAddress extends Controller
 
         if ((utf8_strlen(trim($this->request->post['telephone'])) < 2) || (utf8_strlen(trim($this->request->post['telephone'])) > 128)) {
             $this->error['telephone'] = $this->language->get('error_telephone');
+        }
+
+        if (!is_numeric($this->request->post['shipping'])) {
+            $this->error['shipping'] = $this->language->get('error_is_shipping');
         }
 
         return $this->error;

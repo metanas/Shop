@@ -7,6 +7,8 @@ class ControllerProductProduct extends Controller {
 
 		$this->load->model('catalog/category');
 
+		$this->document->addScript('catalog/view/javascript/zoom.js');
+		
 		if (isset($this->request->get['path'])) {
 			$path = '';
 

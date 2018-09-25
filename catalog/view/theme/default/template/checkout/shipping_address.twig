@@ -11,10 +11,10 @@
     </div>
 </div>
 <div class="col-sm-12" id="domicile-content" style="margin-top: 30px">
-    <div class="col-md-12">
+    <div class="col-md-6">
         <h4>ADRESSE DE LIVRAISON</h4>
         <hr>
-        <div class="col-md-6" id="container-address">
+        <div class="col-md-12" id="container-address">
             {% for address in addresses %}
                 <div class="col-sm-12 address-form">
                     <div class="form-group">
@@ -47,11 +47,11 @@
                      style="display: {% if addresses %} none {% else %} block {% endif %}">
                     <div class="form-group">
                         <label class="check_filter" style="display: inline">
-                            <input type="radio" id="add-address" class="checkbox" name="sex">mr
+                            <input type="radio" class="checkbox" name="sex">mr
                             <span class="checkmark checkradio"></span>
                         </label>
                         <label class="check_filter" style="display: inline;margin-left: 10px">
-                            <input type="radio" id="add-address" class="checkbox" name="sex">madame
+                            <input type="radio" class="checkbox" name="sex">madame
                             <span class="checkmark checkradio"></span>
                         </label>
                     </div>
@@ -100,7 +100,25 @@
                                id="input-telephone"
                                class="form-control input-zalark"/>
                     </div>
-                    <h3>Maroc</h3>
+                    <div class="form-group">
+                        <label class="control-label" for="input-country">Pays</label>
+                        <select class="select-zalark" disabled>
+                            <option value="Maroc" selected>Maroc</option>
+                        </select>
+                    </div>
+                    <div class="form-group required">
+                        <label class="control-label" for="input-address-type">addresse type</label>
+                        <label class="check_filter" style="display: block;">
+                            <input type="radio" class="checkbox" name="shipping" value="1" checked>
+                            <label for="input-shipping">addresse de livraison</label>
+                            <span class="checkmark checkradio"></span>
+                        </label>
+                        <label class="check_filter" style="display: block;">
+                            <input type="radio" class="checkbox" name="shipping" value="0">
+                            <label for="input-shipping">Adresse de facturation</label>
+                            <span class="checkmark checkradio"></span>
+                        </label>
+                    </div>
                     <button id="update-address" class="zalark-button-border text-uppercase"
                             hidden>{{ button_update_address }}</button>
                     <button id="save-address"
@@ -108,31 +126,57 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-6 col-xs-12">
+    </div>
+    <div class="col-md-6">
+        <h4>ADRESSE DE FACTURATION</h4>
+        <hr>
+        <div class="col-md-12" id="container-billing">
+            {% for address in billing_addresses %}
+                <div class="col-sm-12 address-form">
+                    <div class="form-group">
+                        <label class="check_filter">
+                            <input type="radio" class="checkbox" name="address"
+                                   value="{{ address.address_id }}" {% if address_id == address.address_id %} checked="checked" {% endif %}>{{ address.firstname }} {{ address.lastname }}
+                            <br>{{ address.address_1 }} {{ address.address_2 }}<br> {{ address.postcode }}
+                            {{ address.city }}<br> Maroc <br>
+                            {% if address.telephone %}
+                                T: {{ address.telephone }}
+                            {% endif %}
+                            <span class="checkmark checkradio"></span>
+                        </label>
+                    </div>
+                    <i class="edit-address fa fa-pencil"></i>
+                    <i class="close-address fa fa-close"></i>
+                    <hr>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="col-md-12 col-xs-12" align="center">
             <button class="zalark-button">{{ button_continue }}</button>
         </div>
     </div>
+
 </div>
 <div class="col-sm-12" id="retrait-content">
 
 </div>
 <script>
 
-    $("#container-address").on("mouseenter", '.address-form', function () {
+    $("#container-address , #container-billing").on("mouseenter", '.address-form', function () {
         $(".close-address", this).show();
         $(".edit-address", this).animate({
             marginTop: "70px"
         }, 100)
     });
 
-    $("#container-address").on('mouseleave', '.address-form', function () {
+    $("#container-address, #container-billing").on('mouseleave', '.address-form', function () {
         $(".close-address", this).hide();
         $(".edit-address", this).animate({
             marginTop: "0"
         }, 100)
     });
 
-    $("#container-address").on('change', 'input:radio[name="address"]', function () {
+    $("#container-address, #container-billing").on('change', 'input:radio[name="address"]', function () {
         if ($(this).val() === "Add") {
             $("#add-address-field").show(200);
         } else {
@@ -171,7 +215,7 @@
         })
     });
 
-    $("#container-address").on("click", ".edit-address", function () {
+    $("#container-address, #container-billing").on("click", ".edit-address", function () {
         var id = $(this).prev().children('label').children('input').val();
         $.ajax({
             url: "index.php?route=checkout/shipping_address/info",
@@ -197,7 +241,7 @@
     });
 
     var ob;
-    $("#container-address").on("click", ".close-address", function () {
+    $("#container-address, #container-billing").on("click", ".close-address", function () {
         ob = $(this).parent(".address-form");
         $.ajax({
             url: "index.php?route=checkout/shipping_address/delete",
@@ -223,7 +267,10 @@
         $.ajax({
             url: "index.php?route=checkout/shipping_address/save",
             type: "post",
-            data: {"address_id": $("#container-address .form-group input[name='address']:checked").val()},
+            data: {
+                "address_id": $("#container-address .form-group input[name='address']:checked").val(),
+                "billing_id": $("#container-billing .form-group input[name='address']:checked").val()
+            },
             dataType: "json",
             success: function (json) {
                 if (json['redirect']) {
@@ -263,14 +310,19 @@
         html += "<label class=\"check_filter\">";
         html += "<input type=\"radio\" class=\"checkbox\" name=\"address\" value='" + json['address_id'] + "'>" + json['firstname'] + " " + json['lastname'];
         html += "<br>" + json['address_1'] + " " + json['address_2'] + "<br>" + json['postcode'] + " ";
-        html += json['city'] + "<br> Maroc <br> T:" + json['telephone'];
+        html += json['city'] + "<br> Maroc <br> T: " + json['telephone'];
         html += "<span class=\"checkmark checkradio\"></span>";
         html += "</label></div>";
         html += "<span class=\"edit-address\"><i class=\"fa fa-pencil\"></i></span>";
         html += "<span class=\"close-address\"><i class=\"fa fa-close\"></i></span>";
         html += "<hr></div>";
+        console.log(json);
+        if (json['shipping'] === 1) {
+            $('#container-address').prepend(html);
+        } else {
+            $('#container-billing').prepend(html);
+        }
 
-        $('#container-address').prepend(html);
     }
 
     $("#save-address").on("click", function () {
@@ -301,8 +353,6 @@
             data: $('#add-address-field :input'),
             dataType: 'json',
             success: function (json) {
-                console.log(json);
-                debugger;
                 setAddress(json);
             },
             error: function (d, r, e) {
