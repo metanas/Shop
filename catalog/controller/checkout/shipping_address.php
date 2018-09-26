@@ -42,7 +42,6 @@ class ControllerCheckoutShippingAddress extends Controller
         $this->load->language('checkout/checkout');
 
         $json = array();
-        $json = $this->request->post;
 
         // Validate if customer is logged in.
         if (!$this->customer->isLogged()) {

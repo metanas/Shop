@@ -47,11 +47,11 @@
                      style="display: {% if addresses %} none {% else %} block {% endif %}">
                     <div class="form-group">
                         <label class="check_filter" style="display: inline">
-                            <input type="radio" class="checkbox" name="sex">mr
+                            <input type="radio" class="checkbox" name="sex" value="man">mr
                             <span class="checkmark checkradio"></span>
                         </label>
                         <label class="check_filter" style="display: inline;margin-left: 10px">
-                            <input type="radio" class="checkbox" name="sex">madame
+                            <input type="radio" class="checkbox" name="sex" value="woman">madame
                             <span class="checkmark checkradio"></span>
                         </label>
                     </div>
@@ -109,12 +109,12 @@
                     <div class="form-group required">
                         <label class="control-label" for="input-address-type">addresse type</label>
                         <label class="check_filter" style="display: block;">
-                            <input type="radio" class="checkbox" name="shipping" value="1" checked>
+                            <input type="radio" class="radio" name="shipping" value="1" checked>
                             <label for="input-shipping">addresse de livraison</label>
                             <span class="checkmark checkradio"></span>
                         </label>
                         <label class="check_filter" style="display: block;">
-                            <input type="radio" class="checkbox" name="shipping" value="0">
+                            <input type="radio" class="radio" name="shipping" value="0">
                             <label for="input-shipping">Adresse de facturation</label>
                             <span class="checkmark checkradio"></span>
                         </label>
@@ -184,6 +184,20 @@
         }
     });
 
+    function refactorForm() {
+        $('input[name="address_id"]').val('');
+        $('input[name="firstname"]').val('');
+        $('input[name="lastname"]').val('');
+        $('input[name="address_1"]').val('');
+        $('input[name="address_2"]').val('');
+        $('input[name="city"]').val('');
+        $('input[name="postcode"]').val('');
+        $('input[name="telephone"]').val('');
+        $('#update-address').hide();
+        $('#save-address').show();
+        $('#add-address-field').hide(200)
+    }
+
     $('#update-address').on('click', function () {
         $.ajax({
             url: 'index.php?route=checkout/shipping_address/update',
@@ -196,17 +210,7 @@
                     let result = json['result'];
                     $('.address-form :input[value="' + result['address_id'] + '"]').parents('.address-form').remove();
                     setAddress(result);
-                    $('input[name="address_id"]').val('');
-                    $('input[name="firstname"]').val('');
-                    $('input[name="lastname"]').val('');
-                    $('input[name="address_1"]').val('');
-                    $('input[name="address_2"]').val('');
-                    $('input[name="city"]').val('');
-                    $('input[name="postcode"]').val('');
-                    $('input[name="telephone"]').val('');
-                    $('#update-address').hide();
-                    $('#save-address').show();
-                    $('#add-address-field').hide(200)
+                    refactorForm();
                 }
             },
             error: function (d, r, e) {
@@ -308,7 +312,7 @@
         html = "<div class=\"col-sm-12 address-form\">";
         html += "<div class=\"form-group\">";
         html += "<label class=\"check_filter\">";
-        html += "<input type=\"radio\" class=\"checkbox\" name=\"address\" value='" + json['address_id'] + "'>" + json['firstname'] + " " + json['lastname'];
+        html += "<input type=\"radio\" class=\"checkbox\" name=\"address\" value='" + json['address_id'] + "' checked>" + json['firstname'] + " " + json['lastname'];
         html += "<br>" + json['address_1'] + " " + json['address_2'] + "<br>" + json['postcode'] + " ";
         html += json['city'] + "<br> Maroc <br> T: " + json['telephone'];
         html += "<span class=\"checkmark checkradio\"></span>";
@@ -317,12 +321,13 @@
         html += "<span class=\"close-address\"><i class=\"fa fa-close\"></i></span>";
         html += "<hr></div>";
         console.log(json);
-        if (json['shipping'] === 1) {
+        debugger;
+        if (json['shipping'] === "1") {
             $('#container-address').prepend(html);
         } else {
             $('#container-billing').prepend(html);
         }
-
+        refactorForm();
     }
 
     $("#save-address").on("click", function () {
@@ -350,7 +355,7 @@
         $.ajax({
             url: 'index.php?route=checkout/shipping_address/add',
             type: 'post',
-            data: $('#add-address-field :input'),
+            data: $('#add-address-field input[type="text"], #add-address-field input[type="radio"]:checked, #add-address-field select'),
             dataType: 'json',
             success: function (json) {
                 setAddress(json);

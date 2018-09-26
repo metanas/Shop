@@ -16,6 +16,11 @@
                         <div class="col-sm-12"><img src="{{ thumb }}" alt="{{ heading_title }}"
                                                     title="{{ heading_title }}" class="img-thumbnail"/></div>
                     {% endif %}
+                    {% if thumb %}
+                        <div class="col-sm-12">
+                            <img src="{{ thumb }}" class="img-responsive">
+                        </div>
+                    {% endif %}
                     {% if description %}
                         <div class="col-sm-10">{{ description }}</div>
                     {% endif %}</div>
