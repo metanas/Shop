@@ -152,12 +152,12 @@ class ControllerAccountAddress extends Controller
             $data['success'] = '';
         }
 
-        $data['addresses'] = array();
+        $data['billing_addresses'] = array();
 
-        $results = $this->model_account_address->getAddresses();
+        $results = $this->model_account_address->getShippingAddresses();
 
         foreach ($results as $result) {
-            $format = '<b>{firstname} {lastname}</b>' . "\n" . '{address_1}' . "\n" . '{address_2}' . "\n" . '{city} {postcode}' . "\n" . 'Maroc';
+            $format = '<b>{firstname} {lastname}</b>' . "\n" . '{address_1}' . "\n" . '{address_2}' . "\n" . '{city} {postcode}' . "\n" . "T: {telephone}" . "\n" . '{country}';
 
             $find = array(
                 '{firstname}',
@@ -165,7 +165,9 @@ class ControllerAccountAddress extends Controller
                 '{address_1}',
                 '{address_2}',
                 '{city}',
+                '{telephone}',
                 '{postcode}',
+                '{country}'
             );
 
             $replace = array(
@@ -175,6 +177,45 @@ class ControllerAccountAddress extends Controller
                 'address_2' => $result['address_2'],
                 'city' => $result['city'],
                 'postcode' => $result['postcode'],
+                'telephone' => $result['telephone'],
+                'country' => $result['country'],
+            );
+
+            $data['billing_addresses'][] = array(
+                'address_id' => $result['address_id'],
+                'address' => str_replace(array("\r\n", "\r", "\n"), '<br />', preg_replace(array("/\s\s+/", "/\r\r+/", "/\n\n+/"), '<br />', trim(str_replace($find, $replace, $format)))),
+                'update' => $this->url->link('account/address/edit', 'language=' . $this->config->get('config_language') . '&address_id=' . $result['address_id']),
+                'delete' => $this->url->link('account/address/delete', 'language=' . $this->config->get('config_language') . '&address_id=' . $result['address_id'])
+            );
+        }
+
+        $data['addresses'] = array();
+
+        $results = $this->model_account_address->getBillingAddresses();
+
+        foreach ($results as $result) {
+            $format = '<b>{firstname} {lastname}</b>' . "\n" . '{address_1}' . "\n" . '{address_2}' . "\n" . '{city} {postcode}' . "\n" . "T: {telephone}" . "\n" . '{country}';
+
+            $find = array(
+                '{firstname}',
+                '{lastname}',
+                '{address_1}',
+                '{address_2}',
+                '{city}',
+                '{telephone}',
+                '{postcode}',
+                '{country}'
+            );
+
+            $replace = array(
+                'firstname' => $result['firstname'],
+                'lastname' => $result['lastname'],
+                'address_1' => $result['address_1'],
+                'address_2' => $result['address_2'],
+                'city' => $result['city'],
+                'postcode' => $result['postcode'],
+                'telephone' => $result['telephone'],
+                'country' => $result['country'],
             );
 
             $data['addresses'][] = array(
@@ -238,11 +279,18 @@ class ControllerAccountAddress extends Controller
             $data['error_country'] = '';
         }
 
-        if (isset($this->error['zone'])) {
-            $data['error_zone'] = $this->error['zone'];
+        if (isset($this->error['telephone'])){
+            $data['error_telephone'] = $this->error['telephone'];
         } else {
-            $data['error_zone'] = '';
+            $data['error_telephone'] = '';
         }
+
+        if (isset($this->error['shipping'])){
+            $data['error_shipping'] = $this->error['shipping'];
+        } else {
+            $data['error_shipping'] = '';
+        }
+
 
         if (isset($this->error['custom_field'])) {
             $data['error_custom_field'] = $this->error['custom_field'];
@@ -259,7 +307,7 @@ class ControllerAccountAddress extends Controller
         if (isset($this->request->get['address_id']) && ($this->request->server['REQUEST_METHOD'] != 'POST')) {
             $address_info = $this->model_account_address->getAddress($this->request->get['address_id']);
         }
-
+var_dump($address_info);
         if (isset($this->request->post['firstname'])) {
             $data['firstname'] = $this->request->post['firstname'];
         } elseif (!empty($address_info)) {
@@ -306,6 +354,22 @@ class ControllerAccountAddress extends Controller
             $data['city'] = $address_info['city'];
         } else {
             $data['city'] = '';
+        }
+
+        if (isset($this->request->post['telephone'])) {
+            $data['telephone'] = $this->request->post['telephone'];
+        } elseif (!empty($address_info)) {
+            $data['telephone'] = $address_info['telephone'];
+        } else {
+            $data['telephone'] = '';
+        }
+
+        if (isset($this->request->post['shipping'])) {
+            $data['shipping'] = $this->request->post['shipping'];
+        } elseif (!empty($address_info)) {
+            $data['shipping'] = $address_info['shipping'];
+        } else {
+            $data['shipping'] = '';
         }
 
         // Custom fields

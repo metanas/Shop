@@ -68,10 +68,44 @@
                             {% endif %}</div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">{{ entry_country }}</label>
-                        <h4 class="col-sm-10">
-                            Maroc
-                        </h4>
+                        <label class="col-sm-2 control-label" for="input-country">{{ entry_country }}</label>
+                        <div class="col-sm-10">
+                            <select class="select-zalark" disabled>
+                                <option value="Maroc" selected>Maroc</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group required" style="margin-top: 7px">
+                        <label class="col-sm-2 control-label" for="input-address-type">addresse type</label>
+                        <div class="col-sm-10 check_filter" style="display: block;">
+                            <div class="row">
+
+                                {% if shipping == '1' %}
+                                    <label class="check_filter" style="display: block;">
+                                        <input type="radio" class="radio" name="shipping" value="1" checked>addresse de
+                                        livraison
+                                        <span class="checkmark checkradio"></span>
+                                    </label>
+                                    <label class="check_filter" style="display: block;">
+                                        <input type="radio" class="radio" name="shipping" value="0">
+                                        Adresse de facturation
+                                        <span class="checkmark checkradio"></span>
+                                    </label>
+                                {% else %}
+                                    <label class="check_filter" style="display: block;">
+                                        <input type="radio" class="radio" name="shipping" value="1">addresse de
+                                        livraison
+                                        <span class="checkmark checkradio"></span>
+                                    </label>
+                                    <label class="check_filter" style="display: block;">
+                                        <input type="radio" class="radio" name="shipping" value="0" checked>
+                                        Adresse de facturation
+                                        <span class="checkmark checkradio"></span>
+                                    </label>
+                                {% endif %}
+                            </div>
+
+                        </div>
                     </div>
                     {% for custom_field in custom_fields %}
                         {% if custom_field.type == 'select' %}
@@ -289,7 +323,8 @@
                     <div class="pull-right">
                         <input type="submit" value="{{ button_save }}" class="zalark-button"/>
                     </div>
-                    <div class="col-sm-4 pull-left"><a href="{{ back }}" class="zalark-button-border-dark" style="padding: 5px 10px 5px 10px">{{ button_back }}</a></div>
+                    <div class="col-sm-4 pull-left"><a href="{{ back }}" class="zalark-button-border-dark"
+                                                       style="padding: 5px 10px 5px 10px">{{ button_back }}</a></div>
                 </div>
             </form>
             {{ content_bottom }}</div>

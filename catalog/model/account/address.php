@@ -45,6 +45,7 @@ class ModelAccountAddress extends Model
                 'city' => $address_query->row['city'],
                 'country' => $address_query->row['country'],
                 'telephone' => $address_query->row['telephone'],
+                'shipping' => $address_query->row['shipping'],
                 'custom_field' => json_decode($address_query->row['custom_field'], true)
             );
 
@@ -72,6 +73,7 @@ class ModelAccountAddress extends Model
                 'city' => $result['city'],
                 'country' => $result['country'],
                 'telephone' => $result['telephone'],
+                'shipping' => $result['shipping'],
                 'custom_field' => json_decode($result['custom_field'], true)
             );
         }
