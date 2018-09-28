@@ -806,18 +806,24 @@ footer h4 {
     .swiper-wrapper .product-layout .product-thumb {
         height: 300px;
     }
+
+    .product-thumb {
+        height: 400px;
+    }
 }
 
 @media (max-width: 480px) {
     .swiper-wrapper .product-layout .product-thumb {
         height: 190px;
     }
+
+    .product-thumb {
+        height: 250px;
+    }
 }
 
 .product-thumb {
     background-color: #f5f5f5;
-    /*border: 1px solid #ddd;*/
-    height: 350px;
     margin-bottom: 20px;
     overflow: hidden;
 }
@@ -1283,7 +1289,6 @@ ul {
     left: 0;
     height: 25px;
     width: 25px;
-    margin-top: -3px;
     background-color: #eee;
 }
 
@@ -1335,7 +1340,8 @@ ul {
 }
 
 .ScrollStyle {
-    max-height: 150px;
+    margin-top: 15px;
+    max-height: 200px;
     overflow-y: auto;
 }
 

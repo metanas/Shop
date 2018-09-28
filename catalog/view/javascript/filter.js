@@ -16,7 +16,6 @@ $(document).ready(function () {
     );
 
     $("#product-category").on('click', 'input:checkbox', function (event) {
-        debugger;
         var param = '';
         const filt = getURLVar('filt');
         const newFilt = event.target.name + event.target.value;
@@ -102,7 +101,6 @@ function filterGenerator() {
 
 function setFilter() {
     const s = String(getURLVar("filt"));
-    debugger;
     if (s !== '') {
         var filters = s.split('_');
         $(".filter-content").empty();

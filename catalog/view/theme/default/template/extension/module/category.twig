@@ -6,7 +6,14 @@
                 {% for child in category.children %}
                     {% if child.category_id == child_id %}
                         <div class="category-filter">
-                            <a class="actif" onclick="changePath(this,'{{ category.category_id }}_{{ child.category_id }}')">&nbsp;&nbsp;&nbsp;{{ child.name }}</a>
+                            <a class="actif"
+                               onclick="changePath(this,'{{ category.category_id }}_{{ child.category_id }}')">&nbsp;&nbsp;&nbsp;{{ child.name }}</a>
+                            {% for sub in child.children %}
+                                <div class="category-filter" style="margin-left: 10px">
+                                    <a class="actif"
+                                       onclick="changePath(this,'{{ category.category_id }}_{{ child.category_id }}_{{ sub.category_id }}')">&nbsp;&nbsp;&nbsp;{{ sub.name }}</a>
+                                </div>
+                            {% endfor %}
                         </div>
                     {% else %}
                         <div class="category-filter">

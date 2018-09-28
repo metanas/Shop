@@ -318,7 +318,6 @@ class ControllerProductCategory extends Controller
             }
 
             $data['limits'] = array();
-            var_dump($category_info);
 
             $limits = array_unique(array($this->config->get('theme_' . $this->config->get('config_theme') . '_product_limit'), 25, 50, 75, 100));
 

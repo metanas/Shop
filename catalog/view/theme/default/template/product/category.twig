@@ -14,15 +14,10 @@
                 <div class="row">
                     {% if thumb %}
                         <div class="col-sm-12"><img src="{{ thumb }}" alt="{{ heading_title }}"
-                                                    title="{{ heading_title }}" class="img-thumbnail"/></div>
-                    {% endif %}
-                    {% if thumb %}
-                        <div class="col-sm-12">
-                            <img src="{{ thumb }}" class="img-responsive">
-                        </div>
+                                                    title="{{ heading_title }}" class="img-responsive"/></div>
                     {% endif %}
                     {% if description %}
-                        <div class="col-sm-10">{{ description }}</div>
+                        <div class="col-sm-12">{{ description }}</div>
                     {% endif %}</div>
                 <hr>
             {% endif %}
@@ -31,7 +26,7 @@
                     <div style="height: 35px; z-index: 2;position: relative">
                         <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6" style="margin-bottom: 10px">
                             <div class="dropdownFilter"
-                                 style="position: relative;border: 1px solid #e7e7e7; line-height: 30px;font-weight: normal;">
+                                 style="position: relative;border: 1px solid #e7e7e7; line-height: 30px;font-weight: normal;z-index: 99">
                                 <div class="model-filter">
                                     {{ text_filter_marque }}<i class="fa fa-angle-down"
                                                                style="float: right; padding: 8px"></i>
@@ -65,7 +60,7 @@
                         </div>
                         <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6" style="margin-bottom: 10px">
                             <div class="dropdownFilter"
-                                 style="position: relative; border: 1px solid #e7e7e7; line-height: 30px;font-weight: normal;">
+                                 style="position: relative; border: 1px solid #e7e7e7; line-height: 30px;font-weight: normal;z-index: 99">
                                 <div class="model-filter">
                                     {{ text_filter_color }}<i class="fa fa-angle-down"
                                                               style="float: right; padding: 8px"></i>
@@ -100,7 +95,7 @@
                         </div>
                         <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6" style="margin-bottom: 10px">
                             <div class="dropdownFilter"
-                                 style="position: relative;border: 1px solid #e7e7e7; line-height: 30px;font-weight: normal;">
+                                 style="position: relative;border: 1px solid #e7e7e7; line-height: 30px;font-weight: normal;z-index: 98">
                                 <div class="model-filter">
                                     {{ text_filter_price }}<i class="fa fa-angle-down"
                                                               style="float: right; padding: 8px"></i>
@@ -119,7 +114,6 @@
                                             <span class="checkmark"></span>
                                         </label>
                                     </div>
-
                                     <div>
                                         <button type="button" class="filter-done decouvrir"
                                                 name="price">{{ text_close }}</button>
@@ -129,7 +123,7 @@
                         </div>
                         <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6" style="margin-bottom: 10px">
                             <div class="dropdownFilter"
-                                 style="position: relative; border: 1px solid #e7e7e7; line-height: 30px;font-weight: normal;">
+                                 style="position: relative; border: 1px solid #e7e7e7; line-height: 30px;font-weight: normal;z-index: 98">
                                 <div class="model-filter">
                                     {{ text_filter_size }}<i class="fa fa-angle-down"
                                                              style="float: right; padding: 8px"></i>
@@ -160,15 +154,12 @@
                             </div>
                         </div>
                     </div>
-                    <div class="filter-content">
-
-                    </div>
                     <div style="position:relative; z-index: 1; margin-top: 30px;">
                         <div class="product-count col-md-6 col-xs-6" style="color: #9da7af">
                             {{ product_total }} articles
                         </div>
                         <div class="col-md-6 col-xs-6" align="right">
-                            <span style="color: #9da7af">
+                            <span class="hidden-sm hidden-xs" style="color: #9da7af" >
                                 {{ text_sort }}
                             </span>
                             <select id="input-sort" class="selectpicker"

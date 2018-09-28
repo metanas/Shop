@@ -307,7 +307,7 @@ class ControllerAccountAddress extends Controller
         if (isset($this->request->get['address_id']) && ($this->request->server['REQUEST_METHOD'] != 'POST')) {
             $address_info = $this->model_account_address->getAddress($this->request->get['address_id']);
         }
-var_dump($address_info);
+
         if (isset($this->request->post['firstname'])) {
             $data['firstname'] = $this->request->post['firstname'];
         } elseif (!empty($address_info)) {
