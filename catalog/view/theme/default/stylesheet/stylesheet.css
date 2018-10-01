@@ -480,6 +480,13 @@ header {
     margin-bottom: 20px;
 }
 
+@media (max-width: 771px) {
+    .xs-marge{
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+
 .selectpicker {
     cursor: pointer;
     border: none;
@@ -973,6 +980,18 @@ h2.price {
     text-decoration: line-through;
 }
 
+@media (max-width: 992px) {
+    .product-price {
+        text-align: left;
+    }
+}
+
+@media (min-width: 993px) {
+    .product-price {
+        text-align: right;
+    }
+}
+
 .product-thumb .price-tax {
     color: #999;
     font-size: 12px;
@@ -1453,7 +1472,6 @@ ul {
     margin: 0;
 }
 
-
 .checkout-text {
     font-size: 20px;
     margin-bottom: 10px;
@@ -1462,7 +1480,6 @@ ul {
 
 #c_c_total {
     background-color: white;
-    margin: 0;
 }
 
 #c_c_buttons {

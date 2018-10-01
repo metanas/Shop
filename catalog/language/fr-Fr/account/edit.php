@@ -13,6 +13,7 @@ $_['text_your_details']           ='Vos informations personnelles';
 $_['text_success']                ='Succès: votre compte a été mis à jour avec succès.';
 
 $_['text_password']               ='Votre mot de passe';
+$_['text_new_password']           ='Nouveau mot de passe';
 $_['text_email']                  ='Votre Email';
 $_['text_success_password']       ='Succès: votre mot de passe a été mis à jour avec succès.';
 // Entry

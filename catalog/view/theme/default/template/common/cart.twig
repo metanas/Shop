@@ -5,7 +5,7 @@
                 <img src="catalog/view/theme/default/image/user.png" width="25" height="25">
                 <p class="cart-para">{{ text_profile }}</p>
             </a>
-            <div class="dropdown-menu" style="width: 200px;">
+            <div class="dropdown-menu hidden-xs" style="width: 200px;">
                 <div style="font-size: 13px; line-height: 2">
                     <div><a href="{{ account }}">Apercu de mon Compte</a></div>
                     <div><a href="{{ order }}">Mes commandes</a></div>
@@ -22,7 +22,7 @@
                 <img src="catalog/view/theme/default/image/user.png" width="25" height="25">
                 <p class="cart-para">{{ text_login }}</p>
             </a>
-            <div class="dropdown-menu" style="padding: 10px; width: 200px;border-radius: 0;margin-left: -80px;">
+            <div class="dropdown-menu hidden-xs" style="padding: 10px; width: 200px;border-radius: 0;margin-left: -80px;">
                 <button class="zalark-button" id="myBtn2"
                         style="font-size: 14px; font-weight: bold;margin-bottom: 0;margin-top: 0">SE
                     CONNECTER
@@ -90,12 +90,14 @@
         </a>
     </div>
     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 dropdown cart" align="center">
-        <img src="catalog/view/theme/default/image/checkout.png"
-             width="25" height="25">
-        <p class="cart-para">{{ text_cart }}</p>
+        <a href="{{ cart }}">
+            <img src="catalog/view/theme/default/image/checkout.png"
+                 width="25" height="25">
+            <p class="cart-para">{{ text_cart }}</p>
+        </a>
         <span id="checkout"
               class="quantity" {% if count_products is same as(0) %} style="display: none" {% endif %}>{{ count_products }}</span>
-        <div class="dropdown-menu pull-right">
+        <div class="dropdown-menu pull-right hidden-xs ">
             <h4 class="text-center text-uppercase">{{ text_cart }}</h4>
             {% if products or vouchers %}
                 <div class="col-md-12 scrollStyle" style="padding: 0;">
@@ -174,7 +176,7 @@
                         </div>
                         <div class="col-md-12">
                             <div class="col-md-6 text-left" style="padding: 0">
-                                <strong>Total</strong></div>
+                                <strong>Total(TVA Include)</strong></div>
                             <div class="col-md-6 text-right" style="padding: 0"><b>{{ totals }}</b></div>
                         </div>
                     </div>

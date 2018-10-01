@@ -135,7 +135,7 @@ class ControllerCheckoutShippingAddress extends Controller
         }
 
         if (!$json) {
-            if ($this->model_account_address->getAddess($this->request->post['billing_id'])) {
+            if (isset($this->request->post['billing_id'])) {
                 $this->session->data['billing_address'] = $this->request->post['billing_id'];
             }
             $this->session->data['shipping_address'] = $this->request->post['address_id'];

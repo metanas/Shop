@@ -152,7 +152,44 @@ class ControllerAccountAddress extends Controller
             $data['success'] = '';
         }
 
-        $data['billing_addresses'] = array();
+//        $data['billing_addresses'] = array();
+//
+//        $results = $this->model_account_address->getBillingAddresses();
+//
+//        foreach ($results as $result) {
+//            $format = '<b>{firstname} {lastname}</b>' . "\n" . '{address_1}' . "\n" . '{address_2}' . "\n" . '{city} {postcode}' . "\n" . "T: {telephone}" . "\n" . '{country}';
+//
+//            $find = array(
+//                '{firstname}',
+//                '{lastname}',
+//                '{address_1}',
+//                '{address_2}',
+//                '{city}',
+//                '{telephone}',
+//                '{postcode}',
+//                '{country}'
+//            );
+//
+//            $replace = array(
+//                'firstname' => $result['firstname'],
+//                'lastname' => $result['lastname'],
+//                'address_1' => $result['address_1'],
+//                'address_2' => $result['address_2'],
+//                'city' => $result['city'],
+//                'postcode' => $result['postcode'],
+//                'telephone' => $result['telephone'],
+//                'country' => $result['country'],
+//            );
+//
+//            $data['billing_addresses'][] = array(
+//                'address_id' => $result['address_id'],
+//                'address' => str_replace(array("\r\n", "\r", "\n"), '<br />', preg_replace(array("/\s\s+/", "/\r\r+/", "/\n\n+/"), '<br />', trim(str_replace($find, $replace, $format)))),
+//                'update' => $this->url->link('account/address/edit', 'language=' . $this->config->get('config_language') . '&address_id=' . $result['address_id']),
+//                'delete' => $this->url->link('account/address/delete', 'language=' . $this->config->get('config_language') . '&address_id=' . $result['address_id'])
+//            );
+//        }
+
+        $data['addresses'] = array();
 
         $results = $this->model_account_address->getShippingAddresses();
 
@@ -181,46 +218,9 @@ class ControllerAccountAddress extends Controller
                 'country' => $result['country'],
             );
 
-            $data['billing_addresses'][] = array(
-                'address_id' => $result['address_id'],
-                'address' => str_replace(array("\r\n", "\r", "\n"), '<br />', preg_replace(array("/\s\s+/", "/\r\r+/", "/\n\n+/"), '<br />', trim(str_replace($find, $replace, $format)))),
-                'update' => $this->url->link('account/address/edit', 'language=' . $this->config->get('config_language') . '&address_id=' . $result['address_id']),
-                'delete' => $this->url->link('account/address/delete', 'language=' . $this->config->get('config_language') . '&address_id=' . $result['address_id'])
-            );
-        }
-
-        $data['addresses'] = array();
-
-        $results = $this->model_account_address->getBillingAddresses();
-
-        foreach ($results as $result) {
-            $format = '<b>{firstname} {lastname}</b>' . "\n" . '{address_1}' . "\n" . '{address_2}' . "\n" . '{city} {postcode}' . "\n" . "T: {telephone}" . "\n" . '{country}';
-
-            $find = array(
-                '{firstname}',
-                '{lastname}',
-                '{address_1}',
-                '{address_2}',
-                '{city}',
-                '{telephone}',
-                '{postcode}',
-                '{country}'
-            );
-
-            $replace = array(
-                'firstname' => $result['firstname'],
-                'lastname' => $result['lastname'],
-                'address_1' => $result['address_1'],
-                'address_2' => $result['address_2'],
-                'city' => $result['city'],
-                'postcode' => $result['postcode'],
-                'telephone' => $result['telephone'],
-                'country' => $result['country'],
-            );
-
             $data['addresses'][] = array(
                 'address_id' => $result['address_id'],
-                'address' => str_replace(array("\r\n", "\r", "\n"), '<br />', preg_replace(array("/\s\s+/", "/\r\r+/", "/\n\n+/"), '<br />', trim(str_replace($find, $replace, $format)))),
+                'address' => str_replace(array("\r\n", "\r", "\n"), '<br/>', preg_replace(array("/\s\s+/", "/\r\r+/", "/\n\n+/"), '<br/>', trim(str_replace($find, $replace, $format)))),
                 'update' => $this->url->link('account/address/edit', 'language=' . $this->config->get('config_language') . '&address_id=' . $result['address_id']),
                 'delete' => $this->url->link('account/address/delete', 'language=' . $this->config->get('config_language') . '&address_id=' . $result['address_id'])
             );

@@ -24,20 +24,21 @@
             {% else %}
                 {% set class = 'col-sm-12' %}
             {% endif %}
-            <div id="content" class="{{ class }}" style="padding-top: 12px">{{ content_top }}
+            <div id="content" class="{{ class }}" style="padding-top: 15px">{{ content_top }}
                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-                    <div class="col-sm-12" style="background-color: white">
-                        <h2>{{ heading_title }}
-                            {% if total_products > 1 %}
-                                &nbsp;({{ total_products }} articles)
-                            {% else %}
-                                ({{ total_products }} article)
-                            {% endif %} </h2>
-                        <div class="row">
+                    <div class="row">
+                        <div style="background-color: white;padding-bottom: 15px">
+                            <h2 style="margin-top: 0">{{ heading_title }}</h2>
+                            <h4>
+                                {% if total_products > 1 %}
+                                    &nbsp;({{ total_products }} articles)
+                                {% else %}
+                                    ({{ total_products }} article)
+                                {% endif %}
+                            </h4>
                             {% for product in products %}
-                                <div class="col-lg-12 col-md-12 col-sm-12 col-sm-12">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <div class="row">
-
                                         <div id="r{{ loop.index }}" class="col-lg-3 col-md-3 col-sm-3 col-xs-5">
                                             {% if product.thumb %}
                                                 <a href="{{ product.href }}">
@@ -49,28 +50,24 @@
                                             {% endif %}
                                         </div>
                                         <div id="r{{ loop.index }}" class="col-lg-9 col-md-9 col-sm-9 col-xs-7">
-                                            <div class="row">
-
+                                            <div class="info row">
                                                 <div class="col-sm-12">
                                                     <div class="row">
                                                         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-                                                            <div class="row">
-                                                                <div>
-                                                                    <a href="{{ product.href }}">{{ product.model }}</a>
-                                                                </div>
-                                                                <div><a href="{{ product.href }}">{{ product.name }}</a>
-                                                                </div>
-                                                                <div>Couleur : {{ product.color }}</div>
-                                                                {% if product.option %}
-                                                                    {% for option in product.option %}
-                                                                        <div>{{ option.name }}: {{ option.value }}</div>
-                                                                    {% endfor %}
-                                                                {% endif %}
+                                                            <div>
+                                                                <a href="{{ product.href }}">{{ product.model }}</a>
                                                             </div>
+                                                            <div><a href="{{ product.href }}">{{ product.name }}</a>
+                                                            </div>
+                                                            <div>Couleur : {{ product.color }}</div>
+                                                            {% if product.option %}
+                                                                {% for option in product.option %}
+                                                                    <div>{{ option.name }}: {{ option.value }}</div>
+                                                                {% endfor %}
+                                                            {% endif %}
                                                         </div>
                                                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
-                                                            <div class="input-group btn-block"
-                                                                 style="margin-left: -15px">
+                                                            <div class="input-group btn-block">
                                                                 <select name="quantity[{{ product.cart_id }}]"
                                                                         class="select-zalark">
                                                                     {% for i in 1..product.max_quantity %}
@@ -84,30 +81,28 @@
                                                     </div>
                                                 </div>
                                                 <div id="r{{ loop.index }}"
-                                                     class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-right">
+                                                     class="product-price col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                     {% if product.old_price %}
                                                         <div class="price-old">{{ product.old_price }}</div>
                                                         <div id="r{{ loop.index }}"
                                                              class="price-new">{{ product.total }}</div>
                                                     {% else %}
                                                         <div id="r{{ loop.index }}"
-                                                             class="pull-right">{{ product.total }}</div>
+                                                             class="price-new">{{ product.total }}</div>
                                                     {% endif %}
                                                 </div>
-                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                                    <div class="row">
-                                                        <button style="background-color: inherit; border:0;"
-                                                                onclick="cart.remove('{{ product.cart_id }}');">
-                                                            <span class="glyphicon glyphicon-trash"
+                                                <div>
+                                                    <button style="background-color: inherit; border:0;"
+                                                            onclick="cart.remove('{{ product.cart_id }}');">
+                                                            <span class="fa fa-trash"
                                                                   style="color: grey;"> Supprimer</span>
-                                                        </button>
-                                                        |
-                                                        <button style="background-color: inherit; border:0"
-                                                                onclick="wishlist.add('{{ product.cart_id }}')">
-                                                        <span class="glyphicon glyphicon-heart-empty"
+                                                    </button>
+                                                    |
+                                                    <button style="background-color: inherit; border:0"
+                                                            onclick="wishlist.add('{{ product.cart_id }}')">
+                                                        <span class="fa fa-heart"
                                                               style="color: grey;"> Déplacer vers mes préférés</span>
-                                                        </button>
-                                                    </div>
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
@@ -138,78 +133,74 @@
                                     <td class="text-right">{{ voucher.amount }}</td>
                                 </tr>
                             {% endfor %}
+                                <p class="c_info"><span class="glyphicon glyphicon-asterisk"></span> Les articles dans le
+                                    panier
+                                    ne
+                                    sont pas reservés</p>
                         </div>
-                        <p class="c_info"><span class="glyphicon glyphicon-asterisk"></span> Les articles dans le panier
-                            ne
-                            sont pas reservés</p>
-                    </div>
-                    <div class="col-sm-12" style="background-color: white; margin-top: 12px">
-                        <h2 style="padding: 25px 0 0 25px">Livraison estimée</h2>
-                        <p>date</p>
-                        <p class="c_info"><span class="glyphicon glyphicon-asterisk"></span> Vous pouvez sélectionner
-                            notre
-                            service de livraison rapide à la fin de votre commande</p>
-                    </div>
-                    <div class="col-sm-12" style="background-color: white; margin-top: 12px; margin-bottom: 12px">
-                        <h2 style="padding: 25px 0 0 25px">Nous acceptons</h2>
-                        <div style="padding-bottom: 25px">
-                            <img class="w50" src="catalog/view/theme/default/image/master2.png">
-                            <img class="w50" src="catalog/view/theme/default/image/visa2.png">
-                            <img class="w50" src="catalog/view/theme/default/image/livraison2.png">
-                            <img class="w50" src="catalog/view/theme/default/image/paypal2.png">
+                        <div class="col-sm-12" style="background-color: white; margin-top: 12px; padding-bottom: 15px">
+                            <div class="row">
+                                <h2 style="padding: 25px 0 0 25px">Livraison estimée</h2>
+                                <p>date</p>
+                                <p class="c_info"><span class="glyphicon glyphicon-asterisk"></span> Vous pouvez
+                                    sélectionner
+                                    notre
+                                    service de livraison rapide à la fin de votre commande</p>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-xs-12" style="background-color: white; margin-top: 12px; margin-bottom: 12px">
+                            <h2 style="padding: 25px 0 0 25px">Nous acceptons</h2>
+                            <div style="padding-bottom: 25px">
+                                <img class="w50" src="catalog/view/theme/default/image/master2.png">
+                                <img class="w50" src="catalog/view/theme/default/image/visa2.png">
+                                <img class="w50" src="catalog/view/theme/default/image/livraison2.png">
+                                <img class="w50" src="catalog/view/theme/default/image/paypal2.png">
+                            </div>
                         </div>
                     </div>
                 </div>
-                {#{% if modules %}#}
-                {#<h2>{{ text_next }}</h2>#}
-                {#<p>{{ text_next_choice }}</p>#}
-                {#<div class="panel-group" id="accordion">{% for module in modules %}#}
-                {#{{ module }}#}
-                {#{% endfor %} </div>#}
-                {#{% endif %} <br />#}
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                    <div id="c_c_total" class="row">
-                        <div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 xs-marge" style="padding-right: 0;">
+                    <div class="col-sm-12 col-xs-12" id="c_c_total">
+                        <div class="row">
                             {% set tot = totals|first %}
-                            <div class="col-sm-12">
-                                <h2 id="c_cart_head_title">Total</h2>
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-top: 15px; line-height: 30px;">
+                                <h2 id="c_cart_head_title" style="margin-top: 0">Total</h2>
                                 <div class="row">
                                     <div class="text-left col-lg-6 col-md-6 col-sm-6 col-xs-6">{{ tot.title }}</div>
                                     <div class="text-right col-lg-6 col-md-6 col-sm-6 col-xs-6"
                                          id="sub-total">{{ tot.text }}</div>
                                 </div>
                             </div>
-                            <div class="col-sm-12">
+                            <div class="col-sm-12 col-xs-12" style="line-height: 30px">
                                 <div class="row">
                                     <div class="text-left col-lg-8 col-md-8 col-sm-8 col-xs-8">Livraison
                                     </div>
                                     <div class="text-right col-sm-4">gratuite</div>
                                 </div>
                             </div>
-                            <br>
                             {% set total = totals|last %}
-                            <div class="col-sm-12">
+                            <div class="col-sm-12 col-xs-12" style="line-height: 30px">
                                 <div class="row">
-                                    <div class="text-left col-lg-5 col-md-5 col-sm-5 col-xs-5"
-                                         style="margin-bottom: 20px">
-                                        <strong>{{ total.title }}(TVA incluse)</strong>
+                                    <div class="text-left col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                        <strong>{{ total.title }}(TVA includ)</strong>
                                     </div>
-                                    <div class="text-right col-lg-7 col-md-7 col-sm-7 col-xs-7" id="total"
-                                         style="margin-bottom: 20px">
+                                    <div class="text-right col-lg-7 col-md-7 col-sm-7 col-xs-7" id="total">
                                         <strong>{{ total.text }}</strong>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-12" style="margin-bottom: 12px">
-                                <button class="zalark-button">
-                                    <a href="{{ checkout }}">Commander</a>
-                                </button>
+                            <div class="col-sm-12 col-xs-12" style="margin-top: 12px; margin-bottom: 12px">
+                                <a href="{{ checkout }}">
+                                    <button class="zalark-button">
+                                        Commander
+                                    </button>
+                                </a>
                             </div>
                         </div>
                     </div>
-                    <div id="c_c_buttons" class="buttons clearfix">
-                        <div id="c_c_total" class="row">
-                            <div style="background-color: white; padding: 30px">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div id="c_c_total" style="padding: 12px; margin-top: 12px;margin-bottom: 15px">
                                 Vous avez une carte cadeau ou un code promo? Vous pouvez les utiliser à la dernière
                                 étape de
                                 la commande.
@@ -217,8 +208,10 @@
                         </div>
                     </div>
                 </div>
-                {{ content_bottom }}</div>
-            {{ column_right }}</div>
+                {{ content_bottom }}
+            </div>
+            {{ column_right }}
+        </div>
     </div>
 </div>
 <script>
@@ -235,9 +228,10 @@
                 if (json['success']) {
                     $('#sub-total').html(json['total']);
                     $('#total').html("<b>" + json['total'] + "</b>");
-                    s.parents('.text-left').children('.c_price').html(json['price']);
+                    console.log(s.parents('.info').children('.product-price'));
+                    s.parents('.info').children('.product-price').children('.price-new').html(json['price']);
                     if (json['old_price']) {
-                        s.parents('.text-left').children('.price-old').html(json['old_price'])
+                        s.parents('.info').children('.product-price').children('.price-old').html(json['old_price'])
                     }
                 }
             },

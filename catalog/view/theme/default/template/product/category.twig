@@ -154,6 +154,9 @@
                             </div>
                         </div>
                     </div>
+                    <div class="filter-content">
+
+                    </div>
                     <div style="position:relative; z-index: 1; margin-top: 30px;">
                         <div class="product-count col-md-6 col-xs-6" style="color: #9da7af">
                             {{ product_total }} articles
@@ -230,12 +233,12 @@
         </div>
     </div>
     <script>
-        $("#ex12c").slider({
-            id: "slider12c",
-            min: {{ price_min }},
-            max: {{ price_max }},
-            range: true,
-            value: [{{ price_min }} , {{ price_max }}]
-        });
+        {#$("#ex12c").slider({#}
+            {#id: "slider12c",#}
+            {#min: String({{ price_min }}).split('DHS')[0],#}
+            {#max: String({{ price_max }}).split('DHS')[0],#}
+            {#range: true,#}
+            {#value: [{{ price_min }} , {{ price_max }}]#}
+        {#});#}
     </script>
 </div>

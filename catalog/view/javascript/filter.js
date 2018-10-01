@@ -100,10 +100,10 @@ function filterGenerator() {
 }
 
 function setFilter() {
+    $(".filter-content").empty();
     const s = String(getURLVar("filt"));
     if (s !== '') {
         var filters = s.split('_');
-        $(".filter-content").empty();
         for (i = 0; i < filters.length; i++) {
             $(".filter-content").append('<span class="filter-generate" onclick="removeFilter(this)">' + (filters[i].replace('[]', ":")) + '<i class="fa fa-close" style="margin-left: 5px"></i></span>');
         }
@@ -120,6 +120,7 @@ function setFilter() {
 
 function removeAllFilters() {
     updateQueryStringParam('filt', '');
+    filterGenerator()
 }
 
 function updateQueryStringParam(param, value) {
