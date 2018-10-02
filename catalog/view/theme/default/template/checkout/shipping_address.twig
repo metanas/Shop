@@ -89,7 +89,6 @@
                         <input type="text" name="city" value="" placeholder="{{ entry_city }}" id="input-city"
                                class="form-control input-zalark"/>
                     </div>
-
                     <div class="form-group required">
                         <label class="control-label" for="input-telephone">{{ entry_telephone }}</label>
                         <input type="text" name="telephone" value="" placeholder="{{ entry_telephone }}"
@@ -101,19 +100,6 @@
                         <select class="select-zalark" name="country" disabled>
                             <option value="Maroc" selected>Maroc</option>
                         </select>
-                    </div>
-                    <div class="form-group required">
-                        <label class="control-label" for="input-address-type">addresse type</label>
-                        <label class="check_filter" style="display: block;">
-                            <input type="radio" class="radio" name="shipping" value="1" checked>
-                            <label for="input-shipping">addresse de livraison</label>
-                            <span class="checkmark checkradio"></span>
-                        </label>
-                        <label class="check_filter" style="display: block;">
-                            <input type="radio" class="radio" name="shipping" value="0">
-                            <label for="input-shipping">Adresse de facturation</label>
-                            <span class="checkmark checkradio"></span>
-                        </label>
                     </div>
                     <button id="update-address" class="zalark-button-border text-uppercase"
                             hidden>{{ button_update_address }}</button>
@@ -131,7 +117,7 @@
             <div class="form-group">
                 <label class="check_filter">
                     <input type="radio" class="checkbox" name="billing"
-                           value="1">{{ text_yes }}
+                           value="1" {% if not billing_address %} checked {% endif %}>{{ text_yes }}
                     <span class="checkmark checkradio"></span>
                 </label>
             </div>
@@ -140,12 +126,12 @@
             <div class="form-group">
                 <label class="check_filter">
                     <input type="radio" class="checkbox" name="billing"
-                           value="0">{{ text_no }}
+                           value="0" {% if billing_address %} checked {% endif %}>{{ text_no }}
                     <span class="checkmark checkradio"></span>
                 </label>
             </div>
         </div>
-        <div class="col-md-12" id="container-billing" style="display: none">
+        <div class="col-md-12" id="container-billing" {% if not billing_address %} style="display: none" {% endif %}>
             <div class="form-group">
                 <div class="form-group">
                     <label class="check_filter" style="display: inline">
@@ -159,42 +145,49 @@
                 </div>
                 <div class="form-group required">
                     <label class="control-label" for="input-firstname">{{ entry_firstname }}</label>
-                    <input type="text" name="firstname" value="" placeholder="{{ entry_firstname }}" id="input-name"
+                    <input type="text" name="firstname" value="{{ billing_address.firstname }}"
+                           placeholder="{{ entry_firstname }}" id="input-name"
                            class="form-control input-zalark"/>
                 </div>
                 <div class="form-group required">
                     <label class="control-label" for="input-lastname">{{ entry_lastname }}</label>
-                    <input type="text" name="lastname" value="" placeholder="{{ entry_lastname }}"
+                    <input type="text" name="lastname" value="{{ billing_address.lastname }}"
+                           placeholder="{{ entry_lastname }}"
                            id="input-lastname"
                            class="form-control input-zalark"/>
                 </div>
                 <div class="form-group required">
                     <label class="control-label" for="input-address-1">{{ entry_address_1 }}</label>
-                    <input type="text" name="address_1" value="" placeholder="{{ entry_address_1 }}"
+                    <input type="text" name="address_1" value="{{ billing_address.address_1 }}"
+                           placeholder="{{ entry_address_1 }}"
                            id="input-address-1"
                            class="form-control input-zalark"/>
                 </div>
                 <div class="form-group">
                     <label class="control-label" for="input-address">{{ entry_address_2 }}</label>
-                    <input type="text" name="address_2" value="" placeholder="{{ entry_address_2 }}"
+                    <input type="text" name="address_2" value="{{ billing_address.address_2 }}"
+                           placeholder="{{ entry_address_2 }}"
                            id="input-address-2"
                            class="form-control input-zalark"/>
                 </div>
                 <div class="form-group required">
                     <label class="control-label" for="input-postcode">{{ entry_postcode }}</label>
-                    <input type="text" name="postcode" value="" placeholder="{{ entry_postcode }}"
+                    <input type="text" name="postcode" value="{{ billing_address.postcode }}"
+                           placeholder="{{ entry_postcode }}"
                            id="input-postcode"
                            class="form-control input-zalark"/>
                 </div>
                 <div class="form-group required">
                     <label class="control-label" for="input-city">{{ entry_city }}</label>
-                    <input type="text" name="city" value="" placeholder="{{ entry_city }}" id="input-city"
+                    <input type="text" name="city" value="{{ billing_address.city }}" placeholder="{{ entry_city }}"
+                           id="input-city"
                            class="form-control input-zalark"/>
                 </div>
 
                 <div class="form-group required">
                     <label class="control-label" for="input-telephone">{{ entry_telephone }}</label>
-                    <input type="text" name="telephone" value="" placeholder="{{ entry_telephone }}"
+                    <input type="text" name="telephone" value="{{ billing_address.telephone }}"
+                           placeholder="{{ entry_telephone }}"
                            id="input-telephone"
                            class="form-control input-zalark"/>
                 </div>

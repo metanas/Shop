@@ -4,7 +4,7 @@ class ModelAccountAddress extends Model
 {
     public function addAddress($customer_id, $data)
     {
-        $this->db->query("INSERT INTO " . DB_PREFIX . "address SET customer_id = '" . (int)$customer_id . "', firstname = '" . $this->db->escape((string)$data['firstname']) . "', lastname = '" . $this->db->escape((string)$data['lastname']) . "', address_1 = '" . $this->db->escape((string)$data['address_1']) . "', address_2 = '" . $this->db->escape((string)$data['address_2']) . "', postcode = '" . $this->db->escape((string)$data['postcode']) . "', city = '" . $this->db->escape((string)$data['city']) . "', telephone = '" . $this->db->escape((string)$data['telephone']) . "', shipping = '" . (int)$data['shipping'] . "' , custom_field = '" . $this->db->escape(isset($data['custom_field']['address']) ? json_encode($data['custom_field']['address']) : '') . "'");
+        $this->db->query("INSERT INTO " . DB_PREFIX . "address SET customer_id = '" . (int)$customer_id . "', firstname = '" . $this->db->escape((string)$data['firstname']) . "', lastname = '" . $this->db->escape((string)$data['lastname']) . "', address_1 = '" . $this->db->escape((string)$data['address_1']) . "', address_2 = '" . $this->db->escape((string)$data['address_2']) . "', postcode = '" . $this->db->escape((string)$data['postcode']) . "', city = '" . $this->db->escape((string)$data['city']) . "', telephone = '" . $this->db->escape((string)$data['telephone']) . "' , custom_field = '" . $this->db->escape(isset($data['custom_field']['address']) ? json_encode($data['custom_field']['address']) : '') . "'");
 
         $address_id = $this->db->getLastId();
 
@@ -17,7 +17,7 @@ class ModelAccountAddress extends Model
 
     public function editAddress($address_id, $data)
     {
-        $this->db->query("UPDATE " . DB_PREFIX . "address SET firstname = '" . $this->db->escape((string)$data['firstname']) . "', lastname = '" . $this->db->escape((string)$data['lastname']) . "', address_1 = '" . $this->db->escape((string)$data['address_1']) . "', address_2 = '" . $this->db->escape((string)$data['address_2']) . "', postcode = '" . $this->db->escape((string)$data['postcode']) . "', city = '" . $this->db->escape((string)$data['city']) . "', telephone='" . $this->db->escape((string)$data['telephone']) . "', shipping = '" . (int)$data['shipping'] . "', custom_field = '" . $this->db->escape(isset($data['custom_field']['address']) ? json_encode($data['custom_field']['address']) : '') . "' WHERE address_id  = '" . (int)$address_id . "' AND customer_id = '" . (int)$this->customer->getId() . "'");
+        $this->db->query("UPDATE " . DB_PREFIX . "address SET firstname = '" . $this->db->escape((string)$data['firstname']) . "', lastname = '" . $this->db->escape((string)$data['lastname']) . "', address_1 = '" . $this->db->escape((string)$data['address_1']) . "', address_2 = '" . $this->db->escape((string)$data['address_2']) . "', postcode = '" . $this->db->escape((string)$data['postcode']) . "', city = '" . $this->db->escape((string)$data['city']) . "', telephone='" . $this->db->escape((string)$data['telephone']) . "', custom_field = '" . $this->db->escape(isset($data['custom_field']['address']) ? json_encode($data['custom_field']['address']) : '') . "' WHERE address_id  = '" . (int)$address_id . "' AND customer_id = '" . (int)$this->customer->getId() . "'");
 
         if (!empty($data['default'])) {
             $this->db->query("UPDATE " . DB_PREFIX . "customer SET address_id = '" . (int)$address_id . "' WHERE customer_id = '" . (int)$this->customer->getId() . "'");
@@ -45,7 +45,6 @@ class ModelAccountAddress extends Model
                 'city' => $address_query->row['city'],
                 'country' => $address_query->row['country'],
                 'telephone' => $address_query->row['telephone'],
-                'shipping' => $address_query->row['shipping'],
                 'custom_field' => json_decode($address_query->row['custom_field'], true)
             );
 
@@ -73,7 +72,6 @@ class ModelAccountAddress extends Model
                 'city' => $result['city'],
                 'country' => $result['country'],
                 'telephone' => $result['telephone'],
-                'shipping' => $result['shipping'],
                 'custom_field' => json_decode($result['custom_field'], true)
             );
         }
@@ -86,19 +84,5 @@ class ModelAccountAddress extends Model
         $query = $this->db->query("SELECT COUNT(*) AS total FROM " . DB_PREFIX . "address WHERE customer_id = '" . (int)$this->customer->getId() . "'");
 
         return $query->row['total'];
-    }
-
-    public function getShippingAddresses()
-    {
-        $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "address WHERE shipping='1' AND customer_id = '" . (int)$this->customer->getId() . "'");
-
-        return $query->rows;
-    }
-
-    public function getBillingAddresses()
-    {
-        $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "address WHERE shipping='0' AND customer_id = '" . (int)$this->customer->getId() . "'");
-
-        return $query->rows;
     }
 }
