@@ -20,12 +20,8 @@
                     <div class="form-group">
                         <label class="check_filter">
                             <input type="radio" class="checkbox" name="address"
-                                   value="{{ address.address_id }}" {% if address_id == address.address_id %} checked="checked" {% endif %}>{{ address.firstname }} {{ address.lastname }}
-                            <br>{{ address.address_1 }} {{ address.address_2 }}<br> {{ address.postcode }}
-                            {{ address.city }}<br> Maroc <br>
-                            {% if address.telephone %}
-                                T: {{ address.telephone }}
-                            {% endif %}
+                                   value="{{ address.address_id }}" {% if address_id == address.address_id %} checked="checked" {% endif %}>
+                            {{ address.address }}
                             <span class="checkmark checkradio"></span>
                         </label>
                     </div>
@@ -102,7 +98,7 @@
                     </div>
                     <div class="form-group">
                         <label class="control-label" for="input-country">Pays</label>
-                        <select class="select-zalark" disabled>
+                        <select class="select-zalark" name="country" disabled>
                             <option value="Maroc" selected>Maroc</option>
                         </select>
                     </div>
@@ -130,29 +126,88 @@
     <div class="col-md-6">
         <h4>ADRESSE DE FACTURATION</h4>
         <hr>
-        <div class="col-md-12" id="container-billing">
-            {% for address in billing_addresses %}
-                <div class="col-sm-12 address-form">
-                    <div class="form-group">
-                        <label class="check_filter">
-                            <input type="radio" class="checkbox" name="address"
-                                   value="{{ address.address_id }}" {% if address_id == address.address_id %} checked="checked" {% endif %}>{{ address.firstname }} {{ address.lastname }}
-                            <br>{{ address.address_1 }} {{ address.address_2 }}<br> {{ address.postcode }}
-                            {{ address.city }}<br> Maroc <br>
-                            {% if address.telephone %}
-                                T: {{ address.telephone }}
-                            {% endif %}
-                            <span class="checkmark checkradio"></span>
-                        </label>
-                    </div>
-                    <i class="edit-address fa fa-pencil"></i>
-                    <i class="close-address fa fa-close"></i>
-                    <hr>
+        <h4>Utiliser l'adresse de livraison comme adresse de facturation ?</h4>
+        <div class="col-sm-12 address-form">
+            <div class="form-group">
+                <label class="check_filter">
+                    <input type="radio" class="checkbox" name="billing"
+                           value="1">{{ text_yes }}
+                    <span class="checkmark checkradio"></span>
+                </label>
+            </div>
+        </div>
+        <div class="col-sm-12 address-form">
+            <div class="form-group">
+                <label class="check_filter">
+                    <input type="radio" class="checkbox" name="billing"
+                           value="0">{{ text_no }}
+                    <span class="checkmark checkradio"></span>
+                </label>
+            </div>
+        </div>
+        <div class="col-md-12" id="container-billing" style="display: none">
+            <div class="form-group">
+                <div class="form-group">
+                    <label class="check_filter" style="display: inline">
+                        <input type="radio" class="checkbox" name="sex" value="man">mr
+                        <span class="checkmark checkradio"></span>
+                    </label>
+                    <label class="check_filter" style="display: inline;margin-left: 10px">
+                        <input type="radio" class="checkbox" name="sex" value="woman">madame
+                        <span class="checkmark checkradio"></span>
+                    </label>
                 </div>
-            {% endfor %}
+                <div class="form-group required">
+                    <label class="control-label" for="input-firstname">{{ entry_firstname }}</label>
+                    <input type="text" name="firstname" value="" placeholder="{{ entry_firstname }}" id="input-name"
+                           class="form-control input-zalark"/>
+                </div>
+                <div class="form-group required">
+                    <label class="control-label" for="input-lastname">{{ entry_lastname }}</label>
+                    <input type="text" name="lastname" value="" placeholder="{{ entry_lastname }}"
+                           id="input-lastname"
+                           class="form-control input-zalark"/>
+                </div>
+                <div class="form-group required">
+                    <label class="control-label" for="input-address-1">{{ entry_address_1 }}</label>
+                    <input type="text" name="address_1" value="" placeholder="{{ entry_address_1 }}"
+                           id="input-address-1"
+                           class="form-control input-zalark"/>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="input-address">{{ entry_address_2 }}</label>
+                    <input type="text" name="address_2" value="" placeholder="{{ entry_address_2 }}"
+                           id="input-address-2"
+                           class="form-control input-zalark"/>
+                </div>
+                <div class="form-group required">
+                    <label class="control-label" for="input-postcode">{{ entry_postcode }}</label>
+                    <input type="text" name="postcode" value="" placeholder="{{ entry_postcode }}"
+                           id="input-postcode"
+                           class="form-control input-zalark"/>
+                </div>
+                <div class="form-group required">
+                    <label class="control-label" for="input-city">{{ entry_city }}</label>
+                    <input type="text" name="city" value="" placeholder="{{ entry_city }}" id="input-city"
+                           class="form-control input-zalark"/>
+                </div>
+
+                <div class="form-group required">
+                    <label class="control-label" for="input-telephone">{{ entry_telephone }}</label>
+                    <input type="text" name="telephone" value="" placeholder="{{ entry_telephone }}"
+                           id="input-telephone"
+                           class="form-control input-zalark"/>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="input-country">Pays</label>
+                    <select class="select-zalark" disabled>
+                        <option value="Maroc" name="country" selected>Maroc</option>
+                    </select>
+                </div>
+            </div>
         </div>
         <div class="col-md-12 col-xs-12" align="center">
-            <button class="zalark-button">{{ button_continue }}</button>
+            <button id="address-save" class="zalark-button">{{ button_continue }}</button>
         </div>
     </div>
 
@@ -162,21 +217,21 @@
 </div>
 <script>
 
-    $("#container-address , #container-billing").on("mouseenter", '.address-form', function () {
+    $("#container-address").on("mouseenter", '.address-form', function () {
         $(".close-address", this).show();
         $(".edit-address", this).animate({
             marginTop: "70px"
         }, 100)
     });
 
-    $("#container-address, #container-billing").on('mouseleave', '.address-form', function () {
+    $("#container-address").on('mouseleave', '.address-form', function () {
         $(".close-address", this).hide();
         $(".edit-address", this).animate({
             marginTop: "0"
         }, 100)
     });
 
-    $("#container-address, #container-billing").on('change', 'input:radio[name="address"]', function () {
+    $("#container-address").on('change', 'input:radio[name="address"]', function () {
         if ($(this).val() === "Add") {
             $("#add-address-field").show(200);
         } else {
@@ -202,10 +257,9 @@
         $.ajax({
             url: 'index.php?route=checkout/shipping_address/update',
             type: 'post',
-            data: $('#add-address-field :input'),
+            data: $('#add-address-field input[type="text"], #add-address-field input[type="radio"]:checked, #add-address-field .select-zalark option:selected'),
             dataType: 'json',
             success: function (json) {
-                console.log(json);
                 if (json['success']) {
                     let result = json['result'];
                     $('.address-form :input[value="' + result['address_id'] + '"]').parents('.address-form').remove();
@@ -219,7 +273,7 @@
         })
     });
 
-    $("#container-address, #container-billing").on("click", ".edit-address", function () {
+    $("#container-address").on("click", ".edit-address", function () {
         var id = $(this).prev().children('label').children('input').val();
         $.ajax({
             url: "index.php?route=checkout/shipping_address/info",
@@ -245,7 +299,7 @@
     });
 
     var ob;
-    $("#container-address, #container-billing").on("click", ".close-address", function () {
+    $("#container-address").on("click", ".close-address", function () {
         ob = $(this).parent(".address-form");
         $.ajax({
             url: "index.php?route=checkout/shipping_address/delete",
@@ -264,19 +318,19 @@
         })
     });
 
-    $(".zalark-button").on("click", function () {
+    $("#address-save").on("click", function () {
         if ($("#container-address .form-group input[name='address']:checked").length === 0) {
             return;
         }
+        console.log($("#container-address .form-group input[name='address']:checked, #container-billing input[type=\"text\"], #container-billing .select-zalark option:selected"));
         $.ajax({
             url: "index.php?route=checkout/shipping_address/save",
             type: "post",
-            data: {
-                "address_id": $("#container-address .form-group input[name='address']:checked").val(),
-                "billing_id": $("#container-billing .form-group input[name='address']:checked").val()
-            },
+            data: $("#container-address .form-group input[name='address']:checked, input[name='billing']:checked , #container-billing input[type=\"text\"], #container-billing .select-zalark option:selected"),
             dataType: "json",
             success: function (json) {
+                console.log(json);
+                debugger;
                 if (json['redirect']) {
                     location = json['redirect'];
                 } else if (json['not_found']) {
@@ -320,11 +374,9 @@
         html += "<span class=\"edit-address\"><i class=\"fa fa-pencil\"></i></span>";
         html += "<span class=\"close-address\"><i class=\"fa fa-close\"></i></span>";
         html += "<hr></div>";
-        if (json['shipping'] === "1") {
-            $('#container-address').prepend(html);
-        } else {
-            $('#container-billing').prepend(html);
-        }
+
+        $('#container-address').prepend(html);
+
         refactorForm();
     }
 
@@ -363,6 +415,14 @@
             }
         })
     });
+
+    $('input:radio[name="billing"]').on('change', function () {
+        if ($('input:radio[name="billing"]:checked').val() === "1") {
+            $('#container-billing').hide(100)
+        } else {
+            $('#container-billing').show(100)
+        }
+    })
 </script>
 
 

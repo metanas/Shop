@@ -16,8 +16,59 @@ class ControllerCheckoutShippingAddress extends Controller
 
         $this->load->model('account/address');
 
-        $data['addresses'] = $this->model_account_address->getShippingAddresses();
-        $data['billing_addresses'] = $this->model_account_address->getBillingAddresses();
+        $format = '<b>{firstname} {lastname}</b>' . "\n" . '{address_1}' . "\n" . '{address_2}' . "\n" . '{city} {postcode}' . "\n" . "T: {telephone}" . "\n" . '{country}';
+
+        $find = array(
+            '{firstname}',
+            '{lastname}',
+            '{address_1}',
+            '{address_2}',
+            '{city}',
+            '{telephone}',
+            '{postcode}',
+            '{country}'
+        );
+
+        $results = $this->model_account_address->getShippingAddresses();
+        foreach ($results as $result) {
+
+            $replace = array(
+                'firstname' => $result['firstname'],
+                'lastname' => $result['lastname'],
+                'address_1' => $result['address_1'],
+                'address_2' => $result['address_2'],
+                'city' => $result['city'],
+                'postcode' => $result['postcode'],
+                'telephone' => $result['telephone'],
+                'country' => $result['country'],
+            );
+
+            $data['addresses'][] = array(
+                'address_id' => $result['address_id'],
+                'address' => str_replace(array("\r\n", "\r", "\n"), '<br/>', preg_replace(array("/\s\s+/", "/\r\r+/", "/\n\n+/"), '<br/>', trim(str_replace($find, $replace, $format))))
+            );
+        }
+
+        $results = $this->model_account_address->getBillingAddresses();
+
+        foreach ($results as $result) {
+
+            $replace = array(
+                'firstname' => $result['firstname'],
+                'lastname' => $result['lastname'],
+                'address_1' => $result['address_1'],
+                'address_2' => $result['address_2'],
+                'city' => $result['city'],
+                'postcode' => $result['postcode'],
+                'telephone' => $result['telephone'],
+                'country' => $result['country'],
+            );
+
+            $data['billing_addresses'][] = array(
+                'address_id' => $result['address_id'],
+                'address' => str_replace(array("\r\n", "\r", "\n"), '<br/>', preg_replace(array("/\s\s+/", "/\r\r+/", "/\n\n+/"), '<br/>', trim(str_replace($find, $replace, $format))))
+            );
+        }
 
         // Custom Fields
         $data['custom_fields'] = array();
@@ -121,24 +172,33 @@ class ControllerCheckoutShippingAddress extends Controller
             $json['redirect'] = $this->url->link('checkout/checkout', 'language=' . $this->config->get('config_language'));
         }
 
-        if ($this->request->post['address_id'] == "Add") {
+        if ($this->request->post['address'] == "Add") {
             $json['not_selected'] = true;
         }
 
         $this->load->model('account/address');
 
         if (!$json) {
-            $address = $this->model_account_address->getAddress($this->request->post['address_id']);
+            $address = $this->model_account_address->getAddress($this->request->post['address']);
             if (!$address) {
                 $json['not_found'] = true;
             }
         }
 
         if (!$json) {
-            if (isset($this->request->post['billing_id'])) {
-                $this->session->data['billing_address'] = $this->request->post['billing_id'];
+            if (isset($this->request->post['billing']) && $this->request->post['billing'] == '0') {
+                $this->session->data['billing_address'] = array(
+                    'firstname' => $this->request->post['firstname'],
+                    'lastname'  => $this->request->post['lastname'],
+                    'address_1' => $this->request->post['address_1'],
+                    'address_2' => $this->request->post['address_2'],
+                    'postcode'  => $this->request->post['postcode'],
+                    'city'      => $this->request->post['city'],
+                    'telephone' => $this->request->post['telephone'],
+                    'country'   => 'Maroc',
+                );
             }
-            $this->session->data['shipping_address'] = $this->request->post['address_id'];
+            $this->session->data['shipping_address'] = $this->request->post['address'];
             $json['success'] = true;
         }
 

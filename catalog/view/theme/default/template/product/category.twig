@@ -139,12 +139,14 @@
                                         </span>
                                     </div>
                                     <div id="size" class="ScrollStyle">
-                                        {#{% for color in products_colors %}#}
-                                        {#<label class="check_filter" style="display: block">{{ color }}#}
-                                        {#<input type="checkbox" name="color[]" value="{{ color }}">#}
-                                        {#<span class="checkmark"></span>#}
-                                        {#</label>#}
-                                        {#{% endfor %}#}
+                                        {% for size in products_size %}
+                                            <label class="check_filter check-color"
+                                                   style="display: block">{{ size }}
+                                                <input class="checkbox" type="checkbox" name="size[]"
+                                                       value="{{ size }}">
+                                                <span class="checkmark"></span>
+                                            </label>
+                                        {% endfor %}
                                     </div>
                                     <div>
                                         <button type="button" class="filter-done decouvrir"
@@ -162,7 +164,7 @@
                             {{ product_total }} articles
                         </div>
                         <div class="col-md-6 col-xs-6" align="right">
-                            <span class="hidden-sm hidden-xs" style="color: #9da7af" >
+                            <span class="hidden-sm hidden-xs" style="color: #9da7af">
                                 {{ text_sort }}
                             </span>
                             <select id="input-sort" class="selectpicker"
@@ -233,12 +235,12 @@
         </div>
     </div>
     <script>
-        {#$("#ex12c").slider({#}
-            {#id: "slider12c",#}
-            {#min: String({{ price_min }}).split('DHS')[0],#}
-            {#max: String({{ price_max }}).split('DHS')[0],#}
-            {#range: true,#}
-            {#value: [{{ price_min }} , {{ price_max }}]#}
-        {#});#}
+        $("#ex12c").slider({
+            id: "slider12c",
+            min: {{ min }},
+            max: {{ max }},
+            range: true,
+            value: [{{ min }}, {{ max }}]
+        });
     </script>
 </div>

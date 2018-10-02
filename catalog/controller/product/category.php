@@ -152,6 +152,7 @@ class ControllerProductCategory extends Controller
 
             $products_colors = array();
             $products_models = array();
+            $products_size = array();
 
             $product_first = reset($results);
 
@@ -194,6 +195,14 @@ class ControllerProductCategory extends Controller
                     }
                 }
 
+                foreach ($this->model_catalog_product->getProductOptions($result['product_id']) as $option) {
+                    if ($option['type'] == 'size') {
+                        foreach ($option['product_option_value'] as $size)
+                            if(!in_array($size['name'], $products_size))
+                                $products_size[] = $size['name'];
+                    }
+                }
+
                 if (!$this->in_array_r($result['color'], $products_colors, 'color')) {
                     $products_colors[] = array("color" => $result['color'], "color_hex" => $result['color_hex'], 'isChecked' => (isset($filterTri) && in_array($result['color'], $filterTri['color'])) ? true : false);
                 }
@@ -230,10 +239,13 @@ class ControllerProductCategory extends Controller
                     'href' => $this->url->link('product/product', 'language=' . $this->config->get('config_language') . '&path=' . $this->request->get['path'] . '&product_id=' . $result['product_id'] . $url)
                 );
             }
+            $data['max'] = $price_max;
             $data['price_max'] = $this->currency->format($price_max, $this->session->data['currency']);
+            $data['min'] = $price_min;
             $data['price_min'] = $this->currency->format($price_min, $this->session->data['currency']);
             $data['products_colors'] = $products_colors;
             $data['products_models'] = $products_models;
+            $data['products_size'] = $products_size;
 
             $url = '';
 
