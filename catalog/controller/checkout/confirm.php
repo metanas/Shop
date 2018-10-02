@@ -6,14 +6,62 @@ class ControllerCheckoutConfirm extends Controller
     {
         $redirect = '';
 
+        $format = '<b>{firstname} {lastname}</b>' . "\n" . '{address_1}' . "\n" . '{address_2}' . "\n" . '{city} {postcode}' . "\n" . "T: {telephone}" . "\n" . '{country}';
+
+        $find = array(
+            '{firstname}',
+            '{lastname}',
+            '{address_1}',
+            '{address_2}',
+            '{city}',
+            '{telephone}',
+            '{postcode}',
+            '{country}'
+        );
+
         $this->load->model('account/address');
 
         if ($this->cart->hasShipping()) {
             // Validate if shipping address has been set.
             if (isset($this->session->data['shipping_address'])) {
-                $data['shipping_address'] = $this->model_account_address->getAddress($this->session->data['shipping_address']);
+                $result = $this->model_account_address->getAddress($this->session->data['shipping_address']);
+
+                $replace = array(
+                    'firstname' => $result['firstname'],
+                    'lastname' => $result['lastname'],
+                    'address_1' => $result['address_1'],
+                    'address_2' => $result['address_2'],
+                    'city' => $result['city'],
+                    'postcode' => $result['postcode'],
+                    'telephone' => $result['telephone'],
+                    'country' => $result['country'],
+                );
+
+                $data['shipping_address']= array(
+                    'address_id' => $result['address_id'],
+                    'address' => str_replace(array("\r\n", "\r", "\n"), '<br/>', preg_replace(array("/\s\s+/", "/\r\r+/", "/\n\n+/"), '<br/>', trim(str_replace($find, $replace, $format))))
+                );
             } else {
                 $this->response->redirect($this->url->link("checkout/checkout", 'language=' . $this->config->get('config_language')));
+            }
+
+            if(isset($this->session->data['billing_address'])){
+                $result = $this->session->data['billing_address'];
+
+                $replace = array(
+                    'firstname' => $result['firstname'],
+                    'lastname' => $result['lastname'],
+                    'address_1' => $result['address_1'],
+                    'address_2' => $result['address_2'],
+                    'city' => $result['city'],
+                    'postcode' => $result['postcode'],
+                    'telephone' => $result['telephone'],
+                    'country' => $result['country'],
+                );
+
+                $data['billing_address'] = array(
+                    'address' => str_replace(array("\r\n", "\r", "\n"), '<br/>', preg_replace(array("/\s\s+/", "/\r\r+/", "/\n\n+/"), '<br/>', trim(str_replace($find, $replace, $format))))
+                );
             }
 
             // Validate if payment method has been set.
@@ -455,7 +503,7 @@ class ControllerCheckoutConfirm extends Controller
                 'quantity' => $product['quantity'],
                 'option' => $option_data,
                 'color' => $product['color'],
-                'price' => $product['price']
+                'price' => $this->currency->format($product['price'], $this->session->data['currency'])
             );
         }
 
@@ -684,6 +732,7 @@ class ControllerCheckoutConfirm extends Controller
                 }
             }
         }
+
         $this->response->redirect($this->url->link('checkout/success'));
     }
 }

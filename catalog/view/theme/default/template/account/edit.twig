@@ -7,7 +7,7 @@
     <h1>{{ heading_title }}</h1>
     <div class="row">
         <div id="content-edit" class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-            <form action="{{ action_edit }}" method="post" enctype="multipart/form-data" class="form-horizontal table-bordered" style="padding: 10px;">
+            <form action="{{ action_edit }}" method="post" enctype="multipart/form-data" class="form-horizontal table-bordered" style="padding: 10px;margin-bottom: 10px">
                 <fieldset>
                     <legend>{{ text_your_details }}</legend>
                     <div class="form-group required">
@@ -267,7 +267,7 @@
             {{ content_bottom }}</div>
         <div id="content-password" class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
             <form action="{{ action_password }}" method="post" enctype="multipart/form-data"
-                  class="form-horizontal table-bordered" style="padding: 10px;">
+                  class="form-horizontal table-bordered" style="padding: 10px;margin-bottom: 10px">
                 <fieldset>
                     <legend>{{ text_password }}</legend>
                     <div class="form-group required">
@@ -282,7 +282,7 @@
                         </div>
                     </div>
                     <div class="form-group required">
-                        <label class="col-sm-12" for="input-password">{{ entry_password }}</label>
+                        <label class="col-sm-12" for="input-password">{{ text_new_password }}</label>
                         <div class="col-sm-12">
                             <input type="password" name="password" value="{{ password }}"
                                    placeholder="{{ entry_password }}" id="input-password"
@@ -314,7 +314,7 @@
             </form>
         </div>
         <div id="content-email" class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-            <form action="{{ action_email }}" method="post" enctype="multipart/form-data" class="form-horizontal table-bordered" style="padding: 10px;margin-top: 10px">
+            <form action="{{ action_email }}" method="post" enctype="multipart/form-data" class="form-horizontal table-bordered" style="padding: 10px;margin-bottom: 10px">
                 <fieldset>
                     <legend>{{ text_email }}</legend>
                     <div class="form-group required">

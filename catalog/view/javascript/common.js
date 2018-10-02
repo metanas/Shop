@@ -268,7 +268,6 @@ var cart = {
                 $('#cart > button').button('reset');
             },
             success: function (json) {
-                debugger;
                 // Need to set timeout otherwise it wont update the total
                 setTimeout(function () {
                     $('#cart > button').html('<span id="cart-total"><i class="fa fa-shopping-cart"></i> ' + json['total'] + '</span>');
@@ -366,6 +365,7 @@ var step = {
 
 var wishlist = {
     'add': function (product_id) {
+        debugger;
         $.ajax({
             url: 'index.php?route=account/wishlist/add',
             type: 'post',

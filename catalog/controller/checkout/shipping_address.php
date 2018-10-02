@@ -16,7 +16,51 @@ class ControllerCheckoutShippingAddress extends Controller
 
         $this->load->model('account/address');
 
-        $data['addresses'] = $this->model_account_address->getAddresses();
+        $format = '<b>{firstname} {lastname}</b>' . "\n" . '{address_1}' . "\n" . '{address_2}' . "\n" . '{city} {postcode}' . "\n" . "T: {telephone}" . "\n" . '{country}';
+
+        $find = array(
+            '{firstname}',
+            '{lastname}',
+            '{address_1}',
+            '{address_2}',
+            '{city}',
+            '{postcode}',
+            '{telephone}',
+            '{country}'
+        );
+
+        $results = $this->model_account_address->getAddresses();
+        foreach ($results as $result) {
+
+            $replace = array(
+                'firstname' => $result['firstname'],
+                'lastname' => $result['lastname'],
+                'address_1' => $result['address_1'],
+                'address_2' => $result['address_2'],
+                'city' => $result['city'],
+                'postcode' => $result['postcode'],
+                'telephone' => $result['telephone'],
+                'country' => $result['country'],
+            );
+
+            $data['addresses'][] = array(
+                'address_id' => $result['address_id'],
+                'address' => str_replace(array("\r\n", "\r", "\n"), '<br/>', preg_replace(array("/\s\s+/", "/\r\r+/", "/\n\n+/"), '<br/>', trim(str_replace($find, $replace, $format))))
+            );
+        }
+
+        if (isset($this->session->data['billing_address'])) {
+            $data['billing_address'] = array(
+                'firstname' => $this->session->data['billing_address']['firstname'],
+                'lastname' => $this->session->data['billing_address']['lastname'],
+                'address_1' => $this->session->data['billing_address']['address_1'],
+                'address_2' => $this->session->data['billing_address']['address_2'],
+                'city' => $this->session->data['billing_address']['city'],
+                'postcode' => $this->session->data['billing_address']['postcode'],
+                'telephone' => $this->session->data['billing_address']['telephone'],
+                'country' => $this->session->data['billing_address']['country'],
+            );
+        }
 
         // Custom Fields
         $data['custom_fields'] = array();
@@ -120,23 +164,39 @@ class ControllerCheckoutShippingAddress extends Controller
             $json['redirect'] = $this->url->link('checkout/checkout', 'language=' . $this->config->get('config_language'));
         }
 
-        if ($this->request->post['address_id'] == "Add") {
+        if ($this->request->post['address'] == "Add") {
             $json['not_selected'] = true;
         }
 
         $this->load->model('account/address');
 
         if (!$json) {
-            $address = $this->model_account_address->getAddress($this->request->post['address_id']);
+            $address = $this->model_account_address->getAddress($this->request->post['address']);
             if (!$address) {
                 $json['not_found'] = true;
             }
         }
 
         if (!$json) {
-            $this->session->data['shipping_address'] = $this->request->post['address_id'];
+            if (isset($this->request->post['billing']) && $this->request->post['billing'] == '0') {
+                $this->session->data['billing_address'] = array(
+                    'firstname' => $this->request->post['firstname'],
+                    'lastname' => $this->request->post['lastname'],
+                    'address_1' => $this->request->post['address_1'],
+                    'address_2' => $this->request->post['address_2'],
+                    'postcode' => $this->request->post['postcode'],
+                    'city' => $this->request->post['city'],
+                    'telephone' => $this->request->post['telephone'],
+                    'country' => 'Maroc',
+                );
+            } else {
+                unset($this->session->data['billing_address']);
+            }
+
+            $this->session->data['shipping_address'] = $this->request->post['address'];
             $json['success'] = true;
         }
+
 
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
@@ -205,6 +265,10 @@ class ControllerCheckoutShippingAddress extends Controller
 
         if ((utf8_strlen(trim($this->request->post['telephone'])) < 2) || (utf8_strlen(trim($this->request->post['telephone'])) > 128)) {
             $this->error['telephone'] = $this->language->get('error_telephone');
+        }
+
+        if (!is_numeric($this->request->post['shipping'])) {
+            $this->error['shipping'] = $this->language->get('error_is_shipping');
         }
 
         return $this->error;

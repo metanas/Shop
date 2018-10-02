@@ -7,6 +7,8 @@ class ControllerProductProduct extends Controller {
 
 		$this->load->model('catalog/category');
 
+		$this->document->addScript('catalog/view/javascript/zoom.js');
+		
 		if (isset($this->request->get['path'])) {
 			$path = '';
 
@@ -18,15 +20,6 @@ class ControllerProductProduct extends Controller {
 					$path = $path_id;
 				} else {
 					$path .= '_' . $path_id;
-				}
-
-				$category_info = $this->model_catalog_category->getCategory($path_id);
-
-				if ($category_info) {
-					$data['breadcrumbs'][] = array(
-						'text' => $category_info['name'],
-						'href' => $this->url->link('product/category', 'language=' . $this->config->get('config_language') . '&path=' . $path)
-					);
 				}
 			}
 
@@ -51,12 +44,6 @@ class ControllerProductProduct extends Controller {
 				if (isset($this->request->get['limit'])) {
 					$url .= '&limit=' . $this->request->get['limit'];
 				}
-
-				$data['breadcrumbs'][] = array(
-					'text' => $category_info['name'],
-					'href' => $this->url->link('product/category', 'language=' . $this->config->get('config_language') . '&path=' . $this->request->get['path'] . $url)
-				);
-
 			}
 		}
 

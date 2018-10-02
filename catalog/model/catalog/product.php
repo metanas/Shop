@@ -9,7 +9,6 @@ class ModelCatalogProduct extends Model
 
     public function updateOptionSizeForProduct($quantity, $product_option_value_id)
     {
-        var_dump("UPDATE " . DB_PREFIX . "product_option_value SET quantity=(quantity - " . $quantity . ") WHERE product_option_value_id='" . (int)$product_option_value_id . "'");
         $this->db->query("UPDATE " . DB_PREFIX . "product_option_value SET quantity=(quantity - " . $quantity . ") WHERE product_option_value_id='" . (int)$product_option_value_id . "'");
     }
 

@@ -1,5 +1,3 @@
-{{ header }}
-<div style="height: 15px; background-color: #f7f7f7; width: 100%" xmlns="http://www.w3.org/1999/html"></div>
 <div id="product-category" class="container">
     <div class="row">{{ column_left }}
         {% if column_left and column_right %}
@@ -16,10 +14,10 @@
                 <div class="row">
                     {% if thumb %}
                         <div class="col-sm-12"><img src="{{ thumb }}" alt="{{ heading_title }}"
-                                                    title="{{ heading_title }}" class="img-thumbnail"/></div>
+                                                    title="{{ heading_title }}" class="img-responsive"/></div>
                     {% endif %}
                     {% if description %}
-                        <div class="col-sm-10">{{ description }}</div>
+                        <div class="col-sm-12">{{ description }}</div>
                     {% endif %}</div>
                 <hr>
             {% endif %}
@@ -28,7 +26,7 @@
                     <div style="height: 35px; z-index: 2;position: relative">
                         <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6" style="margin-bottom: 10px">
                             <div class="dropdownFilter"
-                                 style="position: relative;border: 1px solid #e7e7e7; line-height: 30px;font-weight: normal;">
+                                 style="position: relative;border: 1px solid #e7e7e7; line-height: 30px;font-weight: normal;z-index: 99">
                                 <div class="model-filter">
                                     {{ text_filter_marque }}<i class="fa fa-angle-down"
                                                                style="float: right; padding: 8px"></i>
@@ -45,9 +43,10 @@
                                     </div>
                                     <div id="model" class="ScrollStyle">
                                         {% for model in products_models %}
-                                            <label class="check_filter check-model" style="display: block">{{ model }}
+                                            <label class="check_filter check-model"
+                                                   style="display: block">{{ model.manufacturer }}
                                                 <input class="checkbox" type="checkbox" name="model[]"
-                                                       value="{{ model }}">
+                                                       value="{{ model.manufacturer }}" {% if model.isChecked %} checked {% endif %}>
                                                 <span class="checkmark"></span>
                                             </label>
                                         {% endfor %}
@@ -61,7 +60,7 @@
                         </div>
                         <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6" style="margin-bottom: 10px">
                             <div class="dropdownFilter"
-                                 style="position: relative; border: 1px solid #e7e7e7; line-height: 30px;font-weight: normal;">
+                                 style="position: relative; border: 1px solid #e7e7e7; line-height: 30px;font-weight: normal;z-index: 99">
                                 <div class="model-filter">
                                     {{ text_filter_color }}<i class="fa fa-angle-down"
                                                               style="float: right; padding: 8px"></i>
@@ -78,9 +77,10 @@
                                     </div>
                                     <div id="color" class="ScrollStyle">
                                         {% for color in products_colors %}
-                                            <label class="check_filter check-color" style="display: block">{{ color.color }}
+                                            <label class="check_filter check-color"
+                                                   style="display: block">{{ color.color }}
                                                 <input class="checkbox" type="checkbox" name="color[]"
-                                                       value="{{ color.color }}">
+                                                       value="{{ color.color }}" {% if color.isChecked %} checked {% endif %}>
                                                 <span class="checkmark checkradio"
                                                       style="background-color: {{ color.color_hex }};"></span>
                                             </label>
@@ -95,7 +95,7 @@
                         </div>
                         <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6" style="margin-bottom: 10px">
                             <div class="dropdownFilter"
-                                 style="position: relative;border: 1px solid #e7e7e7; line-height: 30px;font-weight: normal;">
+                                 style="position: relative;border: 1px solid #e7e7e7; line-height: 30px;font-weight: normal;z-index: 98">
                                 <div class="model-filter">
                                     {{ text_filter_price }}<i class="fa fa-angle-down"
                                                               style="float: right; padding: 8px"></i>
@@ -105,8 +105,8 @@
                                         <input id="ex12c" type="range" style="width: 100%"/>
                                     </div>
                                     <div id="price" class="container-fluid" style="width: 100%;padding: 0">
-                                        <span id="min-price" class="col-md-6">{{ price_min }} {{ currency }}</span>
-                                        <span id="max-price" class="col-md-6">{{ price_max }} {{ currency }}</span>
+                                        <span id="min-price" class="col-md-6">{{ price_min }}</span>
+                                        <span id="max-price" class="col-md-6">{{ price_max }}</span>
                                     </div>
                                     <div style="margin-top: 10px">
                                         <label class="promos check_filter">{{ text_Promo }}
@@ -114,7 +114,6 @@
                                             <span class="checkmark"></span>
                                         </label>
                                     </div>
-
                                     <div>
                                         <button type="button" class="filter-done decouvrir"
                                                 name="price">{{ text_close }}</button>
@@ -124,7 +123,7 @@
                         </div>
                         <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6" style="margin-bottom: 10px">
                             <div class="dropdownFilter"
-                                 style="position: relative; border: 1px solid #e7e7e7; line-height: 30px;font-weight: normal;">
+                                 style="position: relative; border: 1px solid #e7e7e7; line-height: 30px;font-weight: normal;z-index: 98">
                                 <div class="model-filter">
                                     {{ text_filter_size }}<i class="fa fa-angle-down"
                                                              style="float: right; padding: 8px"></i>
@@ -140,12 +139,14 @@
                                         </span>
                                     </div>
                                     <div id="size" class="ScrollStyle">
-                                        {#{% for color in products_colors %}#}
-                                        {#<label class="check_filter" style="display: block">{{ color }}#}
-                                        {#<input type="checkbox" name="color[]" value="{{ color }}">#}
-                                        {#<span class="checkmark"></span>#}
-                                        {#</label>#}
-                                        {#{% endfor %}#}
+                                        {% for size in products_size %}
+                                            <label class="check_filter check-color"
+                                                   style="display: block">{{ size }}
+                                                <input class="checkbox" type="checkbox" name="size[]"
+                                                       value="{{ size }}">
+                                                <span class="checkmark"></span>
+                                            </label>
+                                        {% endfor %}
                                     </div>
                                     <div>
                                         <button type="button" class="filter-done decouvrir"
@@ -163,7 +164,7 @@
                             {{ product_total }} articles
                         </div>
                         <div class="col-md-6 col-xs-6" align="right">
-                            <span style="color: #9da7af">
+                            <span class="hidden-sm hidden-xs" style="color: #9da7af">
                                 {{ text_sort }}
                             </span>
                             <select id="input-sort" class="selectpicker"
@@ -231,253 +232,15 @@
                     </div>
                 </div>
             {% endif %}
-            {{ content_bottom }}</div>
-        {{ column_right }}</div>
-</div>
-{{ footer }}
-<script>
-    $(document).ready(function () {
-        $('.model-filter').click(function (e) {
-                e.stopPropagation();
-                if ($(".dropdown-filter", this.parentNode).css('display') === 'block') {
-                    $(".dropdown-filter", this.parentNode).hide(200);
-                    $(this.parentNode).css({"border": "1px solid #e7e7e7"});
-                    $(this.parentNode).css({"position": "relative"});
-                } else {
-                    $('.dropdown-filter').hide(100);
-                    $('.dropdownFilter').css({"border": "1px solid #e7e7e7"});
-                    $(".dropdown-filter", this.parentNode).show(200);
-                    $(this.parentNode).css({"border": "2px solid black"});
-                    $(this.parentNode).css({"position": "absolute"});
-                }
-            }
-        );
-        let s = $_GET("filter");
-        if (s !== null) {
-            filters = s.split('_');
-            filterGenerator();
-        } else {
-            filters = Array();
-        }
-    });
-
-    function $_GET(param) {
-        let vars = {};
-        window.location.href.replace(location.hash, '').replace(
-            /[?&]+([^=&]+)=?([^&]*)?/gi, // regexp
-            function (m, key, value) { // callback
-                vars[key] = value !== undefined ? value : '';
-            }
-        );
-
-        if (param) {
-            return vars[param] ? vars[param] : null;
-        }
-        return vars;
-    }
-
-    $("#ex12c").slider({
-        id: "slider12c",
-        min: {{ price_min }},
-        max: {{ price_max }},
-        range: true,
-        value: [{{ price_min }}, {{ price_max }}]
-    });
-    let price = Array();
-
-    $("#ex12c").on("change", function (e) {
-        $("#max-price").html(e.value['newValue'][1] + " {{ currency }}");
-        $("#min-price").html(e.value['newValue'][0] + " {{ currency }}");
-        filters.splice(filters.indexOf(price[0]), 1);
-        filters.splice(filters.indexOf(price[1]), 1);
-        price[0] = "prixMax[]" + e.value['newValue'][1];
-        price[1] = "prixMin[]" + e.value['newValue'][0];
-    });
-    let filters = Array();
-
-    $("input:checkbox").on('click', function (event) {
-        event.stopPropagation();
-        check(this)
-    });
-
-    $(".filter-done").on("click", function (e) {
-        filterGenerator();
-    });
-
-    function removeFilter(e) {
-        jQuery.grep($("input:checkbox"), function (a) {
-            if (a.value === e.innerText) {
-                $(a).prop('checked', false);
-            }
-        });
-        filters.forEach(function (item) {
-            if (item.includes(e.innerText.replace(":", "[]")) || item === e.innerText) {
-                filters.splice(filters.indexOf(item), 1);
-                price.splice(filters.indexOf(item), 1);
-                filterGenerator();
-                return;
-            }
-        });
-    }
-
-    $(document).click(function (e) {
-        $.map($(".dropdown-filter").get(), function (item) {
-            if (item.style.display === "block" && $.inArray(e.target.tagName, ['INPUT', 'SPAN', 'LABEL']) === -1) {
-                filterGenerator();
-            }
-        });
-    });
-
-    function filterGenerator() {
-        $(".filter-content").empty();
-        if (price.length > 0) if ($.inArray(price[0], filters) === -1) filters = filters.concat(price);
-        for (i = 0; i < filters.length; i++) {
-            $(".filter-content").append('<span class="filter-generate" onclick="removeFilter(this)">' + (($.inArray(filters[i], price) !== -1) ? filters[i].replace('[]', ":") : filters[i].split('[]')[1]) + '<i class="fa fa-close" style="margin-left: 5px"></i></span>');
-        }
-
-        updateQueryStringParam("filter", filters.join("_"));
-
-        if (filters.length >= 3 && $('.clear-all-filters').get().length === 0) {
-            $(".filter-content").prepend('<span class="filter-generate clear-all-filters" onclick="removeAllFilters()">{{ text_clear_filter }}<i class="fa fa-close" style="margin-left: 5px"></i></span>');
-        }
-
-        $('.dropdown-filter').hide(200);
-        $('.dropdownFilter').css({"border": "1px solid #e7e7e7"});
-        $('.dropdownFilter').css({"position" : "relative"});
-    }
-
-    let models = $('input[name*=\'model[]\']').get();
-    let colors = $('input[name*=\'color[]\']').get();
-
-    function removeAllFilters() {
-        let arr = $('.filter-generate').get();
-        while (arr.length !== 0) {
-            removeFilter(arr[arr.length - 1]);
-            arr = $('.filter-generate').get();
-        }
-    }
-
-    $(".field-input-filter").on('input', function () {
-        $(".ScrollStyle").empty();
-        let arr = Array();
-        if (this.name === "color") {
-            arr = colors;
-        } else if (this.name === "model") {
-            arr = models;
-        }
-        for (i = 0; i < arr.length; i++) {
-            if (arr[i].value.includes(this.value))
-                $(".ScrollStyle").append("<label class=\"check_filter\">" + arr[i].value +
-                    "<input class=\"checkbox\" type=\"checkbox\" name=\"" + this.name + "[]\" value=\"" + arr[i].value + "\">" +
-                    "<span class=\"checkmark checkradio\" style=\"background-color: ;\"></span>" +
-                    "</label>");
-        }
-    });
-
-    function updateQueryStringParam(param, value, path = "") {
-        baseUrl = [location.protocol, '//', location.host, location.pathname].join('');
-        urlQueryString = document.location.search;
-        let newParam = param + '=' + value;
-        let params = '?' + newParam;
-        // If the "search" string exists, then build params from it
-        if (urlQueryString && value !== '') {
-            keyRegex = new RegExp('([\?&])' + param + '[^&]*');
-            // If param exists already, update it
-            if (urlQueryString.match(keyRegex) !== null) {
-                params = urlQueryString.replace(keyRegex, "$1" + newParam);
-            } else { // Otherwise, add it to end of query string
-                params = urlQueryString + '&' + newParam;
-            }
-        } else {
-            params = urlQueryString.replace("&" + param + "=" + $_GET("'" + param + "'"), "");
-        }
-
-        window.history.replaceState({}, "", baseUrl + params);
-        var url = (path !== "") ? path : ($_GET('path') + "&filter=" + $_GET("filter"));
-        $.ajax({
-            url: "index.php?route=product/category/filter&path=" + url,
-            type: "GET",
-            dataType: "json",
-            beforeSend: function () {
-                $('body').loading({message: "chargement.."});
-            },
-            complete: function(){
-                $('body').loading('stop');
-            },
-            success: function (json) {
-                updateFilters(json);
-                updateProducts(json['products'], json['pagination']);
-            },
-            error: function (result, status, s) {
-                $('body').loading('stop');
-            },
-        });
-    }
-
-    function updateProducts(products, pagination) {
-        html = "";
-        $.map(products, function (item) {
-            html += '<div class="product-layout col-lg-4 col-md-4 col-sm-6 col-xs-6">';
-            html += '<span id="product-id" style="display: none">' + item['product_id'] + '</span><a href="' + item['href'] + '">';
-            html += '<div class="product-thumb transition">';
-            html += '<div class="image"><a href="' + item['href'] + '"><img src = "' + item['thumb'] + '" alt="' + item['name'] + '" title = "' + item['name'] + '" class="img-responsive"/></a></div>';
-            html += '<div class="caption" ><div class="desctip col-sm-12 col-xs-12" ><h4 class="SheosName"><a href = "' + item['href'] + '" >' + item['name'] + '</a></h4>';
-            if (item.hasOwnProperty('price') === true) {
-                if (item.hasOwnProperty('special') === false || item['special'] === false) {
-                    html += '<p class="SheosPrice" >' + item['price'] + '</p>';
-                } else {
-                    html += '<span class="price-old SheosPrice" >' + item['price'] + '</span><br>';
-                    html += '<span class="price-new SheosPrice" >' + item['special'] + '</span>';
-                }
-            }
-            html += '<div class="same"></div>';
-            {#<p>Disponible en plusieurs tailles</p>#}
-            html += '</div></div></div><div></a><img src="' + item['favorite'] + '" style="margin-right:20px;margin-top: 10px; position: absolute; top: 0;right: 0;width: 20px"></div></div>'
-        });
-        html += '<div class="row col-sm-12" style="margin: 30px 0 30px 0">';
-        html += '<div class="col-sm-6 text-center pagination">' + pagination + '</div></div>';
-        $('.product-container').empty();
-        $('.product-container').html(html);
-    }
-
-    function updateFilters(json) {
-        $(".product-count").text(json['product_total'] + " articles");
-        $("#model").empty();
-        $("#color").empty();
-        $.map(json['products_models'], function (item) {
-            $("#model").append('<label class="check_filter">' + item +
-                '<input type="checkbox" name="model[]" value="' + item + '">' +
-                '<span class="checkmark"></span></label>')
-        });
-        $.map(json['products_colors'], function (item) {
-            $("#color").append('<label class="check_filter">' + item['color'] +
-                '<input type="checkbox" name="color[]" value="' + item['color'] + '">' +
-                '<span class="checkmark checkradio" style="background-color: ' + item['color_hex'] + '"></span></label>')
-        });
-
+        </div>
+    </div>
+    <script>
         $("#ex12c").slider({
             id: "slider12c",
-            min: json['price_min'],
-            max: json['price_max'],
+            min: {{ min }},
+            max: {{ max }},
             range: true,
-            value: [json['price_min'], json['price_max']]
+            value: [{{ min }}, {{ max }}]
         });
-
-        $('#max-price').html(json['price_max']);
-        $('#min-price').html(json['price_min']);
-
-        $("input:checkbox").on('click', function (event) {
-            check(this);
-        });
-    }
-
-    function check(e) {
-        if ($(e).is(':checked')) {
-            if ($.inArray($(e)[0].name + $(e).val(), filters))
-                filters.push($(e)[0].name + $(e).val());
-        } else {
-            filters.splice(filters.indexOf($(e)[0].name + $(e).val()), 1);
-        }
-    }
-
-</script>
+    </script>
+</div>

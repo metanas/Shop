@@ -47,17 +47,18 @@
             <div class="fa-option" id="address-edit" onclick="step.next(2)"><i class="fa fa-edit"></i></div>
             <h4>ADRESSE DE LIVRAISON</h4>
             <hr class="hr-marge">
-            <span>{{ shipping_address.firstname }} {{ shipping_address.lastname }}</span>
-            <div>{{ shipping_address.address_1 }}</div>
-            <div>{{ shipping_address.postcode }} {{ shipping_address.city }}</div>
-            <div>Maroc</div>
+            {{ shipping_address.address }}
         </div>
-        {#<div class="col-sm-12">#}
-        {#<div class="fa-option" id="fac-edit"><i class="fa fa-edit"></i></div>#}
-        {#<h4>ADRESSE DE FACTURATION</h4>#}
-        {#<hr class="hr-marge">#}
-        {#Identique a l'adresse de livraison#}
-        {#</div>#}
+        <div class="col-sm-12">
+            <div class="fa-option" onclick="step.next(2)" id="fac-edit"><i class="fa fa-edit"></i></div>
+            <h4>ADRESSE DE FACTURATION</h4>
+            <hr class="hr-marge">
+            {% if billing_address %}
+                {{ billing_address.address }}
+            {% else %}
+                Identique a l'adresse de livraison
+            {% endif %}
+        </div>
         <div class="col-sm-12">
             <div class="fa-option" id="pay-edit" onclick="step.next(3)"><i class="fa fa-edit"></i></div>
             <h4>MOYEN DE PAYEMENT</h4>
@@ -77,7 +78,7 @@
                 <div class="coupon-field col-md-12">
                     <i class="fa fa-remove" id="remove-coupon"
                        style="position: absolute;padding: 13px;cursor: pointer;right: 15px;display: {% if coupon %} inline-block{% else %} none {% endif %};"></i>
-                    <i class="fa fa-search" id="coupon"
+                    <i class="fa fa-check" id="coupon"
                        style="position: absolute;padding: 13px;cursor: pointer;right: 15px;display: {% if coupon %} none {% else %} inline-block {% endif %};"></i>
                     <input type="text" class="form-control input-zalark" name="coupon"
                            placeholder="Entrez votre code promo" value="{{ coupon }}"
@@ -115,7 +116,7 @@
                     </div>
                 {% endif %}
 
-                <button type="submit" class="col-sm-12 zalark-button">VALIDER LE PAIEMENT</button>
+                <button type="submit" class="col-sm-12 zalark-button" style="margin-bottom: 12px">VALIDER LE PAIEMENT</button>
             </div>
         </div>
     </div>
