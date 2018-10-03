@@ -62,6 +62,7 @@ function removeFilter(e) {
     var param = String(getURLVar('filt')).replace(tar, '');
     param = param.replace("__", '_');
     param = param.replace(/_$/, '');
+    param = param.replace(/^_/, '');
     updateQueryStringParam('filt', param);
     filterGenerator();
 }
@@ -101,15 +102,15 @@ function filterGenerator() {
 
 function setFilter() {
     $(".filter-content").empty();
-    const s = String(getURLVar("filt"));
+    const s = decodeURI(String(getURLVar("filt")));
     if (s !== '') {
         var filters = s.split('_');
         for (i = 0; i < filters.length; i++) {
-            $(".filter-content").append('<span class="filter-generate" onclick="removeFilter(this)">' + (filters[i].replace('[]', ":")) + '<i class="fa fa-close" style="margin-left: 5px"></i></span>');
+            $(".filter-content").append('<div class="filter-generate" onclick="removeFilter(this)" style="display: inline;margin-bottom: 15px">' + (filters[i].replace('[]', ":")) + '<i class="fa fa-close" style="margin-left: 5px"></i></div>');
         }
 
         if (filters.length >= 3 && $('.clear-all-filters').get().length === 0) {
-            $(".filter-content").prepend('<span class="filter-generate clear-all-filters" onclick="removeAllFilters()">{{ text_clear_filter }}<i class="fa fa-close" style="margin-left: 5px"></i></span>');
+            $(".filter-content").prepend('<span class="filter-generate clear-all-filters" onclick="removeAllFilters()">Retirer tous les filtres<i class="fa fa-close" style="margin-left: 5px"></i></span>');
         }
 
         $('.dropdown-filter').hide(200);
