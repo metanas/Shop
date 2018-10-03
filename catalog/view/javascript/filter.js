@@ -59,7 +59,7 @@ $(document).ready(function () {
 
 function removeFilter(e) {
     const tar = e.innerText.replace(':', '[]');
-    var param = String(getURLVar('filt')).replace(tar, '');
+    var param = decodeURI(getURLVar('filt')).replace(tar, '');
     param = param.replace("__", '_');
     param = param.replace(/_$/, '');
     param = param.replace(/^_/, '');
