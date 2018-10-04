@@ -24,7 +24,7 @@ $_['column_action']          = 'Action';
 // Entry
 $_['entry_name']             = 'Nom du produit';
 $_['entry_description']      = 'Description';
-$_['entry_meta_title']       = 'Titre Meta Tag ';
+$_['entry_ref']              = 'Titre Meta Tag ';
 $_['entry_meta_keyword']     = 'Mot-clésMeta Tag ';
 $_['entry_meta_description'] = 'Description Meta Tag';
 $_['entry_store']            = 'Magasin';
