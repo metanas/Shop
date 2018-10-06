@@ -82,10 +82,6 @@ class ControllerProductCategory extends Controller
         $category_info = $this->model_catalog_category->getCategory($category_id);
 
         if ($category_info) {
-            $this->document->setTitle($category_info['meta_title']);
-            $this->document->setDescription($category_info['meta_description']);
-            $this->document->setKeywords($category_info['meta_keyword']);
-
             $data['heading_title'] = $category_info['name'];
 
             $data['text_compare'] = sprintf($this->language->get('text_compare'), (isset($this->session->data['compare']) ? count($this->session->data['compare']) : 0));
@@ -318,7 +314,7 @@ class ControllerProductCategory extends Controller
             $url = '';
 
             if (isset($this->request->get['filt'])) {
-                $url .= '&filter=' . $this->request->get['filt'];
+                $url .= '&filt=' . $this->request->get['filt'];
             }
 
             if (isset($this->request->get['sort'])) {
