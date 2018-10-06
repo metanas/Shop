@@ -41,7 +41,7 @@
             </div>
             <label class="control-label" for="input-lastname">{{ entry_birthday }}</label>
             <div class="form-group">
-                <div class="col-md-3" style="padding: 0">
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-4" style="padding: 0">
                     <select name="birthday[]" class="select-zalark">
                         <option value="0" selected>Select Jour:</option>
                         {% for i in 1..31 %}
@@ -51,13 +51,13 @@
                     <i class="fa fa-angle-down"
                        style="position: absolute;padding: 13px;cursor: pointer;right: 0;top: 0;"></i>
                 </div>
-                <div class="col-md-6"><select name="birthday[]" class="select-zalark">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-4"><select name="birthday[]" class="select-zalark">
                         <option value="0" selected>Select Mois:</option>
                         {{ entry_month }}
                     </select>
                     <i class="fa fa-angle-down"
                        style="position: absolute;padding: 13px;cursor: pointer;right: 15px;top: 0;"></i></div>
-                <div class="col-md-3" style="padding: 0">
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-4" style="padding: 0">
                     <select name="birthday[]" class="select-zalark">
                         <option value="0" selected>Select Annee:</option>
                         {% for i in 2000..1900 %}

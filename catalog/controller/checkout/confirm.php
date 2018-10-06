@@ -37,7 +37,7 @@ class ControllerCheckoutConfirm extends Controller
                     'country' => $result['country'],
                 );
 
-                $data['shipping_address']= array(
+                $data['shipping_address'] = array(
                     'address_id' => $result['address_id'],
                     'address' => str_replace(array("\r\n", "\r", "\n"), '<br/>', preg_replace(array("/\s\s+/", "/\r\r+/", "/\n\n+/"), '<br/>', trim(str_replace($find, $replace, $format))))
                 );
@@ -45,7 +45,7 @@ class ControllerCheckoutConfirm extends Controller
                 $this->response->redirect($this->url->link("checkout/checkout", 'language=' . $this->config->get('config_language')));
             }
 
-            if(isset($this->session->data['billing_address'])){
+            if (isset($this->session->data['billing_address'])) {
                 $result = $this->session->data['billing_address'];
 
                 $replace = array(
@@ -558,6 +558,30 @@ class ControllerCheckoutConfirm extends Controller
             $order_data['shipping_city'] = $address_info['city'];
             $order_data['shipping_postcode'] = $address_info['postcode'];
             $order_data['shipping_country'] = $address_info['postcode'];
+        }
+
+        if ($this->session->data['billing_address']) {
+            $result = $this->session->data['billing_address'];
+
+            $order_data['billing_firstname'] = $result['firstname'];
+            $order_data['billing_lastname'] = $result['lastname'];
+            $order_data['billing_address_1'] = $result['address_1'];
+            $order_data['billing_address_2'] = $result['address_2'];
+            $order_data['billing_city'] = $result['city'];
+            $order_data['billing_postcode'] = $result['postcode'];
+            $order_data['billing_country'] = $result['country'];
+        } else {
+            $this->load->model('account/address');
+
+            $result = $this->model_account_address->getAddress($this->session->data['shipping_address']);
+
+            $order_data['billing_firstname'] = $result['firstname'];
+            $order_data['billing_lastname'] = $result['lastname'];
+            $order_data['billing_address_1'] = $result['address_1'];
+            $order_data['billing_address_2'] = $result['address_2'];
+            $order_data['billing_city'] = $result['city'];
+            $order_data['billing_postcode'] = $result['postcode'];
+            $order_data['billing_country'] = $result['country'];
         }
 
         if (isset($this->session->data['payment_method'])) {
