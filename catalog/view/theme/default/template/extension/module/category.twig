@@ -1,4 +1,5 @@
-<div class="groupe_list">
+<div id="slidebar" class="slide-bar">
+    <a href="javascript:void(0)" class="closebtn visible-xs" onclick="closeNav()">&times;</a>
     {% for category in categories %}
         {% if category.category_id == category_id %}
             <div><a href="{{ category.href }}" class="actif">{{ category.name }}</a></div>
@@ -10,8 +11,7 @@
                                onclick="changePath(this,'{{ category.category_id }}_{{ child.category_id }}')">&nbsp;&nbsp;&nbsp;{{ child.name }}</a>
                             {% for sub in child.children %}
                                 <div class="category-filter" style="margin-left: 10px">
-                                    <a class="actif"
-                                       onclick="changePath(this,'{{ category.category_id }}_{{ child.category_id }}_{{ sub.category_id }}')">&nbsp;&nbsp;&nbsp;{{ sub.name }}</a>
+                                    <a onclick="changePath(this,'{{ category.category_id }}_{{ child.category_id }}_{{ sub.category_id }}')">&nbsp;&nbsp;&nbsp;{{ sub.name }}</a>
                                 </div>
                             {% endfor %}
                         </div>
@@ -34,14 +34,14 @@
 
     function checkOffset() {
         if ($("#content").offset().top >= $(document).scrollTop()) {
-            $(".groupe_list").css({"position": "absolute"});
+            $(".slide-bar").css({"position": "absolute"});
         }
-        else if ($(".pagination").offset().top + $(".pagination").height() - $(".groupe_list").height() <= $(document).scrollTop()) {
-            $(".groupe_list").css({"position": "absolute"});
-            $(".groupe_list").offset({"top": $(".pagination").offset().top + $(".pagination").height() - $(".groupe_list").height()})
+        else if ($(".pagination").offset().top + $(".pagination").height() - $(".slide-bar").height() <= $(document).scrollTop()) {
+            $(".slide-bar").css({"position": "absolute"});
+            $(".slide-bar").offset({"top": $(".pagination").offset().top + $(".pagination").height() - $(".groupe_list").height()})
         }
         else {
-            $(".groupe_list").css({"position": "fixed", "top": "0"});
+            $(".slide-bar").css({"position": "fixed", "top": "0"});
         }
     }
 
@@ -51,5 +51,4 @@
         updateQueryStringParam("path", path, path);
         filterGenerator();
     }
-
 </script>

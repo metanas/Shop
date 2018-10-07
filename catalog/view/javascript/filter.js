@@ -1,4 +1,16 @@
 $(document).ready(function () {
+    $('#column-left').removeClass('hidden-xs');
+
+    $('body').on('click', '#slide-bar-button', function () {
+        document.getElementById("slidebar").style.width = "100%";
+    });
+
+    /* Close/hide the sidenav */
+    $('body').on('click', '.closebtn', function () {
+        document.getElementById("slidebar").style.width = "0";
+    });
+
+
     $('#product-category').on('click', '.model-filter', function (e) {
             e.stopPropagation();
             if ($(".dropdown-filter", this.parentNode).css('display') === 'block') {
