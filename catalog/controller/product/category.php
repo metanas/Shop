@@ -524,9 +524,7 @@ class ControllerProductCategory extends Controller
         $category_info = $this->model_catalog_category->getCategory($category_id);
 
         if ($category_info) {
-            $this->document->setTitle($category_info['meta_title']);
-            $this->document->setDescription($category_info['meta_description']);
-            $this->document->setKeywords($category_info['meta_keyword']);
+            $this->document->setTitle($category_info['name']);
 
             $data['heading_title'] = $category_info['name'];
 
