@@ -1,5 +1,5 @@
 <div id="slidebar" class="slide-bar">
-    <a href="javascript:void(0)" class="closebtn visible-xs" onclick="closeNav()">&times;</a>
+    <a href="javascript:void(0)" class="closebtn visible-xs">&times;</a>
     {% for category in categories %}
         {% if category.category_id == category_id %}
             <div><a href="{{ category.href }}" class="actif">{{ category.name }}</a></div>
