@@ -1,12 +1,13 @@
 $(document).ready(function () {
     $('#column-left').removeClass('hidden-xs');
 
-    $('body').on('click', '#slide-bar-button', function () {
+    $('.container').on('click', '.slide-bar-button', function () {
+        console.log('Open');
         document.getElementById("slidebar").style.width = "100%";
     });
 
     /* Close/hide the sidenav */
-    $('body').on('click', '.closebtn', function () {
+    $('#slidebar').on('click', '.closebtn', function () {
         document.getElementById("slidebar").style.width = "0";
     });
 
@@ -92,24 +93,27 @@ function filterGenerator() {
     if (String(getURLVar("filt")) !== '') {
         url += "&filt=" + String(getURLVar("filt"));
     }
-    $.ajax({
-        url: url,
-        type: "GET",
-        beforeSend: function () {
-            $('body').loading({message: "chargement.."});
-        },
-        complete: function () {
-            $('body').loading('stop');
-        },
-        success: function (json) {
-            $('#product-category').empty();
-            $('#product-category').html(json);
-            setFilter();
-        },
-        error: function (result, status, s) {
-            $('body').loading('stop');
-        },
-    });
+    $('body').loading({message: "chargement.."});
+    $('.contenair-fluid').load(url);
+    $('body').loading('stop');
+
+    // $.ajax({
+    //     url: url,
+    //     type: "GET",
+    //     beforeSend: function () {
+    //         $('body').loading({message: "chargement.."});
+    //     },
+    //     complete: function () {
+    //         $('body').loading('stop');
+    //     },
+    //     success: function (json) {
+    //         // $('#product-category').html(json);
+    //         // setFilter();
+    //     },
+    //     error: function (result, status, s) {
+    //         $('body').loading('stop');
+    //     },
+    // });
 }
 
 function setFilter() {
