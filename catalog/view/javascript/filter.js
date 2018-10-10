@@ -1,10 +1,4 @@
 $(document).ready(function () {
-    /* Close/hide the sidenav */
-    $('body').on('click', '.closebtn', function () {
-        document.getElementById("slidebar").style.width = "0";
-    });
-
-
     $('body').on('click', '.model-filter', function (e) {
             e.stopPropagation();
             if ($(".dropdown-filter", this.parentNode).css('display') === 'block') {
@@ -94,6 +88,7 @@ function filterGenerator() {
             $('body').loading('stop');
         },
         success: function (json) {
+            $('footer').prev().remove();
             $('header').after(json);
             setFilter();
         },
@@ -150,7 +145,10 @@ function updateQueryStringParam(param, value) {
 }
 
 function openSlide () {
-    console.log('open')
-    console.log($("#slidebar"));
     $("#slidebar").css({"width" : "100%"});
+}
+
+function closeSlide() {
+    console.log($("#slidebar"));
+    $("#slidebar").css({"width" : "0px"});
 }
