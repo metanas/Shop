@@ -58,8 +58,6 @@ $(document).ready(function () {
             }
         });
     });
-
-    setFilter();
 });
 
 
@@ -96,7 +94,6 @@ function filterGenerator() {
             $('body').loading('stop');
         },
         success: function (json) {
-            console.log($('footer').prev().remove());
             $('header').after(json);
             setFilter();
         },
@@ -109,8 +106,9 @@ function filterGenerator() {
 function setFilter() {
     $(".filter-content").empty();
     const s = decodeURI(String(getURLVar("filt")));
+    debugger;
     if (s !== '') {
-        var filters = s.split('_');
+        const filters = s.split('_');
         for (i = 0; i < filters.length; i++) {
             $(".filter-content").append('<div class="filter-generate" onclick="removeFilter(this)" style="display: inline;margin-bottom: 15px">' + (filters[i].replace('[]', ":")) + '<i class="fa fa-close" style="margin-left: 5px"></i></div>');
         }
@@ -118,7 +116,7 @@ function setFilter() {
         if (filters.length >= 3 && $('.clear-all-filters').get().length === 0) {
             $(".filter-content").prepend('<span class="filter-generate clear-all-filters" onclick="removeAllFilters()">Retirer tous les filtres<i class="fa fa-close" style="margin-left: 5px"></i></span>');
         }
-
+    debugger;
         $('.dropdown-filter').hide(200);
         $('.dropdownFilter').css({"border": "1px solid #e7e7e7"});
         $('.dropdownFilter').css({"position": "relative"});
