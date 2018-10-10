@@ -1,18 +1,11 @@
 $(document).ready(function () {
-    $('#column-left').removeClass('hidden-xs');
-
-    $('.container').on('click', '.slide-bar-button', function () {
-        console.log('Open');
-        document.getElementById("slidebar").style.width = "100%";
-    });
-
     /* Close/hide the sidenav */
-    $('#slidebar').on('click', '.closebtn', function () {
+    $('body').on('click', '.closebtn', function () {
         document.getElementById("slidebar").style.width = "0";
     });
 
 
-    $('#product-category').on('click', '.model-filter', function (e) {
+    $('body').on('click', '.model-filter', function (e) {
             e.stopPropagation();
             if ($(".dropdown-filter", this.parentNode).css('display') === 'block') {
                 $(".dropdown-filter", this.parentNode).hide(200);
@@ -28,7 +21,7 @@ $(document).ready(function () {
         }
     );
 
-    $("#product-category").on('click', 'input:checkbox', function (event) {
+    $("body").on('click', 'input:checkbox', function (event) {
         var param = '';
         const filt = getURLVar('filt');
         const newFilt = event.target.name + event.target.value;
@@ -45,7 +38,7 @@ $(document).ready(function () {
         event.stopPropagation();
     });
 
-    $("#product-category").on("change", '#ex12c', function (e) {
+    $("body").on("change", '#ex12c', function (e) {
         $("#max-price").html(e.value['newValue'][1] + " {{ currency }}");
         $("#min-price").html(e.value['newValue'][0] + " {{ currency }}");
         filters.splice(filters.indexOf(price[0]), 1);
@@ -54,7 +47,7 @@ $(document).ready(function () {
         price[1] = "prixMin[]" + e.value['newValue'][0];
     });
 
-    $("#product-category").on("click", '.filter-done', function (e) {
+    $("body").on("click", '.filter-done', function (e) {
         filterGenerator();
     });
 
@@ -93,27 +86,24 @@ function filterGenerator() {
     if (String(getURLVar("filt")) !== '') {
         url += "&filt=" + String(getURLVar("filt"));
     }
-    $('body').loading({message: "chargement.."});
-    $('.contenair-fluid').load(url);
-    $('body').loading('stop');
-
-    // $.ajax({
-    //     url: url,
-    //     type: "GET",
-    //     beforeSend: function () {
-    //         $('body').loading({message: "chargement.."});
-    //     },
-    //     complete: function () {
-    //         $('body').loading('stop');
-    //     },
-    //     success: function (json) {
-    //         // $('#product-category').html(json);
-    //         // setFilter();
-    //     },
-    //     error: function (result, status, s) {
-    //         $('body').loading('stop');
-    //     },
-    // });
+    $.ajax({
+        url: url,
+        type: "GET",
+        beforeSend: function () {
+            $('body').loading({message: "chargement.."});
+        },
+        complete: function () {
+            $('body').loading('stop');
+        },
+        success: function (json) {
+            console.log($('footer').prev().remove());
+            $('header').after(json);
+            setFilter();
+        },
+        error: function (result, status, s) {
+            $('body').loading('stop');
+        },
+    });
 }
 
 function setFilter() {
@@ -159,4 +149,10 @@ function updateQueryStringParam(param, value) {
     }
 
     window.history.replaceState({}, "", baseUrl + params);
+}
+
+function openSlide () {
+    console.log('open')
+    console.log($("#slidebar"));
+    $("#slidebar").css({"width" : "100%"});
 }

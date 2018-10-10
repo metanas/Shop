@@ -9,7 +9,7 @@
         {% endif %}
         <div id="content" class="{{ class }}">
             {{ content_top }}
-                <div class="slide-bar-button visible-xs-inline" style="cursor: pointer">
+                <div class="slide-bar-button visible-xs-inline" onclick="openSlide()" style="cursor: pointer">
                     <i class="fa fa-align-justify" style="font-size: 24px"></i>
                 </div>
                 <h2 style="display: inline">{{ heading_title }}</h2>
@@ -238,12 +238,13 @@
         </div>
     </div>
     <script>
-        $("#ex12c").slider({
-            id: "slider12c",
-            min: {{ min }},
-            max: {{ max }},
-            range: true,
-            value: [{{ min }}, {{ max }}]
-        });
+        $('#column-left').removeClass('hidden-xs');
+        {#$("#ex12c").slider({#}
+            {#id: "slider12c",#}
+            {#min: {{ min }},#}
+            {#max: {{ max }},#}
+            {#range: true,#}
+            {#value: [{{ min }}, {{ max }}]#}
+        {#});#}
     </script>
 </div>
