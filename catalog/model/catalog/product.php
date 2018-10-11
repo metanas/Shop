@@ -66,10 +66,13 @@ class ModelCatalogProduct extends Model
                 $sql .= " FROM " . DB_PREFIX . "product_to_category p2c";
             }
 
-            if (!empty($data['filter_filter'])) {
-                $sql .= " LEFT JOIN " . DB_PREFIX . "product p ON (p2c.product_id = p.product_id) LEFT JOIN " . DB_PREFIX . "manufacturer m ON (p.manufacturer_id = m.manufacturer_id)";
-            } else {
-                $sql .= " LEFT JOIN " . DB_PREFIX . "product p ON (p2c.product_id = p.product_id)";
+            $sql .= " LEFT JOIN " . DB_PREFIX . "product p ON (p2c.product_id = p.product_id)";
+
+            if (!empty($data['filter_filter']['manufacture'])) {
+                $sql .= " LEFT JOIN " . DB_PREFIX . "manufacturer m ON (p.manufacturer_id = m.manufacturer_id)";
+            }
+            if (!empty($data['filter_filter']['size'])) {
+                $sql .= "LEFT JOIN " . DB_PREFIX . "product_option_value pov on(pov.product_id = p.product_id) LEFT JOIN " . DB_PREFIX . "option_value_description ovd on(ovd.option_value_id = pov.option_value_id and ovd.option_id = pov.option_id)  ";
             }
         } else {
             $sql .= " FROM " . DB_PREFIX . "product p";
@@ -85,27 +88,17 @@ class ModelCatalogProduct extends Model
             }
 
             if (!empty($data['filter_filter'])) {
-                $implode = array();
-                $colors = array();
-                $model = array();
-                $priceMax = '';
-                $priceMin = '';
-                $Size = array();
-
-                $filters = explode('_', $data['filter_filter']);
-
-                foreach ($filters as $filter_id) {
-                    if (strpos($filter_id, "model[]") !== false) $model[] = explode("[]", $filter_id)[1];
-                    if (strpos($filter_id, "color[]") !== false) $colors[] = explode("[]", $filter_id)[1];
-                    if (strpos($filter_id, "prixMax[]") !== false) $priceMax = explode("[]", $filter_id)[1];
-                    if (strpos($filter_id, "prixMin[]") !== false) $priceMin = explode("[]", $filter_id)[1];
-                    $implode[] = $filter_id;
+                if (!empty($data['filter_filter']['manufacture'])) {
+                    $sql .= " AND m.name IN ('" . implode("','", $data['filter_filter']['manufacture']) . "')";
                 }
 
-                if (!empty($colors)) $sql .= " AND p.color IN ('" . implode("','", $colors) . "')";
-                if (!empty($model)) $sql .= " AND m.name IN ('" . implode("','", $model) . "')";
-                if (!empty($priceMax)) $sql .= " AND p.price <= $priceMax";
-                if (!empty($priceMin)) $sql .= " AND p.price >= $priceMin";
+                if (!empty($data['filter_filter']['color'])) {
+                    $sql .= " AND p.color IN ('" . implode("','", $data['filter_filter']['color']) . "')";
+                }
+
+                if (!empty($data['filter_filter']['size'])) {
+                    $sql .= " AND ovd.name IN ('" . implode("','", $data['filter_filter']['size']) . "')";
+                }
             }
         }
 
@@ -448,10 +441,13 @@ class ModelCatalogProduct extends Model
                 $sql .= " FROM " . DB_PREFIX . "product_to_category p2c";
             }
 
-            if (!empty($data['filter_filter'])) {
-                $sql .= " LEFT JOIN " . DB_PREFIX . "product p ON (p2c.product_id = p.product_id) LEFT JOIN " . DB_PREFIX . "manufacturer m ON (p.manufacturer_id = m.manufacturer_id)";
-            } else {
-                $sql .= " LEFT JOIN " . DB_PREFIX . "product p ON (p2c.product_id = p.product_id)";
+            $sql .= " LEFT JOIN " . DB_PREFIX . "product p ON (p2c.product_id = p.product_id)";
+
+            if (!empty($data['filter_filter']['manufacture'])) {
+                $sql .= " LEFT JOIN " . DB_PREFIX . "manufacturer m ON (p.manufacturer_id = m.manufacturer_id)";
+            }
+            if (!empty($data['filter_filter']['size'])) {
+                $sql .= "LEFT JOIN " . DB_PREFIX . "product_option_value pov on(pov.product_id = p.product_id) LEFT JOIN " . DB_PREFIX . "option_value_description ovd on(ovd.option_value_id = pov.option_value_id and ovd.option_id = pov.option_id)  ";
             }
         } else {
             $sql .= " FROM " . DB_PREFIX . "product p";
@@ -467,22 +463,17 @@ class ModelCatalogProduct extends Model
             }
 
             if (!empty($data['filter_filter'])) {
-                $implode = array();
-                $colors = array();
-                $model = array();
-                $price = array();
-                $Size = array();
-
-                $filters = explode('_', $data['filter_filter']);
-
-                foreach ($filters as $filter_id) {
-                    if (strpos($filter_id, "model[]") !== false) $model[] = explode("[]", $filter_id)[1];
-                    if (strpos($filter_id, "color[]") !== false) $colors[] = explode("[]", $filter_id)[1];
-                    $implode[] = $filter_id;
+                if (!empty($data['filter_filter']['manufacture'])) {
+                    $sql .= " AND m.name IN ('" . implode("','", $data['filter_filter']['manufacture']) . "')";
                 }
 
-                if (!empty($colors)) $sql .= " AND p.color IN ('" . implode("','", $colors) . "')";
-                if (!empty($model)) $sql .= " AND m.name IN ('" . implode("','", $model) . "')";
+                if (!empty($data['filter_filter']['color'])) {
+                    $sql .= " AND p.color IN ('" . implode("','", $data['filter_filter']['color']) . "')";
+                }
+
+                if (!empty($data['filter_filter']['size'])) {
+                    $sql .= " AND ovd.name IN ('" . implode("','", $data['filter_filter']['size']) . "')";
+                }
             }
         }
 
@@ -550,32 +541,45 @@ class ModelCatalogProduct extends Model
         return $query->rows;
     }
 
-    public function getModelsProducts()
-    {
-        $query = $this->db->query("SELECT DISTINCT model FROM " . DB_PREFIX . "product");
-        $model = array();
-
-        foreach ($query->rows as $result) {
-            $model[] = $result['model'];
-        }
-        return $model;
-    }
-
     public function getColorProduct($product_id)
     {
         $query = $this->db->query("SELECT DISTINCT color FROM " . DB_PREFIX . "product WHERE product_id = '" . (int)$product_id . "'");
         return $query->rows;
     }
 
-    public function getColorsProducts()
+    public function getFilterProducts($filter = array())
     {
-        $query = $this->db->query("SELECT DISTINCT color FROM " . DB_PREFIX . "product");
-        $color = array();
+        $sql = "SELECT DISTINCT p.color, m.name as manufacture , p.price, ovd.name as size FROM " . DB_PREFIX . "product p LEFT JOIN " . DB_PREFIX . "product_to_category ptc on (ptc.product_id=p.product_id) LEFT JOIN " . DB_PREFIX . "manufacturer m on (p.manufacturer_id = m.manufacturer_id) LEFT JOIN " . DB_PREFIX . "product_option_value pov on(pov.product_id = p.product_id) LEFT JOIN " . DB_PREFIX . "option_value_description ovd on(ovd.option_value_id = pov.option_value_id and ovd.option_id = pov.option_id) WHERE (ptc.category_id='" . $filter['category'] . "')";
 
-        foreach ($query->rows as $result) {
-            $color[] = $result['color'];
+        if (!empty($filter['manufacture'])) {
+            $sql .= " AND m.name IN ('" . implode("','", $filter['manufacture']) . "') ";
         }
-        return $color;
+
+        if (!empty($filter['color'])) {
+            $sql .= " AND p.color IN ('" . implode("','", $filter['color']) . "') ";
+        }
+
+        if (!empty($filter['size'])) {
+            $sql .= " AND ovd.name IN ('" . implode("','", $filter['size']) . "') ";
+        }
+
+        if (!empty($filter['price'])) {
+            $sql .= " AND (";
+            if (isset($filter['price']['max'])) {
+                $sql .= "p.price <= '" . $filter['price']['max'] . "'";
+            }
+
+            if (count($filter['price'])) $sql .= " AND ";
+
+            if (isset($filter['price']['min'])) {
+                $sql .= "p.price >= '" . $filter['price']['min'] . "'";
+            }
+            $sql .= ")";
+        }
+
+        $query = $this->db->query($sql);
+
+        return $query->rows;
     }
 
     public function getTotalProductSpecials()

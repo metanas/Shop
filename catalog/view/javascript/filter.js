@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    $('body').on('click', '.model-filter', function (e) {
+    $('body').on('click', '.filter-filter', function (e) {
             e.stopPropagation();
             if ($(".dropdown-filter", this.parentNode).css('display') === 'block') {
                 $(".dropdown-filter", this.parentNode).hide(200);
@@ -37,8 +37,8 @@ $(document).ready(function () {
         $("#min-price").html(e.value['newValue'][0] + " {{ currency }}");
         filters.splice(filters.indexOf(price[0]), 1);
         filters.splice(filters.indexOf(price[1]), 1);
-        price[0] = "prixMax[]" + e.value['newValue'][1];
-        price[1] = "prixMin[]" + e.value['newValue'][0];
+        price[0] = "price-max[]" + e.value['newValue'][1];
+        price[1] = "price-min[]" + e.value['newValue'][0];
     });
 
     $("body").on("click", '.filter-done', function (e) {
@@ -149,6 +149,5 @@ function openSlide () {
 }
 
 function closeSlide() {
-    console.log($("#slidebar"));
     $("#slidebar").css({"width" : "0px"});
 }

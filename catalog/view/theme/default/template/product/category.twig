@@ -30,33 +30,33 @@
                         <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6" style="margin-bottom: 10px">
                             <div class="dropdownFilter"
                                  style="position: relative;border: 1px solid #e7e7e7; line-height: 30px;font-weight: normal;z-index: 99">
-                                <div class="model-filter">
+                                <div class="filter-filter">
                                     {{ text_filter_marque }}<i class="fa fa-angle-down"
                                                                style="float: right; padding: 8px"></i>
                                 </div>
                                 <div class="dropdown-filter">
                                     <div id="search" class="field input-group stylish-input-group input-append">
                                         <input class="field-input-filter"
-                                               placeholder="{{ text_search }}" name="model" value="{{ search }}">
+                                               placeholder="{{ text_search }}" name="manufacture" value="{{ search }}">
                                         <span class="input-group-addon" style="border: none">
                                             <button id="sub" type="button">
                                                 <img class="terms" src="catalog/view/theme/default/image/loupe.png">
                                             </button>
                                         </span>
                                     </div>
-                                    <div id="model" class="ScrollStyle">
-                                        {% for model in products_models %}
-                                            <label class="check_filter check-model"
-                                                   style="display: block">{{ model.manufacturer }}
-                                                <input class="checkbox" type="checkbox" name="model[]"
-                                                       value="{{ model.manufacturer }}" {% if model.isChecked %} checked {% endif %}>
+                                    <div id="manufacture" class="ScrollStyle">
+                                        {% for manufacture in products_manufacture %}
+                                            <label class="check_filter check-manufacture"
+                                                   style="display: block">{{ manufacture.manufacturer }}
+                                                <input class="checkbox" type="checkbox" name="manufacture[]"
+                                                       value="{{ manufacture.manufacturer }}" {% if manufacture.isChecked %} checked {% endif %}>
                                                 <span class="checkmark"></span>
                                             </label>
                                         {% endfor %}
                                     </div>
                                     <div>
                                         <button type="button" class="filter-done decouvrir"
-                                                name="model">{{ text_close }}</button>
+                                                name="manufacture">{{ text_close }}</button>
                                     </div>
                                 </div>
                             </div>
@@ -64,7 +64,7 @@
                         <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6" style="margin-bottom: 10px">
                             <div class="dropdownFilter"
                                  style="position: relative; border: 1px solid #e7e7e7; line-height: 30px;font-weight: normal;z-index: 99">
-                                <div class="model-filter">
+                                <div class="filter-filter">
                                     {{ text_filter_color }}<i class="fa fa-angle-down"
                                                               style="float: right; padding: 8px"></i>
                                 </div>
@@ -99,7 +99,7 @@
                         <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6" style="margin-bottom: 10px">
                             <div class="dropdownFilter"
                                  style="position: relative;border: 1px solid #e7e7e7; line-height: 30px;font-weight: normal;z-index: 98">
-                                <div class="model-filter">
+                                <div class="filter-filter">
                                     {{ text_filter_price }}<i class="fa fa-angle-down"
                                                               style="float: right; padding: 8px"></i>
                                 </div>
@@ -127,7 +127,7 @@
                         <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6" style="margin-bottom: 10px">
                             <div class="dropdownFilter"
                                  style="position: relative; border: 1px solid #e7e7e7; line-height: 30px;font-weight: normal;z-index: 98">
-                                <div class="model-filter">
+                                <div class="filter-filter">
                                     {{ text_filter_size }}<i class="fa fa-angle-down"
                                                              style="float: right; padding: 8px"></i>
                                 </div>

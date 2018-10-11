@@ -19,7 +19,7 @@ class ControllerProductCategory extends Controller
         $this->document->addStyle('catalog/view/theme/default/stylesheet/loading.css');
 
         if (isset($this->request->get['filt'])) {
-            $filter = $this->request->get['filt'];
+            $filter = $this->tri_filter(explode("_", $this->request->get['filt']));
         } else {
             $filter = '';
         }
@@ -130,7 +130,6 @@ class ControllerProductCategory extends Controller
             }
 
             $data['products'] = array();
-
             $filter_data = array(
                 'filter_category_id' => $category_id,
                 'filter_sub_category' => $this->config->get('config_product_category') ? true : false,
@@ -146,9 +145,23 @@ class ControllerProductCategory extends Controller
 
             $results = $this->model_catalog_product->getProducts($filter_data);
 
-            $products_colors = array();
-            $products_models = array();
-            $products_size = array();
+            $filter['category'] = $category_id;
+
+            $products_option = $this->model_catalog_product->getFilterProducts($filter);
+            $manufactures = array();
+            $sizes = array();
+            $colors = array();
+            $price = array();
+            foreach ($products_option as $option) {
+                $manufactures[] = $option['manufacture'];
+                $sizes[] = $option['size'];
+                $colors[] = $option['color'];
+                $price[] = $option['price'];
+            }
+
+            $data['products_manufacture'] = array_unique($manufactures);
+            $data['products_size'] = array_unique($sizes);
+            $data['products_color'] = array_unique($colors);
 
             $product_first = reset($results);
 
@@ -183,35 +196,6 @@ class ControllerProductCategory extends Controller
                     );
                 }
 
-                if (isset($this->request->get['filt'])) {
-                    if (strpos($this->request->get['filt'], '_')) {
-                        $filterTri = $this->tri_filter(explode('_', $this->request->get['filt']));
-                    } else {
-                        $filterTri = $this->tri_filter(array($this->request->get['filt']));
-                    }
-                }
-
-                foreach ($this->model_catalog_product->getProductOptions($result['product_id']) as $option) {
-                    if ($option['type'] == 'size') {
-                        foreach ($option['product_option_value'] as $size)
-                            if(!in_array($size['name'], $products_size))
-                                $products_size[] = $size['name'];
-                    }
-                }
-
-                if (!$this->in_array_r($result['color'], $products_colors, 'color')) {
-                    $products_colors[] = array("color" => $result['color'], "color_hex" => $result['color_hex'], 'isChecked' => (isset($filterTri) && in_array($result['color'], $filterTri['color'])) ? true : false);
-                }
-
-                if (!$this->in_array_r($result['manufacturer'], $products_models, 'manufacturer'))
-                    $products_models[] = array('manufacturer' => $result['manufacturer'], 'isChecked' => (isset($filterTri) && in_array($result['manufacturer'], $filterTri['model'])) ? true : false);
-
-                if ((int)$price_max < (int)((is_null($result['special'])) ? $result['price'] : $result['special']))
-                    $price_max = (int)((is_null($result['special'])) ? $result['price'] : $result['special']);
-
-                if ((int)$price_min > (int)((is_null($result['special'])) ? $result['price'] : $result['special']))
-                    $price_min = (int)((is_null($result['special'])) ? $result['price'] : $result['special']);
-
                 if ($this->customer->isLogged()) {
                     if ((int)$this->model_account_wishlist->isExist($result['product_id']) == true) {
                         $favorite = $this->model_tool_image->resize("favoriteAdded.png", 100, 100);
@@ -239,9 +223,6 @@ class ControllerProductCategory extends Controller
             $data['price_max'] = $this->currency->format($price_max, $this->session->data['currency']);
             $data['min'] = $price_min;
             $data['price_min'] = $this->currency->format($price_min, $this->session->data['currency']);
-            $data['products_colors'] = $products_colors;
-            $data['products_models'] = $products_models;
-            $data['products_size'] = $products_size;
 
             $url = '';
 
@@ -423,7 +404,7 @@ class ControllerProductCategory extends Controller
         $this->load->model('account/wishlist');
 
         if (isset($this->request->get['filt'])) {
-            $filter = $this->request->get['filt'];
+            $filter = $this->tri_filter($this->request->get['filt']);
         } else {
             $filter = '';
         }
@@ -837,10 +818,15 @@ class ControllerProductCategory extends Controller
 
     private function tri_filter($filters)
     {
-        $filtersTrie = array('color' => array(), 'model' => array(), 'price' => array(), 'size' => array());
+        $filtersTrie = array('color' => array(), 'manufacture' => array(), 'price' => array(), 'size' => array());
         foreach ($filters as $filter) {
             list($key, $value) = explode('[]', $filter);
-            $filtersTrie[$key][] = $value;
+            if (strpos("price", $key)) {
+                list($key, $type) = explode("_", $key);
+                $filtersTrie[$key][$type] = $value;
+            } else {
+                $filtersTrie[$key][] = $value;
+            }
         }
         return $filtersTrie;
     }
