@@ -1,14 +1,18 @@
+<div id="title" class="container" align="center">
+    <h1 id="title-checkout">Validation</h1>
+    <hr style="border-top: 3px solid #eee">
+</div>
 <form action="{{ action }}" method="post" enctype="multipart/form-data" class="form-horizontal">
     <div class="col-sm-7">
         <div class="col-sm-12"><h4>LIVRAISON</h4>
             <hr class="hr-marge">
-            <div class="col-sm-10 form-group">
+            <div class="col-sm-10 col-xs-10 form-group">
                 <label class="check_filter">test<h5>Livraison Standard</h5>
                     <input type="radio" class="checkbox" name="delivery" value="Standard">
                     <span class="checkmark checkradio"></span>
                 </label>
             </div>
-            <div class="col-sm-2">gratuit</div>
+            <div class="col-sm-2 col-xs-2">gratuit</div>
             {#<div class="col-sm-10 form-group">#}
             {#<label class="check_filter">test<h5>Livraison express</h5>#}
             {#<input type="radio" class="checkbox" name="livraison" value="express">#}
@@ -17,14 +21,14 @@
             {#</div>#}
             {#<div class="col-sm-2">gratuit</div>#}
         </div>
-        <div class="col-sm-12"><h4>COMMANDE</h4>
+        <div class="col-sm-12 col-xs-12"><h4>COMMANDE</h4>
             <hr class="hr-marge">
             {% for product in products %}
                 <div class="product col-sm-12">
-                    <div class="col-sm-2">
-                        <img src="{{ product.image }}">
+                    <div class="col-sm-2 col-xs-6">
+                        <img class="img-responsive" src="{{ product.image }}">
                     </div>
-                    <div class="col-sm-9" style="margin: 25px 0 0 10px">
+                    <div class="col-sm-9 col-xs-6" style="margin: 25px 0 0 0">
                         <div class="cart-id" style="display: none;">{{ product.cart_id }}</div>
                         <div>{{ product.model }}</div>
                         <div>{{ product.name }}</div>
@@ -42,7 +46,7 @@
             {% endfor %}
         </div>
     </div>
-    <div class="col-sm-5">
+    <div class="col-sm-5 col-xs-12">
         <div class="col-sm-12">
             <div class="fa-option" id="address-edit" onclick="step.next(2)"><i class="fa fa-edit"></i></div>
             <h4>ADRESSE DE LIVRAISON</h4>
@@ -86,37 +90,41 @@
                 </div>
             </div>
             <div id="c_cart_layout_right" class="col-md-12" style="background-color: lightgrey; border-radius: 5px">
-                <div class="col-md-12">
-                    <div class="row">
-                        <div class="col-sm-6 text-left checkout-text"><b>Livraison</b></div>
-                        <div class="col-sm-6 text-right checkout-text"><b>gratuite</b></div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-sm-6 col-xs-6 text-left checkout-text"><b>Livraison</b></div>
+                            <div class="col-sm-6 col-xs-6 text-right checkout-text"><b>gratuite</b></div>
+                        </div>
                     </div>
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-sm-6 col-xs-6 text-left checkout-text"><b>Total </b><span
+                                        style="font-size: 12px">(TVA incluse)</span>
+                            </div>
+                            <div class="col-sm-6 col-xs-6 text-right checkout-text {% if discount %} price-old {% endif %}"
+                                 id="total">
+                                <b>{{ total }}</b></div>
+                        </div>
+                    </div>
+                    {% if discount %}
+                        <div class='col-md-12 discount-apply'>
+                            <div class='row'>
+                                <div class="col-sm-6 col-xs-6 text-left checkout-text"><b>Coupon</b></div>
+                                <div class="col-sm-6 col-xs-6 text-right checkout-text"><b>{{ discount }}</b></div>
+                            </div>
+                        </div>
+                        <div class='col-md-12 coupon-apply'>
+                            <div class='row'>
+                                <div class="col-sm-6 col-xs-6 text-left checkout-text"><b>Total</b></div>
+                                <div class="col-sm-6 col-xs-6 text-right checkout-text price-new">
+                                    <b>{{ total_discounted }}</b></div>
+                            </div>
+                        </div>
+                    {% endif %}
                 </div>
-                <div class="col-md-12">
-                    <div class="row">
-                        <div class="col-sm-6 text-left checkout-text"><b>Total </b><span style="font-size: 12px">(TVA incluse)</span>
-                        </div>
-                        <div class="col-sm-6 text-right checkout-text {% if discount %} price-old {% endif %}"
-                             id="total">
-                            <b>{{ total }}</b></div>
-                    </div>
-                </div>
-                {% if discount %}
-                    <div class='col-md-12 discount-apply'>
-                        <div class='row'>
-                            <div class="col-sm-6 text-left checkout-text"><b>Coupon</b></div>
-                            <div class="col-sm-6 text-right checkout-text"><b>{{ discount }}</b></div>
-                        </div>
-                    </div>
-                    <div class='col-md-12 coupon-apply'>
-                        <div class='row'>
-                            <div class="col-sm-6 text-left checkout-text"><b>Total</b></div>
-                            <div class="col-sm-6 text-right checkout-text price-new"><b>{{ total_discounted }}</b></div>
-                        </div>
-                    </div>
-                {% endif %}
-
-                <button type="submit" class="col-sm-12 zalark-button" style="margin-bottom: 12px">VALIDER LE PAIEMENT</button>
+                <button type="submit" class="col-sm-12 zalark-button" style="margin-bottom: 12px">VALIDER LE PAIEMENT
+                </button>
             </div>
         </div>
     </div>
