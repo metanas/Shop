@@ -63,15 +63,12 @@
         </ul>
     </div>
 </div>
-<div id="title" class="container" align="center">
-    <h1 id="title-checkout">Bienvenue</h1>
-    <hr style="border-top: 3px solid #eee">
-</div>
+
 <div id="collapse-checkout-option" class="container">
     {{ step }}
 </div>
 
-<footer style="background-color: lightgrey; padding-top: 10px;padding-bottom: 30px; border-top: 1px solid grey;">
+<footer style="background-color: lightgrey; padding-top: 10px; padding-bottom: 30px; border-top: 1px solid grey;">
     <div class="container">
         <div class="col-sm-4"><a href="{{ home }}" ><i class="fa fa-arrow-left "></i> Retour a la boutique</a></div>
         <div class="col-sm-2"><a href="{{ contact }}" target="_blank">Besoin d'aide ?</a></div>
@@ -94,8 +91,7 @@
             $(document).height()
             - $('#header-checkout').height()
             - $('#root').height()
-            - $('#title').height()
-            - $('footer').height() - 41
+            - $('footer').height() - 90
         ));
     }
 

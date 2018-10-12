@@ -1,15 +1,16 @@
 $(document).ready(function () {
-    $('body').on('click', '.model-filter', function (e) {
+    setFilter();
+    $('body').on('click', '.filter-filter', function (e) {
             e.stopPropagation();
             if ($(".dropdown-filter", this.parentNode).css('display') === 'block') {
-                $(".dropdown-filter", this.parentNode).hide(200);
-                $(this.parentNode).css({"border": "1px solid #e7e7e7"});
+                $(".dropdown-filter", this.parentNode).hide(100);
+                $(this.parentNode).css({"border": "1px solid #e7e7e7","width" : "100%"});
                 $(this.parentNode).css({"position": "relative"});
             } else {
                 $('.dropdown-filter').hide(100);
                 $('.dropdownFilter').css({"border": "1px solid #e7e7e7"});
                 $(".dropdown-filter", this.parentNode).show(200);
-                $(this.parentNode).css({"border": "2px solid black"});
+                $(this.parentNode).css({"border": "2px solid black","width" : "90%"});
                 $(this.parentNode).css({"position": "absolute"});
             }
         }
@@ -37,8 +38,8 @@ $(document).ready(function () {
         $("#min-price").html(e.value['newValue'][0] + " {{ currency }}");
         filters.splice(filters.indexOf(price[0]), 1);
         filters.splice(filters.indexOf(price[1]), 1);
-        price[0] = "prixMax[]" + e.value['newValue'][1];
-        price[1] = "prixMin[]" + e.value['newValue'][0];
+        price[0] = "price-max[]" + e.value['newValue'][1];
+        price[1] = "price-min[]" + e.value['newValue'][0];
     });
 
     $("body").on("click", '.filter-done', function (e) {
@@ -149,6 +150,5 @@ function openSlide () {
 }
 
 function closeSlide() {
-    console.log($("#slidebar"));
     $("#slidebar").css({"width" : "0px"});
 }

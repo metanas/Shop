@@ -423,26 +423,26 @@
 
             var option_value_row = 0;
 
-            $('[data-toggle=\'tooltip\']').tooltip({
-                container: 'body',
-                html: true
-            });
+            {#$('[data-toggle=\'tooltip\']').tooltip({#}
+                {#container: 'body',#}
+                {#html: true#}
+            {#});#}
 
-            $('.date').datetimepicker({
-                locale: '{{ datepicker }}',
-                pickTime: false
-            });
+            {#$('.date').datetimepicker({#}
+                {#locale: '{{ datepicker }}',#}
+                {#pickTime: false#}
+            {#});#}
 
-            $('.time').datetimepicker({
-                locale: '{{ datepicker }}',
-                pickDate: false
-            });
+            {#$('.time').datetimepicker({#}
+                {#locale: '{{ datepicker }}',#}
+                {#pickDate: false#}
+            {#});#}
 
-            $('.datetime').datetimepicker({
-                locale: '{{ datepicker }}',
-                pickDate: true,
-                pickTime: true
-            });
+            {#$('.datetime').datetimepicker({#}
+                {#locale: '{{ datepicker }}',#}
+                {#pickDate: true,#}
+                {#pickTime: true#}
+            {#});#}
 
             $('#product-option-value').html(html);
         }
@@ -485,21 +485,21 @@
         option_value_row++;
     });
     //--></script>
-<script type="text/javascript"><!--
-    $('.date').datetimepicker({
-        locale: '{{ datepicker }}',
-        pickTime: false
-    });
+{#<script type="text/javascript"><!--#}
+    {#$('.date').datetimepicker({#}
+        {#locale: '{{ datepicker }}',#}
+        {#pickTime: false#}
+    {#});#}
 
-    $('.time').datetimepicker({
-        locale: '{{ datepicker }}',
-        pickDate: false
-    });
+    {#$('.time').datetimepicker({#}
+        {#locale: '{{ datepicker }}',#}
+        {#pickDate: false#}
+    {#});#}
 
-    $('.datetime').datetimepicker({
-        locale: '{{ datepicker }}',
-        pickDate: true,
-        pickTime: true
-    });
-    //--></script>
+    {#$('.datetime').datetimepicker({#}
+        {#locale: '{{ datepicker }}',#}
+        {#pickDate: true,#}
+        {#pickTime: true#}
+    {#});#}
+    {#//--></script>#}
 {{ footer }}

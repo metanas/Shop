@@ -459,6 +459,10 @@ header {
     cursor: pointer;
     padding-left: 5px;
     padding-right: 5px;
+    position: relative;
+    border: 1px solid #e7e7e7;
+    line-height: 30px;
+    font-weight: normal;
 }
 
 .select-zalark {
@@ -1469,10 +1473,18 @@ ul {
     margin: 0;
 }
 
-.checkout-text {
-    font-size: 20px;
-    margin-bottom: 10px;
-    margin-top: 10px;
+@media (min-width: 780px) {
+    .checkout-text {
+        font-size: 20px;
+        margin-top: 10px;
+    }
+}
+
+@media (max-width: 780px) {
+    .checkout-text {
+        font-size: 14px;
+        margin-top: 8px;
+    }
 }
 
 #c_c_total {
@@ -1727,13 +1739,6 @@ ul {
     z-index: 100;
     display: none;
     cursor: pointer;
-}
-
-.pay-checkout {
-    width: 50px;
-    height: 30px;
-    margin-right: 10px;
-    border: 1px solid grey;
 }
 
 .hr-marge {

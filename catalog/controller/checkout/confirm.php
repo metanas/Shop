@@ -21,61 +21,56 @@ class ControllerCheckoutConfirm extends Controller
 
         $this->load->model('account/address');
 
-        if ($this->cart->hasShipping()) {
-            // Validate if shipping address has been set.
-            if (isset($this->session->data['shipping_address'])) {
-                $result = $this->model_account_address->getAddress($this->session->data['shipping_address']);
+        // Validate if shipping address has been set.
+        if (isset($this->session->data['shipping_address'])) {
+            $result = $this->model_account_address->getAddress($this->session->data['shipping_address']);
 
-                $replace = array(
-                    'firstname' => $result['firstname'],
-                    'lastname' => $result['lastname'],
-                    'address_1' => $result['address_1'],
-                    'address_2' => $result['address_2'],
-                    'city' => $result['city'],
-                    'postcode' => $result['postcode'],
-                    'telephone' => $result['telephone'],
-                    'country' => $result['country'],
-                );
+            $replace = array(
+                'firstname' => $result['firstname'],
+                'lastname' => $result['lastname'],
+                'address_1' => $result['address_1'],
+                'address_2' => $result['address_2'],
+                'city' => $result['city'],
+                'postcode' => $result['postcode'],
+                'telephone' => $result['telephone'],
+                'country' => $result['country'],
+            );
 
-                $data['shipping_address'] = array(
-                    'address_id' => $result['address_id'],
-                    'address' => str_replace(array("\r\n", "\r", "\n"), '<br/>', preg_replace(array("/\s\s+/", "/\r\r+/", "/\n\n+/"), '<br/>', trim(str_replace($find, $replace, $format))))
-                );
-            } else {
-                $this->response->redirect($this->url->link("checkout/checkout", 'language=' . $this->config->get('config_language')));
-            }
+            $data['shipping_address'] = array(
+                'address_id' => $result['address_id'],
+                'address' => str_replace(array("\r\n", "\r", "\n"), '<br/>', preg_replace(array("/\s\s+/", "/\r\r+/", "/\n\n+/"), '<br/>', trim(str_replace($find, $replace, $format))))
+            );
 
-            if (isset($this->session->data['billing_address'])) {
-                $result = $this->session->data['billing_address'];
-
-                $replace = array(
-                    'firstname' => $result['firstname'],
-                    'lastname' => $result['lastname'],
-                    'address_1' => $result['address_1'],
-                    'address_2' => $result['address_2'],
-                    'city' => $result['city'],
-                    'postcode' => $result['postcode'],
-                    'telephone' => $result['telephone'],
-                    'country' => $result['country'],
-                );
-
-                $data['billing_address'] = array(
-                    'address' => str_replace(array("\r\n", "\r", "\n"), '<br/>', preg_replace(array("/\s\s+/", "/\r\r+/", "/\n\n+/"), '<br/>', trim(str_replace($find, $replace, $format))))
-                );
-            }
-
-            // Validate if payment method has been set.
-            if (isset($this->session->data['payment_method'])) {
-                $data['payment_method'] = $this->session->data['payment_method'];
-            } else {
-                $this->response->redirect($this->url->link("checkout/checkout", 'language=' . $this->config->get('config_language')));
-            }
+        } else {
+            $this->response->redirect($this->url->link("checkout/checkout", 'language=' . $this->config->get('config_language')));
         }
 
-        // Validate cart has products and has stock.
-        if ((!$this->cart->hasProducts() && empty($this->session->data['vouchers']))) {
-            $this->response->redirect($this->url->link('checkout/cart', 'language=' . $this->config->get('config_language')));
+        if (isset($this->session->data['billing_address'])) {
+            $result = $this->session->data['billing_address'];
+
+            $replace = array(
+                'firstname' => $result['firstname'],
+                'lastname' => $result['lastname'],
+                'address_1' => $result['address_1'],
+                'address_2' => $result['address_2'],
+                'city' => $result['city'],
+                'postcode' => $result['postcode'],
+                'telephone' => $result['telephone'],
+                'country' => $result['country'],
+            );
+
+            $data['billing_address'] = array(
+                'address' => str_replace(array("\r\n", "\r", "\n"), '<br/>', preg_replace(array("/\s\s+/", "/\r\r+/", "/\n\n+/"), '<br/>', trim(str_replace($find, $replace, $format))))
+            );
         }
+
+        // Validate if payment method has been set.
+        if (isset($this->session->data['payment_method'])) {
+            $data['payment_method'] = $this->session->data['payment_method'];
+        } else {
+            $this->response->redirect($this->url->link("checkout/checkout", 'language=' . $this->config->get('config_language')));
+        }
+
 
         // Validate minimum quantity requirements.
         $products = $this->cart->getProducts();
