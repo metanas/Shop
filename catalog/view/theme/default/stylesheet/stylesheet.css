@@ -1233,19 +1233,6 @@ h2.price {
     margin-bottom: 40px;
 }
 
-.verticalim {
-    list-style: none;
-}
-
-.verticalim > li > a {
-    border: 0;
-    margin-bottom: 5px;
-}
-
-.verticalim > li > a > img {
-    margin-bottom: 0px;
-}
-
 .btn-pink {
     font-size: 12px;
     padding: 13px;
