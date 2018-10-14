@@ -521,9 +521,10 @@ class ControllerProductCategory extends Controller
             $data['products_size'] = array_unique($sizes);
             $data['products_color'] = array_unique($colors);
 
-
-            $data['price_max'] = (int)max($price);
-            $data['price_min'] = (int)min($price);
+            if(!empty($price)) {
+                $data['price_max'] = (int)max($price);
+                $data['price_min'] = (int)min($price);
+            }
 
             $results = $this->model_catalog_product->getProducts($filter_data);
             foreach ($results as $result) {
