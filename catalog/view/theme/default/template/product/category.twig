@@ -9,10 +9,10 @@
         {% endif %}
         <div id="content" class="{{ class }}">
             {{ content_top }}
-                <div class="slide-bar-button visible-xs-inline" onclick="openSlide()" style="cursor: pointer">
-                    <i class="fa fa-align-justify" style="font-size: 24px"></i>
-                </div>
-                <h2 style="display: inline">{{ heading_title }}</h2>
+            <div class="slide-bar-button visible-xs-inline" onclick="openSlide()" style="cursor: pointer">
+                <i class="fa fa-align-justify" style="font-size: 24px"></i>
+            </div>
+            <h2 style="display: inline">{{ heading_title }}</h2>
             {% if thumb or description %}
                 <div class="row">
                     {% if thumb %}
@@ -48,7 +48,7 @@
                                             <label class="check_filter check-manufacture"
                                                    style="display: block">{{ manufacture }}
                                                 <input class="checkbox" type="checkbox" name="manufacture[]"
-                                                       value="{{ manufacture }}">
+                                                       value="{{ manufacture }}" {% if manufacture in filter.manufacture %} checked {% endif %}>
                                                 <span class="checkmark"></span>
                                             </label>
                                         {% endfor %}
@@ -82,7 +82,7 @@
                                             <label class="check_filter check-color"
                                                    style="display: block">{{ color }}
                                                 <input class="checkbox" type="checkbox" name="color[]"
-                                                       value="{{ color}}">
+                                                       value="{{ color }}" {% if color in filter.color %} checked {% endif %}>
                                                 <span class="checkmark checkradio"
                                                       style="background-color: {{ color.color_hex }};"></span>
                                             </label>
@@ -103,12 +103,12 @@
                                                               style="float: right; padding: 8px"></i>
                                 </div>
                                 <div class="dropdown-filter">
-                                    <div>
+                                    <div class="col-md-12">
                                         <input id="ex12c" type="range" style="width: 100%"/>
                                     </div>
                                     <div id="price" class="container-fluid" style="width: 100%;padding: 0">
-                                        <span id="min-price" class="col-md-6">{{ price_min }}</span>
-                                        <span id="max-price" class="col-md-6">{{ price_max }}</span>
+                                        <span id="min-price" class="col-md-6 text-left">{{ price_min }}</span>
+                                        <span id="max-price" class="col-md-6 text-right">{{ price_max }}</span>
                                     </div>
                                     <div style="margin-top: 10px">
                                         <label class="promos check_filter">{{ text_Promo }}
@@ -145,7 +145,7 @@
                                             <label class="check_filter check-color"
                                                    style="display: block">{{ size }}
                                                 <input class="checkbox" type="checkbox" name="size[]"
-                                                       value="{{ size }}">
+                                                       value="{{ size }}" {% if size in filter.size %} checked {% endif %}>
                                                 <span class="checkmark"></span>
                                             </label>
                                         {% endfor %}

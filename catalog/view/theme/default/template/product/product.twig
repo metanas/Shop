@@ -117,7 +117,7 @@
                                                for="input-option{{ option.product_option_id }}">{{ option.name }}</label>
                                         <select name="option[{{ option.product_option_id }}]"
                                                 id="input-option{{ option.product_option_id }}"
-                                                class="form-control taille-btn">
+                                                class="select-zalark">
                                             <!-- {{ text_select }} -->
                                             <option value="">Votre taille</option>
                                             {% for option_value in option.product_option_value %}
@@ -127,38 +127,11 @@
                                                     {% endif %} </option>
                                             {% endfor %}
                                         </select>
+                                        <i class="fa fa-angle-down"
+                                           style="position: absolute; padding: 13px;cursor: pointer;right: 20px;"></i>
                                     </div>
                                 {% endif %}
-                                {% if option.type == 'select' %}
-                                    <div id="myBtn" class="form-group{% if option.required %} required {% endif %}">
-                                        <label class="control-label"
-                                               for="input-option{{ option.product_option_id }}">{{ option.name }}</label>
-                                        <select name="option[{{ option.product_option_id }}]"
-                                                id="input-option{{ option.product_option_id }}"
-                                                class="form-control taille-btn"><!-- {{ text_select }} -->
-                                            <option value="">Votre taille</option>
-                                            {% for option_value in option.product_option_value %}
-                                                <option value="{{ option_value.name }}">{{ option_value.name }}
-                                                    {% if option_value.price %}
-                                                        ({{ option_value.price_prefix }}{{ option_value.price }})
-                                                    {% endif %} </option>
-                                            {% endfor %}
-                                        </select>
-                                    </div>
-                                    <!-- The Modal -->
-                                    <div id="myModal" class="modal">
 
-                                        <!-- Modal content -->
-                                        <div class="modal-content col-md-6 col-md-offset-6 col-sm-12">
-                                            <span class="close">&times;</span>
-                                            {% for option_value in option.product_option_value %}
-                                                <button value="{{ option_value.product_option_value_id }}">{{ option_value.name }}
-                                                </button>
-                                            {% endfor %}
-                                        </div>
-
-                                    </div>
-                                {% endif %}
                                 {% if option.type == 'radio' %}
                                     <div class="form-group{% if option.required %} required {% endif %}">
                                         <label class="control-label">{{ option.name }}</label>

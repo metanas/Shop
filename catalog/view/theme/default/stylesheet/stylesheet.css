@@ -478,6 +478,12 @@ header {
     -moz-appearance: none;
 }
 
+.select-zalark:before {
+    content: "v";
+    position: absolute;
+    float: right;
+}
+
 .product-layout {
     position: relative;
     z-index: 1;
@@ -1080,6 +1086,10 @@ h2.price {
     padding: 5px;
     display: block;
     border: 1px solid #ddd;
+}
+
+.product-image {
+    margin-bottom: 10px;
 }
 
 .image-additional {
