@@ -322,6 +322,8 @@ class ControllerProductCategory extends Controller
             $data['order'] = $order;
             $data['limit'] = $limit;
 
+            $data['currency'] = $this->session->data['currency'];
+
             $data['content_top'] = $this->load->controller('common/content_top');
             $data['column_left'] = $this->load->controller('common/column_left');
             $data['column_right'] = $this->load->controller('common/column_right');

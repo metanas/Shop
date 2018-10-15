@@ -106,9 +106,11 @@
                                     <div class="col-md-12">
                                         <input id="ex12c" type="range" style="width: 100%"/>
                                     </div>
-                                    <div id="price" class="container-fluid" style="width: 100%;padding: 0">
-                                        <span id="min-price" class="col-md-6 text-left">{{ price_min }}</span>
-                                        <span id="max-price" class="col-md-6 text-right">{{ price_max }}</span>
+                                    <div class="row">
+                                        <div id="price" class="container-fluid" style="width: 100%;padding: 0">
+                                            <span id="min-price" class="col-md-6 text-left">{{ price_min }} {{ currency }}</span>
+                                            <span id="max-price" class="col-md-6 text-right">{{ price_max }} {{ currency }}</span>
+                                        </div>
                                     </div>
                                     <div style="margin-top: 10px">
                                         <label class="promos check_filter">{{ text_Promo }}

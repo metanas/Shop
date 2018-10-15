@@ -1354,9 +1354,15 @@ ul {
     border: 1px solid #bababa;
     background-image: linear-gradient(to bottom, #fefefe 0, #fafafa 100%);
 }
-
-#min-price, #max-price {
-    font-size: 11px;
+@media (max-width: 720px) {
+    #min-price, #max-price {
+        font-size: 9px;
+    }
+}
+@media (min-width: 720px) {
+    #min-price, #max-price {
+        font-size: 11px;
+    }
 }
 
 .ScrollStyle {
