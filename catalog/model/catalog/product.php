@@ -155,7 +155,6 @@ class ModelCatalogProduct extends Model
         $sort_data = array(
             'p.name',
             'p.model',
-            'p.quantity',
             'p.price',
             'rating',
             'p.sort_order',
