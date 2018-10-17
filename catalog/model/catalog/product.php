@@ -68,10 +68,10 @@ class ModelCatalogProduct extends Model
 
             $sql .= " LEFT JOIN " . DB_PREFIX . "product p ON (p2c.product_id = p.product_id)";
 
-            if (!empty($data['filter_filter']['manufacture'])) {
+            if (isset($data['filter_filter']['manufacture'])) {
                 $sql .= " LEFT JOIN " . DB_PREFIX . "manufacturer m ON (p.manufacturer_id = m.manufacturer_id)";
             }
-            if (!empty($data['filter_filter']['size'])) {
+            if (isset($data['filter_filter']['size'])) {
                 $sql .= "LEFT JOIN " . DB_PREFIX . "product_option_value pov on(pov.product_id = p.product_id) LEFT JOIN " . DB_PREFIX . "option_value_description ovd on(ovd.option_value_id = pov.option_value_id and ovd.option_id = pov.option_id)  ";
             }
         } else {
@@ -88,16 +88,24 @@ class ModelCatalogProduct extends Model
             }
 
             if (!empty($data['filter_filter'])) {
-                if (!empty($data['filter_filter']['manufacture'])) {
+                if (isset($data['filter_filter']['manufacture'])) {
                     $sql .= " AND m.name IN ('" . implode("','", $data['filter_filter']['manufacture']) . "')";
                 }
 
-                if (!empty($data['filter_filter']['color'])) {
+                if (isset($data['filter_filter']['color'])) {
                     $sql .= " AND p.color IN ('" . implode("','", $data['filter_filter']['color']) . "')";
                 }
 
-                if (!empty($data['filter_filter']['size'])) {
+                if (isset($data['filter_filter']['size'])) {
                     $sql .= " AND ovd.name IN ('" . implode("','", $data['filter_filter']['size']) . "')";
+                }
+
+                if (isset($data['filter_filter']['price']['max'])) {
+                    $sql .= " AND p.price <= '" . $data['filter_filter']['price']['max'] . "'";
+                }
+
+                if (isset($data['filter_filter']['price']['min'])) {
+                    $sql .= " AND p.price >= '" . $data['filter_filter']['price']['min'] . "'";
                 }
             }
         }
@@ -147,7 +155,6 @@ class ModelCatalogProduct extends Model
         $sort_data = array(
             'p.name',
             'p.model',
-            'p.quantity',
             'p.price',
             'rating',
             'p.sort_order',
@@ -551,25 +558,25 @@ class ModelCatalogProduct extends Model
     {
         $sql = "SELECT DISTINCT p.color, m.name as manufacture , p.price, ovd.name as size FROM " . DB_PREFIX . "product p LEFT JOIN " . DB_PREFIX . "product_to_category ptc on (ptc.product_id=p.product_id) LEFT JOIN " . DB_PREFIX . "manufacturer m on (p.manufacturer_id = m.manufacturer_id) LEFT JOIN " . DB_PREFIX . "product_option_value pov on(pov.product_id = p.product_id) LEFT JOIN " . DB_PREFIX . "option_value_description ovd on(ovd.option_value_id = pov.option_value_id and ovd.option_id = pov.option_id) WHERE (ptc.category_id='" . $filter['category'] . "')";
 
-        if (!empty($filter['manufacture'])) {
+        if (isset($filter['manufacture'])) {
             $sql .= " AND m.name IN ('" . implode("','", $filter['manufacture']) . "') ";
         }
 
-        if (!empty($filter['color'])) {
+        if (isset($filter['color'])) {
             $sql .= " AND p.color IN ('" . implode("','", $filter['color']) . "') ";
         }
 
-        if (!empty($filter['size'])) {
+        if (isset($filter['size'])) {
             $sql .= " AND ovd.name IN ('" . implode("','", $filter['size']) . "') ";
         }
 
-        if (!empty($filter['price'])) {
+        if (isset($filter['price'])) {
             $sql .= " AND (";
             if (isset($filter['price']['max'])) {
                 $sql .= "p.price <= '" . $filter['price']['max'] . "'";
             }
 
-            if (count($filter['price'])) $sql .= " AND ";
+            if (count($filter['price']) == 2) $sql .= " AND ";
 
             if (isset($filter['price']['min'])) {
                 $sql .= "p.price >= '" . $filter['price']['min'] . "'";
