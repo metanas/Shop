@@ -382,16 +382,6 @@ class ModelCatalogProduct extends Model
             $sql .= " price LIKE '" . $this->db->escape((string)$data['filter_price']) . "%'";
         }
 
-        if (isset($data['filter_quantity']) && $data['filter_quantity'] !== '') {
-            if ($first) {
-                $sql .= " WHERE";
-                $first = false;
-            } else {
-                $sql .= " AND";
-            }
-            $sql .= " quantity = '" . (int)$data['filter_quantity'] . "'";
-        }
-
         if (isset($data['filter_status']) && $data['filter_status'] !== '') {
             if ($first) {
                 $sql .= " WHERE";
@@ -408,7 +398,6 @@ class ModelCatalogProduct extends Model
             'name',
             'model',
             'price',
-            'quantity',
             'status',
             'sort_order'
         );
@@ -733,6 +722,13 @@ class ModelCatalogProduct extends Model
     public function getTotalProductsByLayoutId($layout_id)
     {
         $query = $this->db->query("SELECT COUNT(*) AS total FROM " . DB_PREFIX . "product_to_layout WHERE layout_id = '" . (int)$layout_id . "'");
+
+        return $query->row['total'];
+    }
+
+    public function getTotalQuantityProduct($product_id)
+    {
+        $query = $this->db->query("SELECT SUM(pov.quantity) AS total FROM " . DB_PREFIX . "product_option_value as pov left join " . DB_PREFIX . "option o on(o.option_id=pov.option_id) where o.type='size' and pov.product_id='" . (int)$product_id . "'");
 
         return $query->row['total'];
     }

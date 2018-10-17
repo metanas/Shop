@@ -370,6 +370,7 @@ class ControllerCatalogProduct extends Controller
                 }
             }
 
+            $quantity = $this->model_catalog_product->getTotalQuantityProduct($result['product_id']);
             $data['products'][] = array(
                 'product_id' => $result['product_id'],
                 'image' => $image,
@@ -379,7 +380,7 @@ class ControllerCatalogProduct extends Controller
                 'color_hex' => $result['color_hex'],
                 'price' => $this->currency->format($result['price'], $this->config->get('config_currency')),
                 'special' => $special,
-                'quantity' => $result['quantity'],
+                'quantity' => $quantity,
                 'status' => $result['status'] ? $this->language->get('text_enabled') : $this->language->get('text_disabled'),
                 'edit' => $this->url->link('catalog/product/edit', 'user_token=' . $this->session->data['user_token'] . '&product_id=' . $result['product_id'] . $url)
             );
@@ -709,16 +710,6 @@ class ControllerCatalogProduct extends Controller
 
         $this->load->model('localisation/tax_class');
 
-        $data['tax_classes'] = $this->model_localisation_tax_class->getTaxClasses();
-
-        if (isset($this->request->post['tax_class_id'])) {
-            $data['tax_class_id'] = $this->request->post['tax_class_id'];
-        } elseif (!empty($product_info)) {
-            $data['tax_class_id'] = $product_info['tax_class_id'];
-        } else {
-            $data['tax_class_id'] = 0;
-        }
-
         if (isset($this->request->post['date_available'])) {
             $data['date_available'] = $this->request->post['date_available'];
         } elseif (!empty($product_info)) {
@@ -727,28 +718,12 @@ class ControllerCatalogProduct extends Controller
             $data['date_available'] = date('Y-m-d');
         }
 
-        if (isset($this->request->post['quantity'])) {
-            $data['quantity'] = $this->request->post['quantity'];
-        } elseif (!empty($product_info)) {
-            $data['quantity'] = $product_info['quantity'];
-        } else {
-            $data['quantity'] = 1;
-        }
-
         if (isset($this->request->post['minimum'])) {
             $data['minimum'] = $this->request->post['minimum'];
         } elseif (!empty($product_info)) {
             $data['minimum'] = $product_info['minimum'];
         } else {
             $data['minimum'] = 1;
-        }
-
-        if (isset($this->request->post['subtract'])) {
-            $data['subtract'] = $this->request->post['subtract'];
-        } elseif (!empty($product_info)) {
-            $data['subtract'] = $product_info['subtract'];
-        } else {
-            $data['subtract'] = 1;
         }
 
         if (isset($this->request->post['sort_order'])) {
@@ -777,62 +752,6 @@ class ControllerCatalogProduct extends Controller
             $data['status'] = $product_info['status'];
         } else {
             $data['status'] = true;
-        }
-
-        if (isset($this->request->post['weight'])) {
-            $data['weight'] = $this->request->post['weight'];
-        } elseif (!empty($product_info)) {
-            $data['weight'] = $product_info['weight'];
-        } else {
-            $data['weight'] = '';
-        }
-
-        $this->load->model('localisation/weight_class');
-
-        $data['weight_classes'] = $this->model_localisation_weight_class->getWeightClasses();
-
-        if (isset($this->request->post['weight_class_id'])) {
-            $data['weight_class_id'] = $this->request->post['weight_class_id'];
-        } elseif (!empty($product_info)) {
-            $data['weight_class_id'] = $product_info['weight_class_id'];
-        } else {
-            $data['weight_class_id'] = $this->config->get('config_weight_class_id');
-        }
-
-        if (isset($this->request->post['length'])) {
-            $data['length'] = $this->request->post['length'];
-        } elseif (!empty($product_info)) {
-            $data['length'] = $product_info['length'];
-        } else {
-            $data['length'] = '';
-        }
-
-        if (isset($this->request->post['width'])) {
-            $data['width'] = $this->request->post['width'];
-        } elseif (!empty($product_info)) {
-            $data['width'] = $product_info['width'];
-        } else {
-            $data['width'] = '';
-        }
-
-        if (isset($this->request->post['height'])) {
-            $data['height'] = $this->request->post['height'];
-        } elseif (!empty($product_info)) {
-            $data['height'] = $product_info['height'];
-        } else {
-            $data['height'] = '';
-        }
-
-        $this->load->model('localisation/length_class');
-
-        $data['length_classes'] = $this->model_localisation_length_class->getLengthClasses();
-
-        if (isset($this->request->post['length_class_id'])) {
-            $data['length_class_id'] = $this->request->post['length_class_id'];
-        } elseif (!empty($product_info)) {
-            $data['length_class_id'] = $product_info['length_class_id'];
-        } else {
-            $data['length_class_id'] = $this->config->get('config_length_class_id');
         }
 
         $this->load->model('catalog/manufacturer');
@@ -1091,14 +1010,6 @@ class ControllerCatalogProduct extends Controller
             }
         }
 
-        if (isset($this->request->post['points'])) {
-            $data['points'] = $this->request->post['points'];
-        } elseif (!empty($product_info)) {
-            $data['points'] = $product_info['points'];
-        } else {
-            $data['points'] = '';
-        }
-
         if (isset($this->request->post['product_reward'])) {
             $data['product_reward'] = $this->request->post['product_reward'];
         } elseif (isset($this->request->get['product_id'])) {
@@ -1254,8 +1165,6 @@ class ControllerCatalogProduct extends Controller
                                     'product_option_value_id' => $product_option_value['product_option_value_id'],
                                     'option_value_id' => $product_option_value['option_value_id'],
                                     'name' => $option_value_info['name'],
-                                    'price' => (float)$product_option_value['price'] ? $this->currency->format($product_option_value['price'], $this->config->get('config_currency')) : false,
-                                    'price_prefix' => $product_option_value['price_prefix']
                                 );
                             }
                         }

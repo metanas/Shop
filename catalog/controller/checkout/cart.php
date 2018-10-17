@@ -129,7 +129,6 @@ class ControllerCheckoutCart extends Controller
                     'quantity' => $product['quantity'],
                     'max_quantity' => isset($product_option['quantity']) ? $product_option['quantity'] : 1,
                     'stock' => $product['stock'] ? true : !(!$this->config->get('config_stock_checkout') || $this->config->get('config_stock_warning')),
-                    'reward' => ($product['reward'] ? sprintf($this->language->get('text_points'), $product['reward']) : ''),
                     'price' => $price,
                     'old_price' => isset($old_price) ? $old_price : null,
                     'total' => $total,
@@ -396,7 +395,6 @@ class ControllerCheckoutCart extends Controller
 
             unset($this->session->data['shipping_method']);
             unset($this->session->data['payment_method']);
-            unset($this->session->data['reward']);
 
         }
 
@@ -422,7 +420,6 @@ class ControllerCheckoutCart extends Controller
             unset($this->session->data['shipping_methods']);
             unset($this->session->data['payment_method']);
             unset($this->session->data['payment_methods']);
-            unset($this->session->data['reward']);
 
             // Totals
             $this->load->model('setting/extension');
