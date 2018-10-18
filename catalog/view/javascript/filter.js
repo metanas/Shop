@@ -1,5 +1,6 @@
 $(document).ready(function () {
-    setFilter();
+    if (String(getURLVar("price-max")) || String(getURLVar("price-min")) || String(getURLVar("color")) || String(getURLVar("manufacture")) || String(getURLVar("size")))
+        setFilter();
     $('body').on('click', '.filter-filter', function (e) {
             e.stopPropagation();
             if ($(".dropdown-filter", this.parentNode).css('display') === 'block') {
@@ -19,7 +20,7 @@ $(document).ready(function () {
     $("body").on('click', 'input:checkbox', function (event) {
         var param = '';
         const filt = getURLVar(event.target.name.replace("[]", ''));
-        const newFilt = event.target.value;
+        const newFilt = event.target.value.replace(" ", ".");
         if (event.target.checked) {
             if (filt !== '') {
                 param = filt + "_" + newFilt;
@@ -28,9 +29,9 @@ $(document).ready(function () {
             }
         } else {
             param = filt.replace(newFilt, '');
-            param = filt.replace("__", '');
-            param = filt.replace(/_$/, '');
-            param = filt.replace(/^_/, '');
+            param = param.replace("__", '');
+            param = param.replace(/_$/, '');
+            param = param.replace(/^_/, '');
         }
         updateQueryStringParam(event.target.name.replace("[]", ""), param);
         event.stopPropagation();
@@ -63,8 +64,7 @@ $(document).ready(function () {
 });
 
 function removeFilter(e) {
-    console.log(e.dataset);
-    removeFilterFormUrl(e.dataset.info, e.innerText);
+    removeFilterFormUrl(e.dataset.info, e.innerText.replace(" ", ".").replace("prix.min: ", "").replace("prix.max: ", ""));
     filterGenerator();
 }
 
@@ -87,11 +87,11 @@ $(document).on('click', '', function (e) {
 function filterGenerator() {
     var url = "index.php?route=product/category/filter&path=" + String(getURLVar("path"));
     if (String(getURLVar("manufacture")) !== '') {
-        url += "&manufacture=" + String(getURLVar("manufacture"));
+        url += "&manufacture=" + String(getURLVar("manufacture")).replace(".", " ");
     }
 
     if (String(getURLVar("color")) !== '') {
-        url += "&color=" + String(getURLVar("color"));
+        url += "&color=" + String(getURLVar("color")).replace(".", " ");
     }
 
     if (String(getURLVar("size")) !== '') {
@@ -140,7 +140,13 @@ function setFilter() {
             const filterSpliter = value.split('_');
             for (i = 0; i < filterSpliter.length; i++) {
                 filter_count++;
-                $(".filter-content").append('<div class="filter-generate" onclick="removeFilter(this)" style="display: inline;margin-bottom: 15px" data-info="' + key + '">' + filterSpliter[i] + '<i class="fa fa-close" style="margin-left: 5px"></i></div>');
+                var prefix = "";
+                if (key === "price-min") {
+                    prefix = "prix min: ";
+                } else if (key === "price-max") {
+                    prefix = "prix max: ";
+                }
+                $(".filter-content").append('<div class="filter-generate" onclick="removeFilter(this)" style="display: inline;margin-bottom: 15px" data-info="' + key + '">' + prefix + filterSpliter[i].replace(".", " ") + '<i class="fa fa-close" style="margin-left: 5px"></i></div>');
             }
 
             if (filter_count >= 3 && $('.clear-all-filters').get().length === 0) {
