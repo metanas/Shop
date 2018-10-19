@@ -88,6 +88,7 @@ class ControllerAccountOrder extends Controller
         $this->load->model('account/order');
 
         $order_info = $this->model_account_order->getOrder($order_id);
+        var_dump($order_info);
 
         if ($order_info) {
             $this->document->setTitle($this->language->get('text_order'));
@@ -135,6 +136,7 @@ class ControllerAccountOrder extends Controller
                 '{address_2}',
                 '{city}',
                 '{postcode}',
+                '{telephone}',
                 '{country}'
             );
 
@@ -150,6 +152,17 @@ class ControllerAccountOrder extends Controller
 
             $data['shipping_address'] = str_replace(array("\r\n", "\r", "\n"), '<br />', preg_replace(array("/\s\s+/", "/\r\r+/", "/\n\n+/"), '<br />', trim(str_replace($find, $replace, $format))));
 
+            $replace = array(
+                'firstname' => $order_info['billing_firstname'],
+                'lastname' => $order_info['billing_lastname'],
+                'address_1' => $order_info['billing_address_1'],
+                'address_2' => $order_info['billing_address_2'],
+                'city' => $order_info['billing_city'],
+                'postcode' => $order_info['billing_postcode'],
+                'country' => $order_info['billing_country'],
+            );
+
+            $data['billing_address'] = str_replace(array("\r\n", "\r", "\n"), '<br />', preg_replace(array("/\s\s+/", "/\r\r+/", "/\n\n+/"), '<br />', trim(str_replace($find, $replace, $format))));
             $data['shipping_method'] = $order_info['shipping_method'];
 
             $this->load->model('catalog/product');

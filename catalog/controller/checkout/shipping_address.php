@@ -187,7 +187,7 @@ class ControllerCheckoutShippingAddress extends Controller
                     'postcode' => $this->request->post['postcode'],
                     'city' => $this->request->post['city'],
                     'telephone' => $this->request->post['telephone'],
-                    'country' => 'Maroc',
+                    'country' => $this->request->post['telephone'],
                 );
             } else {
                 unset($this->session->data['billing_address']);
@@ -267,8 +267,8 @@ class ControllerCheckoutShippingAddress extends Controller
             $this->error['telephone'] = $this->language->get('error_telephone');
         }
 
-        if (!is_numeric($this->request->post['shipping'])) {
-            $this->error['shipping'] = $this->language->get('error_is_shipping');
+        if(utf8_strlen(trim($this->request->post['country'])) != 5){
+            $this->error['country'] = $this->language->get('error_country');
         }
 
         return $this->error;
