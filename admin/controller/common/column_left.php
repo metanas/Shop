@@ -53,22 +53,6 @@ class ControllerCommonColumnLeft extends Controller {
 					'children' => $product
 				);
 			}
-
-			if ($this->user->hasPermission('access', 'catalog/recurring')) {
-				$catalog[] = array(
-					'name'	   => $this->language->get('text_recurring'),
-					'href'     => $this->url->link('catalog/recurring', 'user_token=' . $this->session->data['user_token']),
-					'children' => array()		
-				);
-			}
-			
-			if ($this->user->hasPermission('access', 'catalog/filter')) {
-				$catalog[] = array(
-					'name'	   => $this->language->get('text_filter'),
-					'href'     => $this->url->link('catalog/filter', 'user_token=' . $this->session->data['user_token']),
-					'children' => array()		
-				);
-			}
 			
 			// Attributes
 			$attribute = array();
@@ -113,22 +97,6 @@ class ControllerCommonColumnLeft extends Controller {
 				);
 			}
 			
-			if ($this->user->hasPermission('access', 'catalog/download')) {
-				$catalog[] = array(
-					'name'	   => $this->language->get('text_download'),
-					'href'     => $this->url->link('catalog/download', 'user_token=' . $this->session->data['user_token']),
-					'children' => array()		
-				);
-			}
-			
-			if ($this->user->hasPermission('access', 'catalog/review')) {		
-				$catalog[] = array(
-					'name'	   => $this->language->get('text_review'),
-					'href'     => $this->url->link('catalog/review', 'user_token=' . $this->session->data['user_token']),
-					'children' => array()		
-				);		
-			}
-			
 			if ($this->user->hasPermission('access', 'catalog/information')) {		
 				$catalog[] = array(
 					'name'	   => $this->language->get('text_information'),
@@ -149,22 +117,6 @@ class ControllerCommonColumnLeft extends Controller {
 			
 			// Extension
 			$marketplace = array();
-			
-			if ($this->user->hasPermission('access', 'marketplace/marketplace')) {		
-				$marketplace[] = array(
-					'name'	   => $this->language->get('text_marketplace'),
-					'href'     => $this->url->link('marketplace/marketplace', 'user_token=' . $this->session->data['user_token']),
-					'children' => array()		
-				);					
-			}
-			
-			if ($this->user->hasPermission('access', 'marketplace/installer')) {		
-				$marketplace[] = array(
-					'name'	   => $this->language->get('text_installer'),
-					'href'     => $this->url->link('marketplace/installer', 'user_token=' . $this->session->data['user_token']),
-					'children' => array()		
-				);					
-			}	
 			
 			if ($this->user->hasPermission('access', 'marketplace/extension')) {		
 				$marketplace[] = array(
@@ -354,30 +306,6 @@ class ControllerCommonColumnLeft extends Controller {
 				);	
 			}
 			
-			if ($this->user->hasPermission('access', 'customer/customer_group')) {
-				$customer[] = array(
-					'name'	   => $this->language->get('text_customer_group'),
-					'href'     => $this->url->link('customer/customer_group', 'user_token=' . $this->session->data['user_token']),
-					'children' => array()		
-				);
-			}
-				
-			if ($this->user->hasPermission('access', 'customer/customer_approval')) {
-				$customer[] = array(
-					'name'	   => $this->language->get('text_customer_approval'),
-					'href'     => $this->url->link('customer/customer_approval', 'user_token=' . $this->session->data['user_token']),
-					'children' => array()		
-				);
-			}
-						
-			if ($this->user->hasPermission('access', 'customer/custom_field')) {		
-				$customer[] = array(
-					'name'	   => $this->language->get('text_custom_field'),
-					'href'     => $this->url->link('customer/custom_field', 'user_token=' . $this->session->data['user_token']),
-					'children' => array()		
-				);	
-			}
-			
 			if ($customer) {
 				$data['menus'][] = array(
 					'id'       => 'menu-customer',
@@ -399,13 +327,13 @@ class ControllerCommonColumnLeft extends Controller {
 				);
 			}
 
-			if ($this->user->hasPermission('access', 'marketing/marketing')) {
-				$marketing[] = array(
-					'name'	   => $this->language->get('text_marketing'),
-					'href'     => $this->url->link('marketing/marketing', 'user_token=' . $this->session->data['user_token']),
-					'children' => array()		
-				);	
-			}
+//			if ($this->user->hasPermission('access', 'marketing/marketing')) {
+//				$marketing[] = array(
+//					'name'	   => $this->language->get('text_marketing'),
+//					'href'     => $this->url->link('marketing/marketing', 'user_token=' . $this->session->data['user_token']),
+//					'children' => array()
+//				);
+//			}
 			
 			if ($this->user->hasPermission('access', 'marketing/coupon')) {	
 				$marketing[] = array(
