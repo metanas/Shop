@@ -242,16 +242,10 @@ class ControllerAccountAddress extends Controller
             $data['error_country'] = '';
         }
 
-        if (isset($this->error['telephone'])){
+        if (isset($this->error['telephone'])) {
             $data['error_telephone'] = $this->error['telephone'];
         } else {
             $data['error_telephone'] = '';
-        }
-
-        if (isset($this->error['shipping'])){
-            $data['error_shipping'] = $this->error['shipping'];
-        } else {
-            $data['error_shipping'] = '';
         }
 
 
@@ -327,12 +321,12 @@ class ControllerAccountAddress extends Controller
             $data['telephone'] = '';
         }
 
-        if (isset($this->request->post['shipping'])) {
-            $data['shipping'] = $this->request->post['shipping'];
+        if (isset($this->request->post['country'])) {
+            $data['country'] = $this->request->post['country'];
         } elseif (!empty($address_info)) {
-            $data['shipping'] = $address_info['shipping'];
+            $data['country'] = $address_info['country'];
         } else {
-            $data['shipping'] = '';
+            $data['country'] = '';
         }
 
         // Custom fields
@@ -380,6 +374,8 @@ class ControllerAccountAddress extends Controller
 
     protected function validateForm()
     {
+        var_dump($this->request->post);
+        exit();
         if ((utf8_strlen(trim($this->request->post['firstname'])) < 1) || (utf8_strlen(trim($this->request->post['firstname'])) > 32)) {
             $this->error['firstname'] = $this->language->get('error_firstname');
         }
@@ -394,6 +390,18 @@ class ControllerAccountAddress extends Controller
 
         if ((utf8_strlen(trim($this->request->post['city'])) < 2) || (utf8_strlen(trim($this->request->post['city'])) > 128)) {
             $this->error['city'] = $this->language->get('error_city');
+        }
+
+        if ((utf8_strlen(trim($this->request->post['city'])) < 2) || (utf8_strlen(trim($this->request->post['city'])) > 128)) {
+            $this->error['city'] = $this->language->get('error_city');
+        }
+
+        if ((utf8_strlen(trim($this->request->post['telephone'])) < 2) || (utf8_strlen(trim($this->request->post['telephone'])) > 128)) {
+            $this->error['telephone'] = $this->language->get('error_telephone');
+        }
+
+        if (utf8_strlen(trim($this->request->post['country'])) != 5) {
+            $this->error['country'] = $this->language->get('error_country');
         }
 
         // Custom field validation
