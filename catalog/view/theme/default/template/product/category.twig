@@ -54,7 +54,7 @@
                                         {% endfor %}
                                     </div>
                                     <div>
-                                        <button type="button" class="filter-done decouvrir"
+                                        <button type="button" class="filter-done discover"
                                                 name="manufacture">{{ text_close }}</button>
                                     </div>
                                 </div>
@@ -89,7 +89,7 @@
                                         {% endfor %}
                                     </div>
                                     <div>
-                                        <button type="button" class="filter-done decouvrir"
+                                        <button type="button" class="filter-done discover"
                                                 name="color">{{ text_close }}</button>
                                     </div>
                                 </div>
@@ -108,8 +108,10 @@
                                     </div>
                                     <div class="row">
                                         <div id="price" class="container-fluid" style="width: 100%;padding: 0">
-                                            <span id="min-price" class="col-md-6 text-left">{{ price_min }} {{ currency }}</span>
-                                            <span id="max-price" class="col-md-6 text-right">{{ price_max }} {{ currency }}</span>
+                                            <span id="min-price"
+                                                  class="col-md-6 text-left">{{ price_min }} {{ currency }}</span>
+                                            <span id="max-price"
+                                                  class="col-md-6 text-right">{{ price_max }} {{ currency }}</span>
                                         </div>
                                     </div>
                                     <div style="margin-top: 10px">
@@ -119,7 +121,7 @@
                                         </label>
                                     </div>
                                     <div>
-                                        <button type="button" class="filter-done decouvrir"
+                                        <button type="button" class="filter-done discover"
                                                 name="price">{{ text_close }}</button>
                                     </div>
                                 </div>
@@ -153,7 +155,7 @@
                                         {% endfor %}
                                     </div>
                                     <div>
-                                        <button type="button" class="filter-done decouvrir"
+                                        <button type="button" class="filter-done discover"
                                                 name="color">{{ text_close }}</button>
                                     </div>
                                 </div>
@@ -201,18 +203,27 @@
                                     </div>
                                     <div class="caption">
                                         <div class="desctip col-sm-12 col-xs-12">
-                                            <h4 class="SheosName"><a href="{{ product.href }}">{{ product.name }}</a>
-                                            </h4>
-                                            {% if product.price %}
-                                                {% if not product.special %}
-                                                    <p class="SheosPrice">{{ product.price }}</p>
-                                                {% else %}
-                                                    <span class="price-old SheosPrice">{{ product.price }}</span><br>
-                                                    <span class="price-new SheosPrice">{{ product.special }}</span>
-                                                {% endif %}
-                                            {% endif %}
-                                            <div class="same">
-                                                {#<p>Disponible en plusieurs tailles</p>#}
+                                            <div class="row">
+                                                <div class="col-md-6 col-sm-6 text-left">
+                                                    <div class="text-left">
+                                                        <a href="{{ product.href }}" class="text-capitalize"
+                                                           style="font-weight: bold">{{ product.manufacturer }}</a>
+                                                    </div>
+                                                    <div class="ShoesName text-left">
+                                                        <a href="{{ product.href }}">{{ product.name }}</a>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-sm-6 text-right">
+                                                    <div {% if product.special %} class="price-old" {% endif %}>
+                                                        {{ product.price }}
+                                                    </div>
+                                                    {% if product.special %}
+                                                        <div class="price-new text-right">{{ product.special }}</div>
+                                                    {% endif %}
+                                                </div>
+                                                <div class="col-sm-12 same">
+                                                    {#<p>Disponible en plusieurs tailles</p>#}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -231,10 +242,6 @@
             {% endif %}
             {% if not categories and not products %}
                 <p>{{ text_no_results }}</p>
-                <div class="buttons">
-                    <div class="pull-right"><a href="{{ continue }}" class="btn btn-primary">{{ button_continue }}</a>
-                    </div>
-                </div>
             {% endif %}
         </div>
     </div>

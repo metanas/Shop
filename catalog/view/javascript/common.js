@@ -137,14 +137,14 @@ var div;
 
 $(document).on('mouseenter', '.product-layout', function () {
     if ($('.same', this).html().trim() == "") {
-        html = "<a href=\"" + $('.SheosName', this)[0].children[0].href + "\"><img class=\"smallSame img-default\" src=\"" + $(".img-responsive", this)[0].src + "\"></a>";
         div = this;
         $.ajax({
-            url: "index.php?route=product/category/simulate&path=" + 72 + "&product_id=" + $('#product-id', this).html(),
+            url: "index.php?route=product/category/simulate&path=" + 72 + "&product_id=" + $('#product-id', div).html(),
             type: "GET",
             dataType: "json",
             success: function (json) {
                 if ($('.same', div).html().trim() === "") {
+                    let html = "<a href=\"" + $('.ShoesName a', div)[0].href + "\"><img class=\"smallSame img-default\" src=\"" + $(".img-responsive", div)[0].src + "\"></a>";
                     $.map(json, function (item) {
                         html += "<a href=\"" + item['href'] + "\"><img class=\"smallSame\" src=\"" + item['thumb'] + "\"></a>";
                     });

@@ -855,7 +855,6 @@ footer h4 {
     padding-bottom: 4px;
     display: none;
     max-height: 85px;
-    padding-left: 0;
 }
 
 .smallSame {
@@ -1213,17 +1212,8 @@ h2.price {
 }
 
 /* Best seller CSS */
-.SheosName {
-    color: black;
-    display: inline;
-}
 
-.SheosPrice {
-    display: block;
-    float: right;
-}
-
-.decouvrir {
+.discover {
     background-color: transparent;
     border: 2px solid black;
     font-weight: bold;

@@ -32,18 +32,26 @@
                                         </div>
                                         <div class="caption">
                                             <div class="desctip col-sm-12 col-xs-12">
-                                                <h4 class="SheosName"><a href="{{ product.href }}">{{ product.name }}</a>
-                                                </h4>
-                                                {% if product.price %}
-                                                    {% if not product.special %}
-                                                        <p class="SheosPrice">{{ product.price }}</p>
-                                                    {% else %}
-                                                        <span class="price-old SheosPrice">{{ product.price }}</span><br>
-                                                        <span class="price-new SheosPrice">{{ product.special }}</span>
-                                                    {% endif %}
-                                                {% endif %}
-                                                <div class="same">
-                                                    {#<p>Disponible en plusieurs tailles</p>#}
+                                                <div class="row">
+                                                    <div class="col-md-6 col-sm-6 text-left">
+                                                        <div class="text-left">
+                                                            <a href="{{ product.href }}" class="text-capitalize" style="font-weight: bold">{{ product.manufacturer }}</a>
+                                                        </div>
+                                                        <div class="ShoesName text-left">
+                                                            <a href="{{ product.href }}">{{ product.name }}</a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-6 text-right">
+                                                        <div {% if product.special %} class="price-old" {% endif %}>
+                                                            {{ product.price }}
+                                                        </div>
+                                                        {% if product.special %}
+                                                            <div class="price-new text-right">{{ product.special }}</div>
+                                                        {% endif %}
+                                                    </div>
+                                                    <div class="col-sm-12 same">
+                                                        {#<p>Disponible en plusieurs tailles</p>#}
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

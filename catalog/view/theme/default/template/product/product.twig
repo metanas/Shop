@@ -103,7 +103,6 @@
                             <a href="{{ similar.href }}"><img class="similar_img" src="{{ similar.image }}"
                                                               alt="{{ similar.popup }}" data-color="{{ similar.color }}"
                                                               data-price="{{ similar.price }}"/></a>
-
                         {% endfor %}
                     </div>
 
@@ -112,23 +111,28 @@
                             <!-- <h3>{{ text_option }}</h3> -->
                             {% for option in options %}
                                 {% if option.type == 'size' %}
-                                    <div class="form-group{% if option.required %} required {% endif %}">
+                                    <div class="form-group {% if option.required %} required {% endif %}">
                                         <label class="control-label"
                                                for="input-option{{ option.product_option_id }}">{{ option.name }}</label>
-                                        <select name="option[{{ option.product_option_id }}]"
-                                                id="input-option{{ option.product_option_id }}"
-                                                class="select-zalark">
-                                            <!-- {{ text_select }} -->
-                                            <option value="">Votre taille</option>
-                                            {% for option_value in option.product_option_value %}
-                                                <option value="{{ option_value.product_option_value_id }}">{{ option_value.name }}
-                                                    {% if option_value.price %}
-                                                        ({{ option_value.price_prefix }}{{ option_value.price }})
-                                                    {% endif %} </option>
-                                            {% endfor %}
-                                        </select>
-                                        <i class="fa fa-angle-down"
-                                           style="position: absolute; padding: 13px;cursor: pointer;right: 20px;"></i>
+                                        <div class="col-sm-12 col-xs-12" style="margin-bottom: 12px">
+                                            <div class="row">
+                                                <select name="option[{{ option.product_option_id }}]"
+                                                        id="input-option{{ option.product_option_id }}"
+                                                        class="select-zalark">
+                                                    <!-- {{ text_select }} -->
+                                                    <option value="">Votre taille</option>
+                                                    {% for option_value in option.product_option_value %}
+                                                        <option value="{{ option_value.product_option_value_id }}">{{ option_value.name }}
+                                                            {% if option_value.price %}
+                                                                ({{ option_value.price_prefix }}{{ option_value.price }})
+                                                            {% endif %} </option>
+                                                    {% endfor %}
+                                                </select>
+                                                <i class="fa fa-angle-down"
+                                                   style="position: absolute; padding: 13px;cursor: pointer;right: 0;top: 0;"></i>
+                                            </div>
+                                        </div>
+
                                     </div>
                                 {% endif %}
 

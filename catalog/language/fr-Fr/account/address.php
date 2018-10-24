@@ -24,6 +24,7 @@ $_['entry_company']        ='Compagnie';
 $_['entry_address_1']      ='Adresse 1';
 $_['entry_address_2']      ='Adresse 2';
 $_['entry_postcode']       ='Code postal';
+$_['entry_telephone']      ='Telephone';
 $_['entry_city']           ='Ville';
 $_['entry_country']        ='Pays';
 $_['entry_zone']           ='Région / État';

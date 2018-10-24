@@ -125,7 +125,7 @@ class ControllerAccountOrder extends Controller
 
             $data['payment_method'] = $order_info['payment_method'];
 
-            $format = '{firstname} {lastname}' . "\n" . '{address_1}' . "\n" . '{address_2}' . "\n" . '{city} {postcode}' . "\n" . '{country}';
+            $format = '{firstname} {lastname}' . "\n" . '{address_1}' . "\n" . '{address_2}' . "\n" . '{city} {postcode}' . "\n" . 'T: {telephone}' . "\n" . '{country}';
 
 
             $find = array(
@@ -135,6 +135,7 @@ class ControllerAccountOrder extends Controller
                 '{address_2}',
                 '{city}',
                 '{postcode}',
+                '{telephone}',
                 '{country}'
             );
 
@@ -145,10 +146,24 @@ class ControllerAccountOrder extends Controller
                 'address_2' => $order_info['shipping_address_2'],
                 'city' => $order_info['shipping_city'],
                 'postcode' => $order_info['shipping_postcode'],
+                'telephone' => $order_info['shipping_telephone'],
                 'country' => $order_info['shipping_country'],
             );
 
             $data['shipping_address'] = str_replace(array("\r\n", "\r", "\n"), '<br />', preg_replace(array("/\s\s+/", "/\r\r+/", "/\n\n+/"), '<br />', trim(str_replace($find, $replace, $format))));
+
+            $replace = array(
+                'firstname' => $order_info['billing_firstname'],
+                'lastname' => $order_info['billing_lastname'],
+                'address_1' => $order_info['billing_address_1'],
+                'address_2' => $order_info['billing_address_2'],
+                'city' => $order_info['billing_city'],
+                'postcode' => $order_info['billing_postcode'],
+                'telephone' => $order_info['billing_telephone'],
+                'country' => $order_info['billing_country'],
+            );
+
+            $data['billing_address'] = str_replace(array("\r\n", "\r", "\n"), '<br />', preg_replace(array("/\s\s+/", "/\r\r+/", "/\n\n+/"), '<br />', trim(str_replace($find, $replace, $format))));
 
             $data['shipping_method'] = $order_info['shipping_method'];
 
@@ -195,6 +210,7 @@ class ControllerAccountOrder extends Controller
                 $data['products'][] = array(
                     'name' => $product['name'],
                     'model' => $product['model'],
+                    'link'  => $this->url->link("product/product", array("language" => $this->config->get("config_language"), "product_id" => $product['product_id'])),
                     'option' => $option_data,
                     'quantity' => $product['quantity'],
                     'price' => $this->currency->format($product['price'] + ($this->config->get('config_tax') ? $product['tax'] : 0), $order_info['currency_code'], $order_info['currency_value']),
