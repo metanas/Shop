@@ -14,6 +14,7 @@ class ControllerProductCategory extends Controller
 
         $this->load->model('account/wishlist');
 
+
         $this->document->addScript('catalog/view/javascript/filter.js');
         $this->document->addScript('catalog/view/javascript/loading.js');
         $this->document->addStyle('catalog/view/theme/default/stylesheet/loading.css');
@@ -99,6 +100,8 @@ class ControllerProductCategory extends Controller
 
         if ($category_info) {
             $data['heading_title'] = $category_info['name'];
+
+            $this->document->setTitle($category_info['name']);
 
             $data['text_compare'] = sprintf($this->language->get('text_compare'), (isset($this->session->data['compare']) ? count($this->session->data['compare']) : 0));
 
@@ -437,9 +440,9 @@ class ControllerProductCategory extends Controller
         $category_info = $this->model_catalog_category->getCategory($category_id);
 
         if ($category_info) {
-            $this->document->setTitle($category_info['name']);
-
             $data['heading_title'] = $category_info['name'];
+
+            $this->document->setTitle($category_info['name']);
 
             $data['text_compare'] = sprintf($this->language->get('text_compare'), (isset($this->session->data['compare']) ? count($this->session->data['compare']) : 0));
 

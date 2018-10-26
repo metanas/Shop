@@ -204,7 +204,7 @@
                                     <div class="caption">
                                         <div class="desctip col-sm-12 col-xs-12">
                                             <div class="row">
-                                                <div class="col-md-6 col-sm-6 text-left">
+                                                <div class="col-md-6 col-sm-6 col-xs-4 text-left">
                                                     <div class="text-left">
                                                         <a href="{{ product.href }}" class="text-capitalize"
                                                            style="font-weight: bold">{{ product.manufacturer }}</a>
@@ -213,7 +213,7 @@
                                                         <a href="{{ product.href }}">{{ product.name }}</a>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6 col-sm-6 text-right">
+                                                <div class="col-md-6 col-sm-6 col-xs-8 text-right">
                                                     <div {% if product.special %} class="price-old" {% endif %}>
                                                         {{ product.price }}
                                                     </div>
@@ -221,7 +221,7 @@
                                                         <div class="price-new text-right">{{ product.special }}</div>
                                                     {% endif %}
                                                 </div>
-                                                <div class="col-sm-12 same">
+                                                <div class="col-sm-12 col-xs-12 same">
                                                     {#<p>Disponible en plusieurs tailles</p>#}
                                                 </div>
                                             </div>
