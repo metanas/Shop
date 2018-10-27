@@ -37,6 +37,10 @@ class ControllerProductCategory extends Controller
             $filter['price']['min'] = $this->request->get['price-min'];
         }
 
+        if (isset($this->request->get['special'])) {
+            $filter['special'] = $this->request->get['special'];
+        }
+
         if (isset($this->request->get['price-max'])) {
             $filter['price']['max'] = $this->request->get['price-max'];
         }

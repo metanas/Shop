@@ -116,7 +116,8 @@
                                     </div>
                                     <div style="margin-top: 10px">
                                         <label class="promos check_filter">{{ text_Promo }}
-                                            <input type="checkbox" name="promo">
+                                            <input type="checkbox"
+                                                   name="promo" {% if filter.special %} checked {% endif %}>
                                             <span class="checkmark"></span>
                                         </label>
                                     </div>

@@ -112,7 +112,7 @@
                         </div>
                         <button id="update-address" class="zalark-button-border text-uppercase"
                                 hidden>{{ button_update_address }}</button>
-                        <button id="save-address"
+                        <button id="add-address"
                                 class="zalark-button-border text-uppercase">{{ button_save_address }}</button>
                     </div>
                 </div>
@@ -203,8 +203,8 @@
                 </div>
                 <div class="form-group">
                     <label class="control-label" for="input-country">Pays</label>
-                    <select class="select-zalark" disabled>
-                        <option value="Maroc" name="country" selected>Maroc</option>
+                    <select class="select-zalark" name="country">
+                        <option value="Maroc" selected>Maroc</option>
                     </select>
                     <i class="fa fa-angle-down"
                        style="position: absolute;padding: 13px;cursor: pointer;right: 0;top: 0;"></i>
@@ -212,7 +212,7 @@
             </div>
         </div>
         <div class="col-md-12 col-xs-12" align="center">
-            <button id="address-save" class="zalark-button">{{ button_continue }}</button>
+            <button id="save-address" class="zalark-button">{{ button_continue }}</button>
         </div>
     </div>
 
@@ -238,6 +238,7 @@
 
     $("#container-address").on('change', 'input:radio[name="address"]', function () {
         if ($(this).val() === "Add") {
+            refactorForm();
             $("#add-address-field").show(200);
         } else {
             $("#add-address-field").hide(200);
@@ -254,7 +255,7 @@
         $('input[name="postcode"]').val('');
         $('input[name="telephone"]').val('');
         $('#update-address').hide();
-        $('#save-address').show();
+        $('#add-address').show();
         $('#add-address-field').hide(200)
     }
 
@@ -262,7 +263,7 @@
         $.ajax({
             url: 'index.php?route=checkout/shipping_address/update',
             type: 'post',
-            data: $('#add-address-field input[type="text"], #add-address-field input[type="radio"]:checked, #add-address-field .select-zalark option:selected'),
+            data: $('#add-address-field input[type="text"], #add-address-field input[type="radio"]:checked, #add-address-field select'),
             dataType: 'json',
             success: function (json) {
                 if (json['success']) {
@@ -296,7 +297,7 @@
                     $('input[name="postcode"]').val(result['postcode']);
                     $('input[name="telephone"]').val(result['telephone']);
                     $('#update-address').show();
-                    $('#save-address').hide();
+                    $('#add-address').hide();
                     $('#add-address-field').show(200)
                 }
             }
@@ -323,7 +324,7 @@
         })
     });
 
-    $("#address-save").on("click", function () {
+    $("#save-address").on("click", function () {
         if ($("#container-address .form-group input[name='address']:checked").length === 0) {
             return;
         }
@@ -382,7 +383,7 @@
         refactorForm();
     }
 
-    $("#save-address").on("click", function () {
+    $("#add-address").on("click", function () {
         if ($('#input-name').val().length === 0) {
             $('#input-name').focus();
             return;
