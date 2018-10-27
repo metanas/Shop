@@ -29,5 +29,5 @@ $_['text_filter_size']  ='Taile';
 $_['text_filter_color'] ='Couleur';
 $_['text_filter_price'] ='Prix';
 $_['text_clear_filter'] ='Retirer tous les filtres';
-$_['text_close']        ='FERMER';
+$_['text_close']        ='Effectuer';
 $_['text_Promo']        ='Voir les Promos';
