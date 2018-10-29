@@ -226,7 +226,9 @@ class ControllerProductProduct extends Controller {
 			$data['reward'] = $product_info['reward'];
 			$data['color'] = $product_info['color'];
 
-			if ($product_info['quantity'] <= 0) {
+            $quantity = $this->model_catalog_product->getTotalQuantityProduct($product_info['product_id']);
+
+            if ($quantity <= 0) {
 				$data['stock'] = $product_info['stock_status'];
 			} elseif ($this->config->get('config_stock_display')) {
 				$data['stock'] = $product_info['quantity'];

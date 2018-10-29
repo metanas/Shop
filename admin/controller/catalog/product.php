@@ -723,7 +723,7 @@ class ControllerCatalogProduct extends Controller
         } elseif (!empty($product_info)) {
             $data['minimum'] = $product_info['minimum'];
         } else {
-            $data['minimum'] = 1;
+            $data['minimum'] = 0;
         }
 
         if (isset($this->request->post['sort_order'])) {
@@ -743,7 +743,7 @@ class ControllerCatalogProduct extends Controller
         } elseif (!empty($product_info)) {
             $data['stock_status_id'] = $product_info['stock_status_id'];
         } else {
-            $data['stock_status_id'] = 0;
+            $data['stock_status_id'] = 7;
         }
 
         if (isset($this->request->post['status'])) {

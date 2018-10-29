@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    if (String(getURLVar("price-max")) || String(getURLVar("price-min")) || String(getURLVar("color")) || String(getURLVar("manufacture")) || String(getURLVar("size")))
+    if (String(getURLVar("price-max")) || String(getURLVar("price-min")) || String(getURLVar("color")) || String(getURLVar("manufacture")) || String(getURLVar("size")) || String("special"))
         setFilter();
     $('body').on('click', '.filter-filter', function (e) {
             e.stopPropagation();
@@ -33,6 +33,7 @@ $(document).ready(function () {
             param = param.replace(/_$/, '');
             param = param.replace(/^_/, '');
         }
+        console.log(param);
         updateQueryStringParam(event.target.name.replace("[]", ""), param);
         event.stopPropagation();
     });
@@ -98,6 +99,10 @@ function filterGenerator() {
         url += "&size=" + String(getURLVar("size"));
     }
 
+    if (String(getURLVar("special")) !== '') {
+        url += "&special=" + String(getURLVar("special"));
+    }
+
     if (String(getURLVar("price-min")) !== '') {
         url += "&price-min=" + String(getURLVar("price-min"));
     }
@@ -131,6 +136,7 @@ function setFilter() {
         "manufacture": String(getURLVar("manufacture")),
         "color": String(getURLVar("color")),
         "size": String(getURLVar("size")),
+        "special": String(getURLVar("special")),
         "price-max": String(getURLVar("price-max")),
         "price-min": String(getURLVar("price-min"))
     };
@@ -164,6 +170,7 @@ function removeAllFilters() {
     updateQueryStringParam('price-min', '');
     updateQueryStringParam('price-max', '');
     updateQueryStringParam('color', '');
+    updateQueryStringParam('special', '');
     updateQueryStringParam('size', '');
     filterGenerator()
 }

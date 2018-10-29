@@ -343,9 +343,16 @@ var step = {
             url: "index.php?route=checkout/checkout/getStep",
             type: "POST",
             data: {"step_id": (id === 0) ? $('ul.progressbar > li.disabled').get()[0].value : id},
+            beforeSend: function () {
+                $('body').loading({message: "chargement.."});
+            },
+            complete: function () {
+                $('body').loading('stop');
+            },
             success: function (step) {
                 $('#collapse-checkout-option').empty();
                 $('#collapse-checkout-option').html(step);
+                $('html, body').animate({scrollTop: 0}, 'slow');
                 let progress = $('ul.progressbar li').get();
                 for (i = 0; i < 3; i++) {
                     if (i < id - 1) {
