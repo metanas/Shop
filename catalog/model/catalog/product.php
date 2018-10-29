@@ -98,6 +98,10 @@ class ModelCatalogProduct extends Model
                 if (isset($data['filter_filter']['price']['min'])) {
                     $sql .= " AND p.price >= '" . $data['filter_filter']['price']['min'] . "'";
                 }
+
+                if (isset($data['filter_filter']['special'])) {
+                    $sql .= " AND p.product_id IN (SELECT product_id FROM " . DB_PREFIX . "product_special)";
+                }
             }
         }
 
@@ -462,6 +466,10 @@ class ModelCatalogProduct extends Model
 
                 if (!empty($data['filter_filter']['size'])) {
                     $sql .= " AND ovd.name IN ('" . implode("','", $data['filter_filter']['size']) . "')";
+                }
+
+                if (isset($data['filter_filter']['special'])) {
+                    $sql .= " AND p.product_id IN (SELECT product_id FROM " . DB_PREFIX . "product_special)";
                 }
             }
         }
