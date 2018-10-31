@@ -19,6 +19,11 @@
                                                  style="width: 100%"
                                             />
                                         </div>
+                                        {% if product.stock %}
+                                            <span class="product-status">
+                                                Out of Stock
+                                            </span>
+                                        {% endif %}
                                         <div class="caption">
                                             <div class="desctip col-sm-12 col-xs-12">
                                                 <div class="row">

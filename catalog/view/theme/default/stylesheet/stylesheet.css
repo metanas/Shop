@@ -1345,11 +1345,13 @@ ul {
     border: 1px solid #bababa;
     background-image: linear-gradient(to bottom, #fefefe 0, #fafafa 100%);
 }
+
 @media (max-width: 720px) {
     #min-price, #max-price {
         font-size: 9px;
     }
 }
+
 @media (min-width: 720px) {
     #min-price, #max-price {
         font-size: 11px;
@@ -1817,4 +1819,11 @@ ul {
     right: 25px;
     font-size: 36px;
     margin-left: 50px;
+}
+
+.product-status {
+    padding: 5px;
+    background-color: #ff1b5a;
+    color: whitesmoke;
+    border-bottom-right-radius: 5px;
 }

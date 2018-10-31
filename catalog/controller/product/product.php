@@ -229,11 +229,7 @@ class ControllerProductProduct extends Controller {
             $quantity = $this->model_catalog_product->getTotalQuantityProduct($product_info['product_id']);
 
             if ($quantity <= 0) {
-				$data['stock'] = $product_info['stock_status'];
-			} elseif ($this->config->get('config_stock_display')) {
-				$data['stock'] = $product_info['quantity'];
-			} else {
-				$data['stock'] = $this->language->get('text_instock');
+				$data['stock'] = "Out of Stock";
 			}
 
 			$this->load->model('tool/image');

@@ -588,12 +588,21 @@ class ControllerProductCategory extends Controller
                     else $favorite = $this->model_tool_image->resize("favorite.png", 100, 100);
                 }
 
+                $quantity = $this->model_catalog_product->getTotalQuantityProduct($result['product_id']);
+
+                if ($quantity <= 0) {
+                    $stock = "Out of Stock";
+                } else {
+                    $stock = '';
+                }
+
                 $data['products'][] = array(
                     'product_id' => $result['product_id'],
                     'thumb' => $image,
                     'manufacturer' => $result['manufacturer'],
                     'name' => (strlen($result['name']) <= 12) ? $result['name'] : utf8_substr(trim(strip_tags(html_entity_decode($result['name'], ENT_QUOTES, 'UTF-8'))), 0, $this->config->get('theme_' . $this->config->get('config_theme') . '_product_description_length')) . '..',
                     'price' => $price,
+                    'stock' => $stock,
                     'special' => $special,
                     'favorite' => $favorite,
                     'minimum' => $result['minimum'] > 0 ? $result['minimum'] : 1,

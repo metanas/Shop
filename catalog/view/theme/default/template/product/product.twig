@@ -67,7 +67,9 @@
                         {% if reward %}
                             <li>{{ text_reward }} {{ reward }}</li>
                         {% endif %}
+                        {% if stock %}
                         <li>{{ text_stock }} {{ stock }}</li>
+                        {% endif %}
                     </ul>
                     {% if price %}
                         <ul class="list-unstyled">

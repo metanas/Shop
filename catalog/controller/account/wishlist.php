@@ -51,12 +51,12 @@ class ControllerAccountWishList extends Controller
                     $image = false;
                 }
 
-                if ($product_info['quantity'] <= 0) {
-                    $stock = $product_info['stock_status'];
-                } elseif ($this->config->get('config_stock_display')) {
-                    $stock = $product_info['quantity'];
+                $quantity = $this->model_catalog_product->getTotalQuantityProduct($product_info['product_id']);
+
+                if ($quantity <= 0) {
+                    $stock = "Out of Stock";
                 } else {
-                    $stock = $this->language->get('text_instock');
+                    $stock = "";
                 }
 
                 if ($this->customer->isLogged() || !$this->config->get('config_customer_price')) {
@@ -93,8 +93,6 @@ class ControllerAccountWishList extends Controller
                 $this->model_account_wishlist->deleteWishlist($result['product_id']);
             }
         }
-
-        $data['continue'] = $this->url->link('common/home', 'language=' . $this->config->get('config_language'));
 
         $data['column_left'] = $this->load->controller('common/column_left');
         $data['column_right'] = $this->load->controller('common/column_right');
