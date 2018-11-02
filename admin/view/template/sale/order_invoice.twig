@@ -1,4 +1,5 @@
 <page>
+    <page_header></page_header>
     {% for order in orders %}
         <table style="width: 100%;vertical-align: bottom">
             <tr style="width: 100%">
@@ -117,66 +118,15 @@
             {% endfor %}
         </table>
     {% endfor %}
-    <page_footer>
-        test
-    </page_footer>
-</page>
-{#<div style="page-break-after: always;" style="margin-top: 25px">#}
-    {#<table class="table">#}
-        {#<thead>#}
-        {#<tr>#}
-            {#<td><b>{{ column_product }}</b></td>#}
-            {#<td><b>{{ column_model }}</b></td>#}
-            {#<td class="text-right"><b>{{ column_quantity }}</b></td>#}
-            {#<td class="text-right"><b>{{ column_price }}</b></td>#}
-            {#<td class="text-right"><b>{{ column_total }}</b></td>#}
-        {#</tr>#}
-        {#</thead>#}
-        {#<tbody>#}
-        {#{% for product in order.product %}#}
+    {#<page_footer>#}
+        {#<table style="width: 100%; border-top: 3px solid #ff1b5a;margin-bottom: -15px">#}
             {#<tr>#}
-                {#<td>{{ product.name }}#}
-                    {#{% for option in product.option %}#}
-                        {#<br/>#}
-                        {#&nbsp;#}
-                        {#<small> - {{ option.name }}: {{ option.value }}</small>#}
-                    {#{% endfor %}</td>#}
-                {#<td>{{ product.model }}</td>#}
-                {#<td class="text-right">{{ product.quantity }}</td>#}
-                {#<td class="text-right">{{ product.price }}</td>#}
-                {#<td class="text-right">{{ product.total }}</td>#}
+                {#<td style="width: 100%;text-align: center">#}
+                    {#Si vous avez besoin de plus d'informations ou d'aide au sujet de votre commande, nous vous suggerons#}
+                    {#de contacter notre service client <br>#}
+                    {#Nous esperons vous revoir bientot. Zalark.com#}
+                {#</td>#}
             {#</tr>#}
-        {#{% endfor %}#}
-        {#{% for voucher in order.voucher %}#}
-            {#<tr>#}
-                {#<td>{{ voucher.description }}</td>#}
-                {#<td></td>#}
-                {#<td class="text-right">1</td>#}
-                {#<td class="text-right">{{ voucher.amount }}</td>#}
-                {#<td class="text-right">{{ voucher.amount }}</td>#}
-            {#</tr>#}
-        {#{% endfor %}#}
-        {#{% for total in order.total %}#}
-            {#<tr>#}
-                {#<td class="text-right" colspan="4"><b>{{ total.title }}</b></td>#}
-                {#<td class="text-right">{{ total.text }}</td>#}
-            {#</tr>#}
-        {#{% endfor %}#}
-        {#</tbody>#}
-    {#</table>#}
-    {#{% if order.comment %}#}
-        {#<table class="table table-bordered">#}
-            {#<thead>#}
-            {#<tr>#}
-                {#<td><b>{{ text_comment }}</b></td>#}
-            {#</tr>#}
-            {#</thead>#}
-            {#<tbody>#}
-            {#<tr>#}
-                {#<td>{{ order.comment }}</td>#}
-            {#</tr>#}
-            {#</tbody>#}
         {#</table>#}
-    {#{% endif %}#}
-{#</div>#}
-{#</div>#}
+    {#</page_footer>#}
+</page>

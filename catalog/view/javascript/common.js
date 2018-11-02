@@ -217,16 +217,15 @@ var cart = {
                     }, 100);
 
                 }
-
+                $('#cart').load('index.php?route=common/cart/info ul li');
                 $('html, body').animate({scrollTop: 0}, 'slow');
+                $("#cart-dropdown").show(500)
 
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
             }
         });
-
-        $('#cart').load('index.php?route=common/cart/info ul li');
     },
     'update': function (key, quantity) {
         $.ajax({
