@@ -106,7 +106,6 @@ class ControllerCommonCart extends Controller
                 'name' => $product['name'],
                 'model' => $product['model'],
                 'option' => $option_data,
-                'recurring' => ($product['recurring'] ? $product['recurring']['name'] : ''),
                 'quantity' => $product['quantity'],
                 'price' => $price,
                 'old_price' => is_null($product['old_price']) ? null : $this->currency->format($product['old_price'], $this->session->data['currency']),

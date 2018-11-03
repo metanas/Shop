@@ -31,7 +31,7 @@
                     <ul class="nav nav-tabs">
                         {#<li class="active"><a href="#tab-general" data-toggle="tab">{{ tab_general }}</a></li>#}
                         <li class="active"><a href="#tab-links" data-toggle="tab">{{ tab_links }}</a></li>
-                        <li><a href="#tab-data" data-toggle="tab">{{ tab_data }}</a></li>
+                        <li id="tab-data-list"><a href="#tab-data" data-toggle="tab">{{ tab_data }}</a></li>
                         <li><a href="#tab-attribute" data-toggle="tab">{{ tab_attribute }}</a></li>
                         {#<li><a href="#tab-recurring" data-toggle="tab">{{ tab_recurring }}</a></li>#}
                         {#<li><a href="#tab-discount" data-toggle="tab">{{ tab_discount }}</a></li>#}
@@ -846,8 +846,8 @@
 </div>
 <script type="text/javascript"><!--
     // Reference
-    $('input[name=\'manufacturer\']').change(function () {
-            $('input[name=\'prefix_ref\']').val($(this).val().substr(0, 2).toUpperCase())
+    $('#tab-data-list').on('click', function () {
+            $('input[name=\'prefix_ref\']').val($("input[name=\'manufacturer\']").val().substr(0, 2).toUpperCase())
         }
     );
 
