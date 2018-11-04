@@ -4,7 +4,7 @@ class ModelCatalogProduct extends Model
 {
     public function addProduct($data)
     {
-        $this->db->query("INSERT INTO " . DB_PREFIX . "product SET model = '" . $this->db->escape((string)$data['model']) . "', name = '" . $this->db->escape((string)$data['name']) . "', ref = '" . $this->db->escape($data['prefix_ref'] . "-" . $data['ref']) . "', color = '" . $this->db->escape((string)$data['color']) . "', color_hex='" . $this->db->escape((string)$data['color_hex']) . "', minimum = '" . (int)$data['minimum'] . "', date_available = '" . $this->db->escape((string)$data['date_available']) . "', manufacturer_id = '" . (int)$data['manufacturer_id'] . "', shipping = '" . (int)$data['shipping'] . "', price = '" . (float)$data['price']  . "', status = '" . (int)$data['status'] . "', sort_order = '" . (int)$data['sort_order'] . "', date_added = NOW(), date_modified = NOW()");
+        $this->db->query("INSERT INTO " . DB_PREFIX . "product SET model = '" . $this->db->escape((string)$data['model']) . "', name = '" . $this->db->escape((string)$data['name']) . "', ref = '" . $this->db->escape($data['prefix_ref'] . "-" . $data['ref']) . "', color = '" . $this->db->escape((string)$data['color']) . "', color_hex='" . $this->db->escape((string)$data['color_hex']) . "', minimum = '" . (int)$data['minimum'] . "', date_available = '" . $this->db->escape((string)$data['date_available']) . "', manufacturer_id = '" . (int)$data['manufacturer_id'] . "', shipping = '" . (int)$data['shipping'] . "', price = '" . (float)$data['price'] . "', status = '" . (int)$data['status'] . "', sort_order = '" . (int)$data['sort_order'] . "', date_added = NOW(), date_modified = NOW()");
 
         $product_id = $this->db->getLastId();
 
@@ -350,7 +350,8 @@ class ModelCatalogProduct extends Model
     public function getProducts($data = array())
     {
         $first = true;
-        $sql = "SELECT * FROM " . DB_PREFIX . "product";
+
+        $sql = "SELECT *, p.image as image ,m.name as manufacturer, m.image as manufacturer_image FROM " . DB_PREFIX . "product p LEFT JOIN " . DB_PREFIX . "manufacturer m on (p.manufacturer_id = m.manufacturer_id)";
 
         if (!empty($data['filter_name'])) {
             if ($first) {
@@ -362,14 +363,14 @@ class ModelCatalogProduct extends Model
             $sql .= " name LIKE '" . $this->db->escape((string)$data['filter_name']) . "%'";
         }
 
-        if (!empty($data['filter_model'])) {
+        if (!empty($data['filter_manufacturer'])) {
             if ($first) {
                 $sql .= " WHERE";
                 $first = false;
             } else {
                 $sql .= " AND";
             }
-            $sql .= " model LIKE '" . $this->db->escape((string)$data['filter_model']) . "%'";
+            $sql .= " m.name LIKE '" . $this->db->escape((string)$data['filter_manufacturer']) . "%'";
         }
 
         if (!empty($data['filter_price'])) {
@@ -395,17 +396,17 @@ class ModelCatalogProduct extends Model
         $sql .= " GROUP BY product_id";
 
         $sort_data = array(
-            'name',
-            'model',
-            'price',
-            'status',
-            'sort_order'
+            'p.name',
+            'm.name',
+            'p.price',
+            'p.status',
+            'p.sort_order'
         );
 
         if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
             $sql .= " ORDER BY " . $data['sort'];
         } else {
-            $sql .= " ORDER BY name";
+            $sql .= " ORDER BY p.name";
         }
 
         if (isset($data['order']) && ($data['order'] == 'DESC')) {

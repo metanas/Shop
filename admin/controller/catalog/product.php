@@ -239,10 +239,10 @@ class ControllerCatalogProduct extends Controller
             $filter_name = '';
         }
 
-        if (isset($this->request->get['filter_model'])) {
-            $filter_model = $this->request->get['filter_model'];
+        if (isset($this->request->get['$filter_manufacturer'])) {
+            $filter_manufacturer = $this->request->get['filter_manufacturer'];
         } else {
-            $filter_model = '';
+            $filter_manufacturer = '';
         }
 
         if (isset($this->request->get['filter_price'])) {
@@ -287,8 +287,8 @@ class ControllerCatalogProduct extends Controller
             $url .= '&filter_name=' . urlencode(html_entity_decode($this->request->get['filter_name'], ENT_QUOTES, 'UTF-8'));
         }
 
-        if (isset($this->request->get['filter_model'])) {
-            $url .= '&filter_model=' . urlencode(html_entity_decode($this->request->get['filter_model'], ENT_QUOTES, 'UTF-8'));
+        if (isset($this->request->get['filter_manufacturer'])) {
+            $url .= '&filter_manufacturer=' . urlencode(html_entity_decode($this->request->get['filter_manufacturer'], ENT_QUOTES, 'UTF-8'));
         }
 
         if (isset($this->request->get['filter_price'])) {
@@ -335,7 +335,7 @@ class ControllerCatalogProduct extends Controller
 
         $filter_data = array(
             'filter_name' => $filter_name,
-            'filter_model' => $filter_model,
+            'filter_manufacturer' => $filter_manufacturer,
             'filter_price' => $filter_price,
             'filter_quantity' => $filter_quantity,
             'filter_status' => $filter_status,
@@ -375,7 +375,8 @@ class ControllerCatalogProduct extends Controller
                 'product_id' => $result['product_id'],
                 'image' => $image,
                 'name' => $result['name'],
-                'model' => $result['model'],
+                'manufacturer' => $result['manufacturer'],
+                'ref' => $result['ref'],
                 'color' => $result['color'],
                 'color_hex' => $result['color_hex'],
                 'price' => $this->currency->format($result['price'], $this->config->get('config_currency')),
@@ -414,8 +415,8 @@ class ControllerCatalogProduct extends Controller
             $url .= '&filter_name=' . urlencode(html_entity_decode($this->request->get['filter_name'], ENT_QUOTES, 'UTF-8'));
         }
 
-        if (isset($this->request->get['filter_model'])) {
-            $url .= '&filter_model=' . urlencode(html_entity_decode($this->request->get['filter_model'], ENT_QUOTES, 'UTF-8'));
+        if (isset($this->request->get['filter_manufacturer'])) {
+            $url .= '&filter_manufacturer=' . urlencode(html_entity_decode($this->request->get['filter_manufacturer'], ENT_QUOTES, 'UTF-8'));
         }
 
         if (isset($this->request->get['filter_price'])) {
@@ -441,7 +442,7 @@ class ControllerCatalogProduct extends Controller
         }
 
         $data['sort_name'] = $this->url->link('catalog/product', 'user_token=' . $this->session->data['user_token'] . '&sort=pd.name' . $url);
-        $data['sort_model'] = $this->url->link('catalog/product', 'user_token=' . $this->session->data['user_token'] . '&sort=p.model' . $url);
+        $data['sort_manufacturer'] = $this->url->link('catalog/product', 'user_token=' . $this->session->data['user_token'] . '&sort=p.manufacturer' . $url);
         $data['sort_price'] = $this->url->link('catalog/product', 'user_token=' . $this->session->data['user_token'] . '&sort=p.price' . $url);
         $data['sort_quantity'] = $this->url->link('catalog/product', 'user_token=' . $this->session->data['user_token'] . '&sort=p.quantity' . $url);
         $data['sort_status'] = $this->url->link('catalog/product', 'user_token=' . $this->session->data['user_token'] . '&sort=p.status' . $url);
@@ -453,8 +454,8 @@ class ControllerCatalogProduct extends Controller
             $url .= '&filter_name=' . urlencode(html_entity_decode($this->request->get['filter_name'], ENT_QUOTES, 'UTF-8'));
         }
 
-        if (isset($this->request->get['filter_model'])) {
-            $url .= '&filter_model=' . urlencode(html_entity_decode($this->request->get['filter_model'], ENT_QUOTES, 'UTF-8'));
+        if (isset($this->request->get['filter_manufacturer'])) {
+            $url .= '&filter_manufacturer=' . urlencode(html_entity_decode($this->request->get['filter_manufacturer'], ENT_QUOTES, 'UTF-8'));
         }
 
         if (isset($this->request->get['filter_price'])) {
@@ -488,7 +489,7 @@ class ControllerCatalogProduct extends Controller
         $data['results'] = sprintf($this->language->get('text_pagination'), ($product_total) ? (($page - 1) * $this->config->get('config_limit_admin')) + 1 : 0, ((($page - 1) * $this->config->get('config_limit_admin')) > ($product_total - $this->config->get('config_limit_admin'))) ? $product_total : ((($page - 1) * $this->config->get('config_limit_admin')) + $this->config->get('config_limit_admin')), $product_total, ceil($product_total / $this->config->get('config_limit_admin')));
 
         $data['filter_name'] = $filter_name;
-        $data['filter_model'] = $filter_model;
+        $data['filter_manufacturer'] = $filter_manufacturer;
         $data['filter_price'] = $filter_price;
         $data['filter_quantity'] = $filter_quantity;
         $data['filter_status'] = $filter_status;
@@ -942,30 +943,6 @@ class ControllerCatalogProduct extends Controller
                 'thumb' => $this->model_tool_image->resize($thumb, 100, 100),
                 'sort_order' => $product_image['sort_order']
             );
-        }
-
-        // Downloads
-        $this->load->model('catalog/download');
-
-        if (isset($this->request->post['product_download'])) {
-            $product_downloads = $this->request->post['product_download'];
-        } elseif (isset($this->request->get['product_id'])) {
-            $product_downloads = $this->model_catalog_product->getProductDownloads($this->request->get['product_id']);
-        } else {
-            $product_downloads = array();
-        }
-
-        $data['product_downloads'] = array();
-
-        foreach ($product_downloads as $download_id) {
-            $download_info = $this->model_catalog_download->getDownload($download_id);
-
-            if ($download_info) {
-                $data['product_downloads'][] = array(
-                    'download_id' => $download_info['download_id'],
-                    'name' => $download_info['name']
-                );
-            }
         }
 
         if (isset($this->request->post['product_related'])) {
