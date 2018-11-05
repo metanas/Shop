@@ -1091,7 +1091,7 @@ class ControllerCatalogProduct extends Controller
     {
         $json = array();
 
-        if (isset($this->request->get['filter_name']) || isset($this->request->get['filter_model'])) {
+        if (isset($this->request->get['filter_name']) || isset($this->request->get['filter_manufacturer'])) {
             $this->load->model('catalog/product');
             $this->load->model('catalog/option');
             $this->load->model('catalog/product_option');
@@ -1102,10 +1102,10 @@ class ControllerCatalogProduct extends Controller
                 $filter_name = '';
             }
 
-            if (isset($this->request->get['filter_model'])) {
-                $filter_model = $this->request->get['filter_model'];
+            if (isset($this->request->get['filter_manufacturer'])) {
+                $filter_manufacturer = $this->request->get['filter_manufacturer'];
             } else {
-                $filter_model = '';
+                $filter_manufacturer = '';
             }
 
             if (isset($this->request->get['limit'])) {
@@ -1116,7 +1116,7 @@ class ControllerCatalogProduct extends Controller
 
             $filter_data = array(
                 'filter_name' => $filter_name,
-                'filter_model' => $filter_model,
+                'filter_manufacturer' => $filter_manufacturer,
                 'start' => 0,
                 'limit' => $limit
             );
@@ -1158,13 +1158,11 @@ class ControllerCatalogProduct extends Controller
                     }
                 }
 
-                $json[] = array(
-                    'product_id' => $result['product_id'],
-                    'name' => strip_tags(html_entity_decode($result['name'], ENT_QUOTES, 'UTF-8')),
-                    'model' => $result['model'],
-                    'option' => $option_data,
-                    'price' => $result['price']
-                );
+                $json['name'][] = array('name' => strip_tags(html_entity_decode($result['name'], ENT_QUOTES, 'UTF-8')));
+                $json['manufacturer'][] = $result['manufacturer'];
+
+                $json['manufacturer'] = array_unique($json['manufacturer']);
+                $json = $results;
             }
         }
 

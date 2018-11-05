@@ -360,7 +360,7 @@ class ModelCatalogProduct extends Model
             } else {
                 $sql .= " AND";
             }
-            $sql .= " name LIKE '" . $this->db->escape((string)$data['filter_name']) . "%'";
+            $sql .= " p.name LIKE '" . $this->db->escape((string)$data['filter_name']) . "%'";
         }
 
         if (!empty($data['filter_manufacturer'])) {

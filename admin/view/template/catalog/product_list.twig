@@ -37,7 +37,7 @@
               <label class="control-label" for="input-name">{{ entry_name }}</label> <input type="text" name="filter_name" value="{{ filter_name }}" placeholder="{{ entry_name }}" id="input-name" class="form-control"/>
             </div>
             <div class="form-group">
-              <label class="control-label" for="input-model">{{ entry_manufacturer }}</label> <input type="text" name="filter_model" value="{{ filter_model }}" placeholder="{{ entry_model }}" id="input-model" class="form-control"/>
+              <label class="control-label" for="input-manufacturer">{{ entry_manufacturer }}</label> <input type="text" name="filter_manufacturer" value="{{ filter_manufacturer }}" placeholder="{{ entry_manufacturer }}" id="input-manufacturer" class="form-control"/>
             </div>
             <div class="form-group">
               <label class="control-label" for="input-price">{{ entry_price }}</label> <input type="text" name="filter_price" value="{{ filter_price }}" placeholder="{{ entry_price }}" id="input-price" class="form-control"/>
@@ -180,6 +180,7 @@ $('input[name=\'filter_name\']').autocomplete({
 			url: 'index.php?route=catalog/product/autocomplete&user_token={{ user_token }}&filter_name=' + encodeURIComponent(request),
 			dataType: 'json',
 			success: function(json) {
+			    console.log(json);
 				response($.map(json, function(item) {
 					return {
 						label: item['name'],
@@ -194,15 +195,15 @@ $('input[name=\'filter_name\']').autocomplete({
 	}
 });
 
-$('input[name=\'filter_model\']').autocomplete({
+$('input[name=\'filter_manufacturer\']').autocomplete({
 	'source': function(request, response) {
 		$.ajax({
-			url: 'index.php?route=catalog/product/autocomplete&user_token={{ user_token }}&filter_model=' + encodeURIComponent(request),
+			url: 'index.php?route=catalog/product/autocomplete&user_token={{ user_token }}&filter_manufacturer=' + encodeURIComponent(request),
 			dataType: 'json',
 			success: function(json) {
 				response($.map(json, function(item) {
 					return {
-						label: item['model'],
+						label: item['manufacturer'],
 						value: item['product_id']
 					}
 				}));
@@ -210,7 +211,7 @@ $('input[name=\'filter_model\']').autocomplete({
 		});
 	},
 	'select': function(item) {
-		$('input[name=\'filter_model\']').val(item['label']);
+		$('input[name=\'filter_manufacturer\']').val(item['label']);
 	}
 });
 //--></script>
