@@ -201,7 +201,8 @@ $('input[name=\'filter_manufacturer\']').autocomplete({
 			url: 'index.php?route=catalog/product/autocomplete&user_token={{ user_token }}&filter_manufacturer=' + encodeURIComponent(request),
 			dataType: 'json',
 			success: function(json) {
-				response($.map(json, function(item) {
+                console.log(json);
+                response($.map(json, function(item) {
 					return {
 						label: item['manufacturer'],
 						value: item['product_id']
