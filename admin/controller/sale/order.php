@@ -1,5 +1,5 @@
 <?php
-
+use Spipu\Html2Pdf\Html2Pdf;
 class ControllerSaleOrder extends Controller
 {
     private $error = array();
@@ -1564,7 +1564,10 @@ class ControllerSaleOrder extends Controller
             }
         }
 
-        $this->response->setOutput($this->load->view('sale/order_invoice', $data));
+        $pdf = new Html2Pdf('P','A4','fr');
+        $pdf->writeHTML($this->load->view('sale/order_invoice', $data));
+        $pdf->Output("te2st.pdf");
+
     }
 
     public function shipping()

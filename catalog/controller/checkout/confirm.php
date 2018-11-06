@@ -543,7 +543,7 @@ class ControllerCheckoutConfirm extends Controller
 
         $this->load->model('account/address');
 
-        if ($this->session->data['shipping_address']) {
+        if (isset($this->session->data['shipping_address'])) {
             $address_info = $this->model_account_address->getAddress($this->session->data['shipping_address']);
 
             $order_data['shipping_firstname'] = $address_info['firstname'];
@@ -556,7 +556,7 @@ class ControllerCheckoutConfirm extends Controller
             $order_data['shipping_country'] = $address_info['country'];
         }
 
-        if ($this->session->data['billing_address']) {
+        if (isset($this->session->data['billing_address'])) {
             $result = $this->session->data['billing_address'];
 
             $order_data['billing_firstname'] = $result['firstname'];

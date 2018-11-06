@@ -89,13 +89,15 @@ class ControllerCheckoutCart extends Controller
                     );
                 }
 
+                $old_price = 0;
+
                 // Display prices
                 if ($this->customer->isLogged() || !$this->config->get('config_customer_price')) {
                     $unit_price = $this->tax->calculate($product['price'], $product['tax_class_id'], $this->config->get('config_tax'));
 
                     $price = $this->currency->format($unit_price, $this->session->data['currency']);
                     $total = $this->currency->format($unit_price * $product['quantity'], $this->session->data['currency']);
-                    if ($product['old_price']) {
+                    if ($product['old_price'] != 0) {
                         $old_price = $this->currency->format($product['old_price'] * $product['quantity'], $this->session->data['currency']);
                     }
                 } else {
@@ -103,19 +105,6 @@ class ControllerCheckoutCart extends Controller
                     $total = false;
                 }
 
-                $recurring = '';
-
-                if ($product['recurring']) {
-                    if ($product['recurring']['trial']) {
-                        $recurring = sprintf($this->language->get('text_trial_description'), $this->currency->format($this->tax->calculate($product['recurring']['trial_price'] * $product['quantity'], $product['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']), $product['recurring']['trial_cycle'], $frequencies[$product['recurring']['trial_frequency']], $product['recurring']['trial_duration']) . ' ';
-                    }
-
-                    if ($product['recurring']['duration']) {
-                        $recurring .= sprintf($this->language->get('text_payment_description'), $this->currency->format($this->tax->calculate($product['recurring']['price'] * $product['quantity'], $product['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']), $product['recurring']['cycle'], $frequencies[$product['recurring']['frequency']], $product['recurring']['duration']);
-                    } else {
-                        $recurring .= sprintf($this->language->get('text_payment_cancel'), $this->currency->format($this->tax->calculate($product['recurring']['price'] * $product['quantity'], $product['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']), $product['recurring']['cycle'], $frequencies[$product['recurring']['frequency']], $product['recurring']['duration']);
-                    }
-                }
                 $product_option = $this->model_catalog_product->getProductOptionByName($product['product_id'], 'size', $option_data[0]['value']);
 
                 $data['products'][] = array(
@@ -125,7 +114,6 @@ class ControllerCheckoutCart extends Controller
                     'model' => $product['model'],
                     'color' => $product['color'],
                     'option' => $option_data,
-                    'recurring' => $recurring,
                     'quantity' => $product['quantity'],
                     'max_quantity' => isset($product_option['quantity']) ? $product_option['quantity'] : 1,
                     'stock' => $product['stock'] ? true : !(!$this->config->get('config_stock_checkout') || $this->config->get('config_stock_warning')),

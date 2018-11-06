@@ -1,197 +1,132 @@
-<!DOCTYPE html>
-<html dir="{{ direction }}" lang="{{ lang }}">
-<head>
-    <meta charset="UTF-8"/>
-    <title>{{ title }}</title>
-    <base href="{{ base }}"/>
-    <link href="view/javascript/bootstrap/css/bootstrap.css" rel="stylesheet" media="all"/>
-    <script type="text/javascript" src="view/javascript/jquery/jquery-2.1.1.min.js"></script>
-    <script type="text/javascript" src="view/javascript/bootstrap/js/bootstrap.min.js"></script>
-    <link href="view/javascript/font-awesome/css/font-awesome.min.css" type="text/css" rel="stylesheet"/>
-    <link type="text/css" href="view/stylesheet/stylesheet.css" rel="stylesheet" media="all"/>
-</head>
-<body>
-<div class="container" style="margin-top: 25px">
-    <div class="row" style="margin-bottom: 45px">
-        <div class="col-md-12">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="row">
-                        <div class="col-md-6"><img src="view/image/logo.png" class="img-responsive"></div>
-                    </div>
-                </div>
-                <div class="col-md-6" style="height: 100%">
-                    <div class="text-right">
-                        {% for order in orders %}
-                            {% if order.invoice_no %}
-                                <b>{{ text_invoice_no }}</b> {{ order.invoice_no }}<br/>
-                            {% endif %}
-                            <b>{{ text_order_id }}</b> {{ order.order_id }}<br/>
-                            <b>{{ text_date_added }}</b> {{ order.date_added }}<br/>
-                        {% endfor %}
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+<page>
+    <page_header></page_header>
     {% for order in orders %}
-        <h2>Bonjour, {{ order.customer }}</h2>
-        <p>Merci pour votre commande, Nous vous enverrons bientot un e-mail avec un lien pour suivre votre colis une
-            fois que nous l'aurons envoyee.</p>
-        <table style="margin-top: 25px">
+        <table style="width: 100%;vertical-align: bottom">
+            <tr style="width: 100%">
+                <td style="width: 30%">
+                    <img src="view/image/logo.png" style="width: 100%">
+                </td>
+                <td style="text-align: right;width: 70%;">
+                    {% if order.invoice_no %}
+                        <b>{{ text_invoice_no }}</b> {{ order.invoice_no }}<br/>
+                    {% endif %}
+
+                    <b>{{ text_order_id }}</b> {{ order.order_id }}<br/>
+                    <b>{{ text_date_added }}</b> {{ order.date_added }}
+                </td>
+            </tr>
+        </table>
+
+        <table style="margin-top: 10mm">
+            <tr>
+                <th><h2>Bonjour, {{ order.customer }}</h2></th>
+            </tr>
+            <tr>
+                <td>
+                    Merci pour votre commande, Nous vous enverrons bientot un e-mail avec un lien pour suivre votre
+                    colis une fois que nous l'aurons envoyee.
+                </td>
+            </tr>
+        </table>
+
+        <table style="margin-top: 5mm">
             {% if order.shipping_method %}
                 <tr>
                     <th>{{ text_shipping_method }}:</th>
-                    <td style="padding-left: 10px">{{ order.shipping_method }}</td>
+                    <td>{{ order.shipping_method }}</td>
                 </tr>
             {% endif %}
             <tr>
                 <th>{{ text_payment_method }}:</th>
-                <td style="padding-left: 10px">{{ order.payment_method }}</td>
+                <td>{{ order.payment_method }}</td>
             </tr>
         </table>
 
-        <div class="col-md-12" style="margin-bottom: 25px;margin-top: 25px">
-            <div class="row">
-                <div class="col-md-6" style="padding-left: 0;">
-                    <div class="col-md-12" style="border: 2px solid #ff1b5a;">
-                        <div class="row" style="background-color: #ff1b5a;">
-                            <div class="text-left"
-                                 style="color: white; font-weight: bold">{{ text_payment_address }}</div>
-                        </div>
-                        <div class="row" style="padding: 10px">
-                            {% if order.payment_address %}
-                                <div class="text-left">{{ order.payment_address }}</div>
-                                <b>{{ text_telephone }}</b> {{ order.store_telephone }}
-                            {% else %}
-                                <div class="text-left">{{ order.shipping_address }}</div>
-                                {{ text_telephone }}: {{ order.store_telephone }}
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6" style="padding-right: 0;">
-                    <div class="col-md-12" style="border: 2px solid #ff1b5a;">
-                        <div class="row" style="background-color: #ff1b5a;">
-                            <div class="text-left"
-                                 style="color: white; font-weight: bold;">{{ text_shipping_address }}</div>
-                        </div>
-                        <div class="row" style="padding: 10px">
-                            {% if order.shipping_address %}
-                                <div class="text-left">{{ order.shipping_address }}</div>
-                                {{ text_telephone }}: {{ order.store_telephone }}
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <table style="width: 100%;margin-top: 5mm;">
+            <tr style="width:100%;">
+                <th style="width: 48%;border : 1px solid black;background-color: #ff1b5a;color: whitesmoke;padding: 4px">
+                    {{ text_shipping_address }}
+                </th>
+                <td style="width: 4%">
 
-        <div style="page-break-after: always;" style="margin-top: 25px">
-            {#<table class="table table-bordered">#}
-                {#<thead>#}
-                {#<tr>#}
-                    {#<td colspan="2">{{ text_order_detail }}</td>#}
-                {#</tr>#}
-                {#</thead>#}
-                {#<tbody>#}
-                {#<tr>#}
-                    {#<td style="width: 50%;">#}
-                        {#<address>#}
-                            {#<strong>{{ order.store_name }}</strong><br/>#}
-                            {#{{ order.store_address }}#}
-                        {#</address>#}
-                        {#<b>{{ text_telephone }}</b> {{ order.store_telephone }}<br/>#}
-                        {#{% if order.store_fax %}#}
-                            {#<b>{{ text_fax }}</b> {{ order.store_fax }}<br/>#}
-                        {#{% endif %}#}
-                        {#<b>{{ text_email }}</b> {{ order.store_email }}<br/>#}
-                        {#<b>{{ text_website }}</b> <a href="{{ order.store_url }}">{{ order.store_url }}</a></td>#}
-                    {#<td style="width: 50%;">#}
-                    {#</td>#}
-                {#</tr>#}
-                {#</tbody>#}
-            {#</table>#}
-            {#<table class="table table-bordered">#}
-                {#<thead>#}
-                {#<tr>#}
-                    {#<td style="width: 50%;"><b>{{ text_payment_address }}</b></td>#}
-                    {#<td style="width: 50%;"><b>{{ text_shipping_address }}</b></td>#}
-                {#</tr>#}
-                {#</thead>#}
-                {#<tbody>#}
-                {#<tr>#}
-                    {#<td>#}
-                        {#<address>#}
-                            {#{{ order.payment_address }}#}
-                        {#</address>#}
-                    {#</td>#}
-                    {#<td>#}
-                        {#<address>#}
-                            {#{{ order.shipping_address }}#}
-                        {#</address>#}
-                    {#</td>#}
-                {#</tr>#}
-                {#</tbody>#}
-            {#</table>#}
-            <table class="table">
-                <thead>
-                <tr>
-                    <td><b>{{ column_product }}</b></td>
-                    <td><b>{{ column_model }}</b></td>
-                    <td class="text-right"><b>{{ column_quantity }}</b></td>
-                    <td class="text-right"><b>{{ column_price }}</b></td>
-                    <td class="text-right"><b>{{ column_total }}</b></td>
+                </td>
+                <th style="width: 48%;border : 1px solid black;background-color: #ff1b5a;color: whitesmoke;padding: 4px">
+                    {{ text_payment_address }}
+                </th>
+            </tr>
+            <tr style="width: 100%;">
+                <td style="width: 48%;border-bottom : 1px;border-left:1px;border-right: 1px;padding-left: 4px">
+                    {% if order.shipping_address %}
+                        <div>{{ order.shipping_address }}</div>
+                        {{ text_telephone }}: {{ order.store_telephone }}
+                    {% endif %}
+                </td>
+                <td style="width: 4%">
+
+                </td>
+                <td style="width: 48%;border-bottom : 1px;border-left:1px;border-right: 1px;padding-left: 4px">
+                    {% if order.payment_address %}
+                        <div>{{ order.payment_address }}</div>
+                        <b>{{ text_telephone }}</b> {{ order.store_telephone }}
+                    {% else %}
+                        <div>{{ order.shipping_address }}</div>
+                        {{ text_telephone }}: {{ order.store_telephone }}
+                    {% endif %}
+                </td>
+            </tr>
+        </table>
+
+        <table>
+            <tr>
+                <th><h3>{{ text_order_detail }}</h3></th>
+            </tr>
+        </table>
+
+        <table style="width: 100%">
+            <tr style="width: 100%">
+                <th style="width: 20%;">{{ column_product }}</th>
+                <th style="width: 20%;text-align: right">{{ column_model }}</th>
+                <th style="width: 20%;text-align: right"><b>{{ column_quantity }}</b></th>
+                <th style="width: 20%;text-align: right"><b>{{ column_price }}</b></th>
+                <th style="width: 20%;text-align: right"><b>{{ column_total }}</b></th>
+            </tr>
+            <tr style="width: 100%;">
+                <td colspan="5" style="border-top: 1px"></td>
+            </tr>
+            {% for product in order.product %}
+                <tr style="width: 100%">
+                    <td style="width: 20%">{{ product.name }}
+                        {% for option in product.option %}
+                            <br/>
+                            &nbsp;
+                            <small> - {{ option.name }}: {{ option.value }}</small>
+                        {% endfor %}</td>
+                    <td style="width: 20%;text-align: right">{{ product.model }}</td>
+                    <td style="width: 20%;text-align: right">{{ product.quantity }}</td>
+                    <td style="width: 20%;text-align: right">{{ product.price }}</td>
+                    <td style="width: 20%;text-align: right">{{ product.total }}</td>
                 </tr>
-                </thead>
-                <tbody>
-                {% for product in order.product %}
-                    <tr>
-                        <td>{{ product.name }}
-                            {% for option in product.option %}
-                                <br/>
-                                &nbsp;
-                                <small> - {{ option.name }}: {{ option.value }}</small>
-                            {% endfor %}</td>
-                        <td>{{ product.model }}</td>
-                        <td class="text-right">{{ product.quantity }}</td>
-                        <td class="text-right">{{ product.price }}</td>
-                        <td class="text-right">{{ product.total }}</td>
-                    </tr>
-                {% endfor %}
-                {% for voucher in order.voucher %}
-                    <tr>
-                        <td>{{ voucher.description }}</td>
-                        <td></td>
-                        <td class="text-right">1</td>
-                        <td class="text-right">{{ voucher.amount }}</td>
-                        <td class="text-right">{{ voucher.amount }}</td>
-                    </tr>
-                {% endfor %}
-                {% for total in order.total %}
-                    <tr>
-                        <td class="text-right" colspan="4"><b>{{ total.title }}</b></td>
-                        <td class="text-right">{{ total.text }}</td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
-            {% if order.comment %}
-                <table class="table table-bordered">
-                    <thead>
-                    <tr>
-                        <td><b>{{ text_comment }}</b></td>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>{{ order.comment }}</td>
-                    </tr>
-                    </tbody>
-                </table>
-            {% endif %}
-        </div>
+            {% endfor %}
+            <tr style="width: 100%;">
+                <td colspan="5" style="border-bottom: 1px"></td>
+            </tr>
+            {% for total in order.total %}
+                <tr>
+                    <td style="text-align: right" colspan="4"><b>{{ total.title }}</b></td>
+                    <td style="text-align: right">{{ total.text }}</td>
+                </tr>
+            {% endfor %}
+        </table>
     {% endfor %}
-</div>
-</body>
-</html>
+    <page_footer>
+        <table style="width: 100%; border-top: 3px solid #ff1b5a;">
+            <tr>
+                <td style="width: 100%;text-align: center">
+                    Si vous avez besoin de plus d'informations ou d'aide au sujet de votre commande, nous vous suggerons
+                    de contacter notre service client <br>
+                    Nous esperons vous revoir bientot. Zalark.com
+                </td>
+            </tr>
+        </table>
+    </page_footer>
+</page>

@@ -14,7 +14,8 @@ $_['text_keyword']           = 'N\'utilisez pas d\'espaces, remplacez les espace
 
 // Column
 $_['column_name']            = 'Nom du produit';
-$_['column_model']           = 'Modèle';
+$_['column_reference']       = 'Reference';
+$_['column_manufacturer']    = 'Fabricant';
 $_['column_image']           = 'Image';
 $_['column_price']           = 'Prix';
 $_['column_quantity']        = 'Quantité';
