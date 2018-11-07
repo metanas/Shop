@@ -310,17 +310,6 @@ class Cart
         return false;
     }
 
-    public function hasDownload()
-    {
-        foreach ($this->getProducts() as $product) {
-            if ($product['download']) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
     public function getTotalQuantityProduct($product_id)
     {
         $query = $this->db->query("SELECT SUM(pov.quantity) AS total FROM " . DB_PREFIX . "product_option_value as pov left join " . DB_PREFIX . "option o on(o.option_id=pov.option_id) where o.type='size' and pov.product_id='" . (int)$product_id . "'");

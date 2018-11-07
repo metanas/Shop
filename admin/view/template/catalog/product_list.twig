@@ -180,7 +180,6 @@ $('input[name=\'filter_name\']').autocomplete({
 			url: 'index.php?route=catalog/product/autocomplete&user_token={{ user_token }}&filter_name=' + encodeURIComponent(request),
 			dataType: 'json',
 			success: function(json) {
-			    console.log(json);
 				response($.map(json, function(item) {
 					return {
 						label: item['name'],
@@ -201,7 +200,6 @@ $('input[name=\'filter_manufacturer\']').autocomplete({
 			url: 'index.php?route=catalog/product/autocomplete&user_token={{ user_token }}&filter_manufacturer=' + encodeURIComponent(request),
 			dataType: 'json',
 			success: function(json) {
-                console.log(json);
                 response($.map(json, function(item) {
 					return {
 						label: item['manufacturer'],

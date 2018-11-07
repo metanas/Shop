@@ -1728,7 +1728,7 @@ ul {
     cursor: pointer;
 }
 
-.close-address {
+.delete-address {
     position: absolute;
     top: 0;
     right: 20px;

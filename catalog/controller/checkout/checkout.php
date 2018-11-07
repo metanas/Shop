@@ -39,6 +39,7 @@ class ControllerCheckoutCheckout extends Controller
         $this->document->addScript('catalog/view/javascript/jquery/datetimepicker/moment/moment-with-locales.min.js');
         $this->document->addScript('catalog/view/javascript/jquery/datetimepicker/bootstrap-datetimepicker.min.js');
         $this->document->addScript('catalog/view/javascript/loading.js');
+        $this->document->addStyle('catalog/view/theme/default/stylesheet/loading.css');
         $this->document->addStyle('catalog/view/javascript/jquery/datetimepicker/bootstrap-datetimepicker.min.css');
 
         // Required by klarna

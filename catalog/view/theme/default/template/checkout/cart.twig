@@ -75,9 +75,13 @@
                                                             <div class="input-group btn-block">
                                                                 <select name="quantity[{{ product.cart_id }}]"
                                                                         class="select-zalark">
-                                                                    {% for i in 1..product.max_quantity %}
-                                                                        <option value="{{ i }}" {% if product.quantity == i %} selected {% endif %}>{{ i }}</option>
-                                                                    {% endfor %}
+                                                                    {% if  product.max_quantity > 0 %}
+                                                                        {% for i in 1..product.max_quantity %}
+                                                                            <option value="{{ i }}" {% if product.quantity == i %} selected {% endif %}>{{ i }}</option>
+                                                                        {% endfor %}
+                                                                    {% else %}
+                                                                        <option value="0" selected >0</option>
+                                                                    {% endif %}
                                                                 </select>
                                                                 <i class="fa fa-angle-down"
                                                                    style="position: absolute;padding: 13px;cursor: pointer;right: 0;top: 0;"></i>
@@ -125,7 +129,8 @@
                                     <td class="text-right">{{ voucher.amount }}</td>
                                 </tr>
                             {% endfor %}
-                            <p class="c_info" style="margin-left: 12px"><span class="glyphicon glyphicon-asterisk"></span>
+                            <p class="c_info" style="margin-left: 12px"><span
+                                        class="glyphicon glyphicon-asterisk"></span>
                                 Les articles dans le panier ne sont pas reservés</p>
                         </div>
                         <div class="col-sm-12" style="background-color: white; margin-top: 12px; padding-bottom: 15px">
@@ -218,11 +223,16 @@
             url: "index.php?route=checkout/cart/edit",
             type: "POST",
             data: {"cart_id": cart_id, "quantity": quantity},
+            beforeSend: function () {
+                $('body').loading({message: "chargement.."});
+            },
+            complete: function () {
+                $('body').loading('stop');
+            },
             success: function (json) {
                 if (json['success']) {
                     $('#sub-total').html(json['total']);
                     $('#total').html("<b>" + json['total'] + "</b>");
-                    console.log(s.parents('.info').children('.product-price'));
                     s.parents('.info').children('.product-price').children('.price-new').html(json['price']);
                     if (json['old_price']) {
                         s.parents('.info').children('.product-price').children('.price-old').html(json['old_price'])

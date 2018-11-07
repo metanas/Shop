@@ -6,7 +6,7 @@ class ControllerCheckoutLogin extends Controller
     {
         $this->load->language('checkout/checkout');
 
-        $data['checkout_guest'] = ($this->config->get('config_checkout_guest') && !$this->config->get('config_customer_price') && !$this->cart->hasDownload());
+        $data['checkout_guest'] = ($this->config->get('config_checkout_guest') && !$this->config->get('config_customer_price'));
 
         if (isset($this->session->data['account'])) {
             $data['account'] = $this->session->data['account'];
