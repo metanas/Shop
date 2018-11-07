@@ -31,7 +31,7 @@
                             </label>
                         </div>
                         <i class="edit-address fa fa-pencil"></i>
-                        <i class="close-address fa fa-close"></i>
+                        <i class="delete-address fa fa-close"></i>
                         <hr>
                     </div>
                 {% endfor %}
@@ -223,14 +223,16 @@
 <script>
 
     $("#container-address").on("mouseenter", '.address-form', function () {
-        $(".close-address", this).show();
-        $(".edit-address", this).animate({
-            marginTop: "70px"
-        }, 100)
+        if (!isMobile.any()) {
+            $(".delete-address", this).show();
+            $(".edit-address", this).animate({
+                marginTop: "70px"
+            }, 100)
+        }
     });
 
     $("#container-address").on('mouseleave', '.address-form', function () {
-        $(".close-address", this).hide();
+        $(".delete-address", this).hide();
         $(".edit-address", this).animate({
             marginTop: "0"
         }, 100)
@@ -265,12 +267,20 @@
             type: 'post',
             data: $('#add-address-field input[type="text"], #add-address-field input[type="radio"]:checked, #add-address-field select'),
             dataType: 'json',
+            beforeSend: function () {
+                $('body').loading({message: "chargement.."});
+            },
+            complete: function () {
+                $('body').loading('stop');
+            },
             success: function (json) {
                 if (json['success']) {
                     let result = json['result'];
                     $('.address-form :input[value="' + result['address_id'] + '"]').parents('.address-form').remove();
                     setAddress(result);
                     refactorForm();
+                    $('html, body').animate({scrollTop: 0}, 'slow');
+
                 }
             },
             error: function (d, r, e) {
@@ -285,6 +295,12 @@
             url: "index.php?route=checkout/shipping_address/info",
             type: "POST",
             data: {"address_id": id},
+            beforeSend: function () {
+                $('body').loading({message: "chargement.."});
+            },
+            complete: function () {
+                $('body').loading('stop');
+            },
             success: function (json) {
                 if (json['result'] !== false) {
                     let result = json['result'];
@@ -298,19 +314,28 @@
                     $('input[name="telephone"]').val(result['telephone']);
                     $('#update-address').show();
                     $('#add-address').hide();
-                    $('#add-address-field').show(200)
+                    $('#add-address-field').show(200);
+
+                    $('html, body').animate({scrollTop: $(window).scrollTop() + $(window).height()}, 'slow');
+
                 }
             }
         })
     });
 
     var ob;
-    $("#container-address").on("click", ".close-address", function () {
+    $("#container-address").on("click", ".delete-address", function () {
         ob = $(this).parent(".address-form");
         $.ajax({
             url: "index.php?route=checkout/shipping_address/delete",
             type: "POST",
             data: {"address_id": ob[0].children[0].children[0].children[0].value},
+            beforeSend: function () {
+                $('body').loading({message: "chargement.."});
+            },
+            complete: function () {
+                $('body').loading('stop');
+            },
             success: function (json) {
                 if (json['redirect']) {
                     location = json['redirect'];
@@ -333,6 +358,12 @@
             type: "post",
             data: $("#container-address .form-group input[name='address']:checked, input[name='billing']:checked , #container-billing input[type=\"text\"], #container-billing .select-zalark option:selected"),
             dataType: "json",
+            beforeSend: function () {
+                $('body').loading({message: "chargement.."});
+            },
+            complete: function () {
+                $('body').loading('stop');
+            },
             success: function (json) {
                 if (json['redirect']) {
                     location = json['redirect'];
@@ -366,21 +397,23 @@
     });
 
     function setAddress(json) {
-        html = "<div class=\"col-sm-12 address-form\">";
-        html += "<div class=\"form-group\">";
-        html += "<label class=\"check_filter\">";
-        html += "<input type=\"radio\" class=\"checkbox\" name=\"address\" value='" + json['address_id'] + "' checked>" + json['firstname'] + " " + json['lastname'];
-        html += "<br>" + json['address_1'] + " " + json['address_2'] + "<br>" + json['postcode'] + " ";
-        html += json['city'] + "<br> Maroc <br> T: " + json['telephone'];
-        html += "<span class=\"checkmark checkradio\"></span>";
-        html += "</label></div>";
-        html += "<span class=\"edit-address\"><i class=\"fa fa-pencil\"></i></span>";
-        html += "<span class=\"close-address\"><i class=\"fa fa-close\"></i></span>";
-        html += "<hr></div>";
+        if (json) {
+            html = "<div class=\"col-sm-12 address-form\">";
+            html += "<div class=\"form-group\">";
+            html += "<label class=\"check_filter\">";
+            html += "<input type=\"radio\" class=\"checkbox\" name=\"address\" value='" + json['address_id'] + "' checked><b>" + json['firstname'] + " " + json['lastname'];
+            html += "</b><br>" + json['address_1'] + " " + json['address_2'] + "<br>" + json['postcode'] + " ";
+            html += json['city'] + "<br> Maroc <br> T: " + json['telephone'];
+            html += "<span class=\"checkmark checkradio\"></span>";
+            html += "</label></div>";
+            html += "<span class=\"edit-address\"><i class=\"fa fa-pencil\"></i></span>";
+            html += "<span class=\"delete-address\"><i class=\"fa fa-close\"></i></span>";
+            html += "<hr></div>";
 
-        $('#container-address').prepend(html);
+            $('#container-address').prepend(html);
 
-        refactorForm();
+            refactorForm();
+        }
     }
 
     $("#add-address").on("click", function () {
@@ -410,6 +443,12 @@
             type: 'post',
             data: $('#add-address-field input[type="text"], #add-address-field input[type="radio"]:checked, #add-address-field select'),
             dataType: 'json',
+            beforeSend: function () {
+                $('body').loading({message: "chargement.."});
+            },
+            complete: function () {
+                $('body').loading('stop');
+            },
             success: function (json) {
                 setAddress(json);
             },

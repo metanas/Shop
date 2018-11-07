@@ -9,6 +9,10 @@ class ControllerCheckoutCart extends Controller
         $this->document->setTitle($this->language->get('heading_title'));
 
         if ($this->cart->hasProducts() || !empty($this->session->data['vouchers'])) {
+
+            $this->document->addScript('catalog/view/javascript/loading.js');
+            $this->document->addStyle('catalog/view/theme/default/stylesheet/loading.css');
+
             if ($this->config->get('config_customer_price') && !$this->customer->isLogged()) {
                 $data['attention'] = sprintf($this->language->get('text_login'), $this->url->link('account/login', 'language=' . $this->config->get('config_language')), $this->url->link('account/login', 'language=' . $this->config->get('config_language')));
             } else {
