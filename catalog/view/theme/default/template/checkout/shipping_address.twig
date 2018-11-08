@@ -356,7 +356,7 @@
         $.ajax({
             url: "index.php?route=checkout/shipping_address/save",
             type: "post",
-            data: $("#container-address .form-group input[name='address']:checked, input[name='billing']:checked , #container-billing input[type=\"text\"], #container-billing .select-zalark option:selected"),
+            data: $("#container-address .form-group input[name='address']:checked, input[name='billing']:checked , #container-billing input[type=\"text\"], #add-address-field select"),
             dataType: "json",
             beforeSend: function () {
                 $('body').loading({message: "chargement.."});
