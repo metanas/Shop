@@ -594,6 +594,9 @@ class ControllerCheckoutConfirm extends Controller
         if (isset($this->request->post['delivery'])) {
             $order_data['shipping_method'] = 'STANDARD';
             $order_data['shipping_code'] = 200117;
+        }else{
+            $order_data['shipping_method'] = '';
+            $order_data['shipping_code'] = "";
         }
 
         $this->load->language('checkout/checkout');
