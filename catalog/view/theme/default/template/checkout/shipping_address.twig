@@ -365,6 +365,7 @@
                 $('body').loading('stop');
             },
             success: function (json) {
+                console.log(json);
                 if (json['redirect']) {
                     location = json['redirect'];
                 } else if (json['not_found']) {
