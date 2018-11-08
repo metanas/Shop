@@ -662,12 +662,10 @@ class ControllerCheckoutConfirm extends Controller
                 'name' => $product['name'],
                 'model' => $product['model'],
                 'option' => $option_data,
-                'download' => $product['download'],
                 'quantity' => $product['quantity'],
                 'price' => $product['price'],
                 'total' => $product['total'],
                 'tax' => $this->tax->getTax($product['price'], $product['tax_class_id']),
-                'reward' => $product['reward']
             );
         }
 
