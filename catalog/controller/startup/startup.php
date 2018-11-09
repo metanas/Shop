@@ -228,7 +228,5 @@ class ControllerStartupStartup extends Controller {
 		// OpenBay Pro
 		$this->registry->set('openbay', new Openbay($this->registry));
 
-		// Html2Pdf
-        $this->registry->set("html2pdf", new  Spipu\Html2Pdf\Html2Pdf());
 	}
 }
