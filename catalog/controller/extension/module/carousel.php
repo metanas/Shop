@@ -36,11 +36,11 @@ class ControllerExtensionModuleCarousel extends Controller
 
         if ($setting['name'] == "SpecialsCarousel") {
             $results = $this->model_catalog_product->getProductSpecials($filter_data);
-            $data['heading_title'] = "OFFERES";
+            $data['heading_title'] = "Offres";
             $data['category_link'] = $this->url->link('product/category', array("path" => $category[0]['category_id'], "special" => "special"));
         } else {
             $results = $this->model_catalog_product->getProducts($filter_data);
-            $data['heading_title'] = "NOUVEAUTÉ";
+            $data['heading_title'] = "Nouveauté";
             $data['category_link'] = $this->url->link('product/category', array("path" => $category[0]['category_id']));
         }
 
