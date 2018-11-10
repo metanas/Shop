@@ -270,13 +270,21 @@ var cart = {
                 $('#cart > button').button('reset');
             },
             success: function (json) {
+                console.log(json);
                 if (getURLVar('route') == 'checkout/cart' || (getURLVar('route') == 'checkout/checkout' && json['redirect'])) {
                     location = 'index.php?route=checkout/cart';
+                }else if (getURLVar('route') == "checkout/checkout"){
+
+                    if($('.price-new').length){
+                        $(".price-new").html("<b>" + json['total_discounted'] + "</b>");
+                        $(".price-old").html("<b>" + json['total'] + "</b>");
+                    }else {
+                        $("#total").html("<b>" + json['total'] + "</b>")
+                    }
+
                 } else {
                     $('#cart > ul').load('index.php?route=common/cart/info');
                 }
-
-                $("#total").html("<b>" + json['total'] + "</b>")
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
