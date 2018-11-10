@@ -128,7 +128,7 @@ div.required .control-label:before {
     border-bottom: 1px solid RGB(229, 33, 92);
     height: 30px;
     font-weight: bold;
-    margin-bottom: 20px;
+
 }
 
 #top p {
@@ -1829,7 +1829,9 @@ ul {
 }
 .hidden-md-down
 {
-    height:15px;
+    margin-bottom: 20px;
     background-color: #f7f7f7;
-    width:100%;
+    width: 100%;
+    padding-top: 20px;
+
 }
