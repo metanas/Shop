@@ -406,11 +406,6 @@ class ControllerCheckoutCart extends Controller
 
             $json['success'] = $this->language->get('text_remove');
 
-            unset($this->session->data['shipping_method']);
-            unset($this->session->data['shipping_methods']);
-            unset($this->session->data['payment_method']);
-            unset($this->session->data['payment_methods']);
-
             // Totals
             $this->load->model('setting/extension');
 
@@ -458,7 +453,9 @@ class ControllerCheckoutCart extends Controller
 
                 array_multisort($sort_order, SORT_ASC, $totals);
             }
-            $json['total'] =  $this->currency->format($total, $this->session->data['currency']);
+
+            $json['total'] = $this->currency->format($totals[0]['value'], $this->session->data['currency']);
+            $json['total_discounted'] = $this->currency->format($totals[2]['value'], $this->session->data['currency']);
         }
 
         $this->response->addHeader('Content-Type: application/json');
