@@ -108,7 +108,7 @@ class ControllerCommonCart extends Controller
                 'option' => $option_data,
                 'quantity' => $product['quantity'],
                 'price' => $price,
-                'old_price' => is_null($product['old_price']) ? null : $this->currency->format($product['old_price'], $this->session->data['currency']),
+                'old_price' => $product['old_price'] ? $this->currency->format($product['old_price'], $this->session->data['currency']) : null,
                 'total' => $total,
                 'href' => $this->url->link('product/product', 'language=' . $this->config->get('config_language') . '&product_id=' . $product['product_id'])
             );
