@@ -270,7 +270,6 @@ var cart = {
                 $('#cart > button').button('reset');
             },
             success: function (json) {
-                console.log(json);
                 if (getURLVar('route') == 'checkout/cart' || (getURLVar('route') == 'checkout/checkout' && json['redirect'])) {
                     location = 'index.php?route=checkout/cart';
                 }else if (getURLVar('route') == "checkout/checkout"){
