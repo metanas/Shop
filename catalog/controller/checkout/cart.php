@@ -453,9 +453,8 @@ class ControllerCheckoutCart extends Controller
 
                 array_multisort($sort_order, SORT_ASC, $totals);
             }
-
             $json['total'] = $this->currency->format($totals[0]['value'], $this->session->data['currency']);
-            $json['total_discounted'] = $this->currency->format($totals[2]['value'], $this->session->data['currency']);
+            $json['total_discounted'] = isset($this->session->data['coupon']) ? $this->currency->format($totals[2]['value'], $this->session->data['currency']) : $this->currency->format($totals[1]['value'], $this->session->data['currency']);
         }
 
         $this->response->addHeader('Content-Type: application/json');
