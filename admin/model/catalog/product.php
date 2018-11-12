@@ -351,7 +351,7 @@ class ModelCatalogProduct extends Model
     {
         $first = true;
 
-        $sql = "SELECT *, p.image as image ,m.name as manufacturer, m.image as manufacturer_image FROM " . DB_PREFIX . "product p LEFT JOIN " . DB_PREFIX . "manufacturer m on (p.manufacturer_id = m.manufacturer_id)";
+        $sql = "SELECT *, p.image as image ,p.name as name, m.name as manufacturer, m.image as manufacturer_image FROM " . DB_PREFIX . "product p LEFT JOIN " . DB_PREFIX . "manufacturer m on (p.manufacturer_id = m.manufacturer_id)";
 
         if (!empty($data['filter_name'])) {
             if ($first) {
