@@ -4,7 +4,7 @@
         <div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> {{ success }}</div>
     {% endif %}
     <div class="row">
-        <div class="col-lg-3 col-md-3 col-sm-3">
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
             <div id="slidebar" class="slide-bar">
                 <a href="javascript:void(0)" class="closebtn visible-xs">&times;</a>
                 <h2>{{ text_my_account }}</h2>
@@ -26,12 +26,12 @@
 </div>
 <script>
     $('body').on('click', '#slide-bar-button', function () {
-        document.getElementById("slidebar").style.width = "100%";
+        $("#slidebar").css({"width" : "100%"});
     });
 
     /* Close/hide the sidenav */
     $('body').on('click', '.closebtn', function () {
-        document.getElementById("slidebar").style.width = "0";
+        $("#slidebar").css({"width" : "0"});
     });
 </script>
 {{ footer }}

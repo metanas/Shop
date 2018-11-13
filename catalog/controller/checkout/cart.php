@@ -38,19 +38,11 @@ class ControllerCheckoutCart extends Controller
             $this->load->model('tool/image');
             $this->load->model('tool/upload');
 
-            $frequencies = array(
-                'day' => $this->language->get('text_day'),
-                'week' => $this->language->get('text_week'),
-                'semi_month' => $this->language->get('text_semi_month'),
-                'month' => $this->language->get('text_month'),
-                'year' => $this->language->get('text_year')
-            );
-
             $data['products'] = array();
 
             $products = $this->cart->getProducts();
 
-            $data['total_products'] = count($products);
+            $data['total_products'] = $this->cart->countProducts();
             $this->load->model('catalog/product');
 
             foreach ($products as $product) {
@@ -372,7 +364,7 @@ class ControllerCheckoutCart extends Controller
             $this->cart->update($this->request->post['cart_id'], $this->request->post['quantity']);
 
             $json['success'] = $this->language->get('text_remove');
-
+            $json['product_count']  = $this->cart->countProducts();
             $json['total'] = $this->currency->format($this->cart->getTotal(), $this->session->data['currency']);
 
             $prices = $this->cart->getProduct($this->request->post['cart_id']);

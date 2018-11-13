@@ -69,8 +69,6 @@ class ControllerProductProduct extends Controller {
 				$url .= '&limit=' . $this->request->get['limit'];
 			}
 
-			$manufacturer_info = $this->model_catalog_manufacturer->getManufacturer($this->request->get['manufacturer_id']);
-
 		}
 
 		if (isset($this->request->get['search']) || isset($this->request->get['tag'])) {
@@ -130,10 +128,12 @@ class ControllerProductProduct extends Controller {
 		$data['category'] = $product_category;
 
 		$product_info = $this->model_catalog_product->getProduct($product_id);
-		$manufacturer_img = $this->model_catalog_manufacturer->getManufacturer($product_info['manufacturer_id']);
-		if(isset($manufacturer_img['image']))
-		    $data['manufacturer_img'] = $this->model_tool_image->resize($manufacturer_img['image'], $this->config->get('theme_' . $this->config->get('config_theme') . '_image_additional_width'), $this->config->get('theme_' . $this->config->get('config_theme') . '_image_additional_height'));
-		
+        $manufacturer_info = $this->model_catalog_manufacturer->getManufacturer($product_info['manufacturer_id']);
+
+		if(isset($manufacturer_info['image'])) {
+            $data['manufacturer_img'] = $this->model_tool_image->resize($manufacturer_info['image'], $this->config->get('theme_' . $this->config->get('config_theme') . '_image_additional_width'), $this->config->get('theme_' . $this->config->get('config_theme') . '_image_additional_height'));
+            $data['manufacturer_name'] = $manufacturer_info['name'];
+		}
 		$product_similar = $this->model_catalog_product->getSimilarProduct($product_id);
 
         $data['product_similar'] = array();

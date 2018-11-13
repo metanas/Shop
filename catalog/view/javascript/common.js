@@ -217,11 +217,10 @@ var cart = {
                         $('#cart > button').html('<span id="cart-total"><i class="fa fa-shopping-cart"></i> ' + json['total'] + '</span>');
                     }, 100);
 
+                    $('#cart').load('index.php?route=common/cart/info');
+                    $("#cart-dropdown").show()
                 }
-                $('#cart').load('index.php?route=common/cart/info ul li');
                 $('html, body').animate({scrollTop: 0}, 'slow');
-                $("#cart-dropdown").show(500)
-
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);

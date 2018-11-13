@@ -58,17 +58,16 @@
                 <div class="{{ class }}">
                     {% if manufacturer_img %}
                         <img src="{{ manufacturer_img }}">
-                        <h4>{{ heading_title }}</h4>
                     {% else %}
-                        <h1>{{ heading_title }}</h1>
+                        <h3>{{ manufacturer_name }}</h3>
                     {% endif %}
+                    <h1>{{ heading_title }}</h1>
                     <ul class="list-unstyled">
-                        <li><h3>{{ model }}</h3></li>
                         {% if reward %}
                             <li>{{ text_reward }} {{ reward }}</li>
                         {% endif %}
                         {% if stock %}
-                        <li>{{ text_stock }} {{ stock }}</li>
+                            <li>{{ text_stock }} {{ stock }}</li>
                         {% endif %}
                     </ul>
                     {% if price %}
@@ -100,11 +99,15 @@
                     {% endif %}
 
                     <div id="samecolor">
-                        <a><img id="main_thumb" style="width:74px; border-bottom: 2px black solid" src="{{ thumb }}"
-                                alt="{{ popup }}"/></a>
+                        {% if product_similar|length > 0 %}
+                            <a><img id="main_thumb" style="width:74px; border-bottom: 2px black solid" src="{{ thumb }}"
+                                    alt="{{ popup }}"/></a>
+                        {% endif %}
+
                         {% for similar in product_similar %}
                             <a href="{{ similar.href }}"><img class="similar_img" src="{{ similar.image }}"
-                                                              alt="{{ similar.popup }}" data-color="{{ similar.color }}"
+                                                              alt="{{ similar.popup }}"
+                                                              data-color="{{ similar.color }}"
                                                               data-price="{{ similar.price }}"/></a>
                         {% endfor %}
                     </div>
