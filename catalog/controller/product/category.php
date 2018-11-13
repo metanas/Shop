@@ -196,6 +196,9 @@ class ControllerProductCategory extends Controller
             $data['products_manufacture'] = array_unique($manufactures);
             $data['products_size'] = array_unique($sizes);
             $data['products_color'] = array_unique($colors);
+            sort($data['products_size']);
+            sort($data['products_color']);
+            sort($data['products_manufacture']);
 
 
             if (!empty($price)) {

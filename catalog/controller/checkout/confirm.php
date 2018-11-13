@@ -498,7 +498,7 @@ class ControllerCheckoutConfirm extends Controller
                 'quantity' => $product['quantity'],
                 'option' => $option_data,
                 'color' => $product['color'],
-                'price' => $this->currency->format($product['price'], $this->session->data['currency'])
+                'price' => $this->currency->format($product['price']*$product['quantity'], $this->session->data['currency'])
             );
         }
 
