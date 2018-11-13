@@ -101,8 +101,6 @@ class ControllerProductCategory extends Controller
 
             $this->document->setTitle($category_info['name']);
 
-            $data['text_compare'] = sprintf($this->language->get('text_compare'), (isset($this->session->data['compare']) ? count($this->session->data['compare']) : 0));
-
             if ($category_info['image']) {
                 $data['thumb'] = $this->model_tool_image->resize($category_info['image'], $this->config->get('theme_' . $this->config->get('config_theme') . '_image_category_width'), $this->config->get('theme_' . $this->config->get('config_theme') . '_image_category_height'));
             } else {
@@ -195,6 +193,7 @@ class ControllerProductCategory extends Controller
 
             $data['products_manufacture'] = array_unique($manufactures);
             $data['products_size'] = array_unique($sizes);
+            sort($data['products_size']);
             $data['products_color'] = array_unique($colors);
             sort($data['products_size']);
             sort($data['products_color']);
