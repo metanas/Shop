@@ -1368,6 +1368,9 @@ ul {
 }
 
 .prix-product-page {
+    margin-top: 35px;
+    font-size: 18px;
+;
 
 }
 
@@ -1697,6 +1700,7 @@ ul {
 .description {
     color: #a6a6a6;
     font-size: 12px;
+    margin-left: 5px;
 }
 
 .condition-general {

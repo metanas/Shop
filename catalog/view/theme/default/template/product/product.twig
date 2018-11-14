@@ -57,32 +57,31 @@
                 {% endif %}
                 <div class="{{ class }}">
                     {% if manufacturer_img %}
-                        <img src="{{ manufacturer_img }}">
+                        <img src="{{ manufacturer_img }}"><div style="font-weight: bold; margin-top: 29px;" >{{ manufacturer_name }}</div>
                     {% else %}
                         <h3>{{ manufacturer_name }}</h3>
                     {% endif %}
-                    <h1>{{ heading_title }}</h1>
+                    <h3 style="margin-top: 12px;">{{ heading_title }}</h3>
                     <ul class="list-unstyled">
                         {% if reward %}
                             <li>{{ text_reward }} {{ reward }}</li>
                         {% endif %}
-                        {% if stock %}
-                            <li>{{ text_stock }} {{ stock }}</li>
-                        {% endif %}
+
+
                     </ul>
                     {% if price %}
                         <ul class="list-unstyled">
                             {% if not special %}
                                 <li>
-                                    <h4 id="price_tag" class="prix-product-page">{{ price }}</h4>
+                                    <h4 id="price_tag" class="prix-product-page">{{ price }} <span class="description">TVA incluse</span></h4>
                                 </li>
                             {% else %}
                                 <li>
                                     <span class="price-old">{{ price }}</span>
-                                    <span class="description">TTC incluse</span>
+                                    <span class="description">TVA incluse</span>
                                 </li>
                                 <li>
-                                    <h2>{{ special }}<span class="description"> TTC incluse</span></h2>
+                                    <h3 style="color: #ff1b5a" >{{ special }}<span class="description"> TVA incluse</span></h3>
 
                                 </li>
                             {% endif %}
@@ -94,9 +93,14 @@
                                     <li>{{ discount.quantity }}{{ text_discount }}{{ discount.price }}</li>
                                 {% endfor %}
                             {% endif %}
-                            <li>Couleur : <b id="color_text">{{ color }}</b></li>
+
                         </ul>
                     {% endif %}
+                    {% if stock %}
+                    <div style="margin-bottom: 20px;"> <span class=" product-status"> {{ stock }} </span> </div>
+                    {% endif %}
+
+                    <div style="margin-top: 20px;">Couleur : <b id="color_text">{{ color }}</b></div>
 
                     <div id="samecolor">
                         {% if product_similar|length > 0 %}
@@ -263,7 +267,7 @@
                         <div class="form-group">
                             <button type="button" data-toggle="tooltip" class="btn btn-default btn-wish wish-list"
                                     title="{{ button_wishlist }}" onclick="wishlist.add('{{ product_id }}');"
-                            ><img src="image/favorite.png" width="12" height="13" id="fav-button"> Ajouter à mes
+                            ><img src="image/favorite.png" width="12" height="13" id="fav-button" style="margin-right: 5px; margin-top: -5px;" > Ajouter à mes
                                 préférés
                             </button>
                             <br/>
