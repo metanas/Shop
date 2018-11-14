@@ -49,6 +49,7 @@ $_['text_year']                      ='an';
 // Column
 $_['column_name']                    ='Nom du produit';
 $_['column_model']                   ='maquette';
+$_['column_manufacturer']            ='Fabricant';
 $_['column_quantity']                ='Quantité';
 $_['column_price']                   ='Prix ​​unitaire';
 $_['column_total']                   ='Total';

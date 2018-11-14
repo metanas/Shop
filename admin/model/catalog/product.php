@@ -4,7 +4,7 @@ class ModelCatalogProduct extends Model
 {
     public function addProduct($data)
     {
-        $this->db->query("INSERT INTO " . DB_PREFIX . "product SET model = '" . $this->db->escape((string)$data['model']) . "', name = '" . $this->db->escape((string)$data['name']) . "', ref = '" . $this->db->escape($data['prefix_ref'] . "-" . $data['ref']) . "', color = '" . $this->db->escape((string)$data['color']) . "', color_hex='" . $this->db->escape((string)$data['color_hex']) . "', minimum = '" . (int)$data['minimum'] . "', date_available = '" . $this->db->escape((string)$data['date_available']) . "', manufacturer_id = '" . (int)$data['manufacturer_id'] . "', shipping = '" . (int)$data['shipping'] . "', price = '" . (float)$data['price'] . "', status = '" . (int)$data['status'] . "', sort_order = '" . (int)$data['sort_order'] . "', date_added = NOW(), date_modified = NOW()");
+        $this->db->query("INSERT INTO " . DB_PREFIX . "product SET name = '" . $this->db->escape((string)$data['name']) . "', ref = '" . $this->db->escape($data['prefix_ref'] . "-" . $data['ref']) . "', color = '" . $this->db->escape((string)$data['color']) . "', color_hex='" . $this->db->escape((string)$data['color_hex']) . "', minimum = '" . (int)$data['minimum'] . "', date_available = '" . $this->db->escape((string)$data['date_available']) . "', manufacturer_id = '" . (int)$data['manufacturer_id'] . "', shipping = '" . (int)$data['shipping'] . "', price = '" . (float)$data['price'] . "', status = '" . (int)$data['status'] . "', sort_order = '" . (int)$data['sort_order'] . "', date_added = NOW(), date_modified = NOW()");
 
         $product_id = $this->db->getLastId();
 
@@ -128,7 +128,7 @@ class ModelCatalogProduct extends Model
 
     public function editProduct($product_id, $data)
     {
-        $this->db->query("UPDATE " . DB_PREFIX . "product SET model = '" . $this->db->escape((string)$data['model']) . "', name = '" . $this->db->escape((string)$data['name']) . "', ref = '" . $this->db->escape($data['prefix_ref'] . "-" . $data['ref']) . "', color_hex = '" . $this->db->escape((string)$data['color_hex']) . "', color = '" . $this->db->escape((string)$data['color']) . "', minimum = '" . (int)$data['minimum'] . "', date_available = '" . $this->db->escape((string)$data['date_available']) . "', manufacturer_id = '" . (int)$data['manufacturer_id'] . "', shipping = '" . (int)$data['shipping'] . "', price = '" . (float)$data['price'] . "', status = '" . (int)$data['status'] . "', sort_order = '" . (int)$data['sort_order'] . "', date_modified = NOW() WHERE product_id = '" . (int)$product_id . "'");
+        $this->db->query("UPDATE " . DB_PREFIX . "product SET name = '" . $this->db->escape((string)$data['name']) . "', ref = '" . $this->db->escape($data['prefix_ref'] . "-" . $data['ref']) . "', color_hex = '" . $this->db->escape((string)$data['color_hex']) . "', color = '" . $this->db->escape((string)$data['color']) . "', minimum = '" . (int)$data['minimum'] . "', date_available = '" . $this->db->escape((string)$data['date_available']) . "', manufacturer_id = '" . (int)$data['manufacturer_id'] . "', shipping = '" . (int)$data['shipping'] . "', price = '" . (float)$data['price'] . "', status = '" . (int)$data['status'] . "', sort_order = '" . (int)$data['sort_order'] . "', date_modified = NOW() WHERE product_id = '" . (int)$product_id . "'");
 
         if (isset($data['image'])) {
             $this->db->query("UPDATE " . DB_PREFIX . "product SET image = '" . $this->db->escape((string)$data['image']) . "' WHERE product_id = '" . (int)$product_id . "'");
@@ -620,14 +620,14 @@ class ModelCatalogProduct extends Model
             $sql .= " p.name LIKE '" . $this->db->escape((string)$data['filter_name']) . "%'";
         }
 
-        if (!empty($data['filter_model'])) {
+        if (!empty($data['filter_manufacturer'])) {
             if ($first) {
                 $sql .= " WHERE";
                 $first = false;
             } else {
                 $sql .= " AND";
             }
-            $sql .= " p.model LIKE '" . $this->db->escape((string)$data['filter_model']) . "%'";
+            $sql .= " m.name LIKE '" . $this->db->escape((string)$data['filter_manufacturer']) . "%'";
         }
 
         if (isset($data['filter_price']) && !is_null($data['filter_price'])) {

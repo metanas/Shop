@@ -75,6 +75,7 @@ $_['column_date_modified']       = 'Date modifiée';
 $_['column_total']               = 'Total';
 $_['column_product']             = 'Produit';
 $_['column_model']               = 'Modéle';
+$_['column_manufacturer']        = 'Fabricant';
 $_['column_quantity']            = 'Quantité';
 $_['column_price']               = 'Prix unitaire';
 $_['column_comment']             = 'Commentaire';

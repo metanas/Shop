@@ -218,12 +218,12 @@ class ControllerMailOrder extends Controller {
 			}
 
 			$data['products'][] = array(
-				'name'     => $order_product['name'],
-				'model'    => $order_product['model'],
-				'option'   => $option_data,
-				'quantity' => $order_product['quantity'],
-				'price'    => $this->currency->format($order_product['price'] + ($this->config->get('config_tax') ? $order_product['tax'] : 0), $order_info['currency_code'], $order_info['currency_value']),
-				'total'    => $this->currency->format($order_product['total'] + ($this->config->get('config_tax') ? ($order_product['tax'] * $order_product['quantity']) : 0), $order_info['currency_code'], $order_info['currency_value'])
+				'name'          => $order_product['name'],
+				'manufacturer'  => $order_product['manufacturer'],
+				'option'        => $option_data,
+				'quantity'      => $order_product['quantity'],
+				'price'         => $this->currency->format($order_product['price'] + ($this->config->get('config_tax') ? $order_product['tax'] : 0), $order_info['currency_code'], $order_info['currency_value']),
+				'total'         => $this->currency->format($order_product['total'] + ($this->config->get('config_tax') ? ($order_product['tax'] * $order_product['quantity']) : 0), $order_info['currency_code'], $order_info['currency_value'])
 			);
 		}
 
@@ -433,11 +433,11 @@ class ControllerMailOrder extends Controller {
 				}
 
 				$data['products'][] = array(
-					'name'     => $order_product['name'],
-					'model'    => $order_product['model'],
-					'quantity' => $order_product['quantity'],
-					'option'   => $option_data,
-					'total'    => html_entity_decode($this->currency->format($order_product['total'] + ($this->config->get('config_tax') ? ($order_product['tax'] * $order_product['quantity']) : 0), $order_info['currency_code'], $order_info['currency_value']), ENT_NOQUOTES, 'UTF-8')
+					'name'          => $order_product['name'],
+					'manufacturer'  => $order_product['manufacturer'],
+					'quantity'      => $order_product['quantity'],
+					'option'        => $option_data,
+					'total'         => html_entity_decode($this->currency->format($order_product['total'] + ($this->config->get('config_tax') ? ($order_product['tax'] * $order_product['quantity']) : 0), $order_info['currency_code'], $order_info['currency_value']), ENT_NOQUOTES, 'UTF-8')
 				);
 			}
 

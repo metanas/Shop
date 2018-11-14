@@ -493,7 +493,7 @@ class ControllerCheckoutConfirm extends Controller
             $data['products'][] = array(
                 'cart_id' => $product['cart_id'],
                 'name' => $product['name'],
-                'model' => $product['model'],
+                'manufacturer' => $product['manufacturer'],
                 'image' => $this->model_tool_image->resize($product['image'], 100, 200),
                 'quantity' => $product['quantity'],
                 'option' => $option_data,
@@ -663,7 +663,7 @@ class ControllerCheckoutConfirm extends Controller
             $order_data['products'][] = array(
                 'product_id' => $product['product_id'],
                 'name' => $product['name'],
-                'model' => $product['model'],
+                'manufacturer' => $product['manufacturer'],
                 'option' => $option_data,
                 'quantity' => $product['quantity'],
                 'price' => $product['price'],

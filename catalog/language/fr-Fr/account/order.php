@@ -31,6 +31,7 @@ $_['column_customer']       ='Client';
 $_['column_product']        ='Nu. De produits. ';
 $_['column_name']           ='Nom du produit';
 $_['column_model']          ='Modèle';
+$_['column_manufacturer']   ='Fabricant';
 $_['column_quantity']       ='Quantité';
 $_['column_price']          ='Prix';
 $_['column_total']          ='Total';

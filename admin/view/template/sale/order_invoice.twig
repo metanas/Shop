@@ -85,7 +85,7 @@
         <table style="width: 100%">
             <tr style="width: 100%">
                 <th style="width: 20%;">{{ column_product }}</th>
-                <th style="width: 20%;text-align: right">{{ column_model }}</th>
+                <th style="width: 20%;text-align: right">{{ column_manufacturer }}</th>
                 <th style="width: 20%;text-align: right"><b>{{ column_quantity }}</b></th>
                 <th style="width: 20%;text-align: right"><b>{{ column_price }}</b></th>
                 <th style="width: 20%;text-align: right"><b>{{ column_total }}</b></th>
@@ -101,7 +101,7 @@
                             &nbsp;
                             <small> - {{ option.name }}: {{ option.value }}</small>
                         {% endfor %}</td>
-                    <td style="width: 20%;text-align: right">{{ product.model }}</td>
+                    <td style="width: 20%;text-align: right">{{ product.manufacturer }}</td>
                     <td style="width: 20%;text-align: right">{{ product.quantity }}</td>
                     <td style="width: 20%;text-align: right">{{ product.price }}</td>
                     <td style="width: 20%;text-align: right">{{ product.total }}</td>
