@@ -34,8 +34,8 @@ class ControllerCatalogProduct extends Controller
                 $url .= '&filter_name=' . urlencode(html_entity_decode($this->request->get['filter_name'], ENT_QUOTES, 'UTF-8'));
             }
 
-            if (isset($this->request->get['filter_model'])) {
-                $url .= '&filter_model=' . urlencode(html_entity_decode($this->request->get['filter_model'], ENT_QUOTES, 'UTF-8'));
+            if (isset($this->request->get['filter_manufacturer'])) {
+                $url .= '&filter_manufacturer=' . urlencode(html_entity_decode($this->request->get['filter_manufacturer'], ENT_QUOTES, 'UTF-8'));
             }
 
             if (isset($this->request->get['filter_price'])) {
@@ -87,8 +87,8 @@ class ControllerCatalogProduct extends Controller
                 $url .= '&filter_name=' . urlencode(html_entity_decode($this->request->get['filter_name'], ENT_QUOTES, 'UTF-8'));
             }
 
-            if (isset($this->request->get['filter_model'])) {
-                $url .= '&filter_model=' . urlencode(html_entity_decode($this->request->get['filter_model'], ENT_QUOTES, 'UTF-8'));
+            if (isset($this->request->get['filter_manufacturer'])) {
+                $url .= '&filter_manufacturer=' . urlencode(html_entity_decode($this->request->get['filter_manufacturer'], ENT_QUOTES, 'UTF-8'));
             }
 
             if (isset($this->request->get['filter_price'])) {
@@ -142,8 +142,8 @@ class ControllerCatalogProduct extends Controller
                 $url .= '&filter_name=' . urlencode(html_entity_decode($this->request->get['filter_name'], ENT_QUOTES, 'UTF-8'));
             }
 
-            if (isset($this->request->get['filter_model'])) {
-                $url .= '&filter_model=' . urlencode(html_entity_decode($this->request->get['filter_model'], ENT_QUOTES, 'UTF-8'));
+            if (isset($this->request->get['filter_manufacturer'])) {
+                $url .= '&filter_manufacturer=' . urlencode(html_entity_decode($this->request->get['filter_manufacturer'], ENT_QUOTES, 'UTF-8'));
             }
 
             if (isset($this->request->get['filter_price'])) {
@@ -197,8 +197,8 @@ class ControllerCatalogProduct extends Controller
                 $url .= '&filter_name=' . urlencode(html_entity_decode($this->request->get['filter_name'], ENT_QUOTES, 'UTF-8'));
             }
 
-            if (isset($this->request->get['filter_model'])) {
-                $url .= '&filter_model=' . urlencode(html_entity_decode($this->request->get['filter_model'], ENT_QUOTES, 'UTF-8'));
+            if (isset($this->request->get['filter_manufacturer'])) {
+                $url .= '&filter_manufacturer=' . urlencode(html_entity_decode($this->request->get['filter_manufacturer'], ENT_QUOTES, 'UTF-8'));
             }
 
             if (isset($this->request->get['filter_price'])) {
@@ -531,20 +531,14 @@ class ControllerCatalogProduct extends Controller
             $data['error_name'] = array();
         }
 
-        if (isset($this->error['model'])) {
-            $data['error_model'] = $this->error['model'];
-        } else {
-            $data['error_model'] = '';
-        }
-
         $url = '';
 
         if (isset($this->request->get['filter_name'])) {
             $url .= '&filter_name=' . urlencode(html_entity_decode($this->request->get['filter_name'], ENT_QUOTES, 'UTF-8'));
         }
 
-        if (isset($this->request->get['filter_model'])) {
-            $url .= '&filter_model=' . urlencode(html_entity_decode($this->request->get['filter_model'], ENT_QUOTES, 'UTF-8'));
+        if (isset($this->request->get['filter_manufacturer'])) {
+            $url .= '&filter_manufacturer=' . urlencode(html_entity_decode($this->request->get['filter_manufacturer'], ENT_QUOTES, 'UTF-8'));
         }
 
         if (isset($this->request->get['filter_price'])) {
@@ -606,14 +600,6 @@ class ControllerCatalogProduct extends Controller
         $this->load->model('localisation/language');
 
         $data['languages'] = $this->model_localisation_language->getLanguages();
-
-        if (isset($this->request->post['model'])) {
-            $data['model'] = $this->request->post['model'];
-        } elseif (!empty($product_info)) {
-            $data['model'] = $product_info['model'];
-        } else {
-            $data['model'] = '';
-        }
 
         if (isset($this->request->post['name'])) {
             $data['name'] = $this->request->post['name'];
@@ -1032,10 +1018,6 @@ class ControllerCatalogProduct extends Controller
             if ((utf8_strlen($value['name']) < 1) || (utf8_strlen($value['name']) > 255)) {
                 $this->error['name'][$language_id] = $this->language->get('error_name');
             }
-        }
-
-        if ((utf8_strlen($this->request->post['model']) < 1) || (utf8_strlen($this->request->post['model']) > 64)) {
-            $this->error['model'] = $this->language->get('error_model');
         }
 
         if ($this->request->post['product_seo_url']) {

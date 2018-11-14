@@ -30,6 +30,7 @@ $_['text_payment_cancel']      ='%s tous les %d %s (s) jusqu`à annulation';
 $_['column_image']             ='Image';
 $_['column_name']              ='Nom du produit';
 $_['column_model']             ='maquette';
+$_['column_manufacturer']      ='Facbricant';
 $_['column_quantity']          ='Quantité';
 $_['column_price']             ='Prix ​​unitaire';
 $_['column_total']             ='Total';

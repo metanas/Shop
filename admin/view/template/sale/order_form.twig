@@ -1215,7 +1215,7 @@ $('#tab-product input[name=\'product\']').autocomplete({
 					return {
 						label: item['name'],
 						value: item['product_id'],
-						model: item['model'],
+						model: item['manufacturer'],
 						option: item['option'],
 						price: item['price']
 					}
@@ -2390,7 +2390,7 @@ $('#button-refresh').on('click', function() {
 					}
 
 					html += '</td>';
-					html += '  <td class="text-left">' + product['model'] + '</td>';
+					html += '  <td class="text-left">' + product['manufacturer'] + '</td>';
 					html += '  <td class="text-right"><div class="input-group btn-block" style="max-width: 200px;"><input type="text" name="product[' + i + '][quantity]" value="' + product['quantity'] + '" class="form-control" /><div class="input-group-btn"><button type="button" data-toggle="tooltip" title="{{ button_refresh }}" data-loading-text="{{ text_loading }}" class="btn btn-primary"><i class="fa fa-refresh"></i></button></div></div></td>';
 					html += '  <td class="text-right">' + product['price'] + '</td>';
 					html += '  <td class="text-right">' + product['total'] + '</td>';
@@ -2464,7 +2464,7 @@ $('#button-refresh').on('click', function() {
 					}
 
 					html += '  </td>';
-					html += '  <td class="text-left">' + product['model'] + '</td>';
+					html += '  <td class="text-left">' + product['manufacturer'] + '</td>';
 					html += '  <td class="text-right">' + product['quantity'] + '</td>';
 					html += '  <td class="text-right">' + product['price'] + '</td>';
 					html += '  <td class="text-right">' + product['total'] + '</td>';

@@ -209,7 +209,7 @@ class ControllerAccountOrder extends Controller
 
                 $data['products'][] = array(
                     'name' => $product['name'],
-                    'model' => $product['model'],
+                    'manufacturer' => $product['manufacturer'],
                     'link'  => $this->url->link("product/product", array("language" => $this->config->get("config_language"), "product_id" => $product['product_id'])),
                     'option' => $option_data,
                     'quantity' => $product['quantity'],

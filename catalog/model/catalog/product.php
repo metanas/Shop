@@ -20,7 +20,6 @@ class ModelCatalogProduct extends Model
             return array(
                 'product_id' => $query->row['product_id'],
                 'name' => $query->row['name'],
-                'model' => $query->row['model'],
                 'color_hex' => $query->row['color_hex'],
                 'color' => $query->row['color'],
                 'quantity' => $this->getTotalQuantityProduct($query->row['product_id']),
@@ -145,7 +144,7 @@ class ModelCatalogProduct extends Model
 
         $sort_data = array(
             'p.name',
-            'p.model',
+            'm.name',
             'p.price',
             'rating',
             'p.sort_order',
@@ -153,7 +152,7 @@ class ModelCatalogProduct extends Model
         );
 
         if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
-            if ($data['sort'] == 'p.name' || $data['sort'] == 'p.model') {
+            if ($data['sort'] == 'p.name' || $data['sort'] == 'm.name') {
                 $sql .= " ORDER BY LCASE(" . $data['sort'] . ")";
             } elseif ($data['sort'] == 'p.price') {
                 $sql .= " ORDER BY (CASE WHEN special IS NOT NULL THEN special WHEN discount IS NOT NULL THEN discount ELSE p.price END)";
@@ -202,14 +201,14 @@ class ModelCatalogProduct extends Model
 
         $sort_data = array(
             'p.name',
-            'p.model',
+            'm.name',
             'ps.price',
             'rating',
             'p.sort_order'
         );
 
         if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
-            if ($data['sort'] == 'p.name' || $data['sort'] == 'p.model') {
+            if ($data['sort'] == 'p.name' || $data['sort'] == 'm.name') {
                 $sql .= " ORDER BY LCASE(" . $data['sort'] . ")";
             } else {
                 $sql .= " ORDER BY " . $data['sort'];
@@ -492,7 +491,7 @@ class ModelCatalogProduct extends Model
             }
 
             if (!empty($data['filter_name'])) {
-                $sql .= " OR LCASE(p.model) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
+                $sql .= " OR LCASE(m.name) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
             }
 
             $sql .= ")";
@@ -528,9 +527,9 @@ class ModelCatalogProduct extends Model
         return $query->rows;
     }
 
-    public function getModelProduct($product_id)
+    public function getManufacturerProduct($product_id)
     {
-        $query = $this->db->query("SELECT DISTINCT model FROM " . DB_PREFIX . "product WHERE product_id = '" . (int)$product_id . "'");
+        $query = $this->db->query("SELECT DISTINCT name FROM " . DB_PREFIX . "manufacturer LEFT JOIN " . DB_PREFIX . "product p ON(p.manufacturer_id = m.manufacturer_id) WHERE p.product_id = '" . (int)$product_id . "'");
         return $query->rows;
     }
 

@@ -18,9 +18,10 @@ $_['text_empty']    ='Votre liste de souhaits est vide.';
 
 // Column
 
-$_['column_image']  ='Image';
-$_['column_name']   ='Nom du produit';
-$_['column_model']  ='Modèle';
-$_['column_stock']  ='Stock';
-$_['column_price']  ='Prix ​​unitaire';
-$_['column_action'] ='action';
+$_['column_image']          ='Image';
+$_['column_name']           ='Nom du produit';
+$_['column_model']          ='Modèle';
+$_['column_manufacturer']   ='Fabricant';
+$_['column_stock']          ='Stock';
+$_['column_price']          ='Prix ​​unitaire';
+$_['column_action']         ='action';

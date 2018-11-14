@@ -144,7 +144,7 @@
           <thead>
             <tr>
               <td class="text-left">{{ column_product }}</td>
-              <td class="text-left">{{ column_model }}</td>
+              <td class="text-left">{{ column_manufacturer }}</td>
               <td class="text-right">{{ column_quantity }}</td>
               <td class="text-right">{{ column_price }}</td>
               <td class="text-right">{{ column_total }}</td>
@@ -163,7 +163,7 @@
                       <small> - {{ option.name }}: <a href="{{ option.href }}">{{ option.value }}</a></small>
                     {% endif %}
                   {% endfor %}</td>
-                <td class="text-left">{{ product.model }}</td>
+                <td class="text-left">{{ product.manufacturer }}</td>
                 <td class="text-right">{{ product.quantity }}</td>
                 <td class="text-right">{{ product.price }}</td>
                 <td class="text-right">{{ product.total }}</td>

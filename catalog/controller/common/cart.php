@@ -104,7 +104,6 @@ class ControllerCommonCart extends Controller
                 'product_id' => $product['product_id'],
                 'thumb' => $image,
                 'name' => $product['name'],
-                'model' => $product['model'],
                 'option' => $option_data,
                 'quantity' => $product['quantity'],
                 'price' => $price,
