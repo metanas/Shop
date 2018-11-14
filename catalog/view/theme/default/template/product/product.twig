@@ -289,25 +289,28 @@
     </div>
 </div>
 
-<div class="container-fluid">
+<div class="container-fluid attribute">
     {% if attribute_groups %}
-    <div class="row">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 attribute">
-            <div class="col-md-5 col-sm-12 col-xs-12 col-md-push-7 col-lg-push-7" align="center"><img
-                        src="{{ popup }}" alt="{{ heading_title }}" class="img-responsive"/></div>
-            <div class="col-md-7 col-sm-12 col-xs-12 col-md-pull-5 col-lg-pull-5">
-                <div class="h3 zalark-title">DESCRIPTION</div>
-                {% for attribute_group in attribute_groups %}
-                    <h4 class="text-uppercase">{{ attribute_group.name }}</h4>
-                    {% for attribute in attribute_group.attribute %}
-                        <p><b>{{ attribute.name }}:</b> {{ attribute.text }}</p>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+                <div class="col-md-5 col-sm-12 col-xs-12 col-md-push-7 col-lg-push-7" align="center"><img
+                            src="{{ popup }}" alt="{{ heading_title }}" class="img-responsive"/></div>
+                <div class="col-md-7 col-sm-12 col-xs-12 col-md-pull-5 col-lg-pull-5">
+                    <div class="h3 zalark-title">DESCRIPTION</div>
+                    {% for attribute_group in attribute_groups %}
+                        <h4 class="text-uppercase">{{ attribute_group.name }}</h4>
+                        {% for attribute in attribute_group.attribute %}
+                            <p><b>{{ attribute.name }}:</b> {{ attribute.text }}</p>
+                        {% endfor %}
                     {% endfor %}
-                {% endfor %}
+                </div>
             </div>
         </div>
         {% endif %}
 
     </div>
+</div>
     {% if tags %}
         <p>{{ text_tags }}
             {% for i in 0..tags|length %}
