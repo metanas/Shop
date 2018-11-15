@@ -18,19 +18,19 @@
             </div>
         </div>
         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-            <div id="slide-bar-button" class="fa fa-align-justify visible-xs" style="font-size: 20px"></div>
+            <div id="slide-bar-button" class="fa fa-align-justify visible-xs" style="font-size: 20px"> Mon Compte</div>
             {{ content }}
         </div>
     </div>
 
 </div>
 <script>
-    $('body').on('click', '#slide-bar-button', function () {
+    $('#slide-bar-button').on('click', function () {
         $("#slidebar").css({"width" : "100%"});
     });
 
     /* Close/hide the sidenav */
-    $('body').on('click', '.closebtn', function () {
+    $('.closebtn').on('click', function () {
         $("#slidebar").css({"width" : "0"});
     });
 </script>
