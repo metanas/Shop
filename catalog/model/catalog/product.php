@@ -87,7 +87,7 @@ class ModelCatalogProduct extends Model
                 }
 
                 if (isset($data['filter_filter']['size'])) {
-                    $sql .= " AND ovd.name IN ('" . implode("','", $data['filter_filter']['size']) . "')";
+                    $sql .= " AND ovd.name IN ('" . implode("','", $data['filter_filter']['size']) . "') AND pov.quantity > 0";
                 }
 
                 if (isset($data['filter_filter']['price']['max'])) {
@@ -130,7 +130,7 @@ class ModelCatalogProduct extends Model
             }
 
             if (!empty($data['filter_name'])) {
-                $sql .= " OR LCASE(p.model) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
+                $sql .= " OR LCASE(m.name) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
             }
 
             $sql .= ")";
