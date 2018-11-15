@@ -1014,12 +1014,6 @@ class ControllerCatalogProduct extends Controller
             $this->error['warning'] = $this->language->get('error_permission');
         }
 
-        foreach ($this->request->post['product_description'] as $language_id => $value) {
-            if ((utf8_strlen($value['name']) < 1) || (utf8_strlen($value['name']) > 255)) {
-                $this->error['name'][$language_id] = $this->language->get('error_name');
-            }
-        }
-
         if ($this->request->post['product_seo_url']) {
             $this->load->model('design/seo_url');
 
