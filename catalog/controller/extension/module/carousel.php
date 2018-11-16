@@ -39,8 +39,7 @@ class ControllerExtensionModuleCarousel extends Controller
             'limit' => 30
         );
 
-        $category = $this->model_catalog_category->getCategories($category_id);
-
+        $category = $this->model_catalog_category->getCategories(0);
         if ($setting['name'] == "SpecialsCarousel") {
             $results = $this->model_catalog_product->getProductSpecials($filter_data);
             $data['heading_title'] = "Offres";
@@ -48,7 +47,7 @@ class ControllerExtensionModuleCarousel extends Controller
         } else {
             $results = $this->model_catalog_product->getProducts($filter_data);
             $data['heading_title'] = ($category_id == 0) ? "Nouveauté" : "Categorie";
-            $data['category_link'] = $this->url->link('product/category', array("path" => $category[0]['category_id']));
+            $data['category_link'] = $this->url->link('product/category', array("path" => $category[count($category) - 1]['category_id']));
         }
 
         if ($results) {
