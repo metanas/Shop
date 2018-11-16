@@ -1,5 +1,4 @@
-{% set banner = banners|first %}
-<div class="row slide-show-image" style="background-image:url('{{ banner.image }}');">
+<div class="row slide-show-image">
 
     {% if banners.title %}
         <div class="titleSlide">{{ banners.title }}</div>
@@ -9,6 +8,14 @@
     {#<div class="swiper-wrapper"> #}
 
     {#<div class="swiper-slide text-center">#}
+    {% set banner = banners|first %}
+
+    {% if banner.link %}
+        <a href="{{ banner.link }}">
+            <img src="{{ banner.image }}" alt="{{ banner.title }}" class="img-responsive"/></a>
+    {% else %}
+        <img src="{{ banner.image }}" alt="{{ banner.title }}" class="img-responsive"/>
+    {% endif %}
 </div>
 
 {#{% endfor %} #}
