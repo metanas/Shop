@@ -32,7 +32,7 @@ class ControllerExtensionModuleCarousel extends Controller
         }
 
         $filter_data = array(
-            'filter_category_id' => $category_id['category_id'],
+            'filter_category_id' => $category_id,
             'sort' => 'pd.name',
             'order' => 'ASC',
             'start' => 0,
