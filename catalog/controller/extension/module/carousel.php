@@ -26,7 +26,7 @@ class ControllerExtensionModuleCarousel extends Controller
         $data['products'] = array();
 
         if (isset($this->request->get['product_id'])) {
-            $category_id = $this->model_catalog_category->getCategoryByProduct($this->request->get['product_id']);
+            $category_id = $this->model_catalog_category->getCategoryByProduct($this->request->get['product_id'])['category_id'];
         } else {
             $category_id = 0;
         }
