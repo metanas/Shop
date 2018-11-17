@@ -8,17 +8,17 @@
     {% set class = 'col-sm-12' %}
     {% endif %}
     <div id="content" class="{{ class }}">{{ content_top }}
-      <h1>{{ heading_title }}</h1>
+      <h1 style="font-size: 24px;margin-bottom: 27px;">{{ heading_title }}</h1>
       {% if orders %}
       <div class="table-responsive">
         <table class="table  table-hover">
           <thead style="background-color: RGB(254,248,250);">
             <tr>
-              <th class="text-left text-capitalize" >{{ column_order_id }}</th>
-              <th class="text-left text-capitalize">{{ column_product }}</th>
-              <th class="text-left text-capitalize">{{ column_status }}</th>
-              <th class="text-left text-capitalize">{{ column_total }}</th>
-              <th class="text-left text-capitalize">{{ column_date_added }}</th>
+              <th class="text-center text-capitalize" >{{ column_order_id }}</th>
+              <th class="text-center text-capitalize">{{ column_product }}</th>
+              <th class="text-center text-capitalize">{{ column_status }}</th>
+              <th class="text-center text-capitalize">{{ column_total }}</th>
+              <th class="text-center text-capitalize">{{ column_date_added }}</th>
               <td></td>
             </tr>
           </thead>
@@ -43,9 +43,7 @@
       {% else %}
       <p>{{ text_no_results }}</p>
       {% endif %}
-      <div class="buttons clearfix">
-        <div class="pull-right"><a href="{{ continue }}" class="zalark-button" style="padding: 10px">{{ button_continue }}</a></div>
-      </div>
+
       {{ content_bottom }}</div>
     {{ column_right }}</div>
 </div>
