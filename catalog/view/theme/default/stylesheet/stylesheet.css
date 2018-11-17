@@ -977,13 +977,14 @@ h2.price {
 }
 
 .pointer {
-    font-size: 12px;
+    font-size: 10px;
 
 }
 
 .pointer:hover {
     cursor: pointer;
-    color: #aaa;
+    color: #999;
+    text-decoration: underline;
 }
 
 .price-old {
@@ -1831,10 +1832,10 @@ ul {
 }
 .hidden-md-down
 {
-    background-color: #f7f7f7;
     width: 100%;
     padding-top: 20px;
     margin-bottom: 30px;
+    background-color: RGBA(254,248,250);
 
 }
 .slide-show-image{
