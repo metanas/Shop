@@ -264,7 +264,8 @@ class ControllerProductProduct extends Controller {
 
 			if ((float)$product_info['special']) {
 				$data['special'] = $this->currency->format($this->tax->calculate($product_info['special'], $product_info['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
-			} else {
+                $data['discount'] = (($product_info['price'] - $product_info['special']) * 100) / $product_info['price'];
+            } else {
 				$data['special'] = false;
 			}
 
@@ -274,16 +275,16 @@ class ControllerProductProduct extends Controller {
 				$data['tax'] = false;
 			}
 
-			$discounts = $this->model_catalog_product->getProductDiscounts($this->request->get['product_id']);
+//			$discounts = $this->model_catalog_product->getProductDiscounts($this->request->get['product_id']);
 
-			$data['discounts'] = array();
-
-			foreach ($discounts as $discount) {
-				$data['discounts'][] = array(
-					'quantity' => $discount['quantity'],
-					'price'    => $this->currency->format($this->tax->calculate($discount['price'], $product_info['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency'])
-				);
-			}
+//			$data['discounts'] = array();
+//
+//			foreach ($discounts as $discount) {
+//				$data['discounts'][] = array(
+//					'quantity' => $discount['quantity'],
+//					'price'    => $this->currency->format($this->tax->calculate($discount['price'], $product_info['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency'])
+//				);
+//			}
 
 			$data['options'] = array();
 
@@ -368,6 +369,7 @@ class ControllerProductProduct extends Controller {
 					$special = $this->currency->format($this->tax->calculate($result['special'], $result['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
 				} else {
 					$special = false;
+                    $discount = false;
 				}
 
 				if ($this->config->get('config_tax')) {

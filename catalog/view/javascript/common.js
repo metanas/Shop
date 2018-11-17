@@ -136,31 +136,32 @@ $(document).ready(function () {
 var div;
 
 $(document).on('mouseenter', '.product-layout', function () {
-    if ($('.same', this).html().trim() == "") {
-        div = this;
-        $.ajax({
-            url: "index.php?route=product/category/simulate&path=" + 72 + "&product_id=" + $('#product-id', div).html(),
-            type: "GET",
-            dataType: "json",
-            success: function (json) {
-                if ($('.same', div).html().trim() === "") {
-                    let html = "<a href=\"" + $('.ShoesName a', div)[0].href + "\"><img class=\"smallSame img-default\" src=\"" + $(".img-responsive", div)[0].src + "\"></a>";
-                    $.map(json, function (item) {
-                        html += "<a href=\"" + item['href'] + "\"><img class=\"smallSame\" src=\"" + item['thumb'] + "\"></a>";
-                    });
-                    $('.same', div).empty();
-                    $('.same', div).html(html);
-                    $('.same', div).show(400);
+    if(!isMobile.any()) {
+        if ($('.same', this).html().trim() == "") {
+            div = this;
+            $.ajax({
+                url: "index.php?route=product/category/simulate&path=" + 72 + "&product_id=" + $('#product-id', div).html(),
+                type: "GET",
+                dataType: "json",
+                success: function (json) {
+                    if ($('.same', div).html().trim() === "") {
+                        let html = "<a href=\"" + $('.ShoesName a', div)[0].href + "\"><img class=\"smallSame img-default\" src=\"" + $(".img-responsive", div)[0].src + "\"></a>";
+                        $.map(json, function (item) {
+                            html += "<a href=\"" + item['href'] + "\"><img class=\"smallSame\" src=\"" + item['thumb'] + "\"></a>";
+                        });
+                        $('.same', div).empty();
+                        $('.same', div).html(html);
+                        $('.same', div).show(400);
+                    }
+                },
+                error: function (d, s) {
+                    console.log(s)
                 }
-            },
-            error: function (d, s) {
-                console.log(s)
-            }
-        });
-    } else {
-        $('.same', this).show(400)
-    }
-});
+            });
+        } else {
+            $('.same', this).show(400)
+        }
+    }});
 $(document).on('mouseenter', ".smallSame",
     function () {
         $(this).css('border', '1px solid black');

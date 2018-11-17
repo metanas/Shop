@@ -881,7 +881,6 @@ footer h4 {
 .product-thumb .image img {
     margin-left: auto;
     margin-right: auto;
-    margin-top: 25px;
     width: 100%;
 }
 
@@ -901,7 +900,6 @@ footer h4 {
 }
 
 .product-thumb .caption {
-    /*padding: 0 20px;*/
     min-height: 100px;
     position: absolute;
     width: 90%;
@@ -1823,11 +1821,24 @@ ul {
 }
 
 .product-status {
+    position: absolute;
+    top: 70%;
     padding: 5px;
     background-color: #ff1b5a;
     color: whitesmoke;
     border-bottom-right-radius: 5px;
 }
+
+.product-discount {
+    position: absolute;
+    top: 70%;
+    padding: 5px;
+    border: 1px solid #ff1b5a;
+    background-color: white;
+    color: #ff1b5a;
+    border-bottom-right-radius: 5px;
+}
+
 .hidden-md-down
 {
     background-color: #f7f7f7;

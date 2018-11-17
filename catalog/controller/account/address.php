@@ -374,8 +374,7 @@ class ControllerAccountAddress extends Controller
 
     protected function validateForm()
     {
-        var_dump($this->request->post);
-        exit();
+
         if ((utf8_strlen(trim($this->request->post['firstname'])) < 1) || (utf8_strlen(trim($this->request->post['firstname'])) > 32)) {
             $this->error['firstname'] = $this->language->get('error_firstname');
         }

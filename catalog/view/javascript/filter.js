@@ -33,7 +33,6 @@ $(document).ready(function () {
             param = param.replace(/_$/, '');
             param = param.replace(/^_/, '');
         }
-        console.log(param);
         updateQueryStringParam(event.target.name.replace("[]", ""), param);
         event.stopPropagation();
     });
