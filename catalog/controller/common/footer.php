@@ -37,7 +37,7 @@ class ControllerCommonFooter extends Controller {
 		$data['fax'] = $this->config->get('config_fax');
 		$data['email'] = $this->config->get('config_email');
 
-		// Whos Online
+		// Who's Online
 		if ($this->config->get('config_customer_online')) {
 			$this->load->model('tool/online');
 

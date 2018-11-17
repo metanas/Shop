@@ -80,12 +80,12 @@
                             {% else %}
                                 <li>
                                     <span class="price-old">{{ price }}</span>
-                                    <span class="description">TVA incluse</span>
+                                    <span class="price-new">{{ discount }} % de réduction</span>
                                 </li>
                                 <li>
-                                    <h3 style="color: #ff1b5a">{{ special }}<span
-                                                class="description"> TVA incluse</span></h3>
-
+                                    <h3 class="price-new">{{ special }}<span
+                                                class="description"> TVA incluse</span>
+                                    </h3>
                                 </li>
                             {% endif %}
                             {% if discounts %}
@@ -125,7 +125,7 @@
                             {% for option in options %}
                                 {% if option.type == 'size' %}
                                     <div class="form-group {% if option.required %} required {% endif %}">
-                                        <label class="control-label"
+                                        <label class="control-label text-uppercase"
                                                for="input-option{{ option.product_option_id }}">{{ option.name }}</label>
                                         <div class="col-sm-12 col-xs-12" style="margin-bottom: 12px">
                                             <div class="row">
