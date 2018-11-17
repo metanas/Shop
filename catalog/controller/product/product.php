@@ -264,7 +264,7 @@ class ControllerProductProduct extends Controller {
 
 			if ((float)$product_info['special']) {
 				$data['special'] = $this->currency->format($this->tax->calculate($product_info['special'], $product_info['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
-                $data['discount'] = (($product_info['price'] - $product_info['special']) * 100) / $product_info['price'];
+                $data['discount'] = intval((($product_info['price'] - $product_info['special']) * 100) / $product_info['price']);
             } else {
 				$data['special'] = false;
 			}

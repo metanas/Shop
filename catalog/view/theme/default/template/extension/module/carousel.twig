@@ -19,12 +19,12 @@
                                             />
                                         </div>
                                         {% if product.stock %}
-                                            <span class="product-status">
+                                            <span class="product-status product-stock">
                                                 Out of Stock
                                             </span>
                                         {% else %}
                                             {% if product.discount %}
-                                                <span class="product-discount">
+                                                <span class="product-status product-discount">
                                                     - {{ product.discount }} %
                                                 </span>
                                             {% endif %}

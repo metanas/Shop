@@ -1820,23 +1820,22 @@ ul {
     margin-left: 50px;
 }
 
-.product-status {
-    position: absolute;
-    top: 70%;
-    padding: 5px;
+.product-stock {
     background-color: #ff1b5a;
     color: whitesmoke;
-    border-bottom-right-radius: 5px;
+    padding: 5px;
 }
 
-.product-discount {
+.product-status{
     position: absolute;
     top: 70%;
-    padding: 5px;
+    border-bottom-right-radius: 5px;
+}
+.product-discount {
     border: 1px solid #ff1b5a;
     background-color: white;
     color: #ff1b5a;
-    border-bottom-right-radius: 5px;
+    padding: 5px;
 }
 
 .hidden-md-down
