@@ -80,11 +80,11 @@
                                     <div id="color" class="ScrollStyle">
                                         {% for color in products_color %}
                                             <label class="check_filter check-color"
-                                                   style="display: block">{{ color }}
+                                                   style="display: block">{{ color|split("#")|first }}
                                                 <input class="checkbox" type="checkbox" name="color[]"
-                                                       value="{{ color }}" {% if color in filter.color %} checked {% endif %}>
+                                                       value="{{ color|split("#")|first }}" {% if color|split("#")|first in filter.color %} checked {% endif %}>
                                                 <span class="checkmark checkradio"
-                                                      style="background-color: {{ color.color_hex }};"></span>
+                                                      style='background-color: #{{ color|split("#")|last }};'></span>
                                             </label>
                                         {% endfor %}
                                     </div>
