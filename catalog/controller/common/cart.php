@@ -150,8 +150,8 @@ class ControllerCommonCart extends Controller
 
         $data['count_products'] = $this->cart->countProducts();
         $data['totals'] = $this->currency->format($this->cart->getTotal(), $this->session->data['currency']);
-        $data['account'] = $this->url->link('account/account', array('action' => 'edit', 'language' => $this->config->get('config_language')));
-        $data['order'] = $this->url->link('account/account', array('action' => 'order', 'language' => $this->config->get('config_language')));
+        $data['account'] = $this->url->link('account/edit', array('language' => $this->config->get('config_language')));
+        $data['order'] = $this->url->link('account/order', array('language' => $this->config->get('config_language')));
         $data['return'] = $this->url->link('account/return', 'language=' . $this->config->get('config_language'));
         $data['contact'] = $this->url->link('information/contact', 'language=' . $this->config->get('config_language'));
         $data['cart'] = $this->url->link('checkout/cart', 'language=' . $this->config->get('config_language'));

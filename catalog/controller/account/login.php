@@ -7,7 +7,7 @@ class ControllerAccountLogin extends Controller
     public function index()
     {
         if ($this->customer->isLogged()) {
-            $this->response->redirect($this->url->link('account/account', array('action' => 'edit', 'language', $this->config->get('config_language'))));
+            $this->response->redirect($this->url->link('account/edit', array('language', $this->config->get('config_language'))));
         }
 
         $this->load->language('account/register');
@@ -190,7 +190,7 @@ class ControllerAccountLogin extends Controller
 
             $this->model_account_customer->editToken($email, '');
 
-            $this->response->redirect($this->url->link('account/account', array('action' => 'edit', 'language' => $this->config->get('config_language'))));
+            $this->response->redirect($this->url->link('account/edit', array('language' => $this->config->get('config_language'))));
         } else {
             $this->session->data['error'] = $this->language->get('error_login');
 
