@@ -2,14 +2,14 @@
 
 // Heading
 
-$_['heading_title']        ='Carnet d`adresses';
+$_['heading_title']        ='Carnet d\'adresses';
 
 
 // Text
 
 $_['text_account']         ='Compte';
-$_['text_address_book']    ='Entrées du carnet d`adresses';
-$_['text_edit_address']    ='Modifier l`adresse';
+$_['text_address_book']    ='Entrées du carnet d\'adresses';
+$_['text_edit_address']    ='Modifier l\'adresse';
 $_['text_add']             ='Votre adresse a été insérée avec succès';
 $_['text_edit']            ='Votre adresse a été mise à jour avec succès';
 $_['text_delete']          ='Votre adresse a été supprimée avec succès';
@@ -37,7 +37,7 @@ $_['error_delete']                ='Avertissement: Vous devez avoir au moins une
 $_['error_default']               ='Avertissement: Vous ne pouvez pas supprimer votre adresse par défaut!';
 $_['error_firstname']             ='Le prénom doit être compris entre 1 et 32 ​​caractères!';
 $_['error_lastname']              ='Le nom de famille doit être compris entre 1 et 32 ​​caractères!';
-$_['error_address_1']             ='L`adresse doit être comprise entre 3 et 128 caractères!';
+$_['error_address_1']             ='L\'adresse doit être comprise entre 3 et 128 caractères!';
 $_['error_postcode']              ='Le code postal doit comporter entre 2 et 10 caractères!';
 $_['error_city']                  ='La ville doit avoir entre 2 et 128 caractères!';
 $_['error_country']               ='Sélectionnez un pays!';

@@ -9,7 +9,7 @@
             {% set class = 'col-sm-12' %}
         {% endif %}
         <div id="content" class="{{ class }}">{{ content_top }}
-            <h2>{{ text_address }}</h2>
+            <h2 style="font-size: 18px; margin-bottom: 33px;">{{ text_address }}</h2>
             <form action="{{ action }}" method="post" enctype="multipart/form-data" class="form-horizontal">
                 <fieldset>
                     <div class="form-group required">
@@ -301,7 +301,7 @@
                 </fieldset>
                 <div class="buttons clearfix">
                     <div class="pull-right">
-                        <input type="submit" value="{{ button_save }}" class="zalark-button"/>
+                        <input style="font-size: 14px;" type="submit" value="{{ button_save }}" class="zalark-button"/>
                     </div>
                     <div class="col-sm-4 pull-left"><a href="{{ back }}" class="zalark-button-border-dark"
                                                        style="padding: 5px 10px 5px 10px">{{ button_back }}</a></div>
