@@ -7,7 +7,7 @@ class ControllerAccountAddress extends Controller
     public function index()
     {
         if (!$this->customer->isLogged()) {
-            $this->session->data['redirect'] = $this->url->link('account/account', array('action' => 'address', 'language' => $this->config->get('config_language')));
+            $this->session->data['redirect'] = $this->url->link('account/address', array('language' => $this->config->get('config_language')));
 
             $this->response->redirect($this->url->link('account/login', 'language=' . $this->config->get('config_language')));
         }
@@ -24,7 +24,7 @@ class ControllerAccountAddress extends Controller
     public function add()
     {
         if (!$this->customer->isLogged()) {
-            $this->session->data['redirect'] = $this->url->link('account/account', array('action' => 'address', 'language' => $this->config->get('config_language')));
+            $this->session->data['redirect'] = $this->url->link('account/address', array('language' => $this->config->get('config_language')));
 
             $this->response->redirect($this->url->link('account/login', 'language=' . $this->config->get('config_language')));
         }
@@ -45,7 +45,7 @@ class ControllerAccountAddress extends Controller
 
             $this->session->data['success'] = $this->language->get('text_add');
 
-            $this->response->redirect($this->url->link('account/account', array('action' => 'address', 'language' => $this->config->get('config_language'))));
+            $this->response->redirect($this->url->link('account/address', array('action' => 'address', 'language' => $this->config->get('config_language'))));
         }
 
         $this->getForm();
@@ -54,7 +54,7 @@ class ControllerAccountAddress extends Controller
     public function edit()
     {
         if (!$this->customer->isLogged()) {
-            $this->session->data['redirect'] = $this->url->link('account/account', array('action' => 'address', 'language' => $this->config->get('config_language')));
+            $this->session->data['redirect'] = $this->url->link('account/address', array('language' => $this->config->get('config_language')));
 
             $this->response->redirect($this->url->link('account/login', 'language=' . $this->config->get('config_language')));
         }
@@ -91,7 +91,7 @@ class ControllerAccountAddress extends Controller
 
             $this->session->data['success'] = $this->language->get('text_edit');
 
-            $this->response->redirect($this->url->link('account/account', array('action' => 'address', 'language' => $this->config->get('config_language'))));
+            $this->response->redirect($this->url->link('account/address', array('language' => $this->config->get('config_language'))));
         }
 
         $this->getForm();
@@ -100,7 +100,7 @@ class ControllerAccountAddress extends Controller
     public function delete()
     {
         if (!$this->customer->isLogged()) {
-            $this->session->data['redirect'] = $this->url->link('account/account', array('action' => 'address', 'language' => $this->config->get('config_language')));
+            $this->session->data['redirect'] = $this->url->link('account/address', array('language' => $this->config->get('config_language')));
 
             $this->response->redirect($this->url->link('account/login', 'language=' . $this->config->get('config_language')));
         }
@@ -130,7 +130,7 @@ class ControllerAccountAddress extends Controller
 
             $this->session->data['success'] = $this->language->get('text_delete');
 
-            $this->response->redirect($this->url->link('account/account', array('action' => 'address', 'language' => $this->config->get('config_language'))));
+            $this->response->redirect($this->url->link('account/address', array('language' => $this->config->get('config_language'))));
         }
 
         $this->getList();
@@ -199,7 +199,10 @@ class ControllerAccountAddress extends Controller
         $data['content_top'] = $this->load->controller('common/content_top');
         $data['content_bottom'] = $this->load->controller('common/content_bottom');
 
-        return $this->load->view('account/address_list', $data);
+        $data['footer'] = $this->load->controller('common/footer');
+        $data['header'] = $this->load->controller('common/header');
+
+        $this->response->setOutput($this->load->view('account/address_list', $data));
     }
 
     protected function getForm()
@@ -358,7 +361,7 @@ class ControllerAccountAddress extends Controller
             $data['default'] = false;
         }
 
-        $data['back'] = $this->url->link('account/account', array('action' => 'address', 'language=' . $this->config->get('config_language')));
+        $data['back'] = $this->url->link('account/address', array('language=' . $this->config->get('config_language')));
 
         $data['language'] = $this->config->get('config_language');
 
