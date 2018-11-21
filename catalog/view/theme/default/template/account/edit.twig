@@ -15,13 +15,13 @@
             {% set class = 'col-sm-12' %}
         {% endif %}
         <div id="content" class="{{ class }}">
-            <h1>{{ heading_title }}</h1>
+            <h1 style="font-size: 18px; margin-bottom: 38px;">{{ heading_title }}</h1>
             <div class="row">
                 <div id="content-edit" class="col-lg-6 col-md-6 col-sm-12 col-xs-12">{{ content_top }}
                     <form action="{{ action_edit }}" method="post" enctype="multipart/form-data"
                           class="form-horizontal table-bordered" style="padding: 10px;margin-bottom: 10px">
                         <fieldset>
-                            <legend>{{ text_your_details }}</legend>
+                            <legend style="font-size: 14px; background-color: RGB(254,248,250);" class="text-center">{{ text_your_details }}</legend>
                             <div class="form-group required">
                                 <label class="col-sm-12" for="input-firstname">{{ entry_firstname }} </label>
                                 <div class="col-sm-12">
@@ -286,9 +286,9 @@
                     {{ content_bottom }}</div>
                 <div id="content-password" class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                     <form action="{{ action_password }}" method="post" enctype="multipart/form-data"
-                          class="form-horizontal table-bordered" style="padding: 10px;margin-bottom: 10px">
+                          class="form-horizontal" style="padding: 10px;margin-bottom: 10px">
                         <fieldset>
-                            <legend>{{ text_password }}</legend>
+                            <legend style="font-size: 14px; background-color:RGB(254,248,250);" class="text-center">{{ text_password }}</legend>
                             <div class="form-group required">
                                 <label class="col-sm-12" for="input-old-password">{{ entry_old_password }}</label>
                                 <div class="col-sm-12">
@@ -329,6 +329,7 @@
                                     <input type="submit" value="{{ button_save }}" class="zalark-button"/>
                                 </div>
                             </div>
+
                         </div>
                     </form>
                 </div>

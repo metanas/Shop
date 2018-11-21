@@ -46,7 +46,7 @@
                                     <div id="manufacture" class="ScrollStyle">
                                         {% for manufacture in products_manufacture %}
                                             <label class="check_filter check-manufacture"
-                                                   style="display: block">{{ manufacture }}
+                                                   style="display: block; font-size: 14px;">{{ manufacture }}
                                                 <input class="checkbox" type="checkbox" name="manufacture[]"
                                                        value="{{ manufacture }}" {% if manufacture in filter.manufacture %} checked {% endif %}>
                                                 <span class="checkmark"></span>
