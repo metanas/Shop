@@ -19,7 +19,7 @@
             <div class="row">
                 <div id="content-edit" class="col-lg-6 col-md-6 col-sm-12 col-xs-12">{{ content_top }}
                     <form action="{{ action_edit }}" method="post" enctype="multipart/form-data"
-                          class="form-horizontal table-bordered" style="padding: 10px;margin-bottom: 10px">
+                          class="form-horizontal" style="padding: 10px;margin-bottom: 10px">
                         <fieldset>
                             <legend style="font-size: 14px; background-color: RGB(254,248,250);" class="text-center">{{ text_your_details }}</legend>
                             <div class="form-group required">
@@ -335,9 +335,9 @@
                 </div>
                 <div id="content-email" class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                     <form action="{{ action_email }}" method="post" enctype="multipart/form-data"
-                          class="form-horizontal table-bordered" style="padding: 10px;margin-bottom: 10px">
+                          class="form-horizontal" style="padding: 10px;margin-bottom: 10px">
                         <fieldset>
-                            <legend>{{ text_email }}</legend>
+                            <legend style="font-size: 14px; background-color: RGB(254,248,250);" class="text-center">{{ text_email }}</legend>
                             <div class="form-group required">
                                 <label class="col-sm-12 " for="input-email">{{ entry_email }}</label>
                                 <div class="col-sm-12">
