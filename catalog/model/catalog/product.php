@@ -541,7 +541,7 @@ class ModelCatalogProduct extends Model
 
     public function getFilterProducts($filter = array())
     {
-        $sql = "SELECT DISTINCT p.color, m.name as manufacture , p.price, ovd.name as size FROM " . DB_PREFIX . "product p LEFT JOIN " . DB_PREFIX . "product_to_category ptc on (ptc.product_id=p.product_id) LEFT JOIN " . DB_PREFIX . "manufacturer m on (p.manufacturer_id = m.manufacturer_id) LEFT JOIN " . DB_PREFIX . "product_option_value pov on(pov.product_id = p.product_id) LEFT JOIN " . DB_PREFIX . "option_value_description ovd on(ovd.option_value_id = pov.option_value_id and ovd.option_id = pov.option_id) WHERE (ptc.category_id='" . $filter['category'] . "')";
+        $sql = "SELECT DISTINCT p.color, p.color_hex, m.name as manufacture , p.price, ovd.name as size FROM " . DB_PREFIX . "product p LEFT JOIN " . DB_PREFIX . "product_to_category ptc on (ptc.product_id=p.product_id) LEFT JOIN " . DB_PREFIX . "manufacturer m on (p.manufacturer_id = m.manufacturer_id) LEFT JOIN " . DB_PREFIX . "product_option_value pov on(pov.product_id = p.product_id) LEFT JOIN " . DB_PREFIX . "option_value_description ovd on(ovd.option_value_id = pov.option_value_id and ovd.option_id = pov.option_id) WHERE (ptc.category_id='" . $filter['category'] . "')";
 
         if (isset($filter['manufacture'])) {
             $sql .= " AND m.name IN ('" . implode("','", $filter['manufacture']) . "') ";

@@ -1,4 +1,5 @@
-<div id="account-address">
+{{ header }}
+<div id="account-address" class="container">
     {% if success %}
         <div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> {{ success }}</div>
     {% endif %}
@@ -6,7 +7,15 @@
         <div class="alert alert-warning"><i class="fa fa-exclamation-circle"></i> {{ error_warning }}</div>
     {% endif %}
     <div class="row">
-        <div id="content" class="col-sm-12">{{ content_top }}
+        {{ column_left }}
+        {% if column_left and column_right %}
+            {% set class = 'col-sm-6' %}
+        {% elseif column_left or column_right %}
+            {% set class = 'col-sm-9' %}
+        {% else %}
+            {% set class = 'col-sm-12' %}
+        {% endif %}
+        <div id="content" class="{{ class }}">{{ content_top }}
             {% if addresses or billing_addresses %}
                 <h2 style="font-size: 18px; margin-bottom: 33px;">{{ text_address_book }}</h2>
                 <div class="col-lg-offset-2 col-sm-8">
@@ -61,3 +70,4 @@
             {{ content_bottom }}</div>
         {{ column_right }}</div>
 </div>
+{{ footer }}

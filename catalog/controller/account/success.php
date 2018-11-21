@@ -14,7 +14,7 @@ class ControllerAccountSuccess extends Controller {
 		if ($this->cart->hasProducts()) {
 			$data['continue'] = $this->url->link('checkout/cart', 'language=' . $this->config->get('config_language'));
 		} else {
-			$data['continue'] = $this->url->link('account/account', array('action' => 'edit', 'language' => $this->config->get('config_language')));
+			$data['continue'] = $this->url->link('account/edit', array('language' => $this->config->get('config_language')));
 		}
 
 		$data['column_left'] = $this->load->controller('common/column_left');
