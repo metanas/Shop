@@ -9,7 +9,7 @@ $_['heading_title']         ='Historique des commandes';
 
 $_['text_account']          ='Compte';
 $_['text_order']            ='Informations sur la commande';
-$_['text_order_detail']     ='détails de la commande';
+$_['text_order_detail']     ='Détails de la commande';
 $_['text_invoice_no']       ='Numéro de facture. :. ';
 $_['text_order_id']         ='Numéro de commande:';
 $_['text_date_added']       ='Date ajoutée:';

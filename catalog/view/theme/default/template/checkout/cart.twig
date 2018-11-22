@@ -28,12 +28,12 @@
                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
                     <div class="row">
                         <div style="background-color: white;padding-bottom: 15px">
-                            <h2 style="margin-top: 0; margin-left: 15px">(
-                                {{ heading_title }}{% if total_products > 1 %}
-                                    &nbsp;<span id="product_count"  style="font-size: 27px;font-weight: bold">{{ total_products }}
+                            <h2 style="margin-top: 0; margin-left: 15px; padding-top: 24px; margin-bottom: 32px; font-size: 24px;">
+                                {{ heading_title }}({% if total_products > 1 %}
+                                    &nbsp;<span id="product_count"  style="font-size: 24px;font-weight: bold">{{ total_products }}
                                         articles</span>
                                 {% else %}
-                                    <span id="product_count" style="font-size: 27px;font-weight: bold">{{ total_products }} article</span>
+                                    <span id="product_count" style="font-size: 24px;font-weight: bold">{{ total_products }} article</span>
                                 {% endif %}
                                 )
                             </h2>
@@ -62,7 +62,7 @@
                                                         </div>
                                                         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
                                                             <div>
-                                                                <a href="{{ product.href }}">{{ product.model }}</a>
+                                                                <a href="{{ product.href }}">{{ product.manufacturer }}</a>
                                                             </div>
                                                             <div><a href="{{ product.href }}">{{ product.name }}</a>
                                                             </div>
@@ -138,8 +138,8 @@
                         <div class="col-sm-12" style="background-color: white; margin-top: 12px; padding-bottom: 15px">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <h2>Livraison estimée</h2>
-                                    <p>date</p>
+                                    <h2 style="font-size: 14px;">Livraison estimée</h2>
+                                    <p>Date</p>
                                     <p class="c_info"><span class="glyphicon glyphicon-asterisk"></span> Vous pouvez
                                         sélectionner
                                         notre
@@ -149,7 +149,7 @@
                         </div>
                         <div class="col-sm-12 col-xs-12"
                              style="background-color: white; margin-top: 12px; margin-bottom: 12px">
-                            <h2 style="padding: 25px 0 0 25px">Nous acceptons</h2>
+                            <h2 style="font-size: 14px;">Nous acceptons</h2>
                             <div style="padding-bottom: 25px">
                                 <img class="w50" src="catalog/view/theme/default/image/master2.png">
                                 <img class="w50" src="catalog/view/theme/default/image/visa2.png">
