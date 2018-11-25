@@ -45,14 +45,15 @@
 </head>
 <body>
 
-<header style="padding-bottom: 5px;margin-bottom: 20px">
+<header>
     <div class="container-fluid hidden-md-down">
         <div class="container">
             <div class="row">
                 <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12 col-md-push-5 col-lg-push-5">
                     <div class="row">
                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" align="center">
-                            <div id="logo">{% if logo %}<a href="{{ home }}"><img src="{{ logo }}" title="{{ name }}"
+                            <div id="logo">
+                                {% if logo %}<a href="{{ home }}"><img src="{{ logo }}" title="{{ name }}"
                                                                                   alt="{{ name }}"
                                                                                   class="img-responsive"
                                     /></a>{% else %}
@@ -79,27 +80,28 @@
             </div>
         </div>
     </div>
-    <nav id="top" style="margin-top: -10px;">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-4 col-sm-4 hidden-sm hidden-xs">
-                    <a href="{{ Return_and_refund }}">
-                        <p>SATISFAIT OU REMBOURSE </p>
-                    </a>
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" align="center">
-                    <p>{{ text_expedition }}</p>
-                </div>
-                <div class="col-lg-4 col-md-4 hidden-sm hidden-xs" align="right">
-                    <a href="{{ contact }}">
-                        <p>
-                            {{ text_service }}
-                        </p>
-                    </a>
-                </div>
+</header>
+<nav id="top">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-sm-4 hidden-sm hidden-xs">
+                <a href="{{ Return_and_refund }}">
+                    <p>SATISFAIT OU REMBOURSE </p>
+                </a>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" align="center">
+                <p>{{ text_expedition }}</p>
+            </div>
+            <div class="col-lg-4 col-md-4 hidden-sm hidden-xs" align="right">
+                <a href="{{ contact }}">
+                    <p>
+                        {{ text_service }}
+                    </p>
+                </a>
             </div>
         </div>
-    </nav>
-</header>
+    </div>
+</nav>
+
 
 
