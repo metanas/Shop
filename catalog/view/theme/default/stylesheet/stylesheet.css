@@ -128,12 +128,11 @@ div.required .control-label:before {
     border-bottom: 1px solid RGB(229, 33, 92);
     height: 30px;
     font-weight: bold;
-
+    margin-bottom: 20px;
 }
 
 #top p {
     color: white;
-    font-size: 14px;
     text-decoration: none;
     margin-bottom: 0;
     font-size: 12px;
@@ -142,8 +141,7 @@ div.required .control-label:before {
 /* logo */
 #logo {
     margin: 0 0 10px 0;
-    max-width: 100px;
-    float: left;
+    max-width: 80px;
 }
 
 /* search */
@@ -1219,7 +1217,7 @@ h2.price {
     border: 2px solid black;
     font-weight: bold;
     color: black;
-    font-size: 16px;
+    font-size: 13px;
     padding: auto;
     width: 100%;
     height: 100%;
@@ -1842,13 +1840,10 @@ ul {
 }
 
 .hidden-md-down {
+    padding-top: 10px;
     background-color: white;
-    padding-top: 20px;
-    margin-bottom: 20px;
-    box-shadow: 1px 2px 18px #888888;
-    -moz-box-shadow: 1px 2px 18px #888888;
-    -webkit-box-shadow: 1px 2px 18px #888888;
 }
+
 .slide-show-image{
     background-size: cover;
     height: 100%;

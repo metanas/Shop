@@ -101,6 +101,7 @@ class ControllerCheckoutCart extends Controller
                     'cart_id' => $product['cart_id'],
                     'thumb' => $image,
                     'name' => $product['name'],
+                    'manufacturer' => $product['manufacturer'],
                     'color' => $product['color'],
                     'option' => $option_data,
                     'quantity' => $product['quantity'],
