@@ -121,23 +121,22 @@ class ModelCatalogProduct extends Model
                 }
             }
 
+
             if (!empty($data['filter_tag'])) {
                 $implode = array();
 
                 if ($implode) {
                     $sql .= " " . implode(" AND ", $implode) . "";
                 }
+
             }
+
+            $sql .=")";
 
             if (!empty($data['filter_name'])) {
-                $sql .= " OR LCASE(m.name) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
+                $sql .= " OR LCASE(p.name) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
             }
 
-            $sql .= ")";
-        }
-
-        if (!empty($data['filter_manufacturer_id'])) {
-            $sql .= " AND p.manufacturer_id = '" . (int)$data['filter_manufacturer_id'] . "'";
         }
 
         $sql .= " GROUP BY p.product_id";
@@ -490,14 +489,10 @@ class ModelCatalogProduct extends Model
                 }
             }
 
-            if (!empty($data['filter_name'])) {
-                $sql .= " OR LCASE(m.name) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
-            }
-
             $sql .= ")";
         }
 
-        if (!empty($data['filter_manufacturer_id'])) {
+        if (isset($data['filter_manufacturer_id'])) {
             $sql .= " AND p.manufacturer_id = '" . (int)$data['filter_manufacturer_id'] . "'";
         }
 
