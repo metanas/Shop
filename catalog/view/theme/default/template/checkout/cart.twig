@@ -30,10 +30,11 @@
                         <div style="background-color: white;padding-bottom: 15px">
                             <h2 style="margin-top: 0; margin-left: 15px; padding-top: 24px; margin-bottom: 32px; font-size: 24px;">
                                 {{ heading_title }}({% if total_products > 1 %}
-                                    &nbsp;<span id="product_count"  style="font-size: 24px;font-weight: bold">{{ total_products }}
+                                &nbsp;<span id="product_count"
+                                            style="font-size: 24px;font-weight: bold">{{ total_products }}
                                         articles</span>
-                                {% else %}
-                                    <span id="product_count" style="font-size: 24px;font-weight: bold">{{ total_products }} article</span>
+                            {% else %}
+                                <span id="product_count" style="font-size: 24px;font-weight: bold">{{ total_products }} article</span>
                                 {% endif %}
                                 )
                             </h2>
@@ -54,12 +55,6 @@
                                             <div class="info row">
                                                 <div class="col-sm-12">
                                                     <div class="row">
-                                                        <div class="pull-right" style="margin-right: 10px">
-                                                            <button style="background-color: inherit; border:0;"
-                                                                    onclick="cart.remove('{{ product.cart_id }}');">
-                                                                <span class="fa fa-trash" style="color: red"></span>
-                                                            </button>
-                                                        </div>
                                                         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
                                                             <div>
                                                                 <a href="{{ product.href }}">{{ product.manufacturer }}</a>
@@ -82,7 +77,7 @@
                                                                             <option value="{{ i }}" {% if product.quantity == i %} selected {% endif %}>{{ i }}</option>
                                                                         {% endfor %}
                                                                     {% else %}
-                                                                        <option value="0" selected >0</option>
+                                                                        <option value="0" selected>0</option>
                                                                     {% endif %}
                                                                 </select>
                                                                 <i class="fa fa-angle-down"
@@ -101,6 +96,12 @@
                                                         <div id="r{{ loop.index }}"
                                                              class="price-new">{{ product.total }}</div>
                                                     {% endif %}
+                                                </div>
+                                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                                    <div class="pointer"
+                                                         onclick="cart.remove('{{ product.cart_id }}');" style="font-size: 12px">
+                                                        <span class="fa fa-trash"></span> Supprimer
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

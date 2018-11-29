@@ -120,7 +120,7 @@ function filterGenerator() {
         },
         success: function (json) {
             $('footer').prev().remove();
-            $('header').after(json);
+            $('#top').after(json);
             setFilter();
         },
         error: function (result, status, s) {
