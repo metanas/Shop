@@ -69,7 +69,11 @@
                     {% endfor %}
                 </div>
             {% else %}
-                <p>{{ text_no_results }}</p>
+                <div align="center">
+                    <img src="catalog/view/theme/default/image/owl.png" width="15"
+                         style="margin-bottom: 20px;margin-top: 20px">
+                </div>
+                <p align="center" style="font-size: 18px">{{ text_no_results }}</p>
             {% endif %}
             {{ content_bottom }}</div>
         {{ column_right }}</div>
