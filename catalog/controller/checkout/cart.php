@@ -209,6 +209,7 @@ class ControllerCheckoutCart extends Controller
 
             $this->response->setOutput($this->load->view('checkout/cart', $data));
         } else {
+            $data['heading_title'] = $this->language->get("empty_title");
             $data['text_error'] = $this->language->get('text_empty');
 
             $data['continue'] = $this->url->link('common/home', 'language=' . $this->config->get('config_language'));
@@ -358,7 +359,7 @@ class ControllerCheckoutCart extends Controller
             $this->cart->update($this->request->post['cart_id'], $this->request->post['quantity']);
 
             $json['success'] = $this->language->get('text_remove');
-            $json['product_count']  = $this->cart->countProducts();
+            $json['product_count'] = $this->cart->countProducts();
             $json['total'] = $this->currency->format($this->cart->getTotal(), $this->session->data['currency']);
 
             $prices = $this->cart->getProduct($this->request->post['cart_id']);

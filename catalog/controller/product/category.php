@@ -188,7 +188,7 @@ class ControllerProductCategory extends Controller
             foreach ($products_option as $option) {
                 $manufactures[] = $option['manufacture'];
                 $sizes[] = $option['size'];
-                $colors[] = $option['color'] . $option['color_hex'];
+                $colors[] = $option['color'] . "$" . $option['color_hex'];
                 $price[] = $option['price'];
             }
 
@@ -548,7 +548,7 @@ class ControllerProductCategory extends Controller
             foreach ($products_option as $option) {
                 $manufactures[] = $option['manufacture'];
                 $sizes[] = $option['size'];
-                $colors[] = $option['color'];
+                $colors[] = $option['color'] . "$" . $option['color_hex'];
                 $price[] = $option['price'];
             }
 
