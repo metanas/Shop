@@ -1823,20 +1823,24 @@ ul {
 .product-stock {
     background-color: #ff1b5a;
     color: whitesmoke;
-    padding: 5px;
 }
 
 .product-status{
     position: absolute;
     top: 5%;
     border-bottom-right-radius: 5px;
+    padding: 5px;
 }
-
+@media (max-width: 720px) {
+    .product-status{
+        font-size: 8px;
+        padding: 2px;
+    }
+}
 .product-discount {
     border: 1px solid #ff1b5a;
     background-color: white;
     color: #ff1b5a;
-    padding: 5px;
 }
 
 .hidden-md-down {
