@@ -311,13 +311,13 @@
 
     </div>
 </div>
-    {% if tags %}
-        <p>{{ text_tags }}
-            {% for i in 0..tags|length %}
-                {% if i < (tags|length - 1) %}<a href="{{ tags[i].href }}">{{ tags[i].tag }}</a>,
-                {% else %}<a href="{{ tags[i].href }}">{{ tags[i].tag }}</a>{% endif %}
-            {% endfor %}</p>
-    {% endif %}
+{% if tags %}
+    <p>{{ text_tags }}
+        {% for i in 0..tags|length %}
+            {% if i < (tags|length - 1) %}<a href="{{ tags[i].href }}">{{ tags[i].tag }}</a>,
+            {% else %}<a href="{{ tags[i].href }}">{{ tags[i].tag }}</a>{% endif %}
+        {% endfor %}</p>
+{% endif %}
     {{ content_bottom }}
             {{ column_right }}
 
@@ -530,62 +530,66 @@
 </script>
 <script>
     // Galery
-    $('document').ready(function () {
-        img = $('#main_img');
-        $('.product-image img').each(
-            function (index, elm) {
-                elm.onmouseover = function (e) {
-                    img[0].src = elm.alt;
-                    link = img[0].src.replace("cache/", "").split("-");
-                    link[link.length - 1] = "-.png";
-                    link = link.join("-").replace("--", "");
-                    $('.previous-hover').zoom({url: link});
-                };
-            }
-        );
+    if (!isMobile.any()) {
+        $('document').ready(function () {
+                img = $('#main_img');
+                $('.product-image img').each(
+                    function (index, elm) {
+                        elm.onmouseover = function (e) {
+                            img[0].src = elm.alt;
+                            link = img[0].src.replace("cache/", "").split("-");
+                            link[link.length - 1] = "-.png";
+                            link = link.join("-").replace("--", "");
+                            $('.previous-hover').zoom({url: link});
+                        };
+                    }
+                );
 
 
-        link = img[0].src.replace("cache/", "").split("-");
-        link[link.length - 1] = "-.png";
-        link = link.join("-").replace("--", "");
-        $('.previous-hover').zoom({url: link});
-
-
-    });
-</script>
-<script>
-
-    var img = $('#main_img');
-    var main_thumb = $('#main_thumb');
-    var default_src = img[0].src;
-
-    color_text = $('#color_text');
-    default_color = color_text.html();
-
-    price = $('#price_tag');
-    default_price = price.html();
-
-    $('.similar_img').each(
-        function (index, elm) {
-            elm.onmouseover = function (e) {
-                color_text.html($(elm).attr("data-color"));
-                price.html($(elm).attr("data-price"));
-                img[0].src = elm.alt;
-                main_thumb.css("border-bottom", "0");
-                elm.style.borderBottom = "2px black solid";
-
-            };
-            elm.onmouseout = function (e) {
-                elm.style.borderBottom = "0";
-                main_thumb.css("border-bottom", "2px black solid");
-                color_text.html(default_color);
-                price.html(default_price);
-                img[0].src = default_src;
                 link = img[0].src.replace("cache/", "").split("-");
                 link[link.length - 1] = "-.png";
                 link = link.join("-").replace("--", "");
                 $('.previous-hover').zoom({url: link});
+
+
             }
-        });
+        )
+    };
+</script>
+<script>
+    if(!isMobile.any()){
+        var img = $('#main_img');
+        var main_thumb = $('#main_thumb');
+        var default_src = img[0].src;
+
+        color_text = $('#color_text');
+        default_color = color_text.html();
+
+        price = $('#price_tag');
+        default_price = price.html();
+
+        $('.similar_img').each(
+            function (index, elm) {
+                elm.onmouseover = function (e) {
+                    color_text.html($(elm).attr("data-color"));
+                    price.html($(elm).attr("data-price"));
+                    img[0].src = elm.alt;
+                    main_thumb.css("border-bottom", "0");
+                    elm.style.borderBottom = "2px black solid";
+
+                };
+                elm.onmouseout = function (e) {
+                    elm.style.borderBottom = "0";
+                    main_thumb.css("border-bottom", "2px black solid");
+                    color_text.html(default_color);
+                    price.html(default_price);
+                    img[0].src = default_src;
+                    link = img[0].src.replace("cache/", "").split("-");
+                    link[link.length - 1] = "-.png";
+                    link = link.join("-").replace("--", "");
+                    $('.previous-hover').zoom({url: link});
+                }
+            });
+    }
 </script>
 {{ footer }}
