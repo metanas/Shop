@@ -2,7 +2,7 @@
 
 // Heading
 
-$_['heading_title'] = 'Thank you!';
+$_['heading_title'] = 'Merci!';
 
 
 // Text
