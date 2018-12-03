@@ -9,7 +9,7 @@
     {% set class = 'col-sm-12' %}
     {% endif %}
     <div id="content" class="{{ class }}">{{ content_top }}
-      <h1 style="font-size: 18px;margin-bottom: 45px;">{{ heading_title }}</h1>
+      <h3 style="margin-bottom: 38px;" onclick="openSlide()"><span class="fa fa-align-justify visible-xs-inline" style="font-size: inherit"></span> {{ heading_title }}</h3>
       {% if orders %}
       <div class="table-responsive">
         <table class="table  table-hover">
@@ -48,4 +48,10 @@
       {{ content_bottom }}</div>
     {{ column_right }}</div>
 </div>
+<script>
+    $('#column-left').removeClass('hidden-xs');
+    function openSlide() {
+        $("#slidebar").css({"width": "100%"});
+    }
+</script>
 {{ footer }}
