@@ -1512,6 +1512,7 @@ class ControllerSaleOrder extends Controller
                     $product_data[] = array(
                         'name' => $product['name'],
                         'manufacturer' => $product['manufacturer'],
+                        'ref' => $product['ref'],
                         'option' => $option_data,
                         'quantity' => $product['quantity'],
                         'price' => $this->currency->format($product['price'] + ($this->config->get('config_tax') ? $product['tax'] : 0), $order_info['currency_code'], $order_info['currency_value']),
