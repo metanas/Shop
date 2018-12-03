@@ -554,42 +554,41 @@
 
             }
         )
-    };
+    }
 </script>
 <script>
-    if(!isMobile.any()){
-        var img = $('#main_img');
-        var main_thumb = $('#main_thumb');
-        var default_src = img[0].src;
+    var img = $('#main_img');
+    var main_thumb = $('#main_thumb');
+    var default_src = img[0].src;
 
-        color_text = $('#color_text');
-        default_color = color_text.html();
+    color_text = $('#color_text');
+    default_color = color_text.html();
 
-        price = $('#price_tag');
-        default_price = price.html();
+    price = $('#price_tag');
+    default_price = price.html();
 
-        $('.similar_img').each(
-            function (index, elm) {
-                elm.onmouseover = function (e) {
-                    color_text.html($(elm).attr("data-color"));
-                    price.html($(elm).attr("data-price"));
-                    img[0].src = elm.alt;
-                    main_thumb.css("border-bottom", "0");
-                    elm.style.borderBottom = "2px black solid";
+    $('.similar_img').each(
+        function (index, elm) {
+            elm.onmouseover = function (e) {
+                color_text.html($(elm).attr("data-color"));
+                price.html($(elm).attr("data-price"));
+                img[0].src = elm.alt;
+                main_thumb.css("border-bottom", "0");
+                elm.style.borderBottom = "2px black solid";
 
-                };
-                elm.onmouseout = function (e) {
-                    elm.style.borderBottom = "0";
-                    main_thumb.css("border-bottom", "2px black solid");
-                    color_text.html(default_color);
-                    price.html(default_price);
-                    img[0].src = default_src;
-                    link = img[0].src.replace("cache/", "").split("-");
-                    link[link.length - 1] = "-.png";
-                    link = link.join("-").replace("--", "");
-                    $('.previous-hover').zoom({url: link});
-                }
-            });
-    }
+            };
+            elm.onmouseout = function (e) {
+                elm.style.borderBottom = "0";
+                main_thumb.css("border-bottom", "2px black solid");
+                color_text.html(default_color);
+                price.html(default_price);
+                img[0].src = default_src;
+                link = img[0].src.replace("cache/", "").split("-");
+                link[link.length - 1] = "-.png";
+                link = link.join("-").replace("--", "");
+                $('.previous-hover').zoom({url: link});
+            }
+        });
+
 </script>
 {{ footer }}
