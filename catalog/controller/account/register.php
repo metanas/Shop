@@ -8,6 +8,7 @@ class ControllerAccountRegister extends Controller {
 		}
 
 		$this->load->language('account/register');
+        $this->load->language('account/login');
 
 		$this->document->setTitle($this->language->get('heading_title'));
 
@@ -56,10 +57,28 @@ class ControllerAccountRegister extends Controller {
 			$data['error_lastname'] = '';
 		}
 
+        if (isset($this->error['day'])) {
+            $data['error_day'] = $this->error['day'];
+        } else {
+            $data['error_day'] = '';
+        }
+
+        if (isset($this->error['month'])) {
+            $data['error_month'] = $this->error['month'];
+        } else {
+            $data['error_month'] = '';
+        }
+
+        if (isset($this->error['year'])) {
+            $data['error_year'] = $this->error['year'];
+        } else {
+            $data['error_year'] = '';
+        }
+
 		if (isset($this->error['email'])) {
-			$data['error_email'] = $this->error['email'];
+			$data['error_email_register'] = $this->error['email'];
 		} else {
-			$data['error_email'] = '';
+			$data['error_email_register'] = '';
 		}
 
 		if (isset($this->error['custom_field'])) {
@@ -69,9 +88,9 @@ class ControllerAccountRegister extends Controller {
 		}
 
 		if (isset($this->error['password'])) {
-			$data['error_password'] = $this->error['password'];
+			$data['error_password_register'] = $this->error['password'];
 		} else {
-			$data['error_password'] = '';
+			$data['error_password_register'] = '';
 		}
 
         if (isset($this->error['sex'])) {
@@ -112,11 +131,35 @@ class ControllerAccountRegister extends Controller {
 			$data['lastname'] = '';
 		}
 
+        if (isset($this->request->post['birthday'][0])) {
+            $data['day'] = $this->request->post['birthday'][0];
+        } else {
+            $data['day'] = '';
+        }
+
+        if (isset($this->request->post['birthday'][1])) {
+            $data['month'] = $this->request->post['birthday'][1];
+        } else {
+            $data['month'] = '';
+        }
+
+        if (isset($this->request->post['birthday'][2])) {
+            $data['year'] = $this->request->post['birthday'][2];
+        } else {
+            $data['year'] = '';
+        }
+
 		if (isset($this->request->post['email'])) {
-			$data['email'] = $this->request->post['email'];
+			$data['email_register'] = $this->request->post['email'];
 		} else {
-			$data['email'] = '';
+			$data['email_register'] = '';
 		}
+
+        if (isset($this->request->post['sex'])) {
+            $data['sex'] = $this->request->post['sex'];
+        } else {
+            $data['sex'] = '';
+        }
 
 		// Custom Fields
 		$data['custom_fields'] = array();
@@ -170,7 +213,12 @@ class ControllerAccountRegister extends Controller {
 			$data['agree'] = false;
 		}
 
-		$data['language'] = $this->config->get('config_language');
+		$data['register_field'] =  "test";
+
+        $data['action_register'] = $this->url->link('account/register', 'language=' . $this->config->get('config_language'));
+        $data['action_login'] = $this->url->link('account/login', 'language=' . $this->config->get('config_language'));
+        $data['register'] = $this->url->link('account/register', 'language=' . $this->config->get('config_language'));
+        $data['forgotten'] = $this->url->link('account/forgotten', 'language=' . $this->config->get('config_language'));
 
 		$data['column_left'] = $this->load->controller('common/column_left');
 		$data['column_right'] = $this->load->controller('common/column_right');
@@ -194,6 +242,18 @@ class ControllerAccountRegister extends Controller {
 		if ((utf8_strlen($this->request->post['email']) > 96) || !filter_var($this->request->post['email'], FILTER_VALIDATE_EMAIL)) {
 			$this->error['email'] = $this->language->get('error_email');
 		}
+
+        if (($this->request->post['birthday'][0] < 1 || $this->request->post['birthday'][0] > 31) || !filter_var($this->request->post['birthday'][0], FILTER_VALIDATE_INT)){
+            $this->error['day'] = $this->language->get('error_birthday_day');
+        }
+
+        if ((intval($this->request->post['birthday'][1]) < 1 || intval($this->request->post['birthday'][1]) > 12) || !filter_var((int)$this->request->post['birthday'][1], FILTER_VALIDATE_INT)){
+            $this->error['month'] = $this->language->get('error_month');
+        }
+
+        if (!filter_var($this->request->post['birthday'][2], FILTER_VALIDATE_INT)){
+            $this->error['year'] = $this->language->get('error_year');
+        }
 
 		if(!isset($this->request->post['sex']) || !in_array($this->request->post['sex'], array($this->language->get('entry_female'),$this->language->get('entry_male')))){
             $this->error['sex'] = $this->language->get('error_sex');
