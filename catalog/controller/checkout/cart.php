@@ -181,8 +181,6 @@ class ControllerCheckoutCart extends Controller
                 );
             }
 
-            $data['continue'] = $this->url->link('common/home', 'language=' . $this->config->get('config_language'));
-
             $data['checkout'] = $this->url->link('checkout/checkout', 'language=' . $this->config->get('config_language'));
 
             $this->load->model('setting/extension');
@@ -212,7 +210,11 @@ class ControllerCheckoutCart extends Controller
             $data['heading_title'] = $this->language->get("empty_title");
             $data['text_error'] = $this->language->get('text_empty');
 
-            $data['continue'] = $this->url->link('common/home', 'language=' . $this->config->get('config_language'));
+            $this->load->model("catalog/category");
+
+            $category_id = $this->model_catalog_category->getCategories(0);
+
+            $data['continue'] = $this->url->link('product/category', array("path" => $category_id[0]['category_id'], 'language' => $this->config->get('config_language')));
 
             unset($this->session->data['success']);
 
