@@ -114,15 +114,15 @@ class ControllerCheckoutRegister extends Controller
             }
 
             if (intval($this->request->post['birthday'][1]) < 1 || intval($this->request->post['birthday'][1]) > 12 || !filter_var((int)$this->request->post['birthday'][1], FILTER_VALIDATE_INT)) {
-                $json['error']['birthday'] = $this->language->get('error_lastname');
+                $json['error']['birthday'] = $this->language->get('error_birthday');
             }
 
             if ($this->request->post['birthday'][2] < 1 || $this->request->post['birthday'][2] > 31 || !filter_var($this->request->post['birthday'][2], FILTER_VALIDATE_INT)) {
-                $json['error']['birthday'] = $this->language->get('error_lastname');
+                $json['error']['birthday'] = $this->language->get('error_birthday');
             }
 
             if ($this->request->post['birthday'][0] < 1 || $this->request->post['birthday'][0] > 31 || !filter_var($this->request->post['birthday'][0], FILTER_VALIDATE_INT)) {
-                $json['error']['birthday'] = $this->language->get('error_lastname');
+                $json['error']['birthday'] = $this->language->get('error_birthday');
             }
 
             if ((utf8_strlen($this->request->post['email']) > 96) || !filter_var($this->request->post['email'], FILTER_VALIDATE_EMAIL)) {
@@ -213,9 +213,7 @@ class ControllerCheckoutRegister extends Controller
             }
 
             unset($this->session->data['shipping_method']);
-            unset($this->session->data['shipping_methods']);
             unset($this->session->data['payment_method']);
-            unset($this->session->data['payment_methods']);
         }
 
         if (isset($customer_id)) {

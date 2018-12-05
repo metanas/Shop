@@ -13,7 +13,7 @@ $_['text_account_already'] ='Si vous avez déjà un compte avec nous, connectez-
 $_['text_your_details']    ='Vos informations personnelles';
 $_['text_your_address']    ='Votre adresse';
 $_['text_your_password']   ='Votre mot de passe';
-$_['text_agree']           ='j`ai lu et accepté les <a href="%s" class="agree">  <b> %s </b>  </a> ';
+$_['text_agree']           ='j\'ai lu et accepté les <a href="%s" class="agree">  <b> %s </b>  </a> ';
 $_['text_newsletter']      ='Oui, je veux recevoir par e-mail des infos sur les dernieres tendances<br>Desinscription possible a tout moment. (facultatif)';
 
 
@@ -31,28 +31,29 @@ $_['entry_sex']            ='Sexe';
 $_['entry_male']           ='Male';
 $_['entry_female']         ='Femme';
 $_['entry_birthday']       ='Date de naissance';
-$_['entry_month']          ='<option value=\'01\'>janvier</option>
-                            <option value=\'02\'>février</option>
-                            <option value=\'03\'>mars</option>
-                            <option value=\'04\'>avril</option>
-                            <option value=\'05\'>mai</option>
-                            <option value=\'06\'>juin</option>
-                            <option value=\'07\'>juillet</option>
-                            <option value=\'08\'>août</option>
-                            <option value=\'09\'>septembre</option>
-                            <option value=\'10\'>octobre</option>
-                            <option value=\'11\'>novembre</option>
-                            <option value=\'12\'>décembre</option>';
+$_['entry_month']          ='<option value=\'01\'>Janvier</option>
+                            <option value=\'02\'>Février</option>
+                            <option value=\'03\'>Mars</option>
+                            <option value=\'04\'>Avril</option>
+                            <option value=\'05\'>Mai</option>
+                            <option value=\'06\'>Juin</option>
+                            <option value=\'07\'>Juillet</option>
+                            <option value=\'08\'>Août</option>
+                            <option value=\'09\'>Septembre</option>
+                            <option value=\'10\'>Octobre</option>
+                            <option value=\'11\'>Novembre</option>
+                            <option value=\'12\'>Décembre</option>';
 
 
 // Error
 
-$_['error_exists']         ='Attention: l`adresse e-mail est déjà enregistrée!';
+$_['error_exists']         ='Attention: l\'adresse e-mail est déjà enregistrée!';
 $_['error_firstname']      ='Le prénom doit être compris entre 1 et 32 ​​caractères!';
 $_['error_lastname']       ='Le nom de famille doit être compris entre 1 et 32 ​​caractères!';
-$_['error_email']          ='L`adresse e-mail ne semble pas être valide!';
-$_['error_telephone']      ='Le téléphone doit avoir entre 3 et 32 ​​caractères!';
+$_['error_email']          ='L\'adresse e-mail ne semble pas être valide!';
+$_['error_telephone']      ='Le téléphone doit étre valider!';
 $_['error_custom_field']   ='%s requis!';
+$_['error_birthday']       ='Sélectionner votre date de naissance!';
 $_['error_day']            ='Sélectionner une date';
 $_['error_month']          ='Sélectionner un mois';
 $_['error_year']           ='Sélectionner une année';
