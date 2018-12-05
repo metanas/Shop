@@ -65,7 +65,7 @@
                     <select name="birthday[]" class="select-zalark">
                         <option value="0" selected>Select Annee:</option>
                         {% for i in 2000..1900 %}
-                        <option value="{{ i }}">{{ i }}</option>
+                            <option value="{{ i }}">{{ i }}</option>
                         {% endfor %}
                     </select>
                     <i class="fa fa-angle-down"
@@ -154,14 +154,19 @@
                 if (json['session']) {
                     step.next();
                 }
+
                 $('.alert-dismissible, .text-danger').remove();
                 $('.form-group').removeClass('has-error');
+
+                if(json['warning']){
+                    $('#collapse-checkout-option #login-field').prepend('<div class="alert alert-danger alert-dismissible" ><i class="fa fa-exclamation-circle"></i> '
+                        + json['warning']
+                        + '<div>');
+                }
+
                 if (json['redirect']) {
 
                 } else if (json['error']) {
-                    // $('#collapse-checkout-option .panel-body').prepend('<div class="alert alert-danger alert-dismissible" ><i class="fa fa-exclamation-circle"></i> '
-                    //     + json['error']['warning']
-                    //     + '<button type = "button" class="close" data-dismiss="alert" > & times; <button> <div>');
                     // Highlight any found errors
                     $('#collapse-checkout-option #login-field input[name=\'email\']').parent().addClass('has-error');
                     $('#collapse-checkout-option #login-field input[name=\'password\']').parent().addClass('has-error');
@@ -184,7 +189,7 @@
         $.ajax({
             url: 'index.php?route=checkout/register/save&language={{ language }}',
             type: 'post',
-            data: $('#collapse-checkout-option #sign-up-field input[type=\'text\'], #collapse-checkout-option #sign-up-field input[type=\'radio\'], #collapse-checkout-option #sign-up-field input[type=\'password\'], #collapse-checkout-option #sign-up-field input[type=\'checkbox\']'),
+            data: $('#collapse-checkout-option #sign-up-field input[type=\'text\'], #collapse-checkout-option #sign-up-field input[type=\'radio\'], #collapse-checkout-option #sign-up-field input[type=\'password\'], #collapse-checkout-option #sign-up-field input[type=\'checkbox\'], #collapse-checkout-option #sign-up-field select'),
             dataType: 'json',
             beforeSend: function () {
                 $('#button-register').button('loading');
@@ -196,6 +201,19 @@
                 if (json['success']) {
                     step.next();
                 }
+
+                if(json['warning']){
+                    $('#collapse-checkout-option #sign-up-field').prepend('<div class="alert alert-danger alert-dismissible" ><i class="fa fa-exclamation-circle"></i> '
+                        + json['warning']
+                        + '<div>');
+                }
+
+                if(json['error']){
+                    $.map(json['error'], function (key, value) {
+                        $('#collapse-checkout-option input[name="' + value + '"]').after("<span class='text-danger'>" + key + "</span>")
+                    })
+                }
+
                 //     $('.alert-dismissible, .text-danger').remove();
                 //     $('.form-group').removeClass('has-error');
                 //
@@ -219,7 +237,8 @@
                 //         }
                 //     }
             },
-            error: function () {
+            error: function (err, xsr) {
+                console.error(err);
             }
         });
     });

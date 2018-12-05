@@ -244,7 +244,7 @@ class ControllerAccountRegister extends Controller {
 		}
 
         if (($this->request->post['birthday'][0] < 1 || $this->request->post['birthday'][0] > 31) || !filter_var($this->request->post['birthday'][0], FILTER_VALIDATE_INT)){
-            $this->error['day'] = $this->language->get('error_birthday_day');
+            $this->error['day'] = $this->language->get('error_day');
         }
 
         if ((intval($this->request->post['birthday'][1]) < 1 || intval($this->request->post['birthday'][1]) > 12) || !filter_var((int)$this->request->post['birthday'][1], FILTER_VALIDATE_INT)){
