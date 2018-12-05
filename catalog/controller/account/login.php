@@ -18,9 +18,6 @@ class ControllerAccountLogin extends Controller
         $this->load->model('account/customer');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
-            // Unset guest
-            unset($this->session->data['guest']);
-
             // Default Shipping Address
             $this->load->model('account/address');
 
@@ -62,6 +59,60 @@ class ControllerAccountLogin extends Controller
             $data['error_warning'] = $this->error['warning'];
         } else {
             $data['error_warning'] = '';
+        }
+
+        if (isset($this->error['firstname'])) {
+            $data['error_firstname'] = $this->error['firstname'];
+        } else {
+            $data['error_firstname'] = '';
+        }
+
+        if (isset($this->error['lastname'])) {
+            $data['error_lastname'] = $this->error['lastname'];
+        } else {
+            $data['error_lastname'] = '';
+        }
+
+        if (isset($this->error['day'])) {
+            $data['error_day'] = $this->error['day'];
+        } else {
+            $data['error_day'] = '';
+        }
+
+        if (isset($this->error['month'])) {
+            $data['error_month'] = $this->error['month'];
+        } else {
+            $data['error_month'] = '';
+        }
+
+        if (isset($this->error['year'])) {
+            $data['error_year'] = $this->error['year'];
+        } else {
+            $data['error_year'] = '';
+        }
+
+        if (isset($this->error['year'])) {
+            $data['error_year'] = $this->error['year'];
+        } else {
+            $data['error_year'] = '';
+        }
+
+        if (isset($this->error['email'])) {
+            $data['error_email_register'] = $this->error['email'];
+        } else {
+            $data['error_email_register'] = '';
+        }
+
+        if (isset($this->error['password'])) {
+            $data['error_password_register'] = $this->error['password'];
+        } else {
+            $data['error_password_register'] = '';
+        }
+
+        if (isset($this->error['sex'])) {
+            $data['error_sex'] = $this->error['sex'];
+        } else {
+            $data['error_sex'] = '';
         }
 
         $data['action_register'] = $this->url->link('account/register', 'language=' . $this->config->get('config_language'));
