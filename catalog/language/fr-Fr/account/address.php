@@ -41,5 +41,5 @@ $_['error_address_1']             ='L\'adresse doit être comprise entre 3 et 12
 $_['error_postcode']              ='Le code postal doit comporter entre 2 et 10 caractères!';
 $_['error_city']                  ='Entre nom de La ville!';
 $_['error_country']               ='Sélectionnez un pays!';
-$_['error_zone']                  ='Sélectionnez une région / état!';
+$_['error_telephone']             ='Entre votre numero de telephone!';
 $_['error_custom_field']          ='%s requis!';
