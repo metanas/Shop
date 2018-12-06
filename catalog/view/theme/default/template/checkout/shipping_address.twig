@@ -380,6 +380,7 @@
                 $('body').loading('stop');
             },
             success: function (json) {
+                $(".text-danger").remove();
                 if (json['redirect']) {
                     location = json['redirect'];
                 } else if (json['not_selected']) {
