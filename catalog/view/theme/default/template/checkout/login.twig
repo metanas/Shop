@@ -43,37 +43,42 @@
                 <input type="text" name="lastname" value="" placeholder="{{ entry_lastname }}" id="input-lastname"
                        class="form-control input-zalark"/>
             </div>
-            <label class="control-label" for="input-lastname">{{ entry_birthday }}</label>
-            <div class="form-group">
-                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-4" style="padding: 0">
-                    <select name="birthday[]" class="select-zalark">
-                        <option value="0" selected>Select Jour:</option>
-                        {% for i in 1..31 %}
-                            <option value="{{ i }}">{{ i }}</option>
-                        {% endfor %}
-                    </select>
-                    <i class="fa fa-angle-down"
-                       style="position: absolute;padding: 13px;cursor: pointer;right: 0;top: 0;"></i>
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-4"><select name="birthday[]" class="select-zalark">
-                        <option value="0" selected>Select Mois:</option>
-                        {{ entry_month }}
-                    </select>
-                    <i class="fa fa-angle-down"
-                       style="position: absolute;padding: 13px;cursor: pointer;right: 15px;top: 0;"></i></div>
-                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-4" style="padding: 0">
-                    <select name="birthday[]" class="select-zalark">
-                        <option value="0" selected>Select Annee:</option>
-                        {% for i in 2000..1900 %}
-                            <option value="{{ i }}">{{ i }}</option>
-                        {% endfor %}
-                    </select>
-                    <i class="fa fa-angle-down"
-                       style="position: absolute;padding: 13px;cursor: pointer;right: 0;top: 0;"></i>
+
+            <div class="form-group" id="birthday-field">
+                <div class="row">
+                    <label class="control-label col-lg-12 col-md-12 col-sm-12 col-xs-12" for="input-lastname">{{ entry_birthday }}</label>
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-4" style="padding-right: 0">
+                        <select name="birthday[]" class="select-zalark">
+                            <option value="0" selected>Jour:</option>
+                            {% for i in 1..31 %}
+                                <option value="{{ i }}">{{ i }}</option>
+                            {% endfor %}
+                        </select>
+                        <i class="fa fa-angle-down"
+                           style="position: absolute;padding: 13px;cursor: pointer;right: 0;top: 0;"></i>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-4">
+                        <select name="birthday[]" class="select-zalark">
+                            <option value="0" selected>Mois:</option>
+                            {{ entry_month }}
+                        </select>
+                        <i class="fa fa-angle-down"
+                           style="position: absolute;padding: 13px;cursor: pointer;right: 15px;top: 0;"></i>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-4" style="padding-left: 0">
+                        <select name="birthday[]" class="select-zalark">
+                            <option value="0" selected>Annee:</option>
+                            {% for i in 2000..1900 %}
+                                <option value="{{ i }}">{{ i }}</option>
+                            {% endfor %}
+                        </select>
+                        <i class="fa fa-angle-down"
+                           style="position: absolute;padding: 13px;cursor: pointer;right: 10px;top: 0;"></i>
+                    </div>
                 </div>
             </div>
 
-            <div class="form-group" style="margin-top: 54px">
+            <div class="form-group">
                 <label class="control-label" for="input-email">{{ entry_email_address }}</label>
                 <input type="text" name="email" value="" placeholder="{{ entry_email }}" id="input-email"
                        class="form-control input-zalark"/>
@@ -210,8 +215,12 @@
 
                 if(json['error']){
                     $.map(json['error'], function (key, value) {
-                        $('#collapse-checkout-option input[name="' + value + '"]').after("<span class='text-danger'>" + key + "</span>")
-                    })
+                        $('#collapse-checkout-option input[name="' + value + '"]').after("<span class='text-danger'>" + key + "</span>");
+                    });
+
+                    if(json['error']['birthday']){
+                        $('#birthday-field').after("<span class='text-danger'>" + json['error']['birthday'] + "</span>");
+                    }
                 }
 
                 //     $('.alert-dismissible, .text-danger').remove();
