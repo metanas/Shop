@@ -165,8 +165,8 @@ class ControllerAccountAddress extends Controller
                 '{address_1}',
                 '{address_2}',
                 '{city}',
-                '{telephone}',
                 '{postcode}',
+                '{telephone}',
                 '{country}'
             );
 
@@ -390,19 +390,19 @@ class ControllerAccountAddress extends Controller
             $this->error['address_1'] = $this->language->get('error_address_1');
         }
 
-        if ((utf8_strlen(trim($this->request->post['city'])) < 2) || (utf8_strlen(trim($this->request->post['city'])) > 128)) {
-            $this->error['city'] = $this->language->get('error_city');
+        if (!filter_var($this->request->post['postcode'], FILTER_VALIDATE_INT)) {
+            $this->error['postcode'] = $this->language->get('error_postcode');
         }
 
         if ((utf8_strlen(trim($this->request->post['city'])) < 2) || (utf8_strlen(trim($this->request->post['city'])) > 128)) {
             $this->error['city'] = $this->language->get('error_city');
         }
 
-        if ((utf8_strlen(trim($this->request->post['telephone'])) < 2) || (utf8_strlen(trim($this->request->post['telephone'])) > 128)) {
+        if ((utf8_strlen(trim($this->request->post['telephone'])) < 10) || (utf8_strlen(trim($this->request->post['telephone'])) > 15)) {
             $this->error['telephone'] = $this->language->get('error_telephone');
         }
 
-        if (utf8_strlen(trim($this->request->post['country'])) != 5) {
+        if(utf8_strlen(trim($this->request->post['country'])) != 5) {
             $this->error['country'] = $this->language->get('error_country');
         }
 
