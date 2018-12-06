@@ -394,12 +394,12 @@ class ControllerAccountAddress extends Controller
             $this->error['postcode'] = $this->language->get('error_postcode');
         }
 
-        if ((utf8_strlen(trim($this->request->post['city'])) < 2) || (utf8_strlen(trim($this->request->post['city'])) > 128)) {
-            $this->error['city'] = $this->language->get('error_city');
-        }
-
         if ((utf8_strlen(trim($this->request->post['telephone'])) < 10) || (utf8_strlen(trim($this->request->post['telephone'])) > 15)) {
             $this->error['telephone'] = $this->language->get('error_telephone');
+        }
+
+        if ((utf8_strlen(trim($this->request->post['city'])) < 2) || (utf8_strlen(trim($this->request->post['city'])) > 30)) {
+            $this->error['city'] = $this->language->get('error_city');
         }
 
         if(utf8_strlen(trim($this->request->post['country'])) != 5) {
