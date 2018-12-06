@@ -14,8 +14,8 @@ class ControllerCheckoutConfirm extends Controller
             '{address_1}',
             '{address_2}',
             '{city}',
-            '{telephone}',
             '{postcode}',
+            '{telephone}',
             '{country}'
         );
 
