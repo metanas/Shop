@@ -202,10 +202,16 @@ div.required .control-label:before {
 
 }
 
-.ver-center {
-    display: inline-block;
-    vertical-align: middle;
-    float: none;
+@media (min-width: 780px) {
+    .ver-center {
+        margin-top: 15px;
+    }
+}
+
+@media (max-width: 780px) {
+    .ver-center {
+        margin-top: 0;
+    }
 }
 
 /* cart */
@@ -974,7 +980,7 @@ h2.price {
 
 .pointer {
     font-size: 10px;
-    color:#999;
+    color: #999;
 }
 
 .pointer:hover {
@@ -1366,8 +1372,7 @@ ul {
 
 .prix-product-page {
     margin-top: 35px;
-    font-size: 18px;
-;
+    font-size: 18px;;
 
 }
 
@@ -1825,18 +1830,20 @@ ul {
     color: whitesmoke;
 }
 
-.product-status{
+.product-status {
     position: absolute;
     top: 5%;
     border-bottom-right-radius: 5px;
     padding: 5px;
 }
+
 @media (max-width: 720px) {
-    .product-status{
+    .product-status {
         font-size: 8px;
         padding: 2px;
     }
 }
+
 .product-discount {
     border: 1px solid #ff1b5a;
     background-color: white;
@@ -1848,7 +1855,7 @@ ul {
     background-color: white;
 }
 
-.slide-show-image{
+.slide-show-image {
     background-size: cover;
     height: 100%;
     background-position: center top;

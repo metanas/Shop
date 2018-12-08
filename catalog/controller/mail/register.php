@@ -1,129 +1,138 @@
 <?php
-class ControllerMailRegister extends Controller {
-	public function index(&$route, &$args, &$output) {
-		$this->load->language('mail/register');
 
-		$data['text_welcome'] = sprintf($this->language->get('text_welcome'), html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8'));
-		$data['text_login'] = $this->language->get('text_login');
-		$data['text_approval'] = $this->language->get('text_approval');
-		$data['text_service'] = $this->language->get('text_service');
-		$data['text_thanks'] = $this->language->get('text_thanks');
-		$data['button_login'] = $this->language->get('button_login');
+class ControllerMailRegister extends Controller
+{
+    public function index(&$route, &$args, &$output)
+    {
+        $this->load->language('mail/register');
 
-		$this->load->model('account/customer_group');
+        $data['text_welcome'] = sprintf($this->language->get('text_welcome'), html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8'));
+        $data['text_login'] = $this->language->get('text_login');
+        $data['text_service'] = $this->language->get('text_service');
+        $data['text_thanks'] = $this->language->get('text_thanks');
+        $data['button_login'] = $this->language->get('button_login');
 
-		if (isset($args[0]['customer_group_id'])) {
-			$customer_group_id = $args[0]['customer_group_id'];
-		} else {
-			$customer_group_id = $this->config->get('config_customer_group_id');
-		}
+        $this->load->model('account/customer_group');
 
-		$customer_group_info = $this->model_account_customer_group->getCustomerGroup($customer_group_id);
+        if (isset($args[0]['customer_group_id'])) {
+            $customer_group_id = $args[0]['customer_group_id'];
+        } else {
+            $customer_group_id = $this->config->get('config_customer_group_id');
+        }
 
-		if ($customer_group_info) {
-			$data['approval'] = $customer_group_info['approval'];
-		} else {
-			$data['approval'] = '';
-		}
+        $customer_group_info = $this->model_account_customer_group->getCustomerGroup($customer_group_id);
 
-		$data['login'] = $this->url->link('account/login', 'language=' . $this->config->get('config_language'));
-		$data['store_url'] = HTTP_SERVER;
-		$data['store'] = html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8');
+        if ($customer_group_info) {
+            $data['approval'] = $customer_group_info['approval'];
+        } else {
+            $data['approval'] = '';
+        }
 
-		$this->load->model('tool/image');
+        $this->load->model("account/customer");
 
-		if (is_file(DIR_IMAGE . $this->config->get('config_logo'))) {
-			$data['logo'] = $this->model_tool_image->resize($this->config->get('config_logo'), $this->config->get('theme_default_image_location_width'), $this->config->get('theme_default_image_cart_height'));
-		} else {
-			$data['logo'] = '';
-		}
+        $token = hash('sha512', mt_rand());
 
-		$mail = new Mail($this->config->get('config_mail_engine'));
-		$mail->parameter = $this->config->get('config_mail_parameter');
-		$mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
-		$mail->smtp_username = $this->config->get('config_mail_smtp_username');
-		$mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8');
-		$mail->smtp_port = $this->config->get('config_mail_smtp_port');
-		$mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
+        $data['text_approval'] = printf($this->language->get('text_approval'), $this->url->link('account/login', array("email" => $args[0]['email'], "token_login" => $token)));
 
-		$mail->setTo($args[0]['email']);
-		$mail->setFrom($this->config->get('config_email'));
-		$mail->setSender(html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8'));
-		$mail->setSubject(sprintf($this->language->get('text_subject'), html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8')));
-		$mail->setHtml($this->load->view('mail/register', $data));
-		$mail->send();
-	}
+        $data['login'] = $this->url->link('account/login', 'language=' . $this->config->get('config_language'));
+        $data['store_url'] = HTTP_SERVER;
+        $data['store'] = html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8');
 
-	public function alert(&$route, &$args, &$output) {
-		// Send to main admin email if new account email is enabled
-		if (in_array('account', (array)$this->config->get('config_mail_alert'))) {
-			$this->load->language('mail/register');
+        $this->load->model('tool/image');
 
-			$data['text_signup'] = $this->language->get('text_signup');
-			$data['text_firstname'] = $this->language->get('text_firstname');
-			$data['text_lastname'] = $this->language->get('text_lastname');
-			$data['text_customer_group'] = $this->language->get('text_customer_group');
-			$data['text_email'] = $this->language->get('text_email');
-			$data['text_telephone'] = $this->language->get('text_telephone');
+        if (is_file(DIR_IMAGE . $this->config->get('config_logo'))) {
+            $data['logo'] = $this->model_tool_image->resize($this->config->get('config_logo'), $this->config->get('theme_default_image_location_width'), $this->config->get('theme_default_image_cart_height'));
+        } else {
+            $data['logo'] = '';
+        }
 
-			$data['firstname'] = $args[0]['firstname'];
-			$data['lastname'] = $args[0]['lastname'];
+        $mail = new Mail($this->config->get('config_mail_engine'));
+        $mail->parameter = $this->config->get('config_mail_parameter');
+        $mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
+        $mail->smtp_username = $this->config->get('config_mail_smtp_username');
+        $mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8');
+        $mail->smtp_port = $this->config->get('config_mail_smtp_port');
+        $mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
 
-			$data['login'] = $this->url->link('account/login', 'language=' . $this->config->get('config_language'));
-			$data['store_url'] = HTTP_SERVER;
-			$data['store'] = html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8');
+        $mail->setTo($args[0]['email']);
+        $mail->setFrom($this->config->get('config_email'));
+        $mail->setSender(html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8'));
+        $mail->setSubject(sprintf($this->language->get('text_subject'), html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8')));
+        $mail->setHtml($this->load->view('mail/register', $data));
+        $mail->send();
+    }
 
-			$this->load->model('tool/image');
+    public function alert(&$route, &$args, &$output)
+    {
+        // Send to main admin email if new account email is enabled
+        if (in_array('account', (array)$this->config->get('config_mail_alert'))) {
+            $this->load->language('mail/register');
 
-			if (is_file(DIR_IMAGE . $this->config->get('config_logo'))) {
-				$data['logo'] = $this->model_tool_image->resize($this->config->get('config_logo'), $this->config->get('theme_default_image_location_width'), $this->config->get('theme_default_image_cart_height'));
-			} else {
-				$data['logo'] = '';
-			}
+            $data['text_signup'] = $this->language->get('text_signup');
+            $data['text_firstname'] = $this->language->get('text_firstname');
+            $data['text_lastname'] = $this->language->get('text_lastname');
+            $data['text_customer_group'] = $this->language->get('text_customer_group');
+            $data['text_email'] = $this->language->get('text_email');
+            $data['text_telephone'] = $this->language->get('text_telephone');
 
-			$this->load->model('account/customer_group');
+            $data['firstname'] = $args[0]['firstname'];
+            $data['lastname'] = $args[0]['lastname'];
 
-			if (isset($args[0]['customer_group_id'])) {
-				$customer_group_id = $args[0]['customer_group_id'];
-			} else {
-				$customer_group_id = $this->config->get('config_customer_group_id');
-			}
+            $data['login'] = $this->url->link('account/login', 'language=' . $this->config->get('config_language'));
+            $data['store_url'] = HTTP_SERVER;
+            $data['store'] = html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8');
 
-			$customer_group_info = $this->model_account_customer_group->getCustomerGroup($customer_group_id);
+            $this->load->model('tool/image');
 
-			if ($customer_group_info) {
-				$data['customer_group'] = $customer_group_info['name'];
-			} else {
-				$data['customer_group'] = '';
-			}
+            if (is_file(DIR_IMAGE . $this->config->get('config_logo'))) {
+                $data['logo'] = $this->model_tool_image->resize($this->config->get('config_logo'), $this->config->get('theme_default_image_location_width'), $this->config->get('theme_default_image_cart_height'));
+            } else {
+                $data['logo'] = '';
+            }
 
-			$data['email'] = $args[0]['email'];
-			$data['telephone'] = $args[0]['telephone'];
+            $this->load->model('account/customer_group');
 
-			$mail = new Mail($this->config->get('config_mail_engine'));
-			$mail->parameter = $this->config->get('config_mail_parameter');
-			$mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
-			$mail->smtp_username = $this->config->get('config_mail_smtp_username');
-			$mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8');
-			$mail->smtp_port = $this->config->get('config_mail_smtp_port');
-			$mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
+            if (isset($args[0]['customer_group_id'])) {
+                $customer_group_id = $args[0]['customer_group_id'];
+            } else {
+                $customer_group_id = $this->config->get('config_customer_group_id');
+            }
 
-			$mail->setTo($this->config->get('config_email'));
-			$mail->setFrom($this->config->get('config_email'));
-			$mail->setSender(html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8'));
-			$mail->setSubject(html_entity_decode($this->language->get('text_new_customer'), ENT_QUOTES, 'UTF-8'));
-			$mail->setHtml($this->load->view('mail/register_alert', $data));
-			$mail->send();
+            $customer_group_info = $this->model_account_customer_group->getCustomerGroup($customer_group_id);
 
-			// Send to additional alert emails if new account email is enabled
-			$emails = explode(',', $this->config->get('config_mail_alert_email'));
+            if ($customer_group_info) {
+                $data['customer_group'] = $customer_group_info['name'];
+            } else {
+                $data['customer_group'] = '';
+            }
 
-			foreach ($emails as $email) {
-				if (utf8_strlen($email) > 0 && filter_var($email, FILTER_VALIDATE_EMAIL)) {
-					$mail->setTo($email);
-					$mail->send();
-				}
-			}
-		}
-	}
+            $data['email'] = $args[0]['email'];
+            $data['telephone'] = $args[0]['telephone'];
+
+            $mail = new Mail($this->config->get('config_mail_engine'));
+            $mail->parameter = $this->config->get('config_mail_parameter');
+            $mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
+            $mail->smtp_username = $this->config->get('config_mail_smtp_username');
+            $mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8');
+            $mail->smtp_port = $this->config->get('config_mail_smtp_port');
+            $mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
+
+            $mail->setTo($this->config->get('config_email'));
+            $mail->setFrom($this->config->get('config_email'));
+            $mail->setSender(html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8'));
+            $mail->setSubject(html_entity_decode($this->language->get('text_new_customer'), ENT_QUOTES, 'UTF-8'));
+            $mail->setHtml($this->load->view('mail/register_alert', $data));
+            $mail->send();
+
+            // Send to additional alert emails if new account email is enabled
+            $emails = explode(',', $this->config->get('config_mail_alert_email'));
+
+            foreach ($emails as $email) {
+                if (utf8_strlen($email) > 0 && filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                    $mail->setTo($email);
+                    $mail->send();
+                }
+            }
+        }
+    }
 }
