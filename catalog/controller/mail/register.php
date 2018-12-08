@@ -6,6 +6,11 @@ class ControllerMailRegister extends Controller
     {
         $this->load->language('mail/register');
 
+        $this->load->model("account/customer");
+
+        $token = hash('sha512', mt_rand());
+
+        $data['text_approval'] = printf($this->language->get('text_approval'), $this->url->link('account/login', array("email" => $args[0]['email'], "token_login" => $token)));
         $data['text_welcome'] = sprintf($this->language->get('text_welcome'), html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8'));
         $data['text_login'] = $this->language->get('text_login');
         $data['text_service'] = $this->language->get('text_service');
@@ -27,12 +32,6 @@ class ControllerMailRegister extends Controller
         } else {
             $data['approval'] = '';
         }
-
-        $this->load->model("account/customer");
-
-        $token = hash('sha512', mt_rand());
-
-        $data['text_approval'] = printf($this->language->get('text_approval'), $this->url->link('account/login', array("email" => $args[0]['email'], "token_login" => $token)));
 
         $data['login'] = $this->url->link('account/login', 'language=' . $this->config->get('config_language'));
         $data['store_url'] = HTTP_SERVER;
