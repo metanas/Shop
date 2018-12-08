@@ -250,4 +250,43 @@ class ControllerAccountLogin extends Controller
             $this->response->redirect($this->url->link('account/login', 'language=' . $this->config->get('config_language')));
         }
     }
+
+    public function verify(){
+        $this->load->language('account/login');
+
+        if (isset($this->request->get['email'])) {
+            $email = $this->request->get['email'];
+        } else {
+            $email = '';
+        }
+
+        if (isset($this->request->get['login_token'])) {
+            $token = $this->request->get['login_token'];
+        } else {
+            $token = '';
+        }
+
+        // Login override for admin users
+        $this->customer->logout();
+
+        $this->load->model('account/customer');
+
+        $customer_info = $this->model_account_customer->getCustomerByEmail($email);
+
+        if ($customer_info && $customer_info['token'] && $customer_info['token'] == $token) {
+
+            $this->model_account_customer->editToken($email, '');
+
+            $this->model_account_customer->editStatus($email);
+
+            $this->response->redirect($this->url->link('account/edit', array('language' => $this->config->get('config_language'))));
+        }else {
+            $this->session->data['error'] = $this->language->get('error_approved');
+
+            $this->model_account_customer->editToken($email, '');
+
+            $this->response->redirect($this->url->link('account/login', 'language=' . $this->config->get('config_language')));
+        }
+
+    }
 }
