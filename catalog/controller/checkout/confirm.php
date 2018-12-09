@@ -664,6 +664,7 @@ class ControllerCheckoutConfirm extends Controller
                 'product_id' => $product['product_id'],
                 'name' => $product['name'],
                 'manufacturer' => $product['manufacturer'],
+                'ref' => $product['ref'],
                 'option' => $option_data,
                 'quantity' => $product['quantity'],
                 'price' => $product['price'],

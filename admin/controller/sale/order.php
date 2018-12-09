@@ -1454,7 +1454,7 @@ class ControllerSaleOrder extends Controller
                 }
 
 
-                $format = '{firstname} {lastname}' . "\n" . '{address_1}' . "\n" . '{address_2}' . "\n" . '{city} {postcode}' . "\n" . '{country}';
+                $format = '{firstname} {lastname}' . "\n" . '{address_1}' . "\n" . '{address_2}' . "\n" . '{city} {postcode}' . "\n" . '{country}' . "\n" . 'T: {telephone}';
 
 
                 $find = array(
@@ -1464,7 +1464,8 @@ class ControllerSaleOrder extends Controller
                     '{address_2}',
                     '{city}',
                     '{postcode}',
-                    '{country}'
+                    '{country}',
+                    '{telephone}'
                 );
 
                 $replace = array(
@@ -1474,10 +1475,24 @@ class ControllerSaleOrder extends Controller
                     'address_2' => $order_info['shipping_address_2'],
                     'city' => $order_info['shipping_city'],
                     'postcode' => $order_info['shipping_postcode'],
-                    'country' => $order_info['shipping_country']
+                    'country' => $order_info['shipping_country'],
+                    'telephone' => $order_info['shipping_telephone']
                 );
 
                 $shipping_address = str_replace(array("\r\n", "\r", "\n"), '<br />', preg_replace(array("/\s\s+/", "/\r\r+/", "/\n\n+/"), '<br />', trim(str_replace($find, $replace, $format))));
+
+                $replace = array(
+                    'firstname' => $order_info['billing_firstname'],
+                    'lastname' => $order_info['billing_lastname'],
+                    'address_1' => $order_info['billing_address_1'],
+                    'address_2' => $order_info['billing_address_2'],
+                    'city' => $order_info['billing_city'],
+                    'postcode' => $order_info['billing_postcode'],
+                    'country' => $order_info['billing_country'],
+                    'telephone' => $order_info['billing_telephone']
+                );
+
+                $billing_address = str_replace(array("\r\n", "\r", "\n"), '<br />', preg_replace(array("/\s\s+/", "/\r\r+/", "/\n\n+/"), '<br />', trim(str_replace($find, $replace, $format))));
 
                 $this->load->model('tool/upload');
 
@@ -1556,6 +1571,7 @@ class ControllerSaleOrder extends Controller
                     'email' => $order_info['email'],
                     'telephone' => $order_info['telephone'],
                     'shipping_address' => $shipping_address,
+                    'billing_address' => $billing_address,
                     'shipping_method' => $order_info['shipping_method'],
                     'payment_method' => $order_info['payment_method'],
                     'product' => $product_data,

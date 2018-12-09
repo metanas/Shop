@@ -133,6 +133,7 @@ class Cart
                         'product_id' => $product_query->row['product_id'],
                         'name' => $product_query->row['name'],
                         'manufacturer' => $product_query->row['manufacturer'],
+                        'ref' => $product_query->row['ref'],
                         'color' => $product_query->row['color'],
                         'shipping' => $product_query->row['shipping'],
                         'image' => $product_query->row['image'],

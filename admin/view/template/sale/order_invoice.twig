@@ -57,20 +57,18 @@
             <tr style="width: 100%;">
                 <td style="width: 48%;border-bottom : 1px solid #ff1b5a;border-left:1px solid #ff1b5a;border-right: 1px solid #ff1b5a;padding-left: 4px">
                     {% if order.shipping_address %}
-                        <div>{{ order.shipping_address }}</div>
-                        {{ text_telephone }}: {{ order.store_telephone }}
+                        <div style="line-height: 1.5">{{ order.shipping_address }}
+                        </div>
                     {% endif %}
                 </td>
                 <td style="width: 4%">
 
                 </td>
                 <td style="width: 48%;border-bottom : 1px solid #ff1b5a;border-left:1px #ff1b5a;border-right: 1px #ff1b5a;padding-left: 4px">
-                    {% if order.payment_address %}
-                        <div>{{ order.payment_address }}</div>
-                        <b>{{ text_telephone }}</b> {{ order.store_telephone }}
+                    {% if order.billing_address %}
+                        <div style="line-height: 1.5">{{ order.billing_address }}</div>
                     {% else %}
-                        <div>{{ order.shipping_address }}</div>
-                        {{ text_telephone }}: {{ order.store_telephone }}
+                        <div style="line-height: 1.5">{{ order.shipping_address }}</div>
                     {% endif %}
                 </td>
             </tr>
@@ -112,9 +110,13 @@
             <tr style="width: 100%;">
                 <td colspan="5" style="border-bottom: 1px #A7A7A7;"></td>
             </tr>
+            <tr style="height: 10px">
+                <td style="text-align: right;" colspan="4"><b>Frais de livraison</b><span style="color: #A7A7A7; font-size: 11px;" > (TVA Include)</span></td>
+                <td style="text-align: right;">Gratuit</td>
+            </tr>
             {% for total in order.total %}
-                <tr>
-                    <td style="text-align: right" colspan="4"><b>{{ total.title }}</b></td>
+                <tr style="line-height: 1.5">
+                    <td style="text-align: right" colspan="4"><b>{{ total.title }}</b><span style="color: #A7A7A7; font-size: 11px;" > (TVA Include)</span></td>
                     <td style="text-align: right">{{ total.text }}</td>
                 </tr>
             {% endfor %}
