@@ -35,13 +35,13 @@
                                 </div>
                                 <div class="dropdown-filter">
                                     {#<div id="search" class="field input-group stylish-input-group input-append">#}
-                                        {#<input class="field-input-filter"#}
-                                               {#placeholder="{{ text_search }}" name="manufacture" value="{{ search }}">#}
-                                        {#<span class="input-group-addon" style="border: none">#}
-                                            {#<button id="sub" type="button">#}
-                                                {#<img class="terms" src="catalog/view/theme/default/image/loupe.png">#}
-                                            {#</button>#}
-                                        {#</span>#}
+                                    {#<input class="field-input-filter"#}
+                                    {#placeholder="{{ text_search }}" name="manufacture" value="{{ search }}">#}
+                                    {#<span class="input-group-addon" style="border: none">#}
+                                    {#<button id="sub" type="button">#}
+                                    {#<img class="terms" src="catalog/view/theme/default/image/loupe.png">#}
+                                    {#</button>#}
+                                    {#</span>#}
                                     {#</div>#}
                                     <div id="manufacture" class="ScrollStyle">
                                         {% for manufacture in products_manufacture %}
@@ -69,13 +69,13 @@
                                 </div>
                                 <div class="dropdown-filter">
                                     {#<div id="search" class="field input-group stylish-input-group input-append">#}
-                                        {#<input class="field-input-filter"#}
-                                               {#placeholder="{{ text_search }}" name="color" value="{{ search }}">#}
-                                        {#<span class="input-group-addon" style="border: none">#}
-                                            {#<button id="sub" type="button">#}
-                                                {#<img class="terms" src="catalog/view/theme/default/image/loupe.png">#}
-                                            {#</button>#}
-                                        {#</span>#}
+                                    {#<input class="field-input-filter"#}
+                                    {#placeholder="{{ text_search }}" name="color" value="{{ search }}">#}
+                                    {#<span class="input-group-addon" style="border: none">#}
+                                    {#<button id="sub" type="button">#}
+                                    {#<img class="terms" src="catalog/view/theme/default/image/loupe.png">#}
+                                    {#</button>#}
+                                    {#</span>#}
                                     {#</div>#}
                                     <div id="color" class="ScrollStyle">
                                         {% for color in products_color %}
@@ -138,13 +138,13 @@
                                 </div>
                                 <div class="dropdown-filter">
                                     {#<div id="search" class="field input-group stylish-input-group input-append">#}
-                                        {#<input class="field-input-filter"#}
-                                               {#placeholder="{{ text_search }}" name="color" value="{{ search }}">#}
-                                        {#<span class="input-group-addon" style="border: none">#}
-                                            {#<button id="sub" type="button">#}
-                                                {#<img class="terms" src="catalog/view/theme/default/image/loupe.png">#}
-                                            {#</button>#}
-                                        {#</span>#}
+                                    {#<input class="field-input-filter"#}
+                                    {#placeholder="{{ text_search }}" name="color" value="{{ search }}">#}
+                                    {#<span class="input-group-addon" style="border: none">#}
+                                    {#<button id="sub" type="button">#}
+                                    {#<img class="terms" src="catalog/view/theme/default/image/loupe.png">#}
+                                    {#</button>#}
+                                    {#</span>#}
                                     {#</div>#}
                                     <div id="size" class="ScrollStyle">
                                         {% for size in products_size %}
@@ -157,8 +157,8 @@
                                         {% endfor %}
                                     </div>
                                     <div>
-                                        <button type="button"  class="filter-done discover text-uppercase"
-                                                name="color" >{{ text_close }}</button>
+                                        <button type="button" class="filter-done discover text-uppercase"
+                                                name="color">{{ text_close }}</button>
                                     </div>
                                 </div>
                             </div>
@@ -260,6 +260,7 @@
     </div>
     <script>
         $('#column-left').removeClass('hidden-xs');
+        {% if price_max %}
         $("#ex12c").slider({
             id: "slider12c",
             min: {{ price_min }},
@@ -267,5 +268,6 @@
             range: true,
             value: [{{ price_min }}, {{ price_max }}]
         });
+        {% endif %}
     </script>
 </div>

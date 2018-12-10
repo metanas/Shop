@@ -105,6 +105,11 @@
                             {% endfor %}
                             </tbody>
                             <tfoot>
+                            <tr>
+                                <td colspan="3" style="border: 0"></td>
+                                <td class="text-right" style="border: 0;font-size: 14px;"><b>Frais de livraison</b><span style="color: #A7A7A7; font-size: 11px;" > (TVA Include)</span></td>
+                                <td class="text-right" style="border: 0;font-size: 14px;">Gratuit</td>
+                            </tr>
                             {% for total in totals %}
                                 <tr>
                                     <td colspan="3" style="border: 0"></td>
@@ -112,7 +117,8 @@
                                     <td class="text-right" style="border: 0; font-size: 14px;">{{ total.text }}</td>
                                     {% if products %}
                                         <td style="border: 0;font-size: 14px"></td>
-                                    {% endif %} </tr>
+                                    {% endif %}
+                                </tr>
                             {% endfor %}
                             </tfoot>
                         </table>
@@ -160,13 +166,6 @@
                     </tbody>
                 </table>
             {% endif %}
-            <div class="col-sm-offset-11 col-md-1">
-                <a href="{{ download }}">
-                    <button class="zalark-button">
-                        <i class="fa fa-download" style="color: #e1e1e1"></i>
-                    </button>
-                </a>
-            </div>
             {{ content_bottom }}</div>
         {{ column_right }}</div>
 </div>

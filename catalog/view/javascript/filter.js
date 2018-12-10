@@ -19,8 +19,8 @@ $(document).ready(function () {
 
     $("body").on('click', 'input:checkbox', function (event) {
         var param = '';
-        const filt = getURLVar(event.target.name.replace("[]", ''));
-        const newFilt = event.target.value.replace(" ", ".");
+        const filt = decodeURI(getURLVar(event.target.name.replace("[]", '')));
+        const newFilt = event.target.value;
         if (event.target.checked) {
             if (filt !== '') {
                 param = filt + "_" + newFilt;
@@ -64,12 +64,13 @@ $(document).ready(function () {
 });
 
 function removeFilter(e) {
-    removeFilterFormUrl(e.dataset.info, e.innerText.replace(" ", ".").replace("prix.min: ", "").replace("prix.max: ", ""));
+    removeFilterFormUrl(e.dataset.info, e.innerText.replace("prix.min: ", "").replace("prix.max: ", ""));
     filterGenerator();
 }
 
 function removeFilterFormUrl(name, value) {
-    var param = decodeURI(getURLVar(name)).replace(value, '');
+    var param = getURLVar(name).replace(encodeURI(value), '');
+    console.log(param);
     param = param.replace("__", '_');
     param = param.replace(/_$/, '');
     param = param.replace(/^_/, '');
@@ -85,32 +86,39 @@ $(document).on('click', '', function (e) {
 });
 
 function filterGenerator() {
-    var url = "index.php?route=product/category/filter&path=" + String(getURLVar("path"));
-    if (String(getURLVar("manufacture")) !== '') {
-        url += "&manufacture=" + String(getURLVar("manufacture")).replace(".", " ");
+    let url = "index.php?route=product/category/filter&path=" + decodeURI(String(getURLVar("path")));
+    const manufacture = decodeURI(getURLVar("manufacture"));
+    if (manufacture !== '') {
+        url += "&manufacture=" + manufacture;
     }
 
-    if (String(getURLVar("color")) !== '') {
-        url += "&color=" + String(getURLVar("color")).replace(".", " ");
+    const color =  decodeURI(getURLVar('color'));
+    if (color !== '') {
+        url += "&color=" + color;
     }
 
-    if (String(getURLVar("size")) !== '') {
-        url += "&size=" + String(getURLVar("size"));
+    const size =  decodeURI(getURLVar('size'));
+    if (size !== '') {
+        url += "&size=" + size;
     }
 
-    if (String(getURLVar("special")) !== '') {
-        url += "&special=" + String(getURLVar("special"));
+    const special = decodeURI(getURLVar('special'));
+    if (special !== '') {
+        url += "&special=" + special;
     }
 
-    if (String(getURLVar("price-min")) !== '') {
-        url += "&price-min=" + String(getURLVar("price-min"));
+    const price_min = String(decodeURI(getURLVar("price-min")));
+    if (price_min !== '') {
+        url += "&price-min=" + price_min;
     }
 
-    if (String(getURLVar("price-max")) !== '') {
-        url += "&price-max=" + String(getURLVar("price-max"));
+    const price_max = String(decodeURI(getURLVar("price-max")));
+    if (price_max !== '') {
+        url += "&price-max=" + price_max;
     }
+
     $.ajax({
-        url: url,
+        url: encodeURI(url),
         type: "GET",
         beforeSend: function () {
             $('body').loading({message: "chargement.."});
@@ -132,12 +140,12 @@ function filterGenerator() {
 function setFilter() {
     $(".filter-content").empty();
     const filters = {
-        "manufacture": String(getURLVar("manufacture")),
-        "color": String(getURLVar("color")),
-        "size": String(getURLVar("size")),
-        "special": String(getURLVar("special")),
-        "price-max": String(getURLVar("price-max")),
-        "price-min": String(getURLVar("price-min"))
+        "manufacture": String(decodeURI(getURLVar("manufacture"))),
+        "color": String(decodeURI(getURLVar("color"))),
+        "size": String(decodeURI(getURLVar("size"))),
+        "special": String(decodeURI(getURLVar("special"))),
+        "price-max": String(decodeURI(getURLVar("price-max"))),
+        "price-min": String(decodeURI(getURLVar("price-min")))
     };
     var filter_count = 0;
     Object.entries(filters).forEach(function ([key, value]) {
@@ -175,6 +183,7 @@ function removeAllFilters() {
 }
 
 function updateQueryStringParam(param, value) {
+    console.log(param, value);
     baseUrl = [location.protocol, '//', location.host, location.pathname].join('');
     urlQueryString = document.location.search;
     let newParam = param + '=' + value;
@@ -192,7 +201,7 @@ function updateQueryStringParam(param, value) {
         params = urlQueryString.replace("&" + param + "=" + getURLVar(param), "");
     }
 
-    window.history.replaceState({}, "", baseUrl + params);
+    window.history.replaceState({}, "", encodeURI(baseUrl + params));
 }
 
 function openSlide() {
