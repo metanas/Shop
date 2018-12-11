@@ -58,9 +58,6 @@ class ModelCatalogProduct extends Model
 
             $sql .= " LEFT JOIN " . DB_PREFIX . "product p ON (p2c.product_id = p.product_id)";
 
-            if (isset($data['filter_filter']['manufacture'])) {
-                $sql .= " LEFT JOIN " . DB_PREFIX . "manufacturer m ON (p.manufacturer_id = m.manufacturer_id)";
-            }
             if (isset($data['filter_filter']['size'])) {
                 $sql .= "LEFT JOIN " . DB_PREFIX . "product_option_value pov on(pov.product_id = p.product_id) LEFT JOIN " . DB_PREFIX . "option_value_description ovd on(ovd.option_value_id = pov.option_value_id and ovd.option_id = pov.option_id)  ";
             }
@@ -68,7 +65,7 @@ class ModelCatalogProduct extends Model
             $sql .= " FROM " . DB_PREFIX . "product p";
         }
 
-        $sql .= " LEFT JOIN " . DB_PREFIX . "product_to_store p2s ON (p.product_id = p2s.product_id) WHERE p.status = '1' AND p.date_available <= NOW() AND p2s.store_id = '" . (int)$this->config->get('config_store_id') . "'";
+        $sql .= " LEFT JOIN " . DB_PREFIX . "product_to_store p2s ON (p.product_id = p2s.product_id) LEFT JOIN " . DB_PREFIX . "manufacturer m ON (p.manufacturer_id = m.manufacturer_id) WHERE p.status = '1' AND p.date_available <= NOW() AND p2s.store_id = '" . (int)$this->config->get('config_store_id') . "'";
 
         if (!empty($data['filter_category_id'])) {
             if (!empty($data['filter_sub_category'])) {
@@ -117,7 +114,15 @@ class ModelCatalogProduct extends Model
                 }
 
                 if ($implode) {
-                    $sql .= " " . implode(" AND ", $implode) . "";
+                    $sql .= " " . implode(" AND ", $implode) . " OR";
+                }
+
+                foreach ($words as $word) {
+                    $implode[] = "m.name LIKE '%" . $this->db->escape($word) . "%'";
+                }
+
+                if ($implode) {
+                    $sql .= " " . implode(" OR ", $implode) . "";
                 }
             }
 
@@ -134,7 +139,7 @@ class ModelCatalogProduct extends Model
             $sql .=")";
 
             if (!empty($data['filter_name'])) {
-                $sql .= " OR LCASE(p.name) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
+                $sql .= " OR LCASE(p.name) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "' OR LCASE(m.name) = '" . $this->db->escape(utf8_strtolower($data['filter_manufacturer'])) . "'";
             }
 
         }

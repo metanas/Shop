@@ -656,6 +656,10 @@ footer h4 {
     border-color: #ff1b5e;
 }
 
+.pagination > li > a, .pagination > li > span {
+    color: #000000;
+}
+
 /* buttons */
 .buttons {
     margin: 1em 0;
