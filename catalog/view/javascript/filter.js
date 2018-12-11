@@ -19,8 +19,8 @@ $(document).ready(function () {
 
     $("body").on('click', 'input:checkbox', function (event) {
         var param = '';
-        const filt = decodeURI(getURLVar(event.target.name.replace("[]", '')));
-        const newFilt = event.target.value;
+        const filt = decodeURIComponent(getURLVar(event.target.name.replace("[]", '')));
+        const newFilt =  encodeURIComponent(event.target.value);
         if (event.target.checked) {
             if (filt !== '') {
                 param = filt + "_" + newFilt;
@@ -33,7 +33,7 @@ $(document).ready(function () {
             param = param.replace(/_$/, '');
             param = param.replace(/^_/, '');
         }
-        updateQueryStringParam(event.target.name.replace("[]", ""), param);
+        updateQueryStringParam(event.target.name.replace("[]", ""),param);
         event.stopPropagation();
     });
 
@@ -69,8 +69,7 @@ function removeFilter(e) {
 }
 
 function removeFilterFormUrl(name, value) {
-    var param = getURLVar(name).replace(encodeURI(value), '');
-    console.log(param);
+    var param = getURLVar(name).replace(encodeURIComponent(value), '');
     param = param.replace("__", '_');
     param = param.replace(/_$/, '');
     param = param.replace(/^_/, '');
@@ -86,39 +85,40 @@ $(document).on('click', '', function (e) {
 });
 
 function filterGenerator() {
-    let url = "index.php?route=product/category/filter&path=" + decodeURI(String(getURLVar("path")));
-    const manufacture = decodeURI(getURLVar("manufacture"));
+    let url = "index.php?route=product/category/filter&path=" + getURLVar("path");
+
+    const manufacture = getURLVar("manufacture");
     if (manufacture !== '') {
         url += "&manufacture=" + manufacture;
     }
 
-    const color =  decodeURI(getURLVar('color'));
+    const color = getURLVar('color');
     if (color !== '') {
         url += "&color=" + color;
     }
 
-    const size =  decodeURI(getURLVar('size'));
+    const size = getURLVar('size');
     if (size !== '') {
         url += "&size=" + size;
     }
 
-    const special = decodeURI(getURLVar('special'));
+    const special = getURLVar('special');
     if (special !== '') {
         url += "&special=" + special;
     }
 
-    const price_min = String(decodeURI(getURLVar("price-min")));
+    const price_min = getURLVar("price-min");
     if (price_min !== '') {
         url += "&price-min=" + price_min;
     }
 
-    const price_max = String(decodeURI(getURLVar("price-max")));
+    const price_max = getURLVar("price-max");
     if (price_max !== '') {
         url += "&price-max=" + price_max;
     }
-
+console.log(url);
     $.ajax({
-        url: encodeURI(url),
+        url: url,
         type: "GET",
         beforeSend: function () {
             $('body').loading({message: "chargement.."});
@@ -140,13 +140,14 @@ function filterGenerator() {
 function setFilter() {
     $(".filter-content").empty();
     const filters = {
-        "manufacture": String(decodeURI(getURLVar("manufacture"))),
-        "color": String(decodeURI(getURLVar("color"))),
-        "size": String(decodeURI(getURLVar("size"))),
-        "special": String(decodeURI(getURLVar("special"))),
-        "price-max": String(decodeURI(getURLVar("price-max"))),
-        "price-min": String(decodeURI(getURLVar("price-min")))
+        "manufacture": decodeURIComponent(getURLVar("manufacture")),
+        "color": decodeURIComponent(getURLVar("color")),
+        "size": decodeURIComponent(getURLVar("size")),
+        "special": decodeURIComponent(getURLVar("special")),
+        "price-max": decodeURIComponent(getURLVar("price-max")),
+        "price-min": decodeURIComponent(getURLVar("price-min"))
     };
+    console.log(filters);
     var filter_count = 0;
     Object.entries(filters).forEach(function ([key, value]) {
         if (value !== "") {
@@ -201,7 +202,7 @@ function updateQueryStringParam(param, value) {
         params = urlQueryString.replace("&" + param + "=" + getURLVar(param), "");
     }
 
-    window.history.replaceState({}, "", encodeURI(baseUrl + params));
+    window.history.replaceState({}, "", baseUrl + params);
 }
 
 function openSlide() {

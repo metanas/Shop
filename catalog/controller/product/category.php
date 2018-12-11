@@ -22,7 +22,7 @@ class ControllerProductCategory extends Controller
         $filter = array();
 
         if (isset($this->request->get['manufacture'])) {
-            $filter['manufacture'] = explode("_", str_replace(" and ", " + ", urldecode($this->request->get['manufacture'])));
+            $filter['manufacture'] = explode("_",  $this->request->get['manufacture']);
         }
 
         if (isset($this->request->get['color'])) {
@@ -391,7 +391,7 @@ class ControllerProductCategory extends Controller
         $filter = array();
 
         if (isset($this->request->get['manufacture'])) {
-            $filter['manufacture'] = explode("_", urldecode($this->request->get['manufacture']));
+            $filter['manufacture'] = explode("_", $this->request->get['manufacture']);
         }
 
         if (isset($this->request->get['color'])) {

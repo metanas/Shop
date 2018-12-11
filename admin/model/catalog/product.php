@@ -370,7 +370,18 @@ class ModelCatalogProduct extends Model
             } else {
                 $sql .= " AND";
             }
+            var_dump($this->db->escape((string)$data['filter_manufacturer']));
             $sql .= " m.name LIKE '" . $this->db->escape((string)$data['filter_manufacturer']) . "%'";
+        }
+
+        if (!empty($data['filter_ref'])) {
+            if ($first) {
+                $sql .= " WHERE";
+                $first = false;
+            } else {
+                $sql .= " AND";
+            }
+            $sql .= " p.ref LIKE '" . $this->db->escape((string)$data['filter_ref']) . "%'";
         }
 
         if (!empty($data['filter_price'])) {
@@ -398,6 +409,7 @@ class ModelCatalogProduct extends Model
         $sort_data = array(
             'p.name',
             'm.name',
+            'p.ref',
             'p.price',
             'p.status',
             'p.sort_order'
@@ -608,7 +620,7 @@ class ModelCatalogProduct extends Model
     {
         $first = true;
 
-        $sql = "SELECT COUNT(DISTINCT p.product_id) AS total FROM " . DB_PREFIX . "product p ";
+        $sql = "SELECT COUNT(DISTINCT p.product_id) AS total FROM " . DB_PREFIX . "product p LEFT JOIN " . DB_PREFIX . "manufacturer m on (p.manufacturer_id = m.manufacturer_id)";
 
         if (!empty($data['filter_name'])) {
             if ($first) {
@@ -628,6 +640,16 @@ class ModelCatalogProduct extends Model
                 $sql .= " AND";
             }
             $sql .= " m.name LIKE '" . $this->db->escape((string)$data['filter_manufacturer']) . "%'";
+        }
+
+        if (!empty($data['filter_ref'])) {
+            if ($first) {
+                $sql .= " WHERE";
+                $first = false;
+            } else {
+                $sql .= " AND";
+            }
+            $sql .= " p.ref LIKE '" . $this->db->escape((string)$data['filter_ref']) . "%'";
         }
 
         if (isset($data['filter_price']) && !is_null($data['filter_price'])) {
