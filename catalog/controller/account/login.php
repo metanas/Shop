@@ -279,7 +279,7 @@ class ControllerAccountLogin extends Controller
 
             $this->model_account_customer->editStatus($email);
 
-            $this->response->redirect($this->url->link('account/home', array('language' => $this->config->get('config_language'))));
+            $this->response->redirect($this->url->link('account/login', array('language' => $this->config->get('config_language'))));
         }else {
             $this->session->data['error'] = $this->language->get('error_approved');
 

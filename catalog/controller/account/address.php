@@ -157,7 +157,7 @@ class ControllerAccountAddress extends Controller
         $results = $this->model_account_address->getAddresses();
 
         foreach ($results as $result) {
-            $format = '<b>{firstname} {lastname}</b>' . "\n" . '{address_1}' . "\n" . '{address_2}' . "\n" . '{city} {postcode}' . "\n" . "Tele: {telephone}" . "\n" . '{country}';
+            $format = '<b>{firstname} {lastname}</b>' . "\n" . '{address_1}' . "\n" . '{address_2}' . "\n" . '{city} {postcode}' . "\n" . "Tel: {telephone}" . "\n" . '{country}';
 
             $find = array(
                 '{firstname}',

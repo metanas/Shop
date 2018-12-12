@@ -236,7 +236,7 @@
                 <thead>
                   <tr>
                     <td class="text-left">{{ column_product }}</td>
-                    <td class="text-left">{{ column_model }}</td>
+                    <td class="text-left">{{ column_manufacturer }}</td>
                     <td class="text-right">{{ column_quantity }}</td>
                     <td class="text-right">{{ column_price }}</td>
                     <td class="text-right">{{ column_total }}</td>
@@ -265,7 +265,7 @@
                             <input type="hidden" name="product[{{ product_row }}][option][{{ option.product_option_id }}]" value="{{ option.value }}"/>
                           {% endif %}
                         {% endfor %}</td>
-                      <td class="text-left">{{ order_product.model }}</td>
+                      <td class="text-left">{{ order_product.manufacturer }}</td>
                       <td class="text-right">{{ order_product.quantity }}
                         <input type="hidden" name="product[{{ product_row }}][quantity]" value="{{ order_product.quantity }}"/></td>
                       <td class="text-right"></td>
