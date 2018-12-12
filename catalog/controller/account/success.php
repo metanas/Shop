@@ -8,7 +8,7 @@ class ControllerAccountSuccess extends Controller {
 		if ($this->customer->isLogged()) {
 			$data['text_message'] = sprintf($this->language->get('text_success'), $this->url->link('information/contact', 'language=' . $this->config->get('config_language')));
 		} else {
-			$data['text_message'] = sprintf($this->language->get('text_approval'), $this->config->get('config_name'), $this->url->link('information/contact', 'language=' . $this->config->get('config_language')));
+			$data['text_message'] = sprintf($this->language->get('text_approval'), $this->customer->getFirstName(), $this->config->get('config_name'));
 		}
 
 		$data['column_left'] = $this->load->controller('common/column_left');
