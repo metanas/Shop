@@ -1454,7 +1454,7 @@ class ControllerSaleOrder extends Controller
                 }
 
 
-                $format = '{firstname} {lastname}' . "\n" . '{address_1}' . "\n" . '{address_2}' . "\n" . '{city} {postcode}' . "\n" . '{country}' . "\n" . 'T: {telephone}';
+                $format = '{firstname} {lastname}' . "\n" . '{address_1}' . "\n" . '{address_2}' . "\n" . '{city} {postcode}' . "\n" . '{country}' . "\n" . 'Tele: {telephone}';
 
 
                 $find = array(

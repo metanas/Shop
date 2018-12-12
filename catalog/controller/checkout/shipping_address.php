@@ -16,7 +16,7 @@ class ControllerCheckoutShippingAddress extends Controller
 
         $this->load->model('account/address');
 
-        $format = '<b>{firstname} {lastname}</b>' . "\n" . '{address_1}' . "\n" . '{address_2}' . "\n" . '{city} {postcode}' . "\n" . "T: {telephone}" . "\n" . '{country}';
+        $format = '<b>{firstname} {lastname}</b>' . "\n" . '{address_1}' . "\n" . '{address_2}' . "\n" . '{city} {postcode}' . "\n" . "Tele: {telephone}" . "\n" . '{country}';
 
         $find = array(
             '{firstname}',
