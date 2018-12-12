@@ -127,7 +127,7 @@ class ControllerAccountOrder extends Controller
 
             $data['payment_method'] = $order_info['payment_method'];
 
-            $format = '{firstname} {lastname}' . "\n" . '{address_1}' . "\n" . '{address_2}' . "\n" . '{city} {postcode}' . "\n" . 'Tele: {telephone}' . "\n" . '{country}';
+            $format = '{firstname} {lastname}' . "\n" . '{address_1}' . "\n" . '{address_2}' . "\n" . '{city} {postcode}' . "\n" . 'Tel: {telephone}' . "\n" . '{country}';
 
 
             $find = array(

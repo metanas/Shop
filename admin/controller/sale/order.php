@@ -501,6 +501,7 @@ class ControllerSaleOrder extends Controller
             $data['shipping_address_2'] = $order_info['shipping_address_2'];
             $data['shipping_city'] = $order_info['shipping_city'];
             $data['shipping_postcode'] = $order_info['shipping_postcode'];
+            $data['shipping_telephone'] = $order_info['shipping_telephone'];
             $data['shipping_custom_field'] = $order_info['shipping_custom_field'];
             $data['shipping_method'] = $order_info['shipping_method'];
             $data['shipping_code'] = $order_info['shipping_code'];
@@ -514,7 +515,7 @@ class ControllerSaleOrder extends Controller
                 $data['order_products'][] = array(
                     'product_id' => $product['product_id'],
                     'name' => $product['name'],
-                    'model' => $product['model'],
+                    'manufacturer' => $product['manufacturer'],
                     'option' => $this->model_sale_order->getOrderOptions($this->request->get['order_id'], $product['order_product_id']),
                     'quantity' => $product['quantity'],
                     'price' => $product['price'],
@@ -824,7 +825,7 @@ class ControllerSaleOrder extends Controller
 
             // Shipping Address
 
-            $format = '{firstname} {lastname}' . "\n" . '{address_1}' . "\n" . '{address_2}' . "\n" . '{city} {postcode}';
+            $format = '{firstname} {lastname}' . "\n" . '{address_1}' . "\n" . '{address_2}' . "\n" . '{city} {postcode}' . 'Tel: {telephone}' . "\n" . '{country}';
 
 
             $find = array(
@@ -833,7 +834,9 @@ class ControllerSaleOrder extends Controller
                 '{address_1}',
                 '{address_2}',
                 '{city}',
-                '{postcode}'
+                '{postcode}',
+                '{telephone}',
+                '{country}'
             );
 
             $replace = array(
@@ -842,7 +845,9 @@ class ControllerSaleOrder extends Controller
                 'address_1' => $order_info['shipping_address_1'],
                 'address_2' => $order_info['shipping_address_2'],
                 'city' => $order_info['shipping_city'],
-                'postcode' => $order_info['shipping_postcode']
+                'postcode' => $order_info['shipping_postcode'],
+                'telephone' => $order_info['shipping_telephone'],
+                'country' => $order_info['shipping_country']
             );
 
             $data['shipping_address'] = str_replace(array("\r\n", "\r", "\n"), '<br />', preg_replace(array("/\s\s+/", "/\r\r+/", "/\n\n+/"), '<br />', trim(str_replace($find, $replace, $format))));
@@ -1454,7 +1459,7 @@ class ControllerSaleOrder extends Controller
                 }
 
 
-                $format = '{firstname} {lastname}' . "\n" . '{address_1}' . "\n" . '{address_2}' . "\n" . '{city} {postcode}' . "\n" . '{country}' . "\n" . 'Tele: {telephone}';
+                $format = '{firstname} {lastname}' . "\n" . '{address_1}' . "\n" . '{address_2}' . "\n" . '{city} {postcode}' . "\n" . '{country}' . "\n" . 'Tel: {telephone}';
 
 
                 $find = array(
