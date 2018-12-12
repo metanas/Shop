@@ -1,23 +1,28 @@
 <?php
-class ControllerAccountSuccess extends Controller {
-	public function index() {
-		$this->load->language('account/success');
 
-		$this->document->setTitle($this->language->get('heading_title'));
+class ControllerAccountSuccess extends Controller
+{
+    public function index()
+    {
+        $this->load->language('account/success');
 
-		if ($this->customer->isLogged()) {
-			$data['text_message'] = sprintf($this->language->get('text_success'), $this->url->link('information/contact', 'language=' . $this->config->get('config_language')));
-		} else {
-			$data['text_message'] = sprintf($this->language->get('text_approval'), $this->customer->getFirstName(), $this->config->get('config_name'));
-		}
+        $this->document->setTitle($this->language->get('heading_title'));
 
-		$data['column_left'] = $this->load->controller('common/column_left');
-		$data['column_right'] = $this->load->controller('common/column_right');
-		$data['content_top'] = $this->load->controller('common/content_top');
-		$data['content_bottom'] = $this->load->controller('common/content_bottom');
-		$data['footer'] = $this->load->controller('common/footer');
-		$data['header'] = $this->load->controller('common/header');
+        if ($this->customer->isLogged()) {
+            $data['text_message'] = sprintf($this->language->get('text_success'), $this->url->link('information/contact', 'language=' . $this->config->get('config_language')));
+        } else {
+            $data['text_message'] = sprintf($this->language->get('text_approval'), $this->session->data['username'], $this->config->get('config_name'));
+        }
 
-		$this->response->setOutput($this->load->view('common/success', $data));
-	}
+        unset($this->session->data['username']);
+
+        $data['column_left'] = $this->load->controller('common/column_left');
+        $data['column_right'] = $this->load->controller('common/column_right');
+        $data['content_top'] = $this->load->controller('common/content_top');
+        $data['content_bottom'] = $this->load->controller('common/content_bottom');
+        $data['footer'] = $this->load->controller('common/footer');
+        $data['header'] = $this->load->controller('common/header');
+
+        $this->response->setOutput($this->load->view('common/success', $data));
+    }
 }
