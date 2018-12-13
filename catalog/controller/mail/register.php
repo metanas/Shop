@@ -47,6 +47,10 @@ class ControllerMailRegister extends Controller
             $data['logo'] = '';
         }
 
+        if(is_file(DIR_IMAGE . "email_inscriptions.jpg")){
+            $data['image'] = $this->model_tool_image->resize("email_inscriptions.jpg");
+        }
+
         $mail = new Mail($this->config->get('config_mail_engine'));
         $mail->parameter = $this->config->get('config_mail_parameter');
         $mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
