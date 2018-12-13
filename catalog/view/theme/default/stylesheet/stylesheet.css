@@ -1874,3 +1874,8 @@ ul {
     background-repeat: no-repeat;
     overflow: hidden
 }
+
+.ShoesName{
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
