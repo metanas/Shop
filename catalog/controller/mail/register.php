@@ -48,7 +48,7 @@ class ControllerMailRegister extends Controller
         }
 
         if(is_file(DIR_IMAGE . "email_inscriptions.jpg")){
-            $data['image'] = $this->model_tool_image->resize("email_inscriptions.jpg");
+            $data['image'] = $this->model_tool_image->resize("email_inscriptions.jpg", 400, 300);
         }
 
         $mail = new Mail($this->config->get('config_mail_engine'));
