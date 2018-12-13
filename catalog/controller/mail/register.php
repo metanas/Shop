@@ -12,7 +12,7 @@ class ControllerMailRegister extends Controller
 
         $this->model_account_customer->editToken($args[0]['email'], $token);
 
-        $data['text_approval'] = sprintf($this->language->get('text_approval'), $this->url->link('account/login/verify', array("email" => $args[0]['email'], "login_token" => $token)));
+        $data['text_approval'] = sprintf($this->language->get('text_approval'), $args[0]['firstname'] ,$this->url->link('account/login/verify', array("email" => $args[0]['email'], "login_token" => $token)));
         $data['text_welcome'] = sprintf($this->language->get('text_welcome'), html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8'));
         $data['text_login'] = $this->language->get('text_login');
         $data['text_service'] = $this->language->get('text_service');

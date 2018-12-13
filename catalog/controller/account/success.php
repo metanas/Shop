@@ -10,7 +10,7 @@ class ControllerAccountSuccess extends Controller
 
         if ($this->customer->isLogged()) {
             $data['text_message'] = sprintf($this->language->get('text_success'), $this->url->link('information/contact', 'language=' . $this->config->get('config_language')));
-        } else {
+        } else if(isset($this->session->data['username'])) {
             $data['text_message'] = sprintf($this->language->get('text_approval'), $this->session->data['username'], $this->config->get('config_name'));
         }
 
