@@ -77,6 +77,14 @@ class ControllerCheckoutShippingAddress extends Controller
 
         $data['language'] = $this->config->get('config_language');
 
+        $this->load->model('localisation/country');
+
+        $data['countries'] = $this->model_localisation_country->getCountries();
+
+        $this->load->model('localisation/zone');
+
+        $data['zones'] = $this->model_localisation_zone->getZonesByCountryId($data['countries'][0]['country_id']);
+
         return $this->load->view('checkout/shipping_address', $data);
     }
 

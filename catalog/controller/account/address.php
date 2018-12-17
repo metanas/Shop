@@ -344,6 +344,13 @@ class ControllerAccountAddress extends Controller
                 $data['custom_fields'][] = $custom_field;
             }
         }
+        $this->load->model('localisation/country');
+
+        $data['countries'] = $this->model_localisation_country->getCountries();
+
+        $this->load->model('localisation/zone');
+
+        $data['zones'] = $this->model_localisation_zone->getZonesByCountryId($data['countries'][0]['country_id']);
 
         if (isset($this->request->post['custom_field']['address'])) {
             $data['address_custom_field'] = $this->request->post['custom_field']['address'];
