@@ -34,6 +34,9 @@ class ControllerAccountRegister extends Controller
             $this->model_account_customer->addLogin($this->customer->getId(), $this->request->server['REMOTE_ADDR']);
 
             // Add to newsletter
+            if (isset($this->request->post['newsletter'])) {
+                $this->model_account_customer->editNewsletter($this->request->post['newsletter']);
+            }
             $this->session->data['username'] = $this->request->post['firstname'];
 
             $this->response->redirect($this->url->link('account/success', 'language=' . $this->config->get('config_language')));
