@@ -498,7 +498,7 @@ class ControllerCheckoutConfirm extends Controller
                 'quantity' => $product['quantity'],
                 'option' => $option_data,
                 'color' => $product['color'],
-                'price' => $this->currency->format($product['price']*$product['quantity'], $this->session->data['currency'])
+                'price' => $this->currency->format($product['price'] * $product['quantity'], $this->session->data['currency'])
             );
         }
 
@@ -752,7 +752,9 @@ class ControllerCheckoutConfirm extends Controller
                     }
                 }
             }
+            $this->model_checkout_order->addOrderHistory($this->session->data['order_id'], 1, '', true);
         }
+
 
         $this->response->redirect($this->url->link('checkout/success'));
     }
