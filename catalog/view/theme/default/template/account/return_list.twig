@@ -12,26 +12,26 @@
       <h3 style="margin-bottom: 38px;" onclick="openSlide()"><span class="fa fa-align-justify visible-xs-inline" style="font-size: inherit"></span> {{ heading_title }}</h3>
         {% if returns %}
       <div class="table-responsive">
-        <table class="table table-bordered table-hover">
-          <thead>
+        <table  class="table table-hover">
+          <thead style="background-color: RGB(254,248,250);">
             <tr>
-              <td class="text-right">{{ column_return_id }}</td>
-              <td class="text-left">{{ column_status }}</td>
-              <td class="text-left">{{ column_date_added }}</td>
-              <td class="text-right">{{ column_order_id }}</td>
-              <td class="text-left">{{ column_customer }}</td>
+              <td class="text-center">{{ column_return_id }}</td>
+              <td class="text-center">{{ column_status }}</td>
+              <td class="text-center">{{ column_date_added }}</td>
+              <td class="text-center">{{ column_order_id }}</td>
+              <td class="text-center">{{ column_customer }}</td>
               <td></td>
             </tr>
           </thead>
           <tbody>
           {% for return in returns %}
           <tr>
-            <td class="text-right">#{{ return.return_id }}</td>
-            <td class="text-left">{{ return.status }}</td>
-            <td class="text-left">{{ return.date_added }}</td>
-            <td class="text-right">{{ return.order_id }}</td>
-            <td class="text-left">{{ return.name }}</td>
-            <td class="text-right"><a href="{{ return.href }}" data-toggle="tooltip" title="{{ button_view }}" class="btn btn-info"><i class="fa fa-eye"></i></a></td>
+            <td class="text-center">#{{ return.return_id }}</td>
+            <td class="text-center">{{ return.status }}</td>
+            <td class="text-center">{{ return.date_added }}</td>
+            <td class="text-center">{{ return.order_id }}</td>
+            <td class="text-center">{{ return.name }}</td>
+            <td class="text-center"><a href="{{ return.href }}" data-toggle="tooltip" title="" data-original-title="Vue"><i class="fa fa-arrow-circle-o-right" style="font-size: 20px"></i></a></td>
           </tr>
           {% endfor %}
             </tbody>
@@ -44,7 +44,9 @@
       {% else %}
       <p>{{ text_no_results }}</p>
       {% endif %}
-      <div class="pull-right"><a href="{{ return_form }}"><button class="zalark-button">{{ button_return }}</button></a></div>
+      <div class="buttons clearfix">
+        <div class="pull-right"><a href="{{ continue }}" class="btn btn-primary">{{ button_continue }}</a></div>
+      </div>
       {{ content_bottom }}</div>
     {{ column_right }}</div>
 </div>
