@@ -272,7 +272,7 @@ class ControllerCheckoutShippingAddress extends Controller
             $this->error['telephone'] = $this->language->get('error_telephone');
         }
 
-        if(utf8_strlen(trim($this->request->post['country'])) != 5) {
+        if (utf8_strlen(trim($this->request->post['country'])) <= 0 && utf8_strlen(trim($this->request->post['country'] > 32))) {
             $this->error['country'] = $this->language->get('error_country');
         }
 

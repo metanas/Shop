@@ -268,7 +268,7 @@
         $('#add-address-field input[name="lastname"]').val('');
         $('#add-address-field input[name="address_1"]').val('');
         $('#add-address-field input[name="address_2"]').val('');
-        $('#add-address-field input[name="city"]').val('');
+        $('#add-address-field select[name="city"]').val('');
         $('#add-address-field input[name="postcode"]').val('');
         $('#add-address-field input[name="telephone"]').val('');
         $(".text-danger").remove();
@@ -299,7 +299,7 @@
                     $('html, body').animate({scrollTop: 0}, 'slow');
                 } else if (json['error']) {
                     $.map(json['error'], function (value, key) {
-                        $("#add-address-field input[name='" + key + "']").after('<span class="text-danger">' + value + '</span>');
+                        $("#add-address-field input[name='" + key + "'], #add-address-field select[name='" + key + "']").after('<span class="text-danger">' + value + '</span>');
                         $("#add-address-field input[name='" + key + "']").addClass("has-error");
                     })
                 }
@@ -331,7 +331,7 @@
                     $('#add-address-field input[name="lastname"]').val(result['lastname']);
                     $('#add-address-field input[name="address_1"]').val(result['address_1']);
                     $('#add-address-field input[name="address_2"]').val(result['address_2']);
-                    $('#add-address-field input[name="city"]').val(result['city']);
+                    $('#add-address-field select[name="city"]').val(result['city']);
                     $('#add-address-field input[name="postcode"]').val(result['postcode']);
                     $('#add-address-field input[name="telephone"]').val(result['telephone']);
                     $('#update-address').show();
@@ -344,7 +344,7 @@
 
                 if (json['error']) {
                     $.map(json['error'], function (value, key) {
-                        $("#add-address-field input[name='" + key + "']").after('<span class="text-danger">' + value + '</span>');
+                        $("#add-address-field input[name='" + key + "'], #add-address-field select[name='" + key + "']").after('<span class="text-danger">' + value + '</span>');
                         $("#add-address-field input[name='" + key + "']").addClass("has-error");
                     })
                 }
@@ -403,7 +403,7 @@
                     step.next();
                 } else if (json['error']) {
                     $.map(json['error'], function (value, key) {
-                        $("#container-billing input[name='" + key + "']").after('<span class="text-danger">' + value + '</span>');
+                        $("#container-billing input[name='" + key + "'], #container-billing select[name='" + key + "']").after('<span class="text-danger">' + value + '</span>');
                         $("#container-billing input[name='" + key + "']").addClass("has-error");
                     })
 
@@ -437,7 +437,7 @@
             html += "<label class=\"check_filter\">";
             html += "<input type=\"radio\" class=\"checkbox\" name=\"address\" value='" + json['address_id'] + "' checked><b>" + json['firstname'] + " " + json['lastname'];
             html += "</b><br>" + json['address_1'] + " " + json['address_2'] + "<br>" + json['postcode'] + " ";
-            html += json['city'] + "<br> Maroc <br> Tel: " + json['telephone'];
+            html += json['city'] + "<br>" + json['country'] + "<br> Tel: " + json['telephone'];
             html += "<span class=\"checkmark checkradio\"></span>";
             html += "</label></div>";
             html += "<span class=\"edit-address\"><i class=\"fa fa-pencil\"></i></span>";
@@ -489,7 +489,7 @@
                     setAddress(json);
                 else if (json['error']) {
                     $.map(json['error'], function (value, key) {
-                        $("#add-address-field input[name='" + key + "']").after('<span class="text-danger">' + value + '</span>');
+                        $("#add-address-field input[name='" + key + "'], #add-address-field select[name='" + key + "']").after('<span class="text-danger">' + value + '</span>');
                         $("#add-address-field input[name='" + key + "']").addClass("has-error");
                     })
                 }
