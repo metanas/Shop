@@ -20,7 +20,8 @@ class ControllerCommonFooter extends Controller {
         $data['terms_private'] = $this->url->link('information/information', 'language=' . $this->config->get('config_language') . '&information_id=' . 14);
         $data['coupons'] = $this->url->link('information/information', 'language=' . $this->config->get('config_language') . '&information_id=' . 12);
         $data['delivery'] = $this->url->link('information/information', 'language=' . $this->config->get('config_language') . '&information_id=' . 11);
-        $data['return'] = $this->url->link('information/information', 'language=' . $this->config->get('config_language') . '&information_id=' . 8);
+        $data['return_info'] = $this->url->link('information/information', 'language=' . $this->config->get('config_language') . '&information_id=' . 8);
+        $data['return'] = $this->url->link('account/return', 'language=' . $this->config->get('config_language'));
 		$data['contact'] = $this->url->link('information/contact', 'language=' . $this->config->get('config_language'));
 		$data['sitemap'] = $this->url->link('information/sitemap', 'language=' . $this->config->get('config_language'));
 		$data['tracking'] = $this->url->link('information/tracking', 'language=' . $this->config->get('config_language'));
