@@ -13,7 +13,7 @@
         {% if returns %}
       <div class="table-responsive">
         <table  class="table table-hover">
-          <thead style="background-color: RGB(254,248,250);">
+          <thead style="background-color: #fafafa;">
             <tr>
               <th class="text-center">{{ column_return_id }}</th>
               <th class="text-center">{{ column_status }}</th>
@@ -24,7 +24,7 @@
             </tr>
           </thead>
           <tbody>
-          {% for return in returns %}
+          {% for return in returns %}oc_return
           <tr>
             <td class="text-center">#{{ return.return_id }}</td>
             <td class="text-center">{{ return.status }}</td>
