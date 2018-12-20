@@ -19,7 +19,7 @@
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="input-firstname">{{ entry_firstname }}</label>
             <div class="col-sm-10">
-              <input type="text" name="firstname" value="{{ firstname }}" placeholder="{{ entry_firstname }}" id="input-firstname" class="form-control"/>
+              <input type="text" name="firstname" value="{{ firstname }}" placeholder="{{ entry_firstname }}" id="input-firstname" class="form-control input-zalark"/>
               {% if error_firstname %}
                 <div class="text-danger">{{ error_firstname }}</div>
               {% endif %}</div>
@@ -27,7 +27,7 @@
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="input-lastname">{{ entry_lastname }}</label>
             <div class="col-sm-10">
-              <input type="text" name="lastname" value="{{ lastname }}" placeholder="{{ entry_lastname }}" id="input-lastname" class="form-control"/>
+              <input type="text" name="lastname" value="{{ lastname }}" placeholder="{{ entry_lastname }}" id="input-lastname" class="form-control input-zalark"/>
               {% if error_lastname %}
                 <div class="text-danger">{{ error_lastname }}</div>
               {% endif %}</div>
@@ -35,7 +35,7 @@
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="input-email">{{ entry_email }}</label>
             <div class="col-sm-10">
-              <input type="text" name="email" value="{{ email }}" placeholder="{{ entry_email }}" id="input-email" class="form-control"/>
+              <input type="text" name="email" value="{{ email }}" placeholder="{{ entry_email }}" id="input-email" class="form-control input-zalark"/>
               {% if error_email %}
                 <div class="text-danger">{{ error_email }}</div>
               {% endif %}</div>
@@ -43,7 +43,7 @@
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="input-telephone">{{ entry_telephone }}</label>
             <div class="col-sm-10">
-              <input type="text" name="telephone" value="{{ telephone }}" placeholder="{{ entry_telephone }}" id="input-telephone" class="form-control"/>
+              <input type="text" name="telephone" value="{{ telephone }}" placeholder="{{ entry_telephone }}" id="input-telephone" class="form-control input-zalark"/>
               {% if error_telephone %}
                 <div class="text-danger">{{ error_telephone }}</div>
               {% endif %}</div>
@@ -51,7 +51,7 @@
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="input-order-id">{{ entry_order_id }}</label>
             <div class="col-sm-10">
-              <input type="text" name="order_id" value="{{ order_id }}" placeholder="{{ entry_order_id }}" id="input-order-id" class="form-control"/>
+              <input type="text" name="order_id" value="{{ order_id }}" placeholder="{{ entry_order_id }}" id="input-order-id" class="form-control input-zalark"/>
               {% if error_order_id %}
                 <div class="text-danger">{{ error_order_id }}</div>
               {% endif %}</div>
@@ -73,23 +73,23 @@
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="input-product">{{ entry_product }}</label>
             <div class="col-sm-10">
-              <input type="text" name="product" value="{{ product }}" placeholder="{{ entry_product }}" id="input-product" class="form-control"/>
+              <input type="text" name="product" value="{{ product }}" placeholder="{{ entry_product }}" id="input-product" class="form-control input-zalark"/>
               {% if error_product %}
                 <div class="text-danger">{{ error_product }}</div>
               {% endif %}</div>
           </div>
           <div class="form-group required">
-            <label class="col-sm-2 control-label" for="input-model">{{ entry_model }}</label>
+            <label class="col-sm-2 control-label" for="input-manufacturer">{{ entry_manufacturer }}</label>
             <div class="col-sm-10">
-              <input type="text" name="model" value="{{ model }}" placeholder="{{ entry_model }}" id="input-model" class="form-control"/>
-              {% if error_model %}
-                <div class="text-danger">{{ error_model }}</div>
+              <input type="text" name="manufacturer" value="{{ manufacturer }}" placeholder="{{ entry_manufacturer }}" id="input-manufacturer" class="form-control input-zalark"/>
+              {% if error_manufacturer %}
+                <div class="text-danger">{{ error_manufacturer }}</div>
               {% endif %}</div>
           </div>
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-quantity">{{ entry_quantity }}</label>
             <div class="col-sm-10">
-              <input type="text" name="quantity" value="{{ quantity }}" placeholder="{{ entry_quantity }}" id="input-quantity" class="form-control"/>
+              <input type="text" name="quantity" value="{{ quantity }}" placeholder="{{ entry_quantity }}" id="input-quantity" class="form-control input-zalark"/>
             </div>
           </div>
           <div class="form-group required">
@@ -130,7 +130,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-comment">{{ entry_fault_detail }}</label>
             <div class="col-sm-10">
-              <textarea name="comment" rows="10" placeholder="{{ entry_fault_detail }}" id="input-comment" class="form-control">{{ comment }}</textarea>
+              <textarea name="comment" rows="10" placeholder="{{ entry_fault_detail }}" id="input-comment" class="form-control input-zalark">{{ comment }}</textarea>
             </div>
           </div>
           {{ captcha }}
@@ -144,14 +144,13 @@
               {% else %}
                 <input type="checkbox" name="agree" value="1"/>
               {% endif %}
-              <input type="submit" value="{{ button_submit }}" class="btn btn-primary"/>
+              <input type="submit" value="{{ button_submit }}" class="zalark-button"/>
             </div>
           </div>
         {% else %}
           <div class="buttons clearfix">
-            <div class="pull-left"><a href="{{ back }}" class="btn btn-default">{{ button_back }}</a></div>
             <div class="pull-right">
-              <input type="submit" value="{{ button_submit }}" class="btn btn-primary"/>
+              <input type="submit" value="{{ button_submit }}" class="zalark-button"/>
             </div>
           </div>
         {% endif %}

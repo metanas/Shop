@@ -227,6 +227,12 @@ class ControllerAccountReturn extends Controller {
 			$data['error_telephone'] = '';
 		}
 
+        if (isset($this->error['manufacturer'])) {
+            $data['error_manufacturer'] = $this->error['manufacturer'];
+        } else {
+            $data['error_manufacturer'] = '';
+        }
+
 		if (isset($this->error['product'])) {
 			$data['error_product'] = $this->error['product'];
 		} else {
@@ -308,6 +314,14 @@ class ControllerAccountReturn extends Controller {
 		} else {
 			$data['product'] = '';
 		}
+
+        if (isset($this->request->post['manufacturer'])) {
+            $data['manufacturer'] = $this->request->post['manufacturer'];
+        } elseif (!empty($order_info)) {
+            $data['manufacturer'] = $order_info['manufacturer'];
+        } else {
+            $data['manufacturer'] = "";
+        }
 
 		if (isset($this->request->post['quantity'])) {
 			$data['quantity'] = $this->request->post['quantity'];
@@ -401,6 +415,10 @@ class ControllerAccountReturn extends Controller {
 			$this->error['product'] = $this->language->get('error_product');
 		}
 
+        if ((utf8_strlen($this->request->post['manufacturer']) < 1) || (utf8_strlen($this->request->post['manufacturer']) > 255)) {
+            $this->error['manufacturer'] = $this->language->get('error_manufacturer');
+        }
+
 		if (empty($this->request->post['return_reason_id'])) {
 			$this->error['reason'] = $this->language->get('error_reason');
 		}
@@ -430,18 +448,6 @@ class ControllerAccountReturn extends Controller {
 		$this->load->language('account/return');
 
 		$this->document->setTitle($this->language->get('heading_title'));
-
-		$data['breadcrumbs'] = array();
-
-		$data['breadcrumbs'][] = array(
-			'text' => $this->language->get('text_home'),
-			'href' => $this->url->link('common/home', 'language=' . $this->config->get('config_language'))
-		);
-
-		$data['breadcrumbs'][] = array(
-			'text' => $this->language->get('heading_title'),
-			'href' => $this->url->link('account/return', 'language=' . $this->config->get('config_language'))
-		);
 
 		$data['continue'] = $this->url->link('common/home', 'language=' . $this->config->get('config_language'));
 
