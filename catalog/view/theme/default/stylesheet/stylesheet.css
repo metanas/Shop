@@ -1879,3 +1879,6 @@ ul {
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+.table{
+    margin-bottom: 31px;
+}
