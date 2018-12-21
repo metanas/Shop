@@ -33,12 +33,12 @@ class ControllerMailOrder extends Controller
 
         if ($order_info) {
             // If order status is 0 then becomes greater than 0 send main html email
-            if (!$order_info['order_status_id'] && $order_status_id) {
+            if ($order_info['order_status_id'] == 1 && $order_status_id) {
                 $this->add($order_info, $order_status_id, $comment, $notify);
             }
 
             // If order status is not 0 then send update text email
-            if ($order_info['order_status_id'] && $order_status_id && $notify) {
+            if ($order_info['order_status_id'] > 1 && $order_status_id && $notify) {
                 $this->edit($order_info, $order_status_id, $comment, $notify);
             }
         }
@@ -228,8 +228,7 @@ class ControllerMailOrder extends Controller
         if (!$from) {
             $from = $this->config->get('config_email');
         }
-        var_dump($this->load->view('mail/order_add', $data));
-        exit();
+
         $mail = new Mail($this->config->get('config_mail_engine'));
         $mail->parameter = $this->config->get('config_mail_parameter');
         $mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
