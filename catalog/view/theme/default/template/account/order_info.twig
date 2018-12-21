@@ -140,13 +140,13 @@
                 </table>
             {% endif %}
             {% if histories %}
-                <h3>{{ text_history }}</h3>
-                <table class="table table-bordered table-hover">
-                    <thead>
+                <h3 style="font-size: 14px; margin-bottom: 27px;">{{ text_history }}</h3>
+                <table class="table table-hover">
+                    <thead style="background-color: #fafafa">
                     <tr>
-                        <td class="text-left">{{ column_date_added }}</td>
-                        <td class="text-left">{{ column_status }}</td>
-                        <td class="text-left">{{ column_comment }}</td>
+                        <th class="text-left">{{ column_date_added }}</th>
+                        <th class="text-left">{{ column_status }}</th>
+                        <th class="text-left">{{ column_comment }}</th>
                     </tr>
                     </thead>
                     <tbody>
