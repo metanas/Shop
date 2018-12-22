@@ -189,7 +189,7 @@ class ControllerMailOrder extends Controller
                 'name' => $order_product['name'],
                 'manufacturer' => $order_product['manufacturer'],
                 'color' => $product['color'],
-                'image' => $this->model_tool_image->resize($product['image'], 100, 200),
+                'image' => $this->model_tool_image->resize($product['image'], 130, 189),
                 'option' => $option_data,
                 'quantity' => $order_product['quantity'],
                 'price' => $this->currency->format($order_product['price'] + ($this->config->get('config_tax') ? $order_product['tax'] : 0), $order_info['currency_code'], $order_info['currency_value']),
@@ -228,7 +228,8 @@ class ControllerMailOrder extends Controller
         if (!$from) {
             $from = $this->config->get('config_email');
         }
-
+var_dump($this->load->view('mail/order_add', $data));
+        exit();
         $mail = new Mail($this->config->get('config_mail_engine'));
         $mail->parameter = $this->config->get('config_mail_parameter');
         $mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
