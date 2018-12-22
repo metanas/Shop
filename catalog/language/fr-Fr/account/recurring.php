@@ -47,7 +47,7 @@ $_['text_transaction_expired'] ='Expiré';
 
 // Column
 
-$_['column_date_added']         ='date ajoutée';
+$_['column_date_added']         ='Date ajoutée';
 $_['column_type']               ='Type';
 $_['column_amount']             ='Montant';
 $_['column_status']             ='Statut';

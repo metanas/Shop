@@ -7,7 +7,7 @@ $_['heading_title']      ='Vos transactions';
 
 // Column
 
-$_['column_date_added']  ='date ajoutée';
+$_['column_date_added']  ='Date ajoutée';
 $_['column_description'] ='Description';
 $_['column_amount']      ='Montant (%s)';
 

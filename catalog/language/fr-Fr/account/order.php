@@ -38,7 +38,7 @@ $_['column_quantity']       ='Quantité';
 $_['column_price']          ='Prix';
 $_['column_total']          ='Total';
 $_['column_action']         ='action';
-$_['column_date_added']     ='date ajoutée';
+$_['column_date_added']     ='Date ajoutée';
 $_['column_status']         ='Statut';
 $_['column_comment']        ='Commentaire';
 

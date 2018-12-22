@@ -7,7 +7,7 @@ $_['heading_title']      ='Vos points de récompense';
 
 // Column
 
-$_['column_date_added']  ='date ajoutée';
+$_['column_date_added']  ='Date ajoutée';
 $_['column_description'] ='Description';
 $_['column_points']      ='Points';
 

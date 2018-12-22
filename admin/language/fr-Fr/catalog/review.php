@@ -14,7 +14,7 @@ $_['column_product']    = 'Produit';
 $_['column_author']     = 'Auteur';
 $_['column_rating']     = 'Évaluation';
 $_['column_status']     = 'Status';
-$_['column_date_added'] = 'date ajoutée';
+$_['column_date_added'] = 'Date ajoutée';
 $_['column_action']     = 'Action';
 
 // Entry
@@ -23,7 +23,7 @@ $_['entry_author']      = 'Auteur';
 $_['entry_rating']      = 'Évaluation';
 $_['entry_status']      = 'Status';
 $_['entry_text']        = 'Texte';
-$_['entry_date_added']  = 'date ajoutée';
+$_['entry_date_added']  = 'Date ajoutée';
 
 // Help
 $_['help_product']      = '(Autocomplete)';

@@ -31,7 +31,7 @@ $_['text_agree']         ='j`ai lu et accepté les <a href="%s" class="agree">  
 $_['column_return_id']   ='ID de retour';
 $_['column_order_id']    ='numéro de commande';
 $_['column_status']      ='Statut';
-$_['column_date_added']  ='date ajoutée';
+$_['column_date_added']  ='Date ajoutée';
 $_['column_customer']    ='Client';
 $_['column_product']     ='Nom du produit';
 $_['column_manufacturer']='Fabricant';
