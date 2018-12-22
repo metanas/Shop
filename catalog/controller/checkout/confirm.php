@@ -583,9 +583,9 @@ class ControllerCheckoutConfirm extends Controller
         if (isset($this->session->data['payment_method'])) {
             $order_data['payment_code'] = $this->session->data['payment_method'];
             if ($this->session->data['payment_method'] == '20') {
-                $order_data['payment_method'] = "VISA";
+                $order_data['payment_method'] = "CARTE BANCAIRE";
             } elseif ($this->session->data['payment_method'] == '17') {
-                $order_data['payment_method'] = "DELIVERY";
+                $order_data['payment_method'] = "À LA LIVRAISON";
             } elseif ($this->session->data['payment_method'] == '01') {
                 $order_data['payment_method'] = "PAYPAL";
             }
