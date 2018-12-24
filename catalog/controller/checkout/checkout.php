@@ -91,7 +91,9 @@ class ControllerCheckoutCheckout extends Controller
         }
 
         $data['shipping_required'] = $this->cart->hasShipping();
-
+        $data['motion_legal'] = $this->url->link('information/information', 'language=' . $this->config->get('config_language') . '&information_id=' . 13);
+        $data['terms_private'] = $this->url->link('information/information', 'language=' . $this->config->get('config_language') . '&information_id=' . 14);
+        $data['contact'] = $this->url->link('information/contact', "language=" . $this->config->get('config_language'));
         $data['language'] = $this->config->get('config_language');
         $data['home'] = $this->url->link('common/home', 'language=' . $this->config->get('config_language'));
 
@@ -146,9 +148,6 @@ class ControllerCheckoutCheckout extends Controller
                 'required' => $custom_field['required']
             );
         }
-        $data['motion_legal'] = $this->url->link('information/information', 'language=' . $this->config->get('config_language') . '&information_id=' . 13);
-        $data['terms_private'] = $this->url->link('information/information', 'language=' . $this->config->get('config_language') . '&information_id=' . 14);
-        $data['contact'] = $this->url->link('information/contact', 'language=' . $this->config->get('config_language'));
 
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
@@ -156,13 +155,13 @@ class ControllerCheckoutCheckout extends Controller
 
     public function getStep()
     {
-        if ((int)$this->request->post['step_id'] === 2 && isset($this->session->data['customer_id'])) {
+        if ((int)$this->request->post['step_id'] <= 2 && isset($this->session->data['customer_id'])) {
             $this->response->setOutput($this->load->controller('checkout/shipping_address'));
-        } elseif ((int)$this->request->post['step_id'] === 3 && isset($this->session->data['customer_id']) && isset($this->session->data['shipping_address'])) {
+        } elseif ((int)$this->request->post['step_id'] <= 3 && isset($this->session->data['customer_id']) && isset($this->session->data['shipping_address'])) {
             $this->response->setOutput($this->load->controller('checkout/payment_address'));
-        } elseif ((int)$this->request->post['step_id'] === 4 && isset($this->session->data['customer_id']) && isset($this->session->data['shipping_address']) && isset($this->session->data['payment_method'])) {
+        } elseif ((int)$this->request->post['step_id'] <= 4 && isset($this->session->data['customer_id']) && isset($this->session->data['shipping_address']) && isset($this->session->data['payment_method'])) {
             $this->response->setOutput($this->load->controller('checkout/confirm'));
-        }else{
+        } else {
             $this->response->setOutput($this->load->controller('checkout/checkout'));
         }
     }

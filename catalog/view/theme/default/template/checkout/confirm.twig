@@ -67,13 +67,11 @@
             <div class="fa-option" id="pay-edit" onclick="step.next(3)"><i class="fa fa-edit"></i></div>
             <h4 style="margin-top: 26px;">MOYEN DE PAYEMENT</h4>
             <hr class="hr-marge">
-            {% if payment_method == '01' %}
-                <img class="pay-checkout" src="catalog/view/theme/default/image/paypal.png">
-            {% elseif payment_method == '17' %}
-                <img class="pay-checkout" src="catalog/view/theme/default/image/livraison2.png">
+            {% if payment_method == '17' %}
+                <img class="pay-checkout" src="catalog/view/theme/default/image/livraison2.png" width="50">
             {% else %}
-                <img class="pay-checkout" src="catalog/view/theme/default/image/master2.png">
-                <img class="pay-checkout" src="catalog/view/theme/default/image/visa2.png">
+                <img class="pay-checkout" src="catalog/view/theme/default/image/master2.png" width="50">
+                <img class="pay-checkout" src="catalog/view/theme/default/image/visa2.png" width="50">
             {% endif %}
         </div>
         <div class="col-sm-12"><h4 style="margin-top: 26px;">CODE PROMO & CARTE CADEAU</h4>

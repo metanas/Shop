@@ -1,122 +1,92 @@
-<!DOCTYPE html>
-<html dir="{{ direction }}" lang="{{ lang }}">
-<head>
-<meta charset="UTF-8" />
-<title>{{ title }}</title>
-<base href="{{ base }}" />
-<link href="view/javascript/bootstrap/css/bootstrap.css" rel="stylesheet" media="all" />
-<script type="text/javascript" src="view/javascript/jquery/jquery-2.1.1.min.js"></script>
-<script type="text/javascript" src="view/javascript/bootstrap/js/bootstrap.min.js"></script>
-<link href="view/javascript/font-awesome/css/font-awesome.min.css" type="text/css" rel="stylesheet" />
-<link type="text/css" href="view/stylesheet/stylesheet.css" rel="stylesheet" media="all" />
-</head>
-<body>
-<div class="container">
-  {% for order in orders %}
-  <div style="page-break-after: always;">
-    <h1>{{ text_picklist }} #{{ order.order_id }}</h1>
-    <table class="table table-bordered">
-      <thead>
-        <tr>
-          <td colspan="2">{{ text_order_detail }}</td>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><address>
-            <strong>{{ order.store_name }}</strong><br />
-            {{ order.store_address }}
-            </address>
-            <b>{{ text_telephone }}</b> {{ order.store_telephone }}<br />
-            <b>{{ text_email }}</b> {{ order.store_email }}<br />
-            <b>{{ text_website }}</b> <a href="{{ order.store_url }}">{{ order.store_url }}</a></td>
-          <td style="width: 50%;"><b>{{ text_date_added }}</b> {{ order.date_added }}<br />
-            {% if order.invoice_no %}
-            <b>{{ text_invoice_no }}</b> {{ order.invoice_no }}<br />
-            {% endif %}
-            <b>{{ text_order_id }}</b> {{ order.order_id }}<br />
+<page>
+    <page_header></page_header>
+    {% for order in orders %}
+        <table style="width: 100%;vertical-align: bottom">
+            <tr style="width: 100%">
+                <td style="width: 30%">
+                    <img src="view/image/logo.png" style="width: 100%">
+                </td>
+                <td style="width: 40%;">
+
+                </td>
+                <td style="width: 30%">
+                    <img src="view/image/logo.png" style="width: 100%">
+                </td>
+            </tr>
+        </table>
+
+        <table style="margin-top: 10mm">
+            <tr>
+                <th><h2>Bonjour, {{ order.customer }}</h2></th>
+            </tr>
+        </table>
+
+        <table style="margin-top: 5mm;width: 100%">
             {% if order.shipping_method %}
-            <b>{{ text_shipping_method }}</b> {{ order.shipping_method }}<br />
-            {% endif %}</td>
-        </tr>
-      </tbody>
-    </table>
-    <table class="table table-bordered">
-      <thead>
-        <tr>
-          <td style="width: 50%;"><b>{{ text_shipping_address }}</b></td>
-          <td style="width: 50%;"><b>{{ text_contact }}</b></td>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>{{ order.shipping_address }}</td>
-          <td>{{ order.email }}<br/>
-            {{ order.telephone }}</td>
-        </tr>
-      </tbody>
-    </table>
-    <table class="table table-bordered">
-      <thead>
-        <tr>
-          <td><b>{{ column_location }}</b></td>
-          <td><b>{{ column_reference }}</b></td>
-          <td><b>{{ column_product }}</b></td>
-          <td><b>{{ column_weight }}</b></td>
-          <td><b>{{ column_model }}</b></td>
-          <td class="text-right"><b>{{ column_quantity }}</b></td>
-        </tr>
-      </thead>
-      <tbody>
-        {% for product in order.product %}
-        <tr>
-          <td>{{ product.location }}</td>
-          <td>{% if product.sku %}
-            {{ text_sku }} {{ product.sku }}<br />
+                <tr>
+                    <th>{{ text_shipping_method }}:</th>
+                    <td>{{ order.shipping_method }}</td>
+                </tr>
             {% endif %}
-            {% if product.upc %}
-            {{ text_upc }} {{ product.upc }}<br />
+            <tr>
+                <th>{{ text_payment_method }}:</th>
+                <td style="width: 32%">{{ order.payment_method }}</td>
+                <th>{{ text_order_id }}</th>
+                <td>#{{ order.order_id }}</td>
+            </tr>
+            <tr>
+                <th>{{ text_order_id }}</th>
+                <td style="width: 32%">#{{ order.order_id }}</td>
+                <th>code de routeur:</th>
+                <td>#{{ order.order_id }}</td>
+            </tr>
+            {% if order.invoice_no %}
+                <tr>
+                    <th>
+                        {{ text_invoice_no }}
+                    </th>
+                    <td>{{ order.invoice_no }}</td>
+                </tr>
             {% endif %}
-            {% if product.ean %}
-            {{ text_ean }} {{ product.ean }}<br />
-            {% endif %}
-            {% if product.jan %}
-            {{ text_jan }} {{ product.jan }}<br />
-            {% endif %}
-            {% if product.isbn %}
-            {{ text_isbn }} {{ product.isbn }}<br />
-            {% endif %}
-            {% if product.mpn %}
-            {{ text_mpn }}{{ product.mpn }}<br />
-            {% endif %}</td>
-          <td>{{ product.name }}
-            {% for option in product.option %}
-            <br />
-            &nbsp;<small> - {{ option.name }}: {{ option.value }}</small>
-            {% endfor %}</td>
-          <td>{{ product.weight }}</td>
-          <td>{{ product.model }}</td>
-          <td class="text-right">{{ product.quantity }}</td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-    {% if order.comment %}
-    <table class="table table-bordered">
-      <thead>
-        <tr>
-          <td><b>{{ text_comment }}</b></td>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>{{ order.comment }}</td>
-        </tr>
-      </tbody>
-    </table>
-    {% endif %}
-  </div>
-  {% endfor %}
-</div>
-</body>
-</html>
+
+            <tr>
+                <th>{{ text_date_added }}</th>
+                <td>{{ order.date_added }}</td>
+            </tr>
+        </table>
+
+        <table style="width: 100%;margin-top: 5mm;">
+            <tr style="width:100%;">
+                <th style="width: 48%;border : 1px solid #ff1b5a;background-color: #ff1b5a;color: whitesmoke;padding: 4px">
+                    {{ text_shipping_address }}
+                </th>
+                <td style="width: 4%">
+
+                </td>
+                <th style="width: 48%;border : 1px solid #ff1b5a;background-color: #ff1b5a;color: whitesmoke;padding: 4px">
+                    {{ text_return_address }}
+                </th>
+            </tr>
+            <tr style="width: 100%;">
+                <td style="width: 48%;border-bottom : 1px solid #ff1b5a;border-left:1px solid #ff1b5a;border-right: 1px solid #ff1b5a;padding-left: 4px">
+                    {% if order.shipping_address %}
+                        <div style="line-height: 1.5">{{ order.shipping_address }}
+                        </div>
+                    {% endif %}
+                </td>
+                <td style="width: 4%">
+
+                </td>
+                <td style="width: 48%;border-bottom : 1px solid #ff1b5a;border-left:1px #ff1b5a;border-right: 1px #ff1b5a;padding-left: 4px">
+                    <div style="line-height: 1.5">
+                        {{ order.store_name }}<br/>
+                        {{ order.store_address }}<br/>
+                        {{ order.store_city.name }}<br/>
+                        {{ order.store_country.name }}<br/>
+                        {{ order.store_telephone }}
+                    </div>
+                </td>
+            </tr>
+        </table>
+    {% endfor %}
+</page>
