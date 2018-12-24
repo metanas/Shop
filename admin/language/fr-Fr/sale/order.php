@@ -29,6 +29,7 @@ $_['text_reward']                = 'Points de récompense';
 $_['text_affiliate']             = 'Filiale';
 $_['text_order']                 = 'Commande (#%s)';
 $_['text_payment_address']       = 'Adresse de facturation';
+$_['text_return_address']        = 'Adresse de retour';
 $_['text_shipping_address']      = 'Adresse de livraison';
 $_['text_comment']               = 'Commentaire du client';
 $_['text_history']               = 'Order History';

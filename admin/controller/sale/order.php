@@ -1,5 +1,7 @@
 <?php
+
 use Spipu\Html2Pdf\Html2Pdf;
+
 class ControllerSaleOrder extends Controller
 {
     private $error = array();
@@ -1584,28 +1586,31 @@ class ControllerSaleOrder extends Controller
                     'total' => $total_data
                 );
             }
+
         }
 
-        $pdf = new Html2Pdf('P','A4','fr');
+        $pdf = new Html2Pdf('P', 'A4', 'fr');
         $pdf->writeHTML($this->load->view('sale/order_invoice', $data));
-        $pdf->Output("te2st.pdf");
-
+        $pdf->Output("order.pdf");
     }
 
     public function shipping()
     {
         $this->load->language('sale/order');
 
-        $data['title'] = $this->language->get('text_shipping');
+        $data['title'] = $this->language->get('text_invoice');
+
+        if (is_file(DIR_IMAGE . $this->config->get('config_logo'))) {
+            $data['logo'] = $this->config->get('config_url') . 'image/' . $this->config->get('config_logo');
+        } else {
+            $data['logo'] = '';
+        }
 
         $data['base'] = HTTP_SERVER;
         $data['direction'] = $this->language->get('direction');
         $data['lang'] = $this->language->get('code');
 
         $this->load->model('sale/order');
-
-        $this->load->model('catalog/product');
-        $this->load->model('catalog/product_option');
 
         $this->load->model('setting/setting');
 
@@ -1621,19 +1626,24 @@ class ControllerSaleOrder extends Controller
 
         foreach ($orders as $order_id) {
             $order_info = $this->model_sale_order->getOrder($order_id);
-
-            // Make sure there is a shipping method
-            if ($order_info && $order_info['shipping_code']) {
+            $this->load->model('localisation/country');
+            $this->load->model('localisation/zone');
+            if ($order_info) {
                 $store_info = $this->model_setting_setting->getSetting('config', $order_info['store_id']);
-
                 if ($store_info) {
                     $store_address = $store_info['config_address'];
                     $store_email = $store_info['config_email'];
                     $store_telephone = $store_info['config_telephone'];
+                    $store_fax = $store_info['config_fax'];
+                    $store_city = $this->model_localisation_zone->getZone($store_info['config_zone_id']);
+                    $store_country = $this->model_localisation_country->getCountry($store_info['config_country_id']);
                 } else {
                     $store_address = $this->config->get('config_address');
                     $store_email = $this->config->get('config_email');
                     $store_telephone = $this->config->get('config_telephone');
+                    $store_fax = $this->config->get('config_fax');
+                    $store_city = $this->model_localisation_zone->getZone($this->config->get('config_country_id'));
+                    $store_country = $this->model_localisation_country->getCountry($this->config->get('config_zone_id'));
                 }
 
                 if ($order_info['invoice_no']) {
@@ -1643,7 +1653,7 @@ class ControllerSaleOrder extends Controller
                 }
 
 
-                $format = '{firstname} {lastname}' . "\n" . '{address_1}' . "\n" . '{address_2}' . "\n" . '{city} {postcode}' . "\n";
+                $format = '{firstname} {lastname}' . "\n" . '{address_1}' . "\n" . '{address_2}' . "\n" . '{city} {postcode}' . "\n" . '{country}' . "\n" . 'Tel: {telephone}';
 
 
                 $find = array(
@@ -1652,7 +1662,9 @@ class ControllerSaleOrder extends Controller
                     '{address_1}',
                     '{address_2}',
                     '{city}',
-                    '{postcode}'
+                    '{postcode}',
+                    '{country}',
+                    '{telephone}'
                 );
 
                 $replace = array(
@@ -1662,89 +1674,39 @@ class ControllerSaleOrder extends Controller
                     'address_2' => $order_info['shipping_address_2'],
                     'city' => $order_info['shipping_city'],
                     'postcode' => $order_info['shipping_postcode'],
+                    'country' => $order_info['shipping_country'],
+                    'telephone' => $order_info['shipping_telephone']
                 );
 
                 $shipping_address = str_replace(array("\r\n", "\r", "\n"), '<br />', preg_replace(array("/\s\s+/", "/\r\r+/", "/\n\n+/"), '<br />', trim(str_replace($find, $replace, $format))));
 
                 $this->load->model('tool/upload');
 
-                $product_data = array();
-
-                $products = $this->model_sale_order->getOrderProducts($order_id);
-
-                foreach ($products as $product) {
-                    $option_weight = 0;
-
-                    $product_info = $this->model_catalog_product->getProduct($product['product_id']);
-
-                    if ($product_info) {
-                        $option_data = array();
-
-                        $options = $this->model_sale_order->getOrderOptions($order_id, $product['order_product_id']);
-
-                        foreach ($options as $option) {
-                            if ($option['type'] != 'file') {
-                                $value = $option['value'];
-                            } else {
-                                $upload_info = $this->model_tool_upload->getUploadByCode($option['value']);
-
-                                if ($upload_info) {
-                                    $value = $upload_info['name'];
-                                } else {
-                                    $value = '';
-                                }
-                            }
-
-                            $option_data[] = array(
-                                'name' => $option['name'],
-                                'value' => $value
-                            );
-
-                            $product_option_value_info = $this->model_catalog_product_option->getProductOptionValue($product['product_id'], $option['product_option_value_id']);
-
-                            if ($product_option_value_info) {
-                                if ($product_option_value_info['weight_prefix'] == '+') {
-                                    $option_weight += $product_option_value_info['weight'];
-                                } elseif ($product_option_value_info['weight_prefix'] == '-') {
-                                    $option_weight -= $product_option_value_info['weight'];
-                                }
-                            }
-                        }
-
-                        $product_data[] = array(
-                            'name' => $product_info['name'],
-                            'model' => $product_info['model'],
-                            'option' => $option_data,
-                            'quantity' => $product['quantity'],
-                            'location' => $product_info['location'],
-                            'sku' => $product_info['sku'],
-                            'upc' => $product_info['upc'],
-                            'ean' => $product_info['ean'],
-                            'jan' => $product_info['jan'],
-                            'isbn' => $product_info['isbn'],
-                            'weight' => $this->weight->format(($product_info['weight'] + (float)$option_weight) * $product['quantity'], $product_info['weight_class_id'], $this->language->get('decimal_point'), $this->language->get('thousand_point'))
-                        );
-                    }
-                }
-
                 $data['orders'][] = array(
                     'order_id' => $order_id,
                     'invoice_no' => $invoice_no,
+                    'customer' => $order_info['firstname'] . " " . $order_info['lastname'],
                     'date_added' => date($this->language->get('date_format_short'), strtotime($order_info['date_added'])),
                     'store_name' => $order_info['store_name'],
                     'store_url' => rtrim($order_info['store_url'], '/'),
                     'store_address' => nl2br($store_address),
                     'store_email' => $store_email,
+                    'store_city' => $store_city,
+                    'store_country' => $store_country,
                     'store_telephone' => $store_telephone,
+                    'store_fax' => $store_fax,
                     'email' => $order_info['email'],
                     'telephone' => $order_info['telephone'],
                     'shipping_address' => $shipping_address,
                     'shipping_method' => $order_info['shipping_method'],
-                    'product' => $product_data,
+                    'payment_method' => $order_info['payment_method'],
                 );
             }
+
         }
 
-        $this->response->setOutput($this->load->view('sale/order_shipping', $data));
+        $pdf = new Html2Pdf('P', 'A4', 'fr');
+        $pdf->writeHTML($this->load->view('sale/order_shipping', $data));
+        $pdf->Output("order.pdf");
     }
 }
