@@ -36,13 +36,12 @@ class ControllerCheckoutPaymentAddress extends Controller
         if ((!$this->cart->hasProducts() && empty($this->session->data['vouchers'])) || (!$this->cart->hasStock() && !$this->config->get('config_stock_checkout'))) {
             $json['redirect'] = $this->url->link('checkout/cart', 'language=' . $this->config->get('config_language'));
         }
-
         if (!$json) {
             if(isset($this->request->post['payment_method']) && filter_var((int)$this->request->post['payment_method'],FILTER_VALIDATE_INT)) {
                 $this->session->data['payment_method'] = $this->request->post['payment_method'];
                 $json['success'] = true;
             }else{
-                $json['not_selected'] = true;
+                $json['not_selected'] = $this->language->get('error_payment');
             }
         }
 

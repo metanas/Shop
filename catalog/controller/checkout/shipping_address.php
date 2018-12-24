@@ -167,8 +167,9 @@ class ControllerCheckoutShippingAddress extends Controller
             $json['redirect'] = $this->url->link('checkout/checkout', 'language=' . $this->config->get('config_language'));
         }
 
-        if ($this->request->post['address'] == "Add") {
-            $json['not_selected'] = true;
+        if (!isset($this->request->post['address']) || $this->request->post['address'] == "Add") {
+            $this->load->language('checkout/checkout');
+            $json['not_selected'] = $this->language->get('error_address');
         }
 
         $this->load->model('account/address');

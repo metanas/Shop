@@ -1707,6 +1707,6 @@ class ControllerSaleOrder extends Controller
 
         $pdf = new Html2Pdf('P', 'A4', 'fr');
         $pdf->writeHTML($this->load->view('sale/order_shipping', $data));
-        $pdf->Output("order.pdf");
+        $pdf->Output("address.pdf");
     }
 }

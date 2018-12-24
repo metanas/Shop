@@ -379,9 +379,7 @@
     });
 
     $("#save-address").on("click", function () {
-        if ($("#container-address .form-group input[name='address']:checked").length === 0) {
-            return;
-        }
+        $('alert-danger').remove();
         $.ajax({
             url: "index.php?route=checkout/shipping_address/save",
             type: "post",
@@ -398,7 +396,9 @@
                 if (json['redirect']) {
                     location = json['redirect'];
                 } else if (json['not_selected']) {
-
+                    $('#container-address').prepend('<div class="alert alert-danger alert-dismissible" ><i class="fa fa-exclamation-circle"></i> '
+                        + json['not_selected']
+                        + '<div>');
                 } else if (json['success']) {
                     step.next();
                 } else if (json['error']) {

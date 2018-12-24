@@ -85,23 +85,19 @@
 </div>
 <script>
     $(".zalark-button").on("click", function () {
-        var selected = $('input[name="payment"]:checked');
-        if (selected.length === 0) {
-            return;
-        }
+        $('.alert-danger').remove();
         $.ajax({
             url: "index.php?route=checkout/payment_address/save",
             type: "post",
-            data: {"payment_method": selected.val()},
+            data: {"payment_method": $('input[name="payment"]:checked').val()},
             dataType: "json",
             success: function (json) {
-                console.log(json);
                 if (json['redirect']) {
                     location = json['redirect'];
-                } else if (json['not_found']) {
-
-                } else if (json['not_selected']) {
-
+                }  else if (json['not_selected']) {
+                    $('#title').after('<div class="alert alert-danger alert-dismissible" ><i class="fa fa-exclamation-circle"></i> '
+                        + json['not_selected']
+                        + '<div>');
                 } else if (json['success']) {
                     step.next();
                 }
