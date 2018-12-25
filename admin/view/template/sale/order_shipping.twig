@@ -3,8 +3,8 @@
     {% for order in orders %}
         <table style="width: 100%;vertical-align: bottom">
             <tr style="width: 100%">
-                <td style="width: 50%" align="center">
-                    <div style="width: 70%">
+                <td style="width: 50%;" align="center">
+                    <div style="width: 70%;">
                         <img src="view/image/logo.png" style="width: 100%">
                     </div>
                 </td>
@@ -34,7 +34,7 @@
             <tr>
                 <th>{{ text_payment_method }}:</th>
                 <td style="width: 35%">{{ order.payment_method }}</td>
-                <th>Code de routeur:</th>
+                <th>Code de retour:</th>
                 <td>#{{ order.order_id }}</td>
             </tr>
             <tr>
