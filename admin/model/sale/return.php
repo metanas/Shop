@@ -1,13 +1,13 @@
 <?php
 class ModelSaleReturn extends Model {
 	public function addReturn($data) {
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "return` SET order_id = '" . (int)$data['order_id'] . "', product_id = '" . (int)$data['product_id'] . "', customer_id = '" . (int)$data['customer_id'] . "', firstname = '" . $this->db->escape((string)$data['firstname']) . "', lastname = '" . $this->db->escape((string)$data['lastname']) . "', email = '" . $this->db->escape((string)$data['email']) . "', telephone = '" . $this->db->escape((string)$data['telephone']) . "', product = '" . $this->db->escape((string)$data['product']) . "', model = '" . $this->db->escape((string)$data['model']) . "', quantity = '" . (int)$data['quantity'] . "', opened = '" . (int)$data['opened'] . "', return_reason_id = '" . (int)$data['return_reason_id'] . "', return_action_id = '" . (int)$data['return_action_id'] . "', return_status_id = '" . (int)$data['return_status_id'] . "', comment = '" . $this->db->escape((string)$data['comment']) . "', date_ordered = '" . $this->db->escape((string)$data['date_ordered']) . "', date_added = NOW(), date_modified = NOW()");
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "return` SET order_id = '" . (int)$data['order_id'] . "', product_id = '" . (int)$data['product_id'] . "', customer_id = '" . (int)$data['customer_id'] . "', firstname = '" . $this->db->escape((string)$data['firstname']) . "', lastname = '" . $this->db->escape((string)$data['lastname']) . "', email = '" . $this->db->escape((string)$data['email']) . "', telephone = '" . $this->db->escape((string)$data['telephone']) . "', product = '" . $this->db->escape((string)$data['product']) . "', manufacturer = '" . $this->db->escape((string)$data['manufacturer']) . "', quantity = '" . (int)$data['quantity'] . "', opened = '" . (int)$data['opened'] . "', return_reason_id = '" . (int)$data['return_reason_id'] . "', return_action_id = '" . (int)$data['return_action_id'] . "', return_status_id = '" . (int)$data['return_status_id'] . "', comment = '" . $this->db->escape((string)$data['comment']) . "', date_ordered = '" . $this->db->escape((string)$data['date_ordered']) . "', date_added = NOW(), date_modified = NOW()");
 	
 		return $this->db->getLastId();
 	}
 
 	public function editReturn($return_id, $data) {
-		$this->db->query("UPDATE `" . DB_PREFIX . "return` SET order_id = '" . (int)$data['order_id'] . "', product_id = '" . (int)$data['product_id'] . "', customer_id = '" . (int)$data['customer_id'] . "', firstname = '" . $this->db->escape((string)$data['firstname']) . "', lastname = '" . $this->db->escape((string)$data['lastname']) . "', email = '" . $this->db->escape((string)$data['email']) . "', telephone = '" . $this->db->escape((string)$data['telephone']) . "', product = '" . $this->db->escape((string)$data['product']) . "', model = '" . $this->db->escape((string)$data['model']) . "', quantity = '" . (int)$data['quantity'] . "', opened = '" . (int)$data['opened'] . "', return_reason_id = '" . (int)$data['return_reason_id'] . "', return_action_id = '" . (int)$data['return_action_id'] . "', comment = '" . $this->db->escape((string)$data['comment']) . "', date_ordered = '" . $this->db->escape((string)$data['date_ordered']) . "', date_modified = NOW() WHERE return_id = '" . (int)$return_id . "'");
+		$this->db->query("UPDATE `" . DB_PREFIX . "return` SET order_id = '" . (int)$data['order_id'] . "', product_id = '" . (int)$data['product_id'] . "', customer_id = '" . (int)$data['customer_id'] . "', firstname = '" . $this->db->escape((string)$data['firstname']) . "', lastname = '" . $this->db->escape((string)$data['lastname']) . "', email = '" . $this->db->escape((string)$data['email']) . "', telephone = '" . $this->db->escape((string)$data['telephone']) . "', product = '" . $this->db->escape((string)$data['product']) . "', manufacturer = '" . $this->db->escape((string)$data['manufacturer']) . "', quantity = '" . (int)$data['quantity'] . "', opened = '" . (int)$data['opened'] . "', return_reason_id = '" . (int)$data['return_reason_id'] . "', return_action_id = '" . (int)$data['return_action_id'] . "', comment = '" . $this->db->escape((string)$data['comment']) . "', date_ordered = '" . $this->db->escape((string)$data['date_ordered']) . "', date_modified = NOW() WHERE return_id = '" . (int)$return_id . "'");
 	}
 
 	public function deleteReturn($return_id) {
@@ -42,8 +42,8 @@ class ModelSaleReturn extends Model {
 			$implode[] = "r.product = '" . $this->db->escape((string)$data['filter_product']) . "'";
 		}
 
-		if (!empty($data['filter_model'])) {
-			$implode[] = "r.model = '" . $this->db->escape((string)$data['filter_model']) . "'";
+		if (!empty($data['filter_manufacturer'])) {
+			$implode[] = "r.manufacturer = '" . $this->db->escape((string)$data['filter_manufacturer']) . "'";
 		}
 
 		if (!empty($data['filter_return_status_id'])) {
@@ -67,7 +67,7 @@ class ModelSaleReturn extends Model {
 			'r.order_id',
 			'customer',
 			'r.product',
-			'r.model',
+			'r.manufacturer',
 			'status',
 			'r.date_added',
 			'r.date_modified'
@@ -123,8 +123,8 @@ class ModelSaleReturn extends Model {
 			$implode[] = "r.product = '" . $this->db->escape((string)$data['filter_product']) . "'";
 		}
 
-		if (!empty($data['filter_model'])) {
-			$implode[] = "r.model = '" . $this->db->escape((string)$data['filter_model']) . "'";
+		if (!empty($data['filter_manufacturer'])) {
+			$implode[] = "r.manufacturer = '" . $this->db->escape((string)$data['filter_manufacturer']) . "'";
 		}
 
 		if (!empty($data['filter_return_status_id'])) {

@@ -110,11 +110,11 @@
                   </div>
                 </div>
                 <div class="form-group required">
-                  <label class="col-sm-2 control-label" for="input-model">{{ entry_model }}</label>
+                  <label class="col-sm-2 control-label" for="input-manufacturer">{{ entry_manufacturer }}</label>
                   <div class="col-sm-10">
-                    <input type="text" name="model" value="{{ model }}" placeholder="{{ entry_model }}" id="input-model" class="form-control"/>
-                    {% if error_model %}
-                      <div class="text-danger">{{ error_model }}</div>
+                    <input type="text" name="manufacturer" value="{{ manufacturer }}" placeholder="{{ entry_manufacturer }}" id="input-manufacturer" class="form-control"/>
+                    {% if error_manufacturer %}
+                      <div class="text-danger">{{ error_manufacturer }}</div>
                     {% endif %}
                   </div>
                 </div>
@@ -282,7 +282,7 @@ $('input[name=\'product\']').autocomplete({
 					return {
 						label: item['name'],
 						value: item['product_id'],
-						model: item['manufacturer']
+                        manufacturer: item['manufacturer']
 					}
 				}));
 			}

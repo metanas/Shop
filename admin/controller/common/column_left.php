@@ -305,6 +305,14 @@ class ControllerCommonColumnLeft extends Controller {
 					'children' => array()		
 				);	
 			}
+
+//            if ($this->user->hasPermission('access', 'customer/customer_approval')) {
+//                $customer[] = array(
+//                    'name'	   => $this->language->get('text_customer_approval'),
+//                    'href'     => $this->url->link('customer/customer_approval', 'user_token=' . $this->session->data['user_token']),
+//                    'children' => array()
+//                );
+//            }
 			
 			if ($customer) {
 				$data['menus'][] = array(
