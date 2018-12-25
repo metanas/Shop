@@ -99,6 +99,7 @@ $_['error_agree']                    ='Avertissement: Vous devez accepter les %s
 $_['error_address']                  ='Avertissement: Vous devez sélectionner l`adresse!';
 $_['error_shipping']                 ='Attention: méthode d`expédition requise!';
 $_['error_no_shipping']              ='Avertissement: Aucune option d`expédition n`est disponible. S`il vous plaît.  <a href="%s"> Contactez nous </a> à l`aide!';
+$_['error_no_product']               ='Avertissement: Vous avez sélectionné un produit dont sa quantité est egal à 0';
 $_['error_payment']                  ='Avertissement: Méthode de paiement requise!';
 $_['error_no_payment']               ='Avertissement: Aucune option de paiement n`est disponible. S`il vous plaît.  <a href="%s"> Contactez nous </a> à l`aide!';
 $_['error_custom_field']             ='%s requis!';

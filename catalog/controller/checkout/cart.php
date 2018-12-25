@@ -19,6 +19,14 @@ class ControllerCheckoutCart extends Controller
                 $data['attention'] = '';
             }
 
+            if (isset($this->session->data['warning'])) {
+                $data['error_warning'] = $this->session->data['warning'];
+
+                unset($this->session->data['warning']);
+            } else {
+                $data['error_warning'] = '';
+            }
+
             if (isset($this->session->data['success'])) {
                 $data['success'] = $this->session->data['success'];
 

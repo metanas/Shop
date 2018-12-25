@@ -138,9 +138,10 @@
                                 <span class="checkmark checkradio"></span>
                             </label>
                             {% if error_sex %}
-                                <div class="text-danger">{{ error_sex }}</div>
+                                <div class="text-danger" style="margin-top: 5px">{{ error_sex }}</div>
                             {% endif %}
                         </div>
+                        {{ captcha }}
                         <div class="form-group" style="margin-top: 25px">
                             <label class="check_filter">{{ text_newsletter }}
                                 <input type="checkbox" name="newsletter" value="1">

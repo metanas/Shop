@@ -610,6 +610,7 @@ class ControllerCheckoutConfirm extends Controller
                 if ($option['type'] == "size") {
                     $max_quantity = $this->model_catalog_product->getProductOptionByName($product['product_id'], $option['type'], $option['value']);
                     if ($product['quantity'] > (int)$max_quantity['quantity']) {
+                        $this->session->data['warning'] = $this->language->get('');
                         $this->response->redirect($this->url->link('checkout/cart', 'language=' . $this->config->get('config_language')));
                     }
                     break;
