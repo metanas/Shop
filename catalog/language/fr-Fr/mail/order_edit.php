@@ -1,7 +1,7 @@
 <?php
 // Text
 $_['text_subject']      = '%s - Ordonnance Mise � jour %s';
-$_['text_order_id']     = 'N° commande';
+$_['text_order_id']     = 'N° de commande';
 $_['text_date_added']   = 'Date ajout�e:';
 $_['text_order_status'] = 'Votre commande a �t� mise � jour pour le statut suivant:';
 $_['text_comment']      = 'Les commentaires pour votre commande sont les suivants:';
