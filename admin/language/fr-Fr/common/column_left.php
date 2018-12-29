@@ -34,6 +34,7 @@ $_['text_localisation']         = 'Localisation';
 $_['text_location']             = 'Emplacement du magasin';
 $_['text_contact']              = 'Courrier';
 $_['text_marketing']            = 'Marketing';
+$_['text_message']              = 'Messages';
 $_['text_marketplace']          = 'Marché';
 $_['text_maintenance']          = 'Maintenance';
 $_['text_menu']                 = 'Gestionnaire de menu';

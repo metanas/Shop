@@ -35,4 +35,4 @@ $_['email_subject']  ='Enquête %s';
 
 $_['error_name']     ='Le nom doit être compris entre 3 et 32 ​​caractères!';
 $_['error_email']    ='L`adresse e-mail ne semble pas être valide!';
-$_['error_enquiry']  ='L`enquête doit comporter entre 10 et 3000 caractères!';
+$_['error_message']  ='L`enquête doit comporter entre 10 et 3000 caractères!';

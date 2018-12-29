@@ -358,6 +358,14 @@ class ControllerCommonColumnLeft extends Controller {
 					'children' => array()		
 				);
 			}
+
+            if ($this->user->hasPermission('access', 'marketing/message')) {
+                $marketing[] = array(
+                    'name'	   => $this->language->get('text_message'),
+                    'href'     => $this->url->link('marketing/message', 'user_token=' . $this->session->data['user_token']),
+                    'children' => array()
+                );
+            }
 			
 			if ($marketing) {
 				$data['menus'][] = array(
