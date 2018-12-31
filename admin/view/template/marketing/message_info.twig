@@ -1,0 +1,46 @@
+{{ header }}{{ column_left }}
+<div id="content">
+    <div class="page-header">
+        <div class="container-fluid">
+            <div class="pull-right"> <a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i></a></div>      <h1>{{ heading_title }}</h1>
+
+            <ul class="breadcrumb">
+                {% for breadcrumb in breadcrumbs %}
+                    <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="fa fa-info-circle"></i> {{ text_message }}</h3>
+                </div>
+                <div class="panel-body">
+                    {% if message %}
+                        <table style="width: 100%">
+                            <tr>
+                                <td style="width: 15%">{{ column_name }}: </td>
+                                <th class="text-capitalize"> {{ message.name }}</th>
+                            </tr>
+                            <tr>
+                                <td>{{ column_email }}: </td>
+                                <th class="text-capitalize"> {{ message.email }}</th>
+                            </tr>
+                            <tr>
+                                <td>{{ column_telephone }}: </td>
+                                <th class="text-capitalize"> {{ message.telephone }}</th>
+                            </tr>
+                        </table>
+                        <div>
+                            {{ column_message }} : <div>{{ message.message }}</div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{ footer }}

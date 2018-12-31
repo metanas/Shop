@@ -1,12 +1,14 @@
 <?php
+
 class ModelMarketingMessage extends Model
 {
-    public function getMessages($data = array()) {
+    public function getMessages($data = array())
+    {
         $sql = "SELECT * FROM " . DB_PREFIX . "message ";
 
         $implode = array();
 
-        if (!empty($data['filter_customer'])) {
+        if (!empty($data['filter_name'])) {
             $implode[] = "name LIKE '" . $this->db->escape((string)$data['filter_name']) . "%'";
         }
 
@@ -15,7 +17,7 @@ class ModelMarketingMessage extends Model
         }
 
         if (!empty($data['filter_telephone'])) {
-            $implode[] = "telephone = '" . (float)$data['filter_telephone'] . "'";
+            $implode[] = "telephone = '" . $this->db->escape((string)$data['filter_telephone']) . "'";
         }
 
         if (!empty($data['filter_date_added'])) {
@@ -30,7 +32,7 @@ class ModelMarketingMessage extends Model
             'name',
             'telephone',
             'email',
-            'ca.date_added'
+            'date_added'
         );
 
         if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
@@ -62,7 +64,8 @@ class ModelMarketingMessage extends Model
         return $query->rows;
     }
 
-    public function getTotalMessages($data = array()) {
+    public function getTotalMessages($data = array())
+    {
         $sql = "SELECT COUNT(*) AS total FROM " . DB_PREFIX . "message";
 
         $implode = array();
@@ -76,11 +79,11 @@ class ModelMarketingMessage extends Model
         }
 
         if (!empty($data['filter_telephone'])) {
-            $implode[] = "telephone = '" . (float)$data['filter_telephone'] . "'";
+            $implode[] = "telephone = '" . $this->db->escape((string)$data['filter_telephone']) . "'";
         }
 
         if (!empty($data['filter_date_added'])) {
-            $implode[] = "DATE(ca.date_added) = DATE('" . $this->db->escape((string)$data['filter_date_added']) . "')";
+            $implode[] = "DATE(date_added) = DATE('" . $this->db->escape((string)$data['filter_date_added']) . "')";
         }
 
         if ($implode) {
@@ -90,5 +93,17 @@ class ModelMarketingMessage extends Model
         $query = $this->db->query($sql);
 
         return $query->row['total'];
+    }
+
+    public function getMessage($message_id)
+    {
+        $query = $this->db->query("SELECT * FROM ". DB_PREFIX . "message where message_id='" . (int)$message_id . "'" );
+
+        return $query->row;
+    }
+
+    public function deleteMessage($message_id)
+    {
+        $this->db->query("DELETE FROM " . DB_PREFIX . "message WHERE message_id = '" . (int)$message_id . "'");
     }
 }

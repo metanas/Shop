@@ -24,6 +24,7 @@ $_['column_country']            = 'Pays';
 $_['column_date_added']         = 'Date ajoutée';
 $_['column_comment']            = 'Commentaire';
 $_['column_description']        = 'Description';
+$_['column_message']            = 'Message';
 $_['column_amount']             = 'Montant';
 $_['column_action']             = 'Action';
 
