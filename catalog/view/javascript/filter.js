@@ -116,7 +116,6 @@ function filterGenerator() {
     if (price_max !== '') {
         url += "&price-max=" + price_max;
     }
-console.log(url);
     $.ajax({
         url: url,
         type: "GET",
@@ -147,7 +146,6 @@ function setFilter() {
         "price-max": decodeURIComponent(getURLVar("price-max")),
         "price-min": decodeURIComponent(getURLVar("price-min"))
     };
-    console.log(filters);
     var filter_count = 0;
     Object.entries(filters).forEach(function ([key, value]) {
         if (value !== "") {
@@ -184,7 +182,6 @@ function removeAllFilters() {
 }
 
 function updateQueryStringParam(param, value) {
-    console.log(param, value);
     baseUrl = [location.protocol, '//', location.host, location.pathname].join('');
     urlQueryString = document.location.search;
     let newParam = param + '=' + value;

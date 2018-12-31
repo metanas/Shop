@@ -230,7 +230,6 @@
 <script type="text/javascript">
     $('input[name="product"]').autocomplete({
         'source': function (request, response) {
-            console.log(request, request);
             $.ajax({
                 url: 'index.php?route=catalog/product/autocomplete&user_token={{ user_token }}&filter_name=' + encodeURIComponent(request),
                 dataType: 'json',
