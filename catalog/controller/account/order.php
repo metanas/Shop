@@ -1,5 +1,7 @@
 <?php
+
 use Spipu\Html2Pdf\Html2Pdf;
+
 class ControllerAccountOrder extends Controller
 {
     public function index()
@@ -120,6 +122,12 @@ class ControllerAccountOrder extends Controller
                 $data['invoice_no'] = $order_info['invoice_prefix'] . $order_info['invoice_no'];
             } else {
                 $data['invoice_no'] = '';
+            }
+
+            if ($order_info['shipping_method'] != "Standard") {
+                $data['shipping_price'] = $this->currency->format($order_info['shipping_price'],$this->session->data['currency']);
+            }else{
+                $data['shipping_price'] = 'Gratuite';
             }
 
             $data['order_id'] = (int)$this->request->get['order_id'];
@@ -480,7 +488,7 @@ class ControllerAccountOrder extends Controller
 
             $pdf = new Html2Pdf('P', 'A4', 'fr');
             $pdf->writeHTML($this->load->view('account/order_invoice', $data));
-            $pdf->Output($data['order']["customer"] . "-" . $data["order"]["date_added"]. ".pdf");
+            $pdf->Output($data['order']["customer"] . "-" . $data["order"]["date_added"] . ".pdf");
         }
     }
 }

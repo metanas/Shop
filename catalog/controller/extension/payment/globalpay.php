@@ -67,10 +67,10 @@ class ControllerExtensionPaymentGlobalpay extends Controller {
 		$data['payment_country'] = $order_info['payment_iso_code_2'];
 
 		if ($this->cart->hasShipping()) {
-			$data['shipping_code'] = filter_var(str_replace('-', '', $order_info['shipping_postcode']), FILTER_SANITIZE_NUMBER_INT) . '|' . filter_var(str_replace('-', '', $order_info['shipping_address_1']), FILTER_SANITIZE_NUMBER_INT);
+			$data['shipping_price'] = filter_var(str_replace('-', '', $order_info['shipping_postcode']), FILTER_SANITIZE_NUMBER_INT) . '|' . filter_var(str_replace('-', '', $order_info['shipping_address_1']), FILTER_SANITIZE_NUMBER_INT);
 			$data['shipping_country'] = $order_info['shipping_iso_code_2'];
 		} else {
-			$data['shipping_code'] = filter_var(str_replace('-', '', $order_info['payment_postcode']), FILTER_SANITIZE_NUMBER_INT) . '|' . filter_var(str_replace('-', '', $order_info['payment_address_1']), FILTER_SANITIZE_NUMBER_INT);
+			$data['shipping_price'] = filter_var(str_replace('-', '', $order_info['payment_postcode']), FILTER_SANITIZE_NUMBER_INT) . '|' . filter_var(str_replace('-', '', $order_info['payment_address_1']), FILTER_SANITIZE_NUMBER_INT);
 			$data['shipping_country'] = $order_info['payment_iso_code_2'];
 		}
 

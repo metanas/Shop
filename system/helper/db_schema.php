@@ -3339,7 +3339,7 @@ function db_schema() {
 				'not_null' => true
 			),
 			array(
-				'name' => 'shipping_code',
+				'name' => 'shipping_price',
 				'type' => 'varchar(128)',
 				'not_null' => true
 			),

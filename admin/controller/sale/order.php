@@ -241,7 +241,7 @@ class ControllerSaleOrder extends Controller
                 'total' => $this->currency->format($result['total'], $result['currency_code'], $result['currency_value']),
                 'date_added' => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
                 'date_modified' => date($this->language->get('date_format_short'), strtotime($result['date_modified'])),
-                'shipping_code' => $result['shipping_code'],
+                'shipping_price' => $result['shipping_price'],
                 'view' => $this->url->link('sale/order/info', 'user_token=' . $this->session->data['user_token'] . '&order_id=' . $result['order_id'] . $url),
                 'edit' => $this->url->link('sale/order/edit', 'user_token=' . $this->session->data['user_token'] . '&order_id=' . $result['order_id'] . $url)
             );
@@ -506,7 +506,7 @@ class ControllerSaleOrder extends Controller
             $data['shipping_telephone'] = $order_info['shipping_telephone'];
             $data['shipping_custom_field'] = $order_info['shipping_custom_field'];
             $data['shipping_method'] = $order_info['shipping_method'];
-            $data['shipping_code'] = $order_info['shipping_code'];
+            $data['shipping_price'] = $order_info['shipping_price'];
 
             // Products
             $data['order_products'] = array();
@@ -584,7 +584,7 @@ class ControllerSaleOrder extends Controller
             $data['shipping_postcode'] = '';
             $data['shipping_custom_field'] = array();
             $data['shipping_method'] = '';
-            $data['shipping_code'] = '';
+            $data['shipping_price'] = '';
 
             $data['order_products'] = array();
             $data['order_vouchers'] = array();
@@ -1564,6 +1564,12 @@ class ControllerSaleOrder extends Controller
                     );
                 }
 
+                if($order_info['shipping_method'] != 'Standard'){
+                    $shipping_price = $this->currency->format($order_info['shipping_price'], $this->session->data['currency']);
+                }else{
+                    $shipping_price = "Gratuite";
+                }
+
                 $data['orders'][] = array(
                     'order_id' => $order_id,
                     'invoice_no' => $invoice_no,
@@ -1583,6 +1589,7 @@ class ControllerSaleOrder extends Controller
                     'payment_method' => $order_info['payment_method'],
                     'product' => $product_data,
                     'voucher' => $voucher_data,
+                    'shipping_price' => $shipping_price,
                     'total' => $total_data
                 );
             }

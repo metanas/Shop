@@ -1322,9 +1322,9 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 					$data['shipping_method'] = $this->session->data['shipping_method']['title'];
 				}
 
-				$data['shipping_code'] = '';
+				$data['shipping_price'] = '';
 				if (isset($this->session->data['shipping_method']['code'])) {
-					$data['shipping_code'] = $this->session->data['shipping_method']['code'];
+					$data['shipping_price'] = $this->session->data['shipping_method']['code'];
 				}
 			} else {
 				$data['shipping_firstname'] = '';
@@ -1340,7 +1340,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 				$data['shipping_country_id'] = '';
 				$data['shipping_address_format'] = '';
 				$data['shipping_method'] = '';
-				$data['shipping_code'] = '';
+				$data['shipping_price'] = '';
 			}
 
 			$product_data = array();

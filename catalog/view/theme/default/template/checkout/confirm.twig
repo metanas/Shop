@@ -12,14 +12,14 @@
                     <span class="checkmark checkradio"></span>
                 </label>
             </div>
-            <div class="col-sm-2 col-xs-2">gratuit</div>
-            {#<div class="col-sm-10 form-group">#}
-            {#<label class="check_filter">test<h5>Livraison express</h5>#}
-            {#<input type="radio" class="checkbox" name="livraison" value="express">#}
-            {#<span class="checkmark checkradio"></span>#}
-            {#</label>#}
-            {#</div>#}
-            {#<div class="col-sm-2">gratuit</div>#}
+            <div class="col-sm-2 col-xs-2">Gratuite</div>
+            <div class="col-sm-10 col-xs-10 form-group">
+                <label class="check_filter">De 2 à 3 jours ouvrable<h5>Livraison express</h5>
+                    <input type="radio" class="checkbox" name="delivery" value="Express">
+                    <span class="checkmark checkradio"></span>
+                </label>
+            </div>
+            <div class="col-sm-2 col-xs-2">{{ express_price }}</div>
         </div>
         <div class="col-sm-12 col-xs-12"><h4>COMMANDE</h4>
             <hr class="hr-marge">
@@ -91,8 +91,11 @@
                 <div class="row">
                     <div class="col-md-12" style="margin-top: 20px;">
                         <div class="row">
-                            <div class="col-sm-6 col-xs-6 text-left checkout-text"><b style="font-size: 19px; ">Livraison</b></div>
-                            <div class="col-sm-6 col-xs-6 text-right checkout-text"><b style="font-size: 19px; ">gratuite</b></div>
+                            <div class="col-sm-6 col-xs-6 text-left checkout-text"><b style="font-size: 19px; ">Livraison</b>
+                            </div>
+                            <div class="col-sm-6 col-xs-6 text-right checkout-text"><b style="font-size: 19px; "
+                                                                                       id="delivery-total">gratuite</b>
+                            </div>
                         </div>
                     </div>
 
@@ -123,10 +126,13 @@
                         </div>
                     {% endif %}
                 </div>
-                <button type="submit" class="col-sm-12 zalark-button" style="margin-bottom: 12px; margin-top: 10px;">Valider la commande
+                <button type="submit" class="col-sm-12 col-xs-12 zalark-button"
+                        style="margin-bottom: 12px; margin-top: 10px;">Valider la commande
                 </button>
                 <div class="col-sm-12" style="margin-top: 3px; margin-bottom:12px;">
-                    <div class="text-center"> En validant votre commande, vous acceptez nos conditions générales de vente et notre politique de protection de données personnelles.</div>
+                    <div class="text-center"> En validant votre commande, vous acceptez nos conditions générales de
+                        vente et notre politique de protection de données personnelles.
+                    </div>
 
                 </div>
             </div>
@@ -146,6 +152,12 @@
             type: 'post',
             data: 'coupon=' + encodeURIComponent($('input[name=\'coupon\']').val()),
             dataType: 'json',
+            beforeSend: function () {
+                $('body').loading({message: "chargement.."});
+            },
+            complete: function () {
+                $('body').loading('stop');
+            },
             success: function (json) {
                 $('.text-danger').remove();
                 $('.coupon-field').removeClass('has-error');
@@ -174,6 +186,12 @@
         $.ajax({
             url: 'index.php?route=extension/total/coupon/remove&language={{ language }}',
             dataType: 'json',
+            beforeSend: function () {
+                $('body').loading({message: "chargement.."});
+            },
+            complete: function () {
+                $('body').loading('stop');
+            },
             success: function (json) {
                 if (json['success']) {
                     $("#coupon").show();
@@ -188,5 +206,28 @@
                 }
             }
         })
+    });
+
+    $('input[name="delivery"]').on('change', function () {
+        $.ajax({
+            url: 'index.php?route=checkout/confirm/delivery',
+            method: "POST",
+            data: 'delivery=' + encodeURIComponent($('input[name=\'delivery\']:checked').val()),
+            dataType: 'json',
+            beforeSend: function () {
+                $('body').loading({message: "chargement.."});
+            },
+            complete: function () {
+                $('body').loading('stop');
+            },
+            success: function (json) {
+                $('#delivery-total').html(json['text']);
+                if (json['coupon'])
+                    $('.price-new').html(json['total']);
+                else
+                    $('#total').html(json['total']);
+
+            }
+        });
     })
 </script>

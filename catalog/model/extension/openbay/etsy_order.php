@@ -191,7 +191,7 @@ class ModelExtensionOpenBayEtsyOrder extends Model {
 		   `shipping_zone_id`		  = '" . (int)$zone_id . "',
 		   `shipping_address_format`  = '" . $this->db->escape((string)$country_address_format) . "',
 		   `shipping_method`  		  = '" . $this->db->escape((string)$order->shipping_method_name) . "',
-		   `shipping_code`  		  = '',
+		   `shipping_price`  		  = '',
 		   `comment`                  = '" . $this->db->escape((string)$order->buyer_note) . "',
 		   `total`                    = '" . (double)$order->amount_total . "',
 		   `order_status_id`          = '',

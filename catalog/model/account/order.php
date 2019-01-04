@@ -34,6 +34,7 @@ class ModelAccountOrder extends Model {
                 'billing_city'            => $order_query->row['billing_city'],
                 'billing_country'         => $order_query->row['billing_country'],
 				'shipping_method'         => $order_query->row['shipping_method'],
+				'shipping_price'          => $order_query->row['shipping_price'],
 				'total'                   => $order_query->row['total'],
 				'order_status_id'         => $order_query->row['order_status_id'],
 				'language_id'             => $order_query->row['language_id'],

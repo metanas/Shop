@@ -172,7 +172,7 @@ class ControllerExtensionPaymentPilibaba extends Controller {
 				$order_data['shipping_address_format'] = '';
 				$order_data['shipping_custom_field'] = array();
 				$order_data['shipping_method'] = $this->language->get('text_description');
-				$order_data['shipping_code'] = 'pilibaba.pilibaba';
+				$order_data['shipping_price'] = 'pilibaba.pilibaba';
 
 				$this->session->data['guest']['customer_group_id'] = $this->config->get('config_customer_group_id');
 				$this->session->data['guest']['firstname'] = '';

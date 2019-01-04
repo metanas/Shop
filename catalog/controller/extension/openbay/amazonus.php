@@ -211,7 +211,7 @@ class ControllerExtensionOpenbayAmazonus extends Controller {
 			'shipping_zone_id' => $this->model_extension_openbay_amazonus_order->getZoneId((string)$order_xml->Shipping->State),
 			'shipping_address_format' => '',
 			'shipping_method' => (string)$order_xml->Shipping->Type,
-			'shipping_code' => 'amazonus.' . (string)$order_xml->Shipping->Type,
+			'shipping_price' => 'amazonus.' . (string)$order_xml->Shipping->Type,
 			'payment_firstname' => $shipping_first_name,
 			'payment_lastname' => $shipping_last_name,
 			'payment_company' => '',

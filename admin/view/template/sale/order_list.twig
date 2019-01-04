@@ -123,7 +123,7 @@
                           {% else %}
                             <input type="checkbox" name="selected[]" value="{{ order.order_id }}"/>
                           {% endif %}
-                          <input type="hidden" name="shipping_code[]" value="{{ order.shipping_code }}"/></td>
+                          <input type="hidden" name="shipping_price[]" value="{{ order.shipping_price }}"/></td>
                         <td class="text-right">{{ order.order_id }}</td>
                         <td class="text-left">{{ order.customer }}</td>
                         <td class="text-left">{{ order.order_status }}</td>
@@ -238,7 +238,7 @@ $('input[name^=\'selected\']').on('change', function() {
 	}
 
 	for (i = 0; i < selected.length; i++) {
-		if ($(selected[i]).parent().find('input[name^=\'shipping_code\']').val()) {
+		if ($(selected[i]).parent().find('input[name^=\'shipping_price\']').val()) {
 			$('#button-shipping').prop('disabled', false);
 
 			break;

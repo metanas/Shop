@@ -329,9 +329,9 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 		$order_data['shipping_method'] = $this->session->data['lpa']['shipping_method']['title'];
 
 		if (isset($this->session->data['lpa']['shipping_method']['code'])) {
-			$order_data['shipping_code'] = $this->session->data['lpa']['shipping_method']['code'];
+			$order_data['shipping_price'] = $this->session->data['lpa']['shipping_method']['code'];
 		} else {
-			$order_data['shipping_code'] = '';
+			$order_data['shipping_price'] = '';
 		}
 
 		$product_data = array();

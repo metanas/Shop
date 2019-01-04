@@ -46,7 +46,16 @@ class ControllerExtensionTotalCoupon extends Controller
 
                 $total = $this->cart->getTotal();
 
-                $json['total'] = $this->currency->format($total - ($total * $coupon_info['discount']) / 100, $this->session->data['currency']);
+                if(isset($this->session->data['delivery']) && $this->session->data['delivery'] != "Standard"){
+                    $this->load->model('extension/shipping/item');
+
+                    $delivery_data = $this->model_extension_shipping_item->getQuote();
+                    $delivery = $delivery_data['quote']['item']['cost'];
+                }else{
+                    $delivery = 0;
+                }
+
+                $json['total'] = $this->currency->format(($total - ($total * $coupon_info['discount']) / 100) + $delivery, $this->session->data['currency']);
 
                 $json['discount'] = (int)$coupon_info['discount'] . "%";
 

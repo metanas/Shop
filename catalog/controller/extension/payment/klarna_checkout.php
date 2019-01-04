@@ -1515,9 +1515,9 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 			}
 
 			if (isset($this->session->data['shipping_method']['code'])) {
-				$order_data['shipping_code'] = $this->session->data['shipping_method']['code'];
+				$order_data['shipping_price'] = $this->session->data['shipping_method']['code'];
 			} else {
-				$order_data['shipping_code'] = '';
+				$order_data['shipping_price'] = '';
 			}
 		} else {
 			$order_data['shipping_firstname'] = '';
@@ -1534,7 +1534,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 			$order_data['shipping_address_format'] = '';
 			$order_data['shipping_custom_field'] = array();
 			$order_data['shipping_method'] = '';
-			$order_data['shipping_code'] = '';
+			$order_data['shipping_price'] = '';
 		}
 
 		$order_data['products'] = array();

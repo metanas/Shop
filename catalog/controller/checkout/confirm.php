@@ -217,9 +217,9 @@ class ControllerCheckoutConfirm extends Controller
 //				}
 //
 //				if (isset($this->session->data['shipping_method']['code'])) {
-//					$order_data['shipping_code'] = $this->session->data['shipping_method']['code'];
+//					$order_data['shipping_price'] = $this->session->data['shipping_method']['code'];
 //				} else {
-//					$order_data['shipping_code'] = '';
+//					$order_data['shipping_price'] = '';
 //				}
 //			} else {
 //				$order_data['shipping_firstname'] = '';
@@ -236,7 +236,7 @@ class ControllerCheckoutConfirm extends Controller
 //				$order_data['shipping_address_format'] = '';
 //				$order_data['shipping_custom_field'] = array();
 //				$order_data['shipping_method'] = '';
-//				$order_data['shipping_code'] = '';
+//				$order_data['shipping_price'] = '';
 //			}
 //
 //			$order_data['products'] = array();
@@ -465,7 +465,11 @@ class ControllerCheckoutConfirm extends Controller
             $data['total_discounted'] = $this->currency->format($total - ($total * $coupon_info['discount']) / 100, $this->session->data['currency']);
         }
 
+        $this->load->model('extension/shipping/item');
 
+        $delivery_express = $this->model_extension_shipping_item->getQuote();
+
+        $data['express_price'] = $delivery_express['quote']['item']['text'];
         $data['products'] = array();
 
         foreach ($products as $product) {
@@ -591,12 +595,14 @@ class ControllerCheckoutConfirm extends Controller
             }
         }
 
-        if (isset($this->request->post['delivery'])) {
-            $order_data['shipping_method'] = 'STANDARD';
-            $order_data['shipping_code'] = 200117;
+        if (isset($this->session->data['delivery']) && $this->session->data['delivery'] != "Standard") {
+            $this->load->model('extension/shipping/item');
+
+            $order_data['shipping_method'] = "Express";
+            $order_data['shipping_price'] = $this->model_extension_shipping_item->getQuote()['quote']['item']['cost'];
         } else {
-            $order_data['shipping_method'] = '';
-            $order_data['shipping_code'] = "";
+            $order_data['shipping_method'] = 'Standard';
+            $order_data['shipping_price'] = 0;
         }
 
         $this->load->language('checkout/checkout');
@@ -736,7 +742,7 @@ class ControllerCheckoutConfirm extends Controller
 
         $order_data['totals'] = $totals;
 
-        $order_data['total'] = $total_data['total'];
+        $order_data['total'] = $total_data['total'] + $order_data['shipping_price'];
 
 
         $this->load->model('checkout/order');
@@ -758,5 +764,83 @@ class ControllerCheckoutConfirm extends Controller
 
 
         $this->response->redirect($this->url->link('checkout/success'));
+    }
+
+    public function delivery()
+    {
+        if (!$this->customer->isLogged()) {
+            $this->response->redirect($this->url->link('account/login', "language=" . $this->config->get('config_language')));
+        }
+
+        $totals = array();
+        $taxes = $this->cart->getTaxes();
+        $total = 0;
+
+        // Because __call can not keep var references so we put them into an array.
+        $total_data = array(
+            'totals' => &$totals,
+            'taxes' => &$taxes,
+            'total' => &$total
+        );
+
+        $this->load->model('setting/extension');
+
+        $sort_order = array();
+
+        $results = $this->model_setting_extension->getExtensions('total');
+
+        foreach ($results as $key => $value) {
+            $sort_order[$key] = $this->config->get('total_' . $value['code'] . '_sort_order');
+        }
+
+        array_multisort($sort_order, SORT_ASC, $results);
+
+        foreach ($results as $result) {
+            if ($this->config->get('total_' . $result['code'] . '_status')) {
+                $this->load->model('extension/total/' . $result['code']);
+
+                // We have to put the totals in an array so that they pass by reference.
+                $this->{'model_extension_total_' . $result['code']}->getTotal($total_data);
+            }
+        }
+
+        if (isset($this->session->data['coupon'])) {
+            $coupon = true;
+        } else {
+            $coupon = false;
+        }
+
+        $json = array();
+
+
+        if (isset($this->request->post['delivery']) && $this->request->post['delivery'] != "Standard") {
+            $this->load->model('extension/shipping/item');
+
+
+            $quote = $this->model_extension_shipping_item->getQuote();
+
+            $this->session->data['delivery'] = $quote['quote']['item']['cost'];
+
+
+            $json = array(
+                'coupon' => $coupon,
+                'total' => $this->currency->format($total + $quote['quote']['item']['cost'], $this->session->data['currency']),
+                'delivery' => $quote['quote']['item']['cost'],
+                'text' => $quote['quote']['item']['text']
+            );
+
+        } else {
+            $this->session->data['delivery'] = $this->request->post['delivery'];
+
+            $json = array(
+                'coupon' => $coupon,
+                'total' => $this->currency->format($total, $this->session->data['currency']),
+                'delivery' => "0",
+                'text' => 'Gratuite'
+            );
+
+        }
+
+        $this->response->setOutput(json_encode($json));
     }
 }

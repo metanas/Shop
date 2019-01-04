@@ -112,7 +112,7 @@
             </tr>
             <tr style="height: 10px">
                 <td style="text-align: right;" colspan="4"><b>Frais de livraison</b><span style="color: #A7A7A7; font-size: 11px;" > (TVA Incluse)</span></td>
-                <td style="text-align: right;">Gratuit</td>
+                <td style="text-align: right;">{{ order.shipping_price }}</td>
             </tr>
             {% for total in order.total %}
                 <tr style="line-height: 1.5">
