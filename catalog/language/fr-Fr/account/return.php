@@ -24,6 +24,7 @@ $_['text_comment']       ='Commentaires de retour';
 $_['text_history']       ='Historique de retour';
 $_['text_empty']         ='Vous n`avez effectué aucun retour précédent!';
 $_['text_agree']         ='j`ai lu et accepté les <a href="%s" class="agree">  <b> %s </b>  </a> ';
+$_['text_no_results']    = 'Vous n\'avez pas fait de retours précédents!';
 
 
 // Column
