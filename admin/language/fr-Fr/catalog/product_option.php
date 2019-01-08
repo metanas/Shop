@@ -33,6 +33,7 @@ $_['column_action']      = 'Action';
 
 // Entry
 $_['entry_product']      = 'Produit';
+$_['entry_ref']          = 'Reference';
 $_['entry_option']       = 'Option';
 $_['entry_required']     = 'Champs obligatoires';
 $_['entry_option_value'] = 'Valeur d option';
