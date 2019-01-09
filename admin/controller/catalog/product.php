@@ -641,7 +641,9 @@ class ControllerCatalogProduct extends Controller
         if (isset($this->request->post['ref'])) {
             $data['ref'] = $this->request->post['ref'];
         } elseif (!empty($product_info)) {
-            $data['ref'] = explode("#", $product_info['ref'])[1];
+            $arr = explode("-", $product_info['ref']);
+            array_shift($arr);
+            $data['ref'] = join("-", $arr);
         } else {
             $data['ref'] = '';
         }
