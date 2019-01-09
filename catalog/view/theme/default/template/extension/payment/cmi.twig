@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<!--[if IE 8 ]>
+<html dir="{{ direction }}" lang="{{ lang }}" class="ie8"><![endif]-->
+<!--[if IE 9 ]>
+<html dir="{{ direction }}" lang="{{ lang }}" class="ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html dir="{{ direction }}" lang="{{ lang }}">
+<!--<![endif]-->
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>{{ title }}</title>
+    <base href="{{ base }}"/>
+    {% if description %}
+        <meta name="description" content="{{ description }}"/>
+    {% endif %}
+    {% if keywords %}
+        <meta name="keywords" content="{{ keywords }}"/>
+    {% endif %}
+    <script src="catalog/view/javascript/jquery/jquery-3.3.1.min.js" type="text/javascript"></script>
+    <script src="catalog/view/javascript/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.0.0/bootstrap-slider.min.js"
+            type="text/javascript"></script>
+    <link href="catalog/view/javascript/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+    <link href="catalog/view/javascript/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen"/>
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:400,400i,300,700" rel="stylesheet" type="text/css"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.0.0/css/bootstrap-slider.min.css"
+          rel="stylesheet" type="text/css"/>
+    <link href="catalog/view/theme/default/stylesheet/stylesheet.css" rel="stylesheet">
+    {% for style in styles %}
+        <link href="{{ style.href }}" type="text/css" rel="{{ style.rel }}" media="{{ style.media }}"/>
+    {% endfor %}
+    {% for script in scripts %}
+        <script src="{{ script }}" type="text/javascript"></script>
+    {% endfor %}
+    {% for link in links %}
+        <link href="{{ link.href }}" rel="{{ link.rel }}"/>
+    {% endfor %}
+    {% for analytic in analytics %}
+        {{ analytic }}
+    {% endfor %}
+</head>
+<body>
+<div id="header-checkout" class="container-fluid" align="center" style="background-color: #989da4; padding: 10px">
+    <a href="{{ home }}"><img src="image/checkout_logo.png" title="{{ name }}"
+                              alt="{{ name }}"
+                              class="img-responsive"
+                              width="100"/></a>
+</div>
+<div id="collapse-checkout-option" class="container">
+    <form class="form-group" action="{{ action }}" method="POST">
+        <input type="hidden" name="clientid" value="{{ client_id }}">
+        <input type="hidden" name="amount" value="{{ total }}">
+        <input type="hidden" name="okUrl" value="{{ okFailUrl }}">
+        <input type="hidden" name="failUrl" value="{{ okFailUrl }}">
+        <input type="hidden" name="TranType" value="{{ Transaction_type }}">
+        <input type="hidden" name="callbackUrl" value="{{ callbackUrl }}">
+        <input type="hidden" name="shopurl" value="{{ store_url }}">
+        <input type="hidden" name="currency" value="{{ currency_code }}">
+        <input type="hidden" name="rnd" value="{{ rnd }}">
+        <input type="hidden" name="storetype" value="{{ store_type }}">
+        <input type="hidden" name="hashAlgorithm" value="{{ hash_algorithm }}">
+        <input type="hidden" name="lang" value="fr">
+        <input type="hidden" name="refreshtime" value="5">
+        <input type="hidden" name="BillToName" value="{{ customer.name }}">
+        <input type="hidden" name="BillToStreet1" value="{{ customer.address }}">
+        <input type="hidden" name="BillToCity" value="{{ customer.city }}">
+        <input type="hidden" name="BillToPostalCode" value="{{ customer.postcode }}">
+        <input type="hidden" name="BillToCountry" value="504">
+        <input type="hidden" name="email" value="{{ customer.email }}">
+        <input type="hidden" name="tel" value="{{ customer.telephone }}">
+        <input type="hidden" name="encoding" value="UTF-8">
+        <input type="hidden" name="oid" value="{{ order_id }}">
+        <div style="position: absolute; top: 46%;width: 25%;left: 37%">
+            <button class="zalark-button"> Continue vers le payment</button>
+        </div>
+    </form>
+</div>
+
+
+<footer style="background-color: lightgrey; padding-top: 10px; padding-bottom: 30px; border-top: 1px solid grey;">
+    <div class="container">
+        <div class="col-sm-4"><a href="{{ home }}"><i class="fa fa-arrow-left "></i> Retour a la boutique</a></div>
+        <div class="col-sm-2"><a href="{{ contact }}" target="_blank">Besoin d'aide ?</a></div>
+        <div class="col-sm-4"><a href="{{ terms_private }}" target="_blank">Politique de confidentialite</a></div>
+        <div class="col-sm-2"><a href="{{ motion_legal }}" target="_blank">Mentions legales</a></div>
+    </div>
+</footer>
+<script>
+    function autoHeight() {
+        console.log($('#root').height());
+        $('#collapse-checkout-option').css('min-height', 0);
+        $('#collapse-checkout-option').css('min-height', (
+            $(document).height()
+            - $('#header-checkout').height()
+            - $('footer').height() - 93
+        ));
+    }
+
+    // onDocumentReady function bind
+    $(document).ready(function () {
+        autoHeight();
+    });
+
+    // onResize bind of the function
+    $(window).resize(function () {
+        autoHeight();
+    });
+</script>
+</body>
+</html>

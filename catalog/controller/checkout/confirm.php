@@ -447,10 +447,52 @@ class ControllerCheckoutConfirm extends Controller
 //			$data['redirect'] = $redirect;
 //		}
 
+        $totals = array();
+        $taxes = $this->cart->getTaxes();
+        $total = 0;
+
+        // Because __call can not keep var references so we put them into an array.
+        $total_data = array(
+            'totals' => &$totals,
+            'taxes' => &$taxes,
+            'total' => &$total
+        );
+
+        $this->load->model('setting/extension');
+
+        $sort_order = array();
+
+        $results = $this->model_setting_extension->getExtensions('total');
+
+        foreach ($results as $key => $value) {
+            $sort_order[$key] = $this->config->get('total_' . $value['code'] . '_sort_order');
+        }
+
+        array_multisort($sort_order, SORT_ASC, $results);
+
+        foreach ($results as $result) {
+            if ($this->config->get('total_' . $result['code'] . '_status')) {
+                $this->load->model('extension/total/' . $result['code']);
+
+                // We have to put the totals in an array so that they pass by reference.
+                $this->{'model_extension_total_' . $result['code']}->getTotal($total_data);
+            }
+        }
+
+        $sort_order = array();
+
+        foreach ($totals as $key => $value) {
+            $sort_order[$key] = $value['sort_order'];
+        }
+
+        array_multisort($sort_order, SORT_ASC, $totals);
+
+        $order_data['totals'] = $totals;
+
         $this->load->model("tool/image");
 
-        $total = $this->cart->getTotal();
-        $data['total'] = $this->currency->format($total, $this->session->data['currency']);
+        $data['total'] = $this->currency->format($this->cart->getTotal(), $this->session->data['currency']);
+
         $data['action'] = $this->url->link("checkout/confirm/order", 'language=' . $this->config->get('config_language'));
 
 
@@ -462,7 +504,7 @@ class ControllerCheckoutConfirm extends Controller
 
             $data['coupon'] = $this->session->data['coupon'];
             $data['discount'] = (int)$coupon_info['discount'] . "%";
-            $data['total_discounted'] = $this->currency->format($total - ($total * $coupon_info['discount']) / 100, $this->session->data['currency']);
+            $data['total_discounted'] = $this->currency->format($total, $this->session->data['currency']);
         }
 
         $this->load->model('extension/shipping/item');
@@ -762,6 +804,8 @@ class ControllerCheckoutConfirm extends Controller
             $this->model_checkout_order->addOrderHistory($this->session->data['order_id'], 1, '', true);
         }
 
+        if ($order_data['payment_code'] == "20")
+            $this->response->redirect($this->url->link("extension/payment/cmi"));
 
         $this->response->redirect($this->url->link('checkout/success'));
     }
@@ -810,7 +854,6 @@ class ControllerCheckoutConfirm extends Controller
             $coupon = false;
         }
 
-        $json = array();
 
 
         if (isset($this->request->post['delivery']) && $this->request->post['delivery'] != "Standard") {
@@ -830,7 +873,7 @@ class ControllerCheckoutConfirm extends Controller
             );
 
         } else {
-            $this->session->data['delivery'] = $this->request->post['delivery'];
+            $this->session->data['delivery'] = 0;
 
             $json = array(
                 'coupon' => $coupon,
