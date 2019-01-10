@@ -195,7 +195,6 @@ class ControllerExtensionPaymentCmi extends Controller
         $actualHash = base64_encode (pack('H*',$calculatedHashValue));
 
         $retrievedHash = $this->request->post["HASH"];
-        var_dump($this->request->post);
         if($retrievedHash == $actualHash )	{
             echo "<h4>HASH is successfull</h4>"  . " <br />\r\n";
         }else {

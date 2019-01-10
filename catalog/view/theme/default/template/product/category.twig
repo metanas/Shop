@@ -219,10 +219,11 @@
                                                 <div class="col-md-6 col-sm-6 col-xs-4">
                                                     <div class="text-left">
                                                         <a href="{{ product.href }}" class="text-capitalize ShoesName"
-                                                            ><b>{{ product.manufacturer }}</b></a>
+                                                        ><b>{{ product.manufacturer }}</b></a>
                                                     </div>
                                                     <div class="ShoesName text-left">
-                                                        <a href="{{ product.href }}" class="ShoesName">{{ product.name }}</a>
+                                                        <a href="{{ product.href }}"
+                                                           class="ShoesName">{{ product.name }}</a>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6 col-sm-6 col-xs-8 text-right">
@@ -247,7 +248,7 @@
                             </span>
                         </div>
                     {% endfor %}
-                    <div class="col-sm-offset-4 col-sm-6">
+                    <div class="col-sm-offset-4 col-sm-6 col-xs-offset-2 col-xs-8">
                         <div class="text-center pagination">{{ pagination }}</div>
                         {#<div class="col-sm-12 text-center ">{{ results }}</div>#}
                     </div>

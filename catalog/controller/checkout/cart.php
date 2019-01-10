@@ -294,6 +294,13 @@ class ControllerCheckoutCart extends Controller
                 }
             }
 
+            $total_quantity = $this->model_catalog_product->getTotalQuantityProduct($product_info['product_id']);
+
+            if ($total_quantity <= 0) {
+                $json['warning'] = "Out of Stock";
+                $this->session->data['warning'] = "Out of Stock";
+            }
+
             if (!$json) {
                 $this->cart->add($product_id, $quantity, $option, $recurring_id);
 
@@ -450,7 +457,7 @@ class ControllerCheckoutCart extends Controller
 
                 array_multisort($sort_order, SORT_ASC, $totals);
             }
-            $json['total'] = $this->currency->format($totals[0]['value'], $this->session->data['currency']);
+            $json['total'] = $this->currency->format($totals[0]['value'] + (isset($this->session->data['delivery']) ? $this->session->data['delivery'] : 0  ), $this->session->data['currency']);
             $json['total_discounted'] = isset($this->session->data['coupon']) ? $this->currency->format($totals[2]['value'], $this->session->data['currency']) : $this->currency->format($totals[1]['value'], $this->session->data['currency']);
         }
 

@@ -204,9 +204,6 @@ var cart = {
             },
             success: function (json) {
                 $('.alert-dismissible, .text-danger').remove();
-                // if (json['redirect']) {
-                //     location = json['redirect'];
-                // }
 
                 if (json['success']) {
                     $('#alert-box').append('<div class="alert alert-success alert-dismissible">' + json['success'] + '<button type="button" class="close" data-dismiss="alert">&times;</button></div>');

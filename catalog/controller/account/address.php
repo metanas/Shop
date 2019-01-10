@@ -45,7 +45,7 @@ class ControllerAccountAddress extends Controller
 
             $this->session->data['success'] = $this->language->get('text_add');
 
-            $this->response->redirect($this->url->link('account/address', array('action' => 'address', 'language' => $this->config->get('config_language'))));
+            $this->response->redirect($this->url->link('account/address', array('language' => $this->config->get('config_language'))));
         }
 
         $this->getForm();
