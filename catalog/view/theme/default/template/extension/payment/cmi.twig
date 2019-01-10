@@ -52,17 +52,18 @@
 <div id="collapse-checkout-option" class="container">
     <form class="form-group" action="{{ action }}" method="POST">
         <input type="hidden" name="clientid" value="{{ client_id }}">
+        <input type="hidden" name="storetype" value="{{ store_type }}">
+        <input type="hidden" name="trantype" value="{{ Transaction_type }}">
         <input type="hidden" name="amount" value="{{ total }}">
+        <input type="hidden" name="currency" value="{{ currency_code }}">
+        <input type="hidden" name="oid" value="{{ order_id }}">
         <input type="hidden" name="okUrl" value="{{ okFailUrl }}">
         <input type="hidden" name="failUrl" value="{{ okFailUrl }}">
-        <input type="hidden" name="TranType" value="{{ Transaction_type }}">
+        <input type="hidden" name="lang" value="fr">
+        <input type="hidden" name="rnd" value="{{ rnd }}">
+        <input type="hidden" name="hashAlgorithm" value="{{ hash_algorithm }}">
         <input type="hidden" name="callbackUrl" value="{{ callbackUrl }}">
         <input type="hidden" name="shopurl" value="{{ store_url }}">
-        <input type="hidden" name="currency" value="{{ currency_code }}">
-        <input type="hidden" name="rnd" value="{{ rnd }}">
-        <input type="hidden" name="storetype" value="{{ store_type }}">
-        <input type="hidden" name="hashAlgorithm" value="{{ hash_algorithm }}">
-        <input type="hidden" name="lang" value="fr">
         <input type="hidden" name="refreshtime" value="5">
         <input type="hidden" name="BillToName" value="{{ customer.name }}">
         <input type="hidden" name="BillToStreet1" value="{{ customer.address }}">
@@ -72,7 +73,6 @@
         <input type="hidden" name="email" value="{{ customer.email }}">
         <input type="hidden" name="tel" value="{{ customer.telephone }}">
         <input type="hidden" name="encoding" value="UTF-8">
-        <input type="hidden" name="oid" value="{{ order_id }}">
         <div style="position: absolute; top: 46%;width: 25%;left: 37%">
             <button class="zalark-button"> Continue vers le payment</button>
         </div>

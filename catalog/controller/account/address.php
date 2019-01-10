@@ -409,7 +409,7 @@ class ControllerAccountAddress extends Controller
             $this->error['city'] = $this->language->get('error_city');
         }
 
-        if(utf8_strlen(trim($this->request->post['country'])) != 5) {
+        if(utf8_strlen(trim($this->request->post['country'])) <= 2 || utf8_strlen(trim($this->request->post['country'])) > 30) {
             $this->error['country'] = $this->language->get('error_country');
         }
 

@@ -81,7 +81,7 @@ class ControllerExtensionPaymentCmi extends Controller
         $data['total'] = $total;
 
         $data['currency_code'] = 504;
-        $data['store_type'] = "3D_PAY_HOSTING";
+        $data['store_type'] = "3d_pay_hosting";
         $data['hash_algorithm'] = "ver3";
         $data['Transaction_type'] = "PreAuth";
         $data['callbackUrl'] = $this->url->link("extension/payment/cmi/callback");
