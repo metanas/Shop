@@ -511,6 +511,8 @@ class ControllerCheckoutConfirm extends Controller
 
         $delivery_express = $this->model_extension_shipping_item->getQuote();
 
+        $this->session->data['delivery'] = 0;
+
         $data['express_price'] = $delivery_express['quote']['item']['text'];
         $data['products'] = array();
 
@@ -853,7 +855,6 @@ class ControllerCheckoutConfirm extends Controller
         } else {
             $coupon = false;
         }
-
 
 
         if (isset($this->request->post['delivery']) && $this->request->post['delivery'] != "Standard") {
