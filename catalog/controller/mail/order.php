@@ -105,6 +105,11 @@ class ControllerMailOrder extends Controller
         }
 
         $data['order_id'] = $order_info['order_id'];
+        if($order_info['shipping_method'] != 'Standard'){
+            $data['shipping_price'] = $this->currency->format($order_info['shipping_price'], $this->session->data['currency']);
+        }else{
+            $data['shipping_price'] = "Gratuite";
+        }
         $data['date_added'] = date($language->get('date_format_short'), strtotime($order_info['date_added']));
         $data['payment_method'] = $order_info['payment_method'];
         $data['shipping_method'] = $order_info['shipping_method'];
