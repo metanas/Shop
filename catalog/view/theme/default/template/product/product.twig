@@ -1,5 +1,4 @@
 {{ header }}
-
 <div id="product-product" class="container">
     <div class="row">{{ column_left }}
         {% if column_left and column_right %}
@@ -530,31 +529,31 @@
 </script>
 <script>
     // Galery
-    if (!isMobile.any()) {
-        $('document').ready(function () {
-                img = $('#main_img');
-                $('.product-image img').each(
-                    function (index, elm) {
-                        elm.onmouseover = function (e) {
-                            img[0].src = elm.alt;
-                            link = img[0].src.replace("cache/", "").split("-");
-                            link[link.length - 1] = "-.png";
-                            link = link.join("-").replace("--", "");
+
+    $('document').ready(function () {
+            img = $('#main_img');
+            $('.product-image img').each(
+                function (index, elm) {
+                    elm.onmouseover = function (e) {
+                        img[0].src = elm.alt;
+                        link = img[0].src.replace("cache/", "").split("-");
+                        link[link.length - 1] = "-.png";
+                        link = link.join("-").replace("--", "");
+                        if (!isMobile.any())
                             $('.previous-hover').zoom({url: link});
-                        };
-                    }
-                );
+                    };
+                }
+            );
 
 
-                link = img[0].src.replace("cache/", "").split("-");
-                link[link.length - 1] = "-.png";
-                link = link.join("-").replace("--", "");
+            link = img[0].src.replace("cache/", "").split("-");
+            link[link.length - 1] = "-.png";
+            link = link.join("-").replace("--", "");
+            if (!isMobile.any())
                 $('.previous-hover').zoom({url: link});
 
+        })
 
-            }
-        )
-    }
 </script>
 <script>
     var img = $('#main_img');
@@ -586,7 +585,8 @@
                 link = img[0].src.replace("cache/", "").split("-");
                 link[link.length - 1] = "-.png";
                 link = link.join("-").replace("--", "");
-                $('.previous-hover').zoom({url: link});
+                if (!isMobile.any())
+                    $('.previous-hover').zoom({url: link});
             }
         });
 
