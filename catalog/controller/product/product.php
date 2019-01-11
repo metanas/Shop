@@ -221,7 +221,6 @@ class ControllerProductProduct extends Controller {
 
 			$data['product_id'] = (int)$this->request->get['product_id'];
 			$data['manufacturer'] = $product_info['manufacturer'];
-			$data['manufacturers'] = $this->url->link('product/manufacturer/info', 'language=' . $this->config->get('config_language') . '&manufacturer_id=' . $product_info['manufacturer_id']);
 			$data['reward'] = $product_info['reward'];
 			$data['color'] = $product_info['color'];
 

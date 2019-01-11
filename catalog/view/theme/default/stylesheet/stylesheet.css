@@ -1874,11 +1874,23 @@ ul {
     background-repeat: no-repeat;
     overflow: hidden
 }
-
+@media (max-width: 720px) {
+    .ShoesName{
+        width: 80px;
+    }
+}
+@media (min-width: 720px) {
+    .ShoesName{
+        width: 100px;
+    }
+}
 .ShoesName{
-    text-overflow: ellipsis;
+    display: block;
+    overflow: hidden;
     white-space: nowrap;
+    text-overflow: ellipsis;
 }
 .table{
     margin-bottom: 31px;
 }
+
