@@ -1,4 +1,4 @@
-<page>
+<page xmlns="http://www.w3.org/1999/html">
     <page_header></page_header>
     {% for order in orders %}
         <table style="width: 100%;vertical-align: bottom">
@@ -19,7 +19,7 @@
 
         <table style="margin-top: 10mm">
             <tr>
-                <th><h2>Bonjour, {{ order.customer }}</h2></th>
+                <th><h2>Bonjour <span style="text-transform: uppercase;"> {{ order.customer }}</span>,</h2></th>
             </tr>
             <tr>
                 <td>
@@ -111,12 +111,14 @@
                 <td colspan="5" style="border-bottom: 1px #A7A7A7;"></td>
             </tr>
             <tr style="height: 10px">
-                <td style="text-align: right;" colspan="4"><b>Frais de livraison</b><span style="color: #A7A7A7; font-size: 11px;" > (TVA Incluse)</span></td>
+                <td style="text-align: right;" colspan="4"><b>Frais de livraison</b><span
+                            style="color: #A7A7A7; font-size: 11px;"> (TVA Incluse)</span></td>
                 <td style="text-align: right;">{{ order.shipping_price }}</td>
             </tr>
             {% for total in order.total %}
                 <tr style="line-height: 1.5">
-                    <td style="text-align: right" colspan="4"><b>{{ total.title }}</b><span style="color: #A7A7A7; font-size: 11px;" > (TVA Incluse)</span></td>
+                    <td style="text-align: right" colspan="4"><b>{{ total.title }}</b><span
+                                style="color: #A7A7A7; font-size: 11px;"> (TVA Incluse)</span></td>
                     <td style="text-align: right">{{ total.text }}</td>
                 </tr>
             {% endfor %}

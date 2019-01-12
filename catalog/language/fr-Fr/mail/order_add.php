@@ -1,6 +1,6 @@
 <?php
 // Text
-$_['text_subject']          = '%s - Ordonnance %s';
+$_['text_subject']          = '%s - Merci pour votre commonde';
 $_['text_user']             = 'Salut %s,';
 $_['text_thanks']           = 'Merci pour votre commande!';
 $_['text_missing']          = 'Nous espérons vous voir trés bientot';

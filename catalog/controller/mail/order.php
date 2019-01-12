@@ -245,7 +245,7 @@ class ControllerMailOrder extends Controller
         $mail->setTo($order_info['email']);
         $mail->setFrom($from);
         $mail->setSender(html_entity_decode($order_info['store_name'], ENT_QUOTES, 'UTF-8'));
-        $mail->setSubject(html_entity_decode(sprintf($language->get('text_subject'), $order_info['store_name'], $order_info['order_id']), ENT_QUOTES, 'UTF-8'));
+        $mail->setSubject(html_entity_decode(sprintf($language->get('text_subject'), $order_info['store_name']), ENT_QUOTES, 'UTF-8'));
         $mail->setHtml($this->load->view('mail/order_add', $data));
         $mail->send();
     }
