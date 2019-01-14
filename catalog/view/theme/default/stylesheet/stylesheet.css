@@ -837,9 +837,20 @@ footer h4 {
 
 /* product list */
 
-@media (min-width: 1170px) {
+
+@media (max-width: 375px) {
     .swiper-wrapper .product-layout .product-thumb {
-        height: 300px;
+        height: 190px;
+    }
+
+    .product-thumb {
+        height: 250px;
+    }
+}
+
+@media (min-width: 767px) {
+    .swiper-wrapper .product-layout .product-thumb {
+        height: 190px;
     }
 
     .product-thumb {
@@ -857,23 +868,13 @@ footer h4 {
     }
 }
 
-@media (min-width: 767px) {
+@media (min-width: 1170px) {
     .swiper-wrapper .product-layout .product-thumb {
-        height: 190px;
+        height: 300px;
     }
 
     .product-thumb {
         height: 400px;
-    }
-}
-
-@media (max-width: 375px) {
-    .swiper-wrapper .product-layout .product-thumb {
-        height: 190px;
-    }
-
-    .product-thumb {
-        height: 250px;
     }
 }
 
@@ -1894,23 +1895,27 @@ ul {
     background-repeat: no-repeat;
     overflow: hidden
 }
+
 @media (max-width: 720px) {
-    .ShoesName{
+    .ShoesName {
         width: 80px;
     }
 }
+
 @media (min-width: 720px) {
-    .ShoesName{
+    .ShoesName {
         width: 100px;
     }
 }
-.ShoesName{
+
+.ShoesName {
     display: block;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
 }
-.table{
+
+.table {
     margin-bottom: 31px;
 }
 
