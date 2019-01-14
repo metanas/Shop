@@ -844,7 +844,7 @@ footer h4 {
     }
 
     .product-thumb {
-        height: 250px;
+        height: 100%;
     }
 }
 
@@ -868,7 +868,7 @@ footer h4 {
     }
 }
 
-@media (min-width: 1170px) {
+@media (min-width: 1200px) {
     .swiper-wrapper .product-layout .product-thumb {
         height: 300px;
     }

@@ -83,7 +83,7 @@
 <script type="text/javascript"><!--
     $('#carousel{{ module }}').swiper({
         mode: 'horizontal',
-        slidesPerView: ($(window).width() > 1170) ? 5 : 2,
+        slidesPerView: ($(window).width() > 1170) ? 5 : ($(window).width() > 991) ? 4 : ($(window).width() > 767)?  3 : 2,
         pagination: '.carousel{{ module }}',
         paginationClickable: true,
         nextButton: '.swiper-button-next',
