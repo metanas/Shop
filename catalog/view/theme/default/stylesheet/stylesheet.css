@@ -847,7 +847,27 @@ footer h4 {
     }
 }
 
-@media (max-width: 480px) {
+@media (min-width: 991px) {
+    .swiper-wrapper .product-layout .product-thumb {
+        height: 190px;
+    }
+
+    .product-thumb {
+        height: 350px;
+    }
+}
+
+@media (min-width: 767px) {
+    .swiper-wrapper .product-layout .product-thumb {
+        height: 190px;
+    }
+
+    .product-thumb {
+        height: 400px;
+    }
+}
+
+@media (max-width: 375px) {
     .swiper-wrapper .product-layout .product-thumb {
         height: 190px;
     }
