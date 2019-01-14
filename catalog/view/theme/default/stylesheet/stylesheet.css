@@ -840,7 +840,6 @@ footer h4 {
 
 @media (min-width: 375px) {
     .swiper-wrapper .product-layout .product-thumb {
-        margin-bottom: 40px;
         height: 100%;
     }
 
@@ -851,7 +850,6 @@ footer h4 {
 
 @media (min-width: 767px) {
     .swiper-wrapper .product-layout .product-thumb {
-        margin-bottom: 40px;
         height: 100%;
     }
 
@@ -862,7 +860,6 @@ footer h4 {
 
 @media (min-width: 991px) {
     .swiper-wrapper .product-layout .product-thumb {
-        margin-bottom: 40px;
         height: 100%;
     }
 
@@ -873,7 +870,6 @@ footer h4 {
 
 @media (min-width: 1200px) {
     .swiper-wrapper .product-layout .product-thumb {
-        margin-bottom: 20px;
         height: 100%;
     }
 
@@ -890,6 +886,7 @@ footer h4 {
 
 .swiper-wrapper .product-layout .product-thumb {
     background-color: #f5f5f5;
+    margin-bottom: 40px;
     overflow: hidden;
 }
 
