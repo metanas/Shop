@@ -622,9 +622,9 @@ $(window).resize(function () {
 let viewPerSlide;
 
 function fixSwiper() {
-    if ($(window).width() < 750) {
+    if ($(window).width() < 580) {
         viewPerSlide = 2
-    } else if ($(window).width() < 970) {
+    } else if ($(window).width() < 767) {
         viewPerSlide = 3
     } else if ($(window).width() < 1170) {
         viewPerSlide = 4
