@@ -838,7 +838,7 @@ footer h4 {
 /* product list */
 
 
-@media (max-width: 375px) {
+@media (min-width: 375px) {
     .swiper-wrapper .product-layout .product-thumb {
         height: 190px;
     }
