@@ -68,20 +68,23 @@
                                 {% endif %}
                             </div>
                             <div class="form-group required">
-                                <label class="col-sm-2 control-label" for="input-color">{{ entry_color }}</label>
+                                <label class="col-sm-2 control-label" for="input-color"><span data-toggle="tooltip"
+                                                                                                title="{{ help_related }}">{{ entry_color }}</span></label>
                                 <div class="col-sm-10">
-                                    <select name="color" id="input-color" class="form-control">
+                                    <input type="text" name="color" value="" placeholder="{{ entry_color }}"
+                                           id="input-color" class="form-control"/>
+                                    <div id="product-color" class="well well-sm"
+                                         style="height: 150px; overflow: auto;">
+                                        {% for product_color in product_colors %}
+                                            <div id="product-color{{ product_color.color_id }}"><i
+                                                        class="fa fa-minus-circle"></i> {{ product_color.name }}
+                                                <input type="hidden" name="product_color[]"
+                                                       value="{{ product_color.color_id }}"/>
+                                            </div>
+                                        {% endfor %}</div>
+                                </div>
+                            </div>
 
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group required">
-                                <label class="col-sm-2 control-label" for="input-color-hex">{{ entry_color }}</label>
-                                <div class="col-sm-10">
-                                    <input type="color" name="color_hex" value="{{ color_hex }}"
-                                           placeholder="{{ entry_color }}" id="input-color-hex" class="form-control"/>
-                                </div>
-                            </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label" for="input-price">{{ entry_price }}</label>
                                 <div class="col-sm-10">
@@ -358,7 +361,7 @@
                                     <div id="product-similar" class="well well-sm"
                                          style="height: 150px; overflow: auto;"> {% for product_similar in product_similars %}
                                             <div id="product-similar{{ product_similar.product_id }}"><i
-                                                        class="fa fa-minus-circle"></i> {{ product_similar.name }}
+                                                        class="fa fa-minus-circle"></i> {{ product_similar.ref }}
                                                 <input type="hidden" name="product_similar[]"
                                                        value="{{ product_similar.product_id }}"/>
                                             </div>
@@ -1014,7 +1017,36 @@
     $('#product-similar').delegate('.fa-minus-circle', 'click', function () {
         $(this).parent().remove();
     });
-    //--></script>
+
+    // color
+    $('input[name=\'color\']').autocomplete({
+        'source': function (request, response) {
+            console.log(request);
+            $.ajax({
+                url: 'index.php?route=catalog/color/autocomplete&user_token={{ user_token }}&filter_name=' + encodeURIComponent(request),
+                dataType: 'json',
+                success: function (json) {
+                    response($.map(json, function (item) {
+                        return {
+                            label: item['name'],
+                            value: item['color_id']
+                        }
+                    }));
+                }
+            });
+        },
+        'select': function (item) {
+            $('input[name=\'color\']').val('');
+
+            $('#product-color' + item['value']).remove();
+
+            $('#product-color').append('<div id="product-color' + item['value'] + '"><i class="fa fa-minus-circle"></i> ' + item['label'] + '<input type="hidden" name="product_color[]" value="' + item['value'] + '" /></div>');
+        }
+    });
+
+    $('#product-color').delegate('.fa-minus-circle', 'click', function () {
+        $(this).parent().remove();
+    });    //--></script>
 <script type="text/javascript"><!--
     var attribute_row = {{ attribute_row }};
 

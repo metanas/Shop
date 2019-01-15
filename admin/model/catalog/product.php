@@ -4,7 +4,7 @@ class ModelCatalogProduct extends Model
 {
     public function addProduct($data)
     {
-        $this->db->query("INSERT INTO " . DB_PREFIX . "product SET name = '" . $this->db->escape((string)$data['name']) . "', ref = '" . $this->db->escape($data['prefix_ref'] . "-" . $data['ref']) . "', color = '" . $this->db->escape((string)$data['color']) . "', color_hex='" . $this->db->escape((string)$data['color_hex']) . "', minimum = '" . (int)$data['minimum'] . "', date_available = '" . $this->db->escape((string)$data['date_available']) . "', manufacturer_id = '" . (int)$data['manufacturer_id'] . "', price = '" . (float)$data['price'] . "', status = '" . (int)$data['status'] . "', sort_order = '" . (int)$data['sort_order'] . "', date_added = NOW(), date_modified = NOW()");
+        $this->db->query("INSERT INTO " . DB_PREFIX . "product SET name = '" . $this->db->escape((string)$data['name']) . "', ref = '" . $this->db->escape($data['prefix_ref'] . "-" . $data['ref']) . "', minimum = '" . (int)$data['minimum'] . "', date_available = '" . $this->db->escape((string)$data['date_available']) . "', manufacturer_id = '" . (int)$data['manufacturer_id'] . "', price = '" . (float)$data['price'] . "', status = '" . (int)$data['status'] . "', sort_order = '" . (int)$data['sort_order'] . "', date_added = NOW(), date_modified = NOW()");
 
         $product_id = $this->db->getLastId();
 
@@ -77,6 +77,12 @@ class ModelCatalogProduct extends Model
             }
         }
 
+        if (isset($data['product_color'])) {
+            foreach ($data['product_color'] as $color_id) {
+                $this->db->query("INSERT INTO " . DB_PREFIX . "product_color SET product_id = '" . (int)$product_id . "', color_id = '" . (int)$color_id . "'");
+            }
+        }
+
 //        if (isset($data['product_related'])) {
 //            foreach ($data['product_related'] as $related_id) {
 //                $this->db->query("DELETE FROM " . DB_PREFIX . "product_related WHERE product_id = '" . (int)$product_id . "' AND related_id = '" . (int)$related_id . "'");
@@ -128,7 +134,7 @@ class ModelCatalogProduct extends Model
 
     public function editProduct($product_id, $data)
     {
-        $this->db->query("UPDATE " . DB_PREFIX . "product SET name = '" . $this->db->escape((string)$data['name']) . "', ref = '" . $this->db->escape($data['prefix_ref'] . "-" . $data['ref']) . "', color_hex = '" . $this->db->escape((string)$data['color_hex']) . "', color = '" . $this->db->escape((string)$data['color']) . "', minimum = '" . (int)$data['minimum'] . "', date_available = '" . $this->db->escape((string)$data['date_available']) . "', manufacturer_id = '" . (int)$data['manufacturer_id'] . "', shipping = '" . (int)$data['shipping'] . "', price = '" . (float)$data['price'] . "', status = '" . (int)$data['status'] . "', sort_order = '" . (int)$data['sort_order'] . "', date_modified = NOW() WHERE product_id = '" . (int)$product_id . "'");
+        $this->db->query("UPDATE " . DB_PREFIX . "product SET name = '" . $this->db->escape((string)$data['name']) . "', ref = '" . $this->db->escape($data['prefix_ref'] . "-" . $data['ref']) . "', minimum = '" . (int)$data['minimum'] . "', date_available = '" . $this->db->escape((string)$data['date_available']) . "', manufacturer_id = '" . (int)$data['manufacturer_id'] . "', shipping = '" . (int)$data['shipping'] . "', price = '" . (float)$data['price'] . "', status = '" . (int)$data['status'] . "', sort_order = '" . (int)$data['sort_order'] . "', date_modified = NOW() WHERE product_id = '" . (int)$product_id . "'");
 
         if (isset($data['image'])) {
             $this->db->query("UPDATE " . DB_PREFIX . "product SET image = '" . $this->db->escape((string)$data['image']) . "' WHERE product_id = '" . (int)$product_id . "'");
@@ -212,6 +218,14 @@ class ModelCatalogProduct extends Model
         if (isset($data['product_filter'])) {
             foreach ($data['product_filter'] as $filter_id) {
                 $this->db->query("INSERT INTO " . DB_PREFIX . "product_filter SET product_id = '" . (int)$product_id . "', filter_id = '" . (int)$filter_id . "'");
+            }
+        }
+
+        $this->db->query("DELETE FROM " . DB_PREFIX . "product_color WHERE product_id = '" . (int)$product_id . "'");
+
+        if (isset($data['product_color'])) {
+            foreach ($data['product_color'] as $color_id) {
+                $this->db->query("INSERT INTO " . DB_PREFIX . "product_color SET product_id = '" . (int)$product_id . "', color_id = '" . (int)$color_id . "'");
             }
         }
 
@@ -325,6 +339,7 @@ class ModelCatalogProduct extends Model
         $this->db->query("DELETE FROM " . DB_PREFIX . "product_related WHERE product_id = '" . (int)$product_id . "'");
 //        $this->db->query("DELETE FROM " . DB_PREFIX . "product_related WHERE related_id = '" . (int)$product_id . "'");
         $this->db->query("DELETE FROM " . DB_PREFIX . "product_similar WHERE product_id = '" . (int)$product_id . "'");
+        $this->db->query("DELETE FROM " . DB_PREFIX . "product_color WHERE product_id = '" . (int)$product_id . "'");
         $this->db->query("DELETE FROM " . DB_PREFIX . "product_similar WHERE similar_id = '" . (int)$product_id . "'");
         $this->db->query("DELETE FROM " . DB_PREFIX . "product_reward WHERE product_id = '" . (int)$product_id . "'");
         $this->db->query("DELETE FROM " . DB_PREFIX . "product_special WHERE product_id = '" . (int)$product_id . "'");
@@ -475,6 +490,19 @@ class ModelCatalogProduct extends Model
         }
 
         return $product_filter_data;
+    }
+
+    public function getProductColors($product_id)
+    {
+        $product_color_data = array();
+
+        $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "product_color where product_id='" . (int)$product_id . "'");
+
+        foreach ($query->rows as $result) {
+            $product_color_data[] = $result['color_id'];
+        }
+
+        return $product_color_data;
     }
 
     public function getProductAttributes($product_id)
@@ -737,6 +765,13 @@ class ModelCatalogProduct extends Model
     public function getTotalProductsByProfileId($recurring_id)
     {
         $query = $this->db->query("SELECT COUNT(*) AS total FROM " . DB_PREFIX . "product_recurring WHERE recurring_id = '" . (int)$recurring_id . "'");
+
+        return $query->row['total'];
+    }
+
+    public function getTotalProductsByColorId($color_id)
+    {
+        $query = $this->db->query("SELECT count(*) as total FROM " . DB_PREFIX . "product_color WHERE color_id='" . (int)$color_id . "'");
 
         return $query->row['total'];
     }

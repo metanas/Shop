@@ -367,10 +367,10 @@ class ControllerCatalogColor extends Controller
             $this->error['warning'] = $this->language->get('error_permission');
         }
 
-        $this->load->model('catalog/color');
+        $this->load->model('catalog/product_color');
 
         foreach ($this->request->post['selected'] as $color_id) {
-            $product_total = $this->model_catalog_color->getTotalProductsByColorId($color_id);
+            $product_total = $this->model_catalog_product_color->getTotalProductsByColorId($color_id);
 
             if ($product_total) {
                 $this->error['warning'] = sprintf($this->language->get('error_product'), $product_total);
@@ -380,4 +380,44 @@ class ControllerCatalogColor extends Controller
         return !$this->error;
     }
 
+    public function autocomplete()
+    {
+        $json = array();
+
+        if (isset($this->request->get['filter_name'])) {
+            $this->load->model('catalog/color');
+
+            if (isset($this->request->get['filter_name'])) {
+                $filter_name = $this->request->get['filter_name'];
+            } else {
+                $filter_name = '';
+            }
+
+            if (isset($this->request->get['limit'])) {
+                $limit = $this->request->get['limit'];
+            } else {
+                $limit = 5;
+            }
+
+            $filter_data = array(
+                'filter_name' => $filter_name,
+                'start' => 0,
+                'limit' => $limit
+            );
+
+            $results = $this->model_catalog_color->getColors($filter_data);
+
+            foreach ($results as $result) {
+                $json[] = array(
+                    'color_id' => $result['color_id'],
+                    'name' => strip_tags(html_entity_decode($result['name'], ENT_QUOTES, 'UTF-8')),
+                    'code' => $result['code']
+                );
+            }
+
+        }
+
+        $this->response->addHeader('Content-Type: application/json');
+        $this->response->setOutput(json_encode($json));
+    }
 }

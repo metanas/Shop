@@ -388,8 +388,6 @@ class ControllerCatalogProduct extends Controller
                 'name' => $result['name'],
                 'manufacturer' => $result['manufacturer'],
                 'ref' => $result['ref'],
-                'color' => $result['color'],
-                'color_hex' => $result['color_hex'],
                 'price' => $this->currency->format($result['price'], $this->config->get('config_currency')),
                 'special' => $special,
                 'quantity' => $quantity,
@@ -649,19 +647,26 @@ class ControllerCatalogProduct extends Controller
         }
 
         if (isset($this->request->post['color'])) {
-            $data['color'] = $this->request->post['color'];
+            $product_colors = $this->request->post['product_color'];
         } elseif (!empty($product_info)) {
-            $data['color'] = $product_info['color'];
+            $product_colors = $this->model_catalog_product->getProductColors($this->request->get['product_id']);
         } else {
-            $data['color'] = '';
+            $product_colors = array();
         }
 
-        if (isset($this->request->post['color_hex'])) {
-            $data['color_hex'] = $this->request->post['color_hex'];
-        } elseif (!empty($product_info)) {
-            $data['color_hex'] = $product_info['color_hex'];
-        } else {
-            $data['color_hex'] = '';
+        $this->load->model("catalog/color");
+
+        $data['product_colors'] = array();
+
+        foreach ($product_colors as $color_id) {
+            $color_info = $this->model_catalog_color->getColor($color_id);
+
+            if ($color_info) {
+                $data['product_colors'][] = array(
+                    'color_id' => $color_info['color_id'],
+                    'name' =>  $color_info['name']
+                );
+            }
         }
 
         $this->load->model('setting/store');
@@ -991,7 +996,7 @@ class ControllerCatalogProduct extends Controller
             if ($related_info) {
                 $data['product_similars'][] = array(
                     'product_id' => $related_info['product_id'],
-                    'name' => $related_info['name']
+                    'ref' => $related_info['ref']
                 );
             }
         }
