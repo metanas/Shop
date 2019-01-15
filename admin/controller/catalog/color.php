@@ -2,6 +2,8 @@
 
 class ControllerCatalogColor extends Controller
 {
+    private $error = array();
+
     public function index()
     {
         $this->load->language("catalog/color");
@@ -13,7 +15,8 @@ class ControllerCatalogColor extends Controller
         $this->getList();
     }
 
-    public function add() {
+    public function add()
+    {
         $this->load->language('catalog/color');
 
         $this->document->setTitle($this->language->get('heading_title'));
@@ -45,7 +48,8 @@ class ControllerCatalogColor extends Controller
         $this->getForm();
     }
 
-    public function edit() {
+    public function edit()
+    {
         $this->load->language('catalog/color');
 
         $this->document->setTitle($this->language->get('heading_title'));
@@ -77,7 +81,8 @@ class ControllerCatalogColor extends Controller
         $this->getForm();
     }
 
-    public function delete() {
+    public function delete()
+    {
         $this->load->language('catalog/color');
 
         $this->document->setTitle($this->language->get('heading_title'));
@@ -163,7 +168,7 @@ class ControllerCatalogColor extends Controller
         $data['colors'] = array();
 
         $filter_data = array(
-            'sort'  => $sort,
+            'sort' => $sort,
             'order' => $order,
             'start' => ($page - 1) * $this->config->get('config_limit_admin'),
             'limit' => $this->config->get('config_limit_admin')
@@ -175,11 +180,11 @@ class ControllerCatalogColor extends Controller
 
         foreach ($results as $result) {
             $data['colors'][] = array(
-                'color_id'   => $result['color_id'],
-                'name'       => $result['name'],
-                'code'       => $result['code'],
+                'color_id' => $result['color_id'],
+                'name' => $result['name'],
+                'code' => $result['code'],
                 'sort_order' => $result['sort_order'],
-                'edit'       => $this->url->link('catalog/color/edit', 'user_token=' . $this->session->data['user_token'] . '&color_id=' . $result['color_id'] . $url)
+                'edit' => $this->url->link('catalog/color/edit', 'user_token=' . $this->session->data['user_token'] . '&color_id=' . $result['color_id'] . $url)
             );
         }
 
@@ -248,7 +253,8 @@ class ControllerCatalogColor extends Controller
         $this->response->setOutput($this->load->view('catalog/color_list', $data));
     }
 
-    protected function getForm() {
+    protected function getForm()
+    {
         $data['text_form'] = !isset($this->request->get['color_id']) ? $this->language->get('text_add') : $this->language->get('text_edit');
 
         if (isset($this->error['warning'])) {
@@ -322,14 +328,13 @@ class ControllerCatalogColor extends Controller
             $data['sort_order'] = '';
         }
 
-        if (isset($this->request->post['color_value'])) {
-            $color_values = $this->request->post['color_value'];
-        } elseif (isset($this->request->get['color_id'])) {
-            $color_values = $this->model_catalog_color->getColorValueDescriptions($this->request->get['color_id']);
+        if (isset($this->request->post['code'])) {
+            $data['code'] = $this->request->post['code'];
+        } elseif (!empty($color_info)) {
+            $data['code'] = $color_info['code'];
         } else {
-            $color_values = array();
+            $data['code'] = "";
         }
-
 
 
         $data['header'] = $this->load->controller('common/header');
@@ -339,43 +344,33 @@ class ControllerCatalogColor extends Controller
         $this->response->setOutput($this->load->view('catalog/color_form', $data));
     }
 
-    protected function validateForm() {
+    protected function validateForm()
+    {
         if (!$this->user->hasPermission('modify', 'catalog/color')) {
             $this->error['warning'] = $this->language->get('error_permission');
         }
 
-        foreach ($this->request->post['color_description'] as $language_id => $value) {
-            if ((utf8_strlen($value['name']) < 1) || (utf8_strlen($value['name']) > 128)) {
-                $this->error['name'][$language_id] = $this->language->get('error_name');
-            }
+        if ((utf8_strlen($this->request->post['name']) < 1) || (utf8_strlen($this->request->post['name']) > 128)) {
+            $this->error['name'] = $this->language->get('error_name');
         }
 
-        if (($this->request->post['type'] == 'select' || $this->request->post['type'] == 'radio' || $this->request->post['type'] == 'checkbox') && !isset($this->request->post['option_value'])) {
-            $this->error['warning'] = $this->language->get('error_type');
-        }
-
-        if (isset($this->request->post['option_value'])) {
-            foreach ($this->request->post['option_value'] as $option_value_id => $option_value) {
-                foreach ($option_value['option_value_description'] as $language_id => $option_value_description) {
-                    if ((utf8_strlen($option_value_description['name']) < 1) || (utf8_strlen($option_value_description['name']) > 128)) {
-                        $this->error['option_value'][$option_value_id][$language_id] = $this->language->get('error_option_value');
-                    }
-                }
-            }
+        if ((utf8_strlen($this->request->post['code']) < 2) || (utf8_strlen($this->request->post['code']) > 8)) {
+            $this->error['code'] = $this->language->get("code");
         }
 
         return !$this->error;
     }
 
-    protected function validateDelete() {
-        if (!$this->user->hasPermission('modify', 'catalog/option')) {
+    protected function validateDelete()
+    {
+        if (!$this->user->hasPermission('modify', 'catalog/color')) {
             $this->error['warning'] = $this->language->get('error_permission');
         }
 
-        $this->load->model('catalog/product_option');
+        $this->load->model('catalog/color');
 
-        foreach ($this->request->post['selected'] as $option_id) {
-            $product_total = $this->model_catalog_product_option->getTotalProductsByOptionId($option_id);
+        foreach ($this->request->post['selected'] as $color_id) {
+            $product_total = $this->model_catalog_color->getTotalProductsByColorId($color_id);
 
             if ($product_total) {
                 $this->error['warning'] = sprintf($this->language->get('error_product'), $product_total);

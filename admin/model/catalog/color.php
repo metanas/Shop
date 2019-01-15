@@ -35,22 +35,22 @@ class ModelCatalogColor extends Model
     }
 
     public function getColors($data = array()) {
-        $sql = "SELECT * FROM `" . DB_PREFIX . "option` o LEFT JOIN " . DB_PREFIX . "option_description od ON (o.option_id = od.option_id) WHERE od.language_id = '" . (int)$this->config->get('config_language_id') . "'";
+        $sql = "SELECT * FROM `" . DB_PREFIX . "color`";
 
         if (!empty($data['filter_name'])) {
             $sql .= " AND od.name LIKE '" . $this->db->escape((string)$data['filter_name']) . "%'";
         }
 
         $sort_data = array(
-            'od.name',
-            'o.type',
-            'o.sort_order'
+            'name',
+            'code',
+            'sort_order'
         );
 
         if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
             $sql .= " ORDER BY " . $data['sort'];
         } else {
-            $sql .= " ORDER BY od.name";
+            $sql .= " ORDER BY name";
         }
 
         if (isset($data['order']) && ($data['order'] == 'DESC')) {
@@ -74,5 +74,9 @@ class ModelCatalogColor extends Model
         $query = $this->db->query($sql);
 
         return $query->rows;
+    }
+
+    public function getTotalProductsByColorId($color_id){
+        return false;
     }
 }
