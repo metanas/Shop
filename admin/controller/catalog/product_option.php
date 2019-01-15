@@ -423,9 +423,9 @@ class ControllerCatalogProductOption extends Controller {
 		}
 
 		if (isset($this->request->post['product'])) {
-			$data['product'] = $this->request->post['product'];
+			$data['product'] = $this->request->post['ref'];
 		} elseif (!empty($product_option_info)) {
-			$data['product'] = $product_option_info['product'];
+			$data['product'] = $product_option_info['ref'];
 		} else {
 			$data['product'] = '';
 		}
