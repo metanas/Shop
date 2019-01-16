@@ -102,7 +102,7 @@ $_['error_no_shipping']              ='Avertissement: Aucune option d`expéditio
 $_['error_no_product']               ='Avertissement: Vous avez sélectionné un produit dont sa quantité est egal à 0';
 $_['error_payment']                  ='Avertissement: Méthode de paiement requise!';
 $_['error_no_payment']               ='Avertissement: Aucune option de paiement n`est disponible. S`il vous plaît.  <a href="%s"> Contactez nous </a> à l`aide!';
-$_['error_custom_field']             ='%s requis!';
+$_['error_custom_field']             ='%s requise!';
 
 $_['button_save_address']            ='Enregistrer l\'adresse';
 $_['button_update_address']          ='Modifier l\'adresse';
