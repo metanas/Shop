@@ -46,7 +46,7 @@ class ControllerExtensionModuleCarousel extends Controller
             $data['category_link'] = $this->url->link('product/category', array("path" => $category[0]['category_id'], "special" => "special"));
         } else {
             $results = $this->model_catalog_product->getProducts($filter_data);
-            $data['heading_title'] = ($category_id == 0) ? "Nouveauté" : "Categorie";
+            $data['heading_title'] = ($category_id == 0) ? "Nouveautés" : "Produits similaires";
             $data['category_link'] = $this->url->link('product/category', array("path" => $category[count($category) - 1]['category_id']));
         }
 

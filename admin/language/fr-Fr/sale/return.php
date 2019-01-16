@@ -16,7 +16,7 @@ $_['text_history_add']     = 'Ajouter l\'historique';
 
 // Column
 $_['column_return_id']     = 'ID de retour';
-$_['column_order_id']      = 'Numéro de commande';
+$_['column_order_id']      = 'Numéro de la commande';
 $_['column_customer']      = 'Client';
 $_['column_product']       = 'Produit';
 $_['column_manufacturer']  = 'Marque';
@@ -29,8 +29,8 @@ $_['column_action']        = 'Action';
 
 // Entry
 $_['entry_customer']       = 'Client';
-$_['entry_order_id']       = 'Numéro de commande';
-$_['entry_date_ordered']   = 'Date de commande';
+$_['entry_order_id']       = 'Numéro de la commande';
+$_['entry_date_ordered']   = 'Date de la commande';
 $_['entry_firstname']      = 'Prénom';
 $_['entry_lastname']       = 'Nom de famille';
 $_['entry_email']          = 'E-Mail';

@@ -16,7 +16,7 @@ $_['text_recurring_name']                  = 'Profil récurrent';
 $_['text_recurring_description']           = 'Description';
 $_['text_recurring_status']                = 'Statut récurrent';
 $_['text_payment_method']                  = 'Mode de paiement';
-$_['text_order_id']                        = 'numéro de commande';
+$_['text_order_id']                        = 'Numéro de commande';
 $_['text_customer']                        = 'Client';
 $_['text_email']                           = 'Email';
 $_['text_date_added']                      = 'Date Ajoutée';
@@ -50,7 +50,7 @@ $_['text_cancelled']                       = 'Le paiement récurrent a été ann
 
 // Column
 $_['column_order_recurring_id']             = 'ID récurrent';
-$_['column_order_id']                       = 'numéro de commande';
+$_['column_order_id']                       = 'Numéro de commande';
 $_['column_reference']                      = 'Référence de paiement';
 $_['column_customer']                       = 'Client';
 $_['column_date_added']                     = 'Date ajoutée';
@@ -61,7 +61,7 @@ $_['column_action']                         = 'Action';
 
 // Entry
 $_['entry_order_recurring_id']             = 'Recurring ID';
-$_['entry_order_id']                       = 'numéro de commande';
+$_['entry_order_id']                       = 'Numéro de commande';
 $_['entry_reference']                      = 'Référence de paiement';
 $_['entry_customer']                       = 'Client';
 $_['entry_date_added']                     = 'Date ajoutée';

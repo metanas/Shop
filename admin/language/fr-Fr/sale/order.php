@@ -68,7 +68,7 @@ $_['text_picklist']              = 'Bordereau d\'envoi';
 $_['text_reward']                = 'Points de récompense';
 
 // Column
-$_['column_order_id']            = 'numéro de commande';
+$_['column_order_id']            = 'Numéro de commande';
 $_['column_customer']            = 'Client';
 $_['column_status']              = 'Statut';
 $_['column_date_added']          = 'date ajoutée';
