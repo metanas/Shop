@@ -33,12 +33,12 @@ class ControllerMailOrder extends Controller
 
         if ($order_info) {
             // If order status is 0 then becomes greater than 0 send main html email
-            if ($order_info['order_status_id'] == 1 && $order_status_id) {
+            if (!$order_info['order_status_id'] && $order_status_id) {
                 $this->add($order_info, $order_status_id, $comment, $notify);
             }
 
             // If order status is not 0 then send update text email
-            if ($order_info['order_status_id'] > 1 && $order_status_id && $notify) {
+            if ($order_info['order_status_id'] && $order_status_id && $notify) {
                 $this->edit($order_info, $order_status_id, $comment, $notify);
             }
         }
@@ -190,10 +190,18 @@ class ControllerMailOrder extends Controller
 
             $product = $this->model_catalog_product->getProduct($order_product['product_id']);
 
+            $product_colors = array();
+
+            $colors = $this->model_catalog_product->getColorProduct($order_product['product_id']);
+
+            foreach ($colors as $color) {
+                $product_colors[] = $color['color'];
+            }
+
             $data['products'][] = array(
                 'name' => $order_product['name'],
                 'manufacturer' => $order_product['manufacturer'],
-                'color' => $product['color'],
+                'color' => join(" & ", $product_colors),
                 'image' => $this->model_tool_image->resize($product['image'], 130, 189),
                 'option' => $option_data,
                 'quantity' => $order_product['quantity'],
@@ -330,7 +338,6 @@ class ControllerMailOrder extends Controller
         } else {
             $order_status_id = 0;
         }
-
         if (isset($args[2])) {
             $comment = $args[2];
         } else {
@@ -345,7 +352,7 @@ class ControllerMailOrder extends Controller
 
         $order_info = $this->model_checkout_order->getOrder($order_id);
 
-        if ($order_info && !$order_info['order_status_id'] && $order_status_id && in_array('order', (array)$this->config->get('config_mail_alert'))) {
+        if (!$order_info && !$order_info['order_status_id'] && $order_status_id && in_array('order', (array)$this->config->get('config_mail_alert'))) {
             $this->load->language('mail/order_alert');
 
             // HTML Mail

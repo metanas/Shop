@@ -20,7 +20,7 @@ $(document).ready(function () {
     $("body").on('click', 'input:checkbox', function (event) {
         var param = '';
         const filt = decodeURIComponent(getURLVar(event.target.name.replace("[]", '')));
-        const newFilt =  encodeURIComponent(event.target.value);
+        const newFilt =  event.target.value;
         if (event.target.checked) {
             if (filt !== '') {
                 param = filt + "_" + newFilt;
@@ -33,7 +33,7 @@ $(document).ready(function () {
             param = param.replace(/_$/, '');
             param = param.replace(/^_/, '');
         }
-        updateQueryStringParam(event.target.name.replace("[]", ""),param);
+        updateQueryStringParam(event.target.name.replace("[]", ""), encodeURIComponent(param));
         event.stopPropagation();
     });
 

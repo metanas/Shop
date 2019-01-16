@@ -261,10 +261,6 @@ class ControllerCheckoutShippingAddress extends Controller
             $this->error['address_1'] = $this->language->get('error_address_1');
         }
 
-        if (!filter_var($this->request->post['postcode'], FILTER_VALIDATE_INT)) {
-            $this->error['postcode'] = $this->language->get('error_postcode');
-        }
-
         if ((utf8_strlen(trim($this->request->post['city'])) < 2) || (utf8_strlen(trim($this->request->post['city'])) > 128)) {
             $this->error['city'] = $this->language->get('error_city');
         }
