@@ -22,7 +22,7 @@
             </div>
             <div class="col-sm-2 col-xs-2">{{ express_price }}</div>
         </div>
-        <div class="col-sm-12 col-xs-12"><h4>COMMANDE</h4>
+        <div class="col-sm-12 col-xs-12"><h4> MA COMMANDE</h4>
             <hr class="hr-marge">
             {% for product in products %}
                 <div class="product col-sm-12 col-xs-12">
@@ -61,12 +61,12 @@
             {% if billing_address %}
                 {{ billing_address.address }}
             {% else %}
-                Identique a l'adresse de livraison
+                Identique à l'adresse de livraison
             {% endif %}
         </div>
         <div class="col-sm-12">
             <div class="fa-option" id="pay-edit" onclick="step.next(3)"><i class="fa fa-edit"></i></div>
-            <h4 style="margin-top: 26px;">MOYEN DE PAYEMENT</h4>
+            <h4 style="margin-top: 26px;">MOYEN DE PAIEMENT</h4>
             <hr class="hr-marge">
             {% if payment_method == '17' %}
                 <img class="pay-checkout" src="catalog/view/theme/default/image/livraison2.png" width="50">
