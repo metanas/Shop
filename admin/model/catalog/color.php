@@ -38,7 +38,7 @@ class ModelCatalogColor extends Model
         $sql = "SELECT * FROM `" . DB_PREFIX . "color`";
 
         if (!empty($data['filter_name'])) {
-            $sql .= " AND name LIKE '" . $this->db->escape((string)$data['filter_name']) . "%'";
+            $sql .= " WHERE name LIKE '" . $this->db->escape((string)$data['filter_name']) . "%'";
         }
 
         $sort_data = array(

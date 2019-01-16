@@ -387,12 +387,6 @@ class ControllerCatalogColor extends Controller
         if (isset($this->request->get['filter_name'])) {
             $this->load->model('catalog/color');
 
-            if (isset($this->request->get['filter_name'])) {
-                $filter_name = $this->request->get['filter_name'];
-            } else {
-                $filter_name = '';
-            }
-
             if (isset($this->request->get['limit'])) {
                 $limit = $this->request->get['limit'];
             } else {
@@ -400,7 +394,7 @@ class ControllerCatalogColor extends Controller
             }
 
             $filter_data = array(
-                'filter_name' => $filter_name,
+                'filter_name' => $this->request->get['filter_name'],
                 'start' => 0,
                 'limit' => $limit
             );

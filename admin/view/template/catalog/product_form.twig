@@ -1021,7 +1021,6 @@
     // color
     $('input[name=\'color\']').autocomplete({
         'source': function (request, response) {
-            console.log(request);
             $.ajax({
                 url: 'index.php?route=catalog/color/autocomplete&user_token={{ user_token }}&filter_name=' + encodeURIComponent(request),
                 dataType: 'json',
