@@ -22,7 +22,7 @@ class ControllerProductCategory extends Controller
         $filter = array();
 
         if (isset($this->request->get['manufacture'])) {
-            $filter['manufacture'] = explode("_",  $this->request->get['manufacture']);
+            $filter['manufacture'] = explode("_", $this->request->get['manufacture']);
         }
 
         if (isset($this->request->get['color'])) {
@@ -188,7 +188,8 @@ class ControllerProductCategory extends Controller
             foreach ($products_option as $option) {
                 $manufactures[] = $option['manufacture'];
                 $sizes[] = $option['size'];
-                $colors[] = $option['color'] . "$" . $option['color_hex'];
+                if (!empty($option['color']))
+                    $colors[] = $option['color'] . "$" . $option['code'];
                 $price[] = $option['price'];
             }
 
@@ -547,8 +548,10 @@ class ControllerProductCategory extends Controller
             $price = array();
             foreach ($products_option as $option) {
                 $manufactures[] = $option['manufacture'];
-                $sizes[] = $option['size'];
-                $colors[] = $option['color'] . "$" . $option['color_hex'];
+                if(!empty($option['size']))
+                    $sizes[] = $option['size'];
+                if(!empty($option['color']))
+                    $colors[] = $option['color'] . "$" . $option['code'];
                 $price[] = $option['price'];
             }
 

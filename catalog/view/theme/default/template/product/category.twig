@@ -45,12 +45,14 @@
                                     {#</div>#}
                                     <div id="manufacture" class="ScrollStyle">
                                         {% for manufacture in products_manufacture %}
-                                            <label class="check_filter check-manufacture"
-                                                   style="display: block; font-size: 14px;">{{ manufacture }}
-                                                <input class="checkbox" type="checkbox" name="manufacture[]"
-                                                       value="{{ manufacture }}" {% if manufacture in filter.manufacture %} checked {% endif %}>
-                                                <span class="checkmark"></span>
-                                            </label>
+                                            {% if manufacture %}
+                                                <label class="check_filter check-manufacture"
+                                                       style="display: block; font-size: 14px;">{{ manufacture }}
+                                                    <input class="checkbox" type="checkbox" name="manufacture[]"
+                                                           value="{{ manufacture }}" {% if manufacture in filter.manufacture %} checked {% endif %}>
+                                                    <span class="checkmark"></span>
+                                                </label>
+                                            {% endif %}
                                         {% endfor %}
                                     </div>
                                     <div>
@@ -79,13 +81,15 @@
                                     {#</div>#}
                                     <div id="color" class="ScrollStyle">
                                         {% for color in products_color %}
-                                            <label class="check_filter check-color"
-                                                   style="display: block">{{ color|split("$")|first }}
-                                                <input class="checkbox" type="checkbox" name="color[]"
-                                                       value="{{ color|split("$")|first }}" {% if color|split("$")|first in filter.color %} checked {% endif %}>
-                                                <span class="checkmark checkradio"
-                                                      style='background-color: {{ color|split("$")|last }};'></span>
-                                            </label>
+                                            {% if color %}
+                                                <label class="check_filter check-color"
+                                                       style="display: block">{{ color|split("$")|first }}
+                                                    <input class="checkbox" type="checkbox" name="color[]"
+                                                           value="{{ color|split("$")|first }}" {% if color|split("$")|first in filter.color %} checked {% endif %}>
+                                                    <span class="checkmark checkradio"
+                                                          style='background-color: {{ color|split("$")|last }};'></span>
+                                                </label>
+                                            {% endif %}
                                         {% endfor %}
                                     </div>
                                     <div>
@@ -148,12 +152,14 @@
                                     {#</div>#}
                                     <div id="size" class="ScrollStyle">
                                         {% for size in products_size %}
-                                            <label class="check_filter check-color"
-                                                   style="display: block">{{ size }}
-                                                <input class="checkbox" type="checkbox" name="size[]"
-                                                       value="{{ size }}" {% if size in filter.size %} checked {% endif %}>
-                                                <span class="checkmark"></span>
-                                            </label>
+                                            {% if size %}
+                                                <label class="check_filter check-color"
+                                                       style="display: block">{{ size }}
+                                                    <input class="checkbox" type="checkbox" name="size[]"
+                                                           value="{{ size }}" {% if size in filter.size %} checked {% endif %}>
+                                                    <span class="checkmark"></span>
+                                                </label>
+                                            {% endif %}
                                         {% endfor %}
                                     </div>
                                     <div>

@@ -128,13 +128,21 @@ class Cart
                         $price = $product_special_query->row['price'];
                     }
 
+                    $product_colors = array();
+
+                    $product_colors_query = $this->db->query("SELECT DISTINCT c.name as color FROM " . DB_PREFIX . "product_color pc LEFT JOIN " . DB_PREFIX . "color c on (pc.color_id=c.color_id) WHERE product_id = '" . (int)$product_query->row['product_id'] . "'");
+
+                    foreach ($product_colors_query->rows as $color) {
+                        $product_colors[] = $color['color'];
+                    }
+
                     $this->data[] = array(
                         'cart_id' => $cart['cart_id'],
                         'product_id' => $product_query->row['product_id'],
                         'name' => $product_query->row['name'],
                         'manufacturer' => $product_query->row['manufacturer'],
                         'ref' => $product_query->row['ref'],
-                        'color' => $product_query->row['color'],
+                        'color' => join(" & ", $product_colors),
                         'shipping' => $product_query->row['shipping'],
                         'image' => $product_query->row['image'],
                         'option' => $option_data,

@@ -105,12 +105,20 @@ class ControllerCheckoutCart extends Controller
 
                 $product_option = $this->model_catalog_product->getProductOptionByName($product['product_id'], 'size', $option_data[0]['value']);
 
+                $product_colors = array();
+
+                $colors = $this->model_catalog_product->getColorProduct($product['product_id']);
+
+                foreach ($colors as $color) {
+                    $product_colors[] = $color['color'];
+                }
+
                 $data['products'][] = array(
                     'cart_id' => $product['cart_id'],
                     'thumb' => $image,
                     'name' => $product['name'],
                     'manufacturer' => $product['manufacturer'],
-                    'color' => $product['color'],
+                    'color' => join(" & ", $product_colors),
                     'option' => $option_data,
                     'quantity' => $product['quantity'],
                     'max_quantity' => isset($product_option['quantity']) ? $product_option['quantity'] : 1,
@@ -252,6 +260,14 @@ class ControllerCheckoutCart extends Controller
         $this->load->model('catalog/product');
 
         $product_info = $this->model_catalog_product->getProduct($product_id);
+
+        $product_colors = array();
+
+        $colors = $this->model_catalog_product->getColorProduct($product_info['product_id']);
+
+        foreach ($colors as $color) {
+            $product_colors[] = $color['color'];
+        }
 
         if ($product_info) {
             if (isset($this->request->post['quantity'])) {
@@ -457,7 +473,7 @@ class ControllerCheckoutCart extends Controller
 
                 array_multisort($sort_order, SORT_ASC, $totals);
             }
-            $json['total'] = $this->currency->format($totals[0]['value'] + (isset($this->session->data['delivery']) ? $this->session->data['delivery'] : 0  ), $this->session->data['currency']);
+            $json['total'] = $this->currency->format($totals[0]['value'] + (isset($this->session->data['delivery']) ? $this->session->data['delivery'] : 0), $this->session->data['currency']);
             $json['total_discounted'] = isset($this->session->data['coupon']) ? $this->currency->format($totals[2]['value'], $this->session->data['currency']) : $this->currency->format($totals[1]['value'], $this->session->data['currency']);
         }
 

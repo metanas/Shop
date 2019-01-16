@@ -20,8 +20,6 @@ class ModelCatalogProduct extends Model
             return array(
                 'product_id' => $query->row['product_id'],
                 'name' => $query->row['name'],
-                'color_hex' => $query->row['color_hex'],
-                'color' => $query->row['color'],
                 'quantity' => $this->getTotalQuantityProduct($query->row['product_id']),
                 'image' => $query->row['image'],
                 'manufacturer_id' => $query->row['manufacturer_id'],
@@ -61,6 +59,10 @@ class ModelCatalogProduct extends Model
             if (isset($data['filter_filter']['size'])) {
                 $sql .= "LEFT JOIN " . DB_PREFIX . "product_option_value pov on(pov.product_id = p.product_id) LEFT JOIN " . DB_PREFIX . "option_value_description ovd on(ovd.option_value_id = pov.option_value_id and ovd.option_id = pov.option_id)  ";
             }
+
+            if (isset($data['filter_filter']['color'])) {
+                $sql .= "LEFT JOIN " . DB_PREFIX . "product_color pc on(pc.product_id = p.product_id) LEFT JOIN " . DB_PREFIX . "color c on(c.color_id = pc.color_id) ";
+            }
         } else {
             $sql .= " FROM " . DB_PREFIX . "product p";
         }
@@ -80,7 +82,7 @@ class ModelCatalogProduct extends Model
                 }
 
                 if (isset($data['filter_filter']['color'])) {
-                    $sql .= " AND p.color IN ('" . implode("','", $data['filter_filter']['color']) . "')";
+                    $sql .= " AND c.name IN ('" . implode("','", $data['filter_filter']['color']) . "')";
                 }
 
                 if (isset($data['filter_filter']['size'])) {
@@ -136,7 +138,7 @@ class ModelCatalogProduct extends Model
 
             }
 
-            $sql .=")";
+            $sql .= ")";
 
             if (!empty($data['filter_name'])) {
                 $sql .= " OR LCASE(p.name) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "' OR LCASE(m.name) = '" . $this->db->escape(utf8_strtolower($data['filter_manufacturer'])) . "'";
@@ -442,6 +444,11 @@ class ModelCatalogProduct extends Model
             if (!empty($data['filter_filter']['manufacture'])) {
                 $sql .= " LEFT JOIN " . DB_PREFIX . "manufacturer m ON (p.manufacturer_id = m.manufacturer_id)";
             }
+
+            if (!empty($data['filter_filter']['color'])) {
+                $sql .= " LEFT JOIN " . DB_PREFIX . "product_color pc ON (pc.product_id = p.product_id) LEFT JOIN " . DB_PREFIX . "color c ON (c.color_id=pc.color_id)";
+            }
+
             if (!empty($data['filter_filter']['size'])) {
                 $sql .= "LEFT JOIN " . DB_PREFIX . "product_option_value pov on(pov.product_id = p.product_id) LEFT JOIN " . DB_PREFIX . "option_value_description ovd on(ovd.option_value_id = pov.option_value_id and ovd.option_id = pov.option_id)  ";
             }
@@ -464,7 +471,7 @@ class ModelCatalogProduct extends Model
                 }
 
                 if (!empty($data['filter_filter']['color'])) {
-                    $sql .= " AND p.color IN ('" . implode("','", $data['filter_filter']['color']) . "')";
+                    $sql .= " AND c.name IN ('" . implode("','", $data['filter_filter']['color']) . "')";
                 }
 
                 if (!empty($data['filter_filter']['size'])) {
@@ -535,20 +542,20 @@ class ModelCatalogProduct extends Model
 
     public function getColorProduct($product_id)
     {
-        $query = $this->db->query("SELECT DISTINCT color FROM " . DB_PREFIX . "product WHERE product_id = '" . (int)$product_id . "'");
+        $query = $this->db->query("SELECT DISTINCT c.name as color FROM " . DB_PREFIX . "product_color pc LEFT JOIN " . DB_PREFIX . "color c on (pc.color_id=c.color_id) WHERE product_id = '" . (int)$product_id . "'");
         return $query->rows;
     }
 
     public function getFilterProducts($filter = array())
     {
-        $sql = "SELECT DISTINCT p.color, p.color_hex, m.name as manufacture , p.price, ovd.name as size FROM " . DB_PREFIX . "product p LEFT JOIN " . DB_PREFIX . "product_to_category ptc on (ptc.product_id=p.product_id) LEFT JOIN " . DB_PREFIX . "manufacturer m on (p.manufacturer_id = m.manufacturer_id) LEFT JOIN " . DB_PREFIX . "product_option_value pov on(pov.product_id = p.product_id) LEFT JOIN " . DB_PREFIX . "option_value_description ovd on(ovd.option_value_id = pov.option_value_id and ovd.option_id = pov.option_id) WHERE (ptc.category_id='" . $filter['category'] . "')";
+        $sql = "SELECT DISTINCT m.name as manufacture, c.name as color, c.code as code, p.price, ovd.name as size FROM " . DB_PREFIX . "product p LEFT JOIN " . DB_PREFIX . "product_to_category ptc on (ptc.product_id=p.product_id) LEFT JOIN " . DB_PREFIX . "manufacturer m on (p.manufacturer_id = m.manufacturer_id) LEFT JOIN " . DB_PREFIX . "product_option_value pov on(pov.product_id = p.product_id) LEFT JOIN " . DB_PREFIX . "option_value_description ovd on(ovd.option_value_id = pov.option_value_id and ovd.option_id = pov.option_id) LEFT JOIN " . DB_PREFIX . "product_color pc on(pc.product_id=p.product_id) left join " . DB_PREFIX . "color c on  (c.color_id=pc.color_id) WHERE (ptc.category_id='" . $filter['category'] . "')";
 
         if (isset($filter['manufacture'])) {
             $sql .= " AND m.name IN ('" . implode("','", $filter['manufacture']) . "') ";
         }
 
         if (isset($filter['color'])) {
-            $sql .= " AND p.color IN ('" . implode("','", $filter['color']) . "') ";
+            $sql .= " AND c.name IN ('" . implode("','", $filter['color']) . "') ";
         }
 
         if (isset($filter['size'])) {
