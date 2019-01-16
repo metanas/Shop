@@ -27,9 +27,9 @@ $_['text_error']            ='La commande que vous avez demandée n`a pas pu êt
 
 // Column
 
-$_['column_order_id']       ='numéro de commande';
+$_['column_order_id']       ='Numéro de commande';
 $_['column_customer']       ='Client';
-$_['column_product']        ='Nu. De produits. ';
+$_['column_product']        ='<sup>o</sup> De produits.';
 $_['column_name']           ='Nom du produit';
 $_['column_model']          ='Modèle';
 $_['column_manufacturer']   ='Marque';

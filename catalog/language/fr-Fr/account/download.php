@@ -14,7 +14,7 @@ $_['text_empty']        ='Vous n`avez effectué aucune commande téléchargeable
 
 // Column
 
-$_['column_order_id']   ='numéro de commande';
+$_['column_order_id']   ='Numéro de commande';
 $_['column_name']       ='prénom';
 $_['column_size']       ='Taille';
 $_['column_date_added'] ='Date ajoutée';

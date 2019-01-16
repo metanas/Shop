@@ -20,7 +20,7 @@ $_['text_no']               ='Non';
 $_['text_none']             ='--- Aucun ---';
 $_['text_select']           ='--- Veuillez sélectionner ---';
 $_['text_all_zones']        ='Toutes les zones';
-$_['text_pagination']       ='Montrer %d à %d sur %d (%d pages)';
+$_['text_pagination']       ='Montrer de %d à %d sur %d (%d pages)';
 $_['text_loading']          ='Chargement..';
 $_['text_no_results']       ='Aucun résultat!';
 

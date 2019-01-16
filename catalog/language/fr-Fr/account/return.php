@@ -12,12 +12,12 @@ $_['text_return']        ='Information de retour';
 $_['text_return_detail'] ='Détails de retour';
 $_['text_description']   ='Veuillez compléter le formulaire ci-dessous pour demander un numéro RMA.';
 $_['text_order']         ='Informations sur la commande';
-$_['text_product']       ='Information produit';
+$_['text_product']       ='Informations sur le produit';
 $_['text_reason']        ='Raison du retour';
-$_['text_message']       ='  <p> Merci d`avoir envoyé votre demande de retour. Votre demande a été envoyée au service concerné pour traitement. </p>  <p> Vous serez informé par e-mail du statut de votre demande. </p> ';
+$_['text_message']       ='  <p> Merci d\'avoir envoyé votre demande de retour. Votre demande a été envoyée au service concerné pour le traitement. </p>  <p> Vous serez informé par e-mail du statut de votre demande. </p> ';
 $_['text_return_id']     ='ID de retour:';
 $_['text_order_id']      ='N° de commande:';
-$_['text_date_ordered']  ='Date de commande:';
+$_['text_date_ordered']  ='Date de la commande:';
 $_['text_status']        ='Statut:';
 $_['text_date_added']    ='Date ajoutée:';
 $_['text_comment']       ='Commentaires de retour';
@@ -30,7 +30,7 @@ $_['text_no_results']    = 'Vous n\'avez pas fait de retours précédents!';
 // Column
 
 $_['column_return_id']   ='ID de retour';
-$_['column_order_id']    ='numéro de commande';
+$_['column_order_id']    ='Numéro de la commande';
 $_['column_status']      ='Statut';
 $_['column_date_added']  ='Date ajoutée';
 $_['column_customer']    ='Client';
@@ -46,14 +46,14 @@ $_['column_action']      ='action';
 
 // Entry
 
-$_['entry_order_id']     ='numéro de commande';
-$_['entry_date_ordered'] ='Date de commande';
+$_['entry_order_id']     ='Numéro de la commande';
+$_['entry_date_ordered'] ='Date de la commande';
 $_['entry_firstname']    ='Prénom';
 $_['entry_lastname']     ='Nom de famille';
 $_['entry_email']        ='Email';
 $_['entry_telephone']    ='Téléphone';
 $_['entry_product']      ='Nom du produit';
-$_['entry_manufacturer']        ='Marque du produit';
+$_['entry_manufacturer'] ='Marque du produit';
 $_['entry_quantity']     ='Quantité';
 $_['entry_reason']       ='Raison du retour';
 $_['entry_opened']       ='Le produit est ouvert';
