@@ -21,7 +21,7 @@ $_['text_comment']          ='Commentaires de la commande';
 $_['text_telephone']        ='T';
 $_['text_history']          ='Historique des commandes';
 $_['text_success']          ='Succès: vous avez ajouté <a href="%s"> %s </a> à ton <a href="%s"> chariot </a> !';
-$_['text_empty']            ='Vous n`avez effectué aucune commande précédente!';
+$_['text_no_results']            ='Vous n`avez effectué aucune commande précédente!';
 $_['text_error']            ='La commande que vous avez demandée n`a pas pu être trouvée!';
 
 
