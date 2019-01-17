@@ -14,7 +14,7 @@ $_['text_new_affiliate']            ='Nouvel Affilié';
 $_['text_register_account']         ='  <p> Je ne suis actuellement pas affilié. </p>  <p> Cliquez sur Continuer ci-dessous pour créer un nouveau compte affilié. Veuillez noter que cette connexion ne relève d`aucune manière de votre compte client. </p> ';
 $_['text_returning_affiliate']      ='Connexion affiliée';
 $_['text_i_am_returning_affiliate'] ='Je suis un affilié retour.';
-$_['text_forgotten']                ='mot de passe oublié';
+$_['text_forgotten']                ='Mot de passe oublié';
 
 
 // Entry

@@ -8,7 +8,7 @@ $_['heading_title']   ='Mot de passe oublié?';
 // Text
 
 $_['text_account']    ='Compte';
-$_['text_forgotten']  ='mot de passe oublié';
+$_['text_forgotten']  ='Mot de passe oublié';
 $_['text_your_email'] ='Votre adresse email';
 $_['text_email']      ='Entrez l`adresse e-mail associée à votre compte. Cliquez sur Envoyer pour avoir un lien de réinitialisation du mot de passe envoyé par e-mail.';
 $_['text_success']    ='Un email avec un lien de confirmation a été envoyé votre adresse e-mail.';
