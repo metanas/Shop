@@ -29,14 +29,14 @@
                     <div class="row">
                         <div style="background-color: white;padding-bottom: 15px">
                             <h2 style="margin-top: 0; margin-left: 15px; padding-top: 24px; margin-bottom: 32px; font-size: 24px;">
-                                {{ heading_title }}({% if total_products > 1 %}
+                                {{ heading_title }}{% if total_products > 1 %}
                                 &nbsp;<span id="product_count"
-                                            style="font-size: 24px;font-weight: bold">{{ total_products }}
-                                        articles</span>
+                                            style="font-size: 24px;font-weight: bold">({{ total_products }}
+                                        articles)</span>
                             {% else %}
-                                <span id="product_count" style="font-size: 24px;font-weight: bold">{{ total_products }} article</span>
+                                <span id="product_count" style="font-size: 24px;font-weight: bold">({{ total_products }} article)</span>
                                 {% endif %}
-                                )
+
                             </h2>
                             {% for product in products %}
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
