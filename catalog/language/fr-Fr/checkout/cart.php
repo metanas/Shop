@@ -41,7 +41,7 @@ $_['column_total']             ='Total';
 
 $_['error_stock']              ='Les produits marqués avec *** ne sont pas disponibles en quantité désirée ou pas en stock!';
 $_['error_minimum']            ='Le montant minimum de la commande pour %s est de %s!';
-$_['error_required']           ='%s requis!';
+$_['error_required']           ='%s requise!';
 $_['error_product']            ='Avertissement: Il n`y a aucun produit dans votre panier!';
 $_['error_recurring_required'] ='Sélectionnez un paiement récurrent!';
 
