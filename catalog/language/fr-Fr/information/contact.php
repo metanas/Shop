@@ -2,7 +2,7 @@
 
 // Heading
 
-$_['heading_title']  ='Contactez nous';
+$_['heading_title']  ='Contactez-nous';
 
 
 // Text
@@ -15,10 +15,8 @@ $_['text_telephone'] ='Téléphone';
 $_['text_fax']       ='Fax';
 $_['text_open']      ='Horaires d`ouverture';
 $_['text_comment']   ='commentaires';
-$_['text_success']   ='  <p> Votre demande a bien été envoyée au propriétaire du magasin! </p> ';
-$_['text_message']   = '<p class="text-center"> Votre demande a bien été envoyée au propriétaire du magasin!</p>';
-
-
+$_['text_success']   ='  <p> Votre demande a bien été envoyée! </p> ';
+$_['text_message']   ='  <p class="text-center"> Votre demande a bien été envoyée ! </p> ';
 
 // Entry
 
