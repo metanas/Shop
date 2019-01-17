@@ -29,7 +29,7 @@ class ModelCatalogInformation extends Model
 
     public function addMessage($data)
     {
-        $query = $this->db->query("INSERT INTO " . DB_PREFIX . "contact SET name='" . $this->db->escape((string)$data['name']) . "', email='" . $this->db->escape((string)$data['email']) . "', telephone='" . $this->db->escape((string)$data['telephone']) . "', message='" . $this->db->escape((string)$data['message']) . "', date_added=NOW()");
+        $query = $this->db->query("INSERT INTO " . DB_PREFIX . "message SET name='" . $this->db->escape((string)$data['name']) . "', email='" . $this->db->escape((string)$data['email']) . "', telephone='" . $this->db->escape((string)$data['telephone']) . "', message='" . $this->db->escape((string)$data['message']) . "', date_added=NOW()");
 
         return $this->db->getLastId();
     }

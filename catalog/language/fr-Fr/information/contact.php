@@ -16,6 +16,8 @@ $_['text_fax']       ='Fax';
 $_['text_open']      ='Horaires d`ouverture';
 $_['text_comment']   ='commentaires';
 $_['text_success']   ='  <p> Votre demande a bien été envoyée au propriétaire du magasin! </p> ';
+$_['text_message']   = '<p class="text-center"> Votre demande a bien été envoyée au propriétaire du magasin!</p>';
+
 
 
 // Entry
