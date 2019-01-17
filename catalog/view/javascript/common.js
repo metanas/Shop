@@ -375,7 +375,6 @@ var step = {
 
 var wishlist = {
     'add': function (product_id) {
-        debugger;
         $.ajax({
             url: 'index.php?route=account/wishlist/add',
             type: 'post',

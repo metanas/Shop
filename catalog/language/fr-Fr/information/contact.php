@@ -18,7 +18,6 @@ $_['text_comment']   ='commentaires';
 $_['text_success']   ='  <p> Votre demande a bien été envoyée! </p> ';
 $_['text_message']   ='  <p class="text-center"> Votre demande a bien été envoyée ! </p> ';
 
-
 // Entry
 
 $_['entry_name']     ='Prénom';
