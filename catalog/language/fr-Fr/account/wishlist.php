@@ -2,7 +2,7 @@
 
 // Heading
 
-$_['heading_title']  ='Mes préférés !';
+$_['heading_title']  ='Vos préférés !';
 
 
 // Text
