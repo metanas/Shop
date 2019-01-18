@@ -8,11 +8,11 @@ $_['heading_tag']		='Tag -';
 
 // Text
 
-$_['text_search']       ='Produits répondant aux critères de recherche';
+$_['text_search']       ='Il n’y a pas de produit répondant à votre critère de recherche.';
 $_['text_keyword']      ='Mots clés';
 $_['text_category']     ='toutes catégories';
 $_['text_sub_category'] ='Rechercher dans les sous-catégories';
-$_['text_empty']        ='Il ya aucun produit correspondant aux critères de recherche.';
+$_['text_no_results']        ='Il ya aucun produit correspondant aux critères de recherche.';
 $_['text_quantity']     ='Qté:';
 $_['text_manufacturer'] ='Marque:';
 $_['text_model']        ='Code produit:';
