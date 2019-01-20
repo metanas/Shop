@@ -716,8 +716,8 @@ class ControllerSettingSetting extends Controller {
 		);
 
 		$data['captcha_pages'][] = array(
-			'text'  => $this->language->get('text_guest'),
-			'value' => 'guest'
+			'text'  => $this->language->get('text_checkout'),
+			'value' => 'checkout'
 		);
 
 		$data['captcha_pages'][] = array(

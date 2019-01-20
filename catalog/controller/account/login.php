@@ -91,12 +91,6 @@ class ControllerAccountLogin extends Controller
             $data['error_year'] = '';
         }
 
-        if (isset($this->error['year'])) {
-            $data['error_year'] = $this->error['year'];
-        } else {
-            $data['error_year'] = '';
-        }
-
         if (isset($this->error['email'])) {
             $data['error_email_register'] = $this->error['email'];
         } else {

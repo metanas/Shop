@@ -22,6 +22,8 @@ class ControllerAccountRegister extends Controller
 
         $this->load->model('account/customer');
 
+        var_dump($this->request->post);
+        var_dump($this->validate());
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
             $customer_id = $this->model_account_customer->addCustomer($this->request->post);
 

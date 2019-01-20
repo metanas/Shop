@@ -28,7 +28,7 @@ $_['entry_newsletter']     ='Souscrire';
 $_['entry_password']       ='Mot de passe';
 $_['entry_confirm']        ='Confirmer le mot de passe';
 $_['entry_sex']            ='Sexe';
-$_['entry_male']           ='Male';
+$_['entry_male']           ='Homme';
 $_['entry_female']         ='Femme';
 $_['entry_birthday']       ='Date de naissance';
 $_['entry_month']          ='<option value=\'01\'>Janvier</option>

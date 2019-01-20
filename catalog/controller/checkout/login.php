@@ -16,11 +16,19 @@ class ControllerCheckoutLogin extends Controller
             $data['account'] = 'register';
         }
 
+        // Captcha
+        if ($this->config->get('captcha_' . $this->config->get('config_captcha') . '_status') && in_array('checkout', (array)$this->config->get('config_captcha_page'))) {
+            $data['captcha'] = $this->load->controller('extension/captcha/' . $this->config->get('config_captcha'), $this->error);
+
+        } else {
+            $data['captcha'] = '';
+        }
+
         $data['forgotten'] = $this->url->link('account/forgotten', 'language=' . $this->config->get('config_language'));
+        $data['register'] = $this->url->link('account/register', 'language=' . $this->config->get('config_language'));
         $data['header'] = $this->load->controller('common/header');
         $data['footer'] = $this->load->controller('common/footer');
 
-        $this->response->setOutput($this->load->view('checkout/login', $data));
         return $this->load->view('checkout/login', $data);
     }
 
@@ -59,7 +67,7 @@ class ControllerCheckoutLogin extends Controller
 
             // Log the IP info
             $this->model_account_customer->addLogin($this->customer->getId(), $this->request->server['REMOTE_ADDR']);
-        }else{
+        } else {
             $json = $this->error;
         }
 

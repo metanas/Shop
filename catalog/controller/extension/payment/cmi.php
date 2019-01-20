@@ -101,25 +101,24 @@ class ControllerExtensionPaymentCmi extends Controller
 
         $data['params'] = $this->request->post;
 
-        $data['store_key'] = "TEST1234";
+        $data['store_key'] = "X1CarbonPro200117";
 
         $postParams = array_keys($this->request->post);
         natcasesort($postParams);
 
         $hashval = "";
         foreach ($postParams as $param) {
-            $paramValue = trim($_POST[$param]);
+            $paramValue = trim($this->request->post[$param]);
             $escapedParamValue = str_replace("|", "\\|", str_replace("\\", "\\\\", $paramValue));
 
             $lowerParam = strtolower($param);
             if ($lowerParam != "hash" && $lowerParam != "encoding") {
-                $hashval = $hashval . $escapedParamValue . "|";
+                $hashval .= $escapedParamValue . "|";
             }
         }
 
-
         $escapedStoreKey = str_replace("|", "\\|", str_replace("\\", "\\\\", $data['store_key']));
-        $hashval = $hashval . $escapedStoreKey;
+        $hashval .= $escapedStoreKey;
         $calculatedHashValue = hash('sha512', $hashval);
         $hash = base64_encode(pack('H*', $calculatedHashValue));
         $data['hash'] = $hash;
@@ -129,7 +128,7 @@ class ControllerExtensionPaymentCmi extends Controller
 
     public function callback()
     {
-        $storeKey = "TEST1234";
+        $storeKey = "X1CarbonPro200117";
 
         $postParams = array_keys($this->request->post);
         natcasesort($postParams);
@@ -152,53 +151,54 @@ class ControllerExtensionPaymentCmi extends Controller
         $hashval = $hashval . $escapedStoreKey;
 
         $calculatedHashValue = hash('sha512', $hashval);
-        $actualHash = base64_encode (pack('H*',$calculatedHashValue));
+        $actualHash = base64_encode(pack('H*', $calculatedHashValue));
 
         $retrievedHash = $this->request->post["HASH"];
-        if($retrievedHash == $actualHash && $this->request->post["ProcReturnCode"] == "00" )	{
+        if ($retrievedHash == $actualHash && $this->request->post["ProcReturnCode"] == "00") {
             //	"Il faut absolument verifier toutes les informations envoyées par MTC (requete server-to-server) avec les données du site avant de procéder à la confirmation de la transaction!"
             //	"Par exemple le montant envoyé dans la requête de MTC doit correspondre exactement au montant de la commande enregistré dans la BDD du site marchand.
             //  "Mettre à jour la base de données du site marchand en vérifiant si la commande existe et correspond au retour MTC!"
             //  "Dans cette MAJ, il faut enregistrer le n° du Bon de commande de paiement envoyé dans le paramètre ""orderNumber"" "
             echo "ACTION=POSTAUTH";
-        }else {
+        } else {
             echo "APPROVED";
         }
     }
 
-    public function okFail(){
+    public function okFail()
+    {
 
         $postParams = array();
-        foreach ($_POST as $key => $value){
+        foreach ($_POST as $key => $value) {
             array_push($postParams, $key);
-            echo "<tr><td>" . $key ."</td><td>" . $value . "</td></tr>";
+            echo "<tr><td>" . $key . "</td><td>" . $value . "</td></tr>";
         }
 
         natcasesort($postParams);
 
         $hashval = "";
-        foreach ($postParams as $param){
+        foreach ($postParams as $param) {
             $paramValue = trim(html_entity_decode($this->request->post[$param], ENT_QUOTES, 'UTF-8'));
             $escapedParamValue = str_replace("|", "\\|", str_replace("\\", "\\\\", $paramValue));
 
             $lowerParam = strtolower($param);
-            if($lowerParam != "hash" && $lowerParam != "encoding" )	{
+            if ($lowerParam != "hash" && $lowerParam != "encoding") {
                 $hashval = $hashval . $escapedParamValue . "|";
             }
         }
 
-        $storeKey = "TEST1234";
+        $storeKey = "X1CarbonPro200117";
         $escapedStoreKey = str_replace("|", "\\|", str_replace("\\", "\\\\", $storeKey));
         $hashval = $hashval . $escapedStoreKey;
 
         $calculatedHashValue = hash('sha512', $hashval);
-        $actualHash = base64_encode (pack('H*',$calculatedHashValue));
+        $actualHash = base64_encode(pack('H*', $calculatedHashValue));
 
         $retrievedHash = $this->request->post["HASH"];
-        if($retrievedHash == $actualHash )	{
-            echo "<h4>HASH is successfull</h4>"  . " <br />\r\n";
-        }else {
-            echo "<h4>Security Alert. The digital signature is not valid.</h4>"  . " <br />\r\n";
+        if ($retrievedHash == $actualHash) {
+            echo "<h4>HASH is successfull</h4>" . " <br />\r\n";
+        } else {
+            echo "<h4>Security Alert. The digital signature is not valid.</h4>" . " <br />\r\n";
         }
     }
 }
