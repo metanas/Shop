@@ -17,6 +17,7 @@ class ModelAccountOrder extends Model {
 				'telephone'               => $order_query->row['telephone'],
 				'email'                   => $order_query->row['email'],
 				'payment_method'          => $order_query->row['payment_method'],
+				'payment_code'            => $order_query->row['payment_code'],
 				'shipping_firstname'      => $order_query->row['shipping_firstname'],
 				'shipping_lastname'       => $order_query->row['shipping_lastname'],
 				'shipping_address_1'      => $order_query->row['shipping_address_1'],

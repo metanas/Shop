@@ -125,15 +125,24 @@ class ControllerAccountOrder extends Controller
             }
 
             if ($order_info['shipping_method'] != "Standard") {
-                $data['shipping_price'] = $this->currency->format($order_info['shipping_price'],$this->session->data['currency']);
-            }else{
+                $data['shipping_price'] = $this->currency->format($order_info['shipping_price'], $this->session->data['currency']);
+            } else {
                 $data['shipping_price'] = 'Gratuite';
             }
 
             $data['order_id'] = (int)$this->request->get['order_id'];
+
             $data['date_added'] = date($this->language->get('date_format_short'), strtotime($order_info['date_added']));
 
             $data['payment_method'] = $order_info['payment_method'];
+
+            if ($order_info['payment_code'] == "20") {
+                $this->load->model("extension/payment/cmi");
+
+                $payment = $this->model_extension_payment_cmi->getPayment($this->request->get['order_id']);
+                if (!$payment)
+                    $data['to_go_payment'] = $this->url->link("extension/payment/cmi", array("order_id" => $this->request->get['order_id']));
+            }
 
             $format = '{firstname} {lastname}' . "\n" . '{address_1}' . "\n" . '{address_2}' . "\n" . '{city} {postcode}' . "\n" . 'Tel: {telephone}' . "\n" . '{country}';
 

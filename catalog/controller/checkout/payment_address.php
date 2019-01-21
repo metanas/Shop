@@ -38,7 +38,7 @@ class ControllerCheckoutPaymentAddress extends Controller
         }
 
         if (!$json) {
-            if(isset($this->request->post['payment_method']) && filter_var((int)$this->request->post['payment_method'],FILTER_VALIDATE_INT) && $this->request->post['payment_method'] != 20) {
+            if(isset($this->request->post['payment_method']) && filter_var((int)$this->request->post['payment_method'],FILTER_VALIDATE_INT)) {
                 $this->session->data['payment_method'] = $this->request->post['payment_method'];
                 $json['success'] = true;
             }else{
