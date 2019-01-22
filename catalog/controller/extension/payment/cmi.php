@@ -109,7 +109,7 @@ class ControllerExtensionPaymentCmi extends Controller
             $data['order_id'] = $this->session->data['order_id'];
         }
 
-        $data['client_id'] = "600000952";
+        $data['client_id'] = "600000815";
         $data['currency_code'] = 504;
         $data['store_type'] = "3d_pay_hosting";
         $data['hash_algorithm'] = "ver3";
@@ -140,11 +140,11 @@ class ControllerExtensionPaymentCmi extends Controller
             unset($this->session->data['totals']);
         }
 
-        $data['action'] = "https://testpayment.cmi.co.ma/fim/est3Dgate";
+        $data['action'] = "https://payment.cmi.co.ma/fim/est3Dgate";
 
         $data['params'] = $this->request->post;
 
-        $data['store_key'] = "X1CarbonPro200117";
+        $data['store_key'] = "Qwerty1234";
 
         $postParams = array_keys($this->request->post);
         natcasesort($postParams);
@@ -172,7 +172,7 @@ class ControllerExtensionPaymentCmi extends Controller
     public
     function callback()
     {
-        $storeKey = "X1CarbonPro200117";
+        $storeKey = "Qwerty1234";
 
         $postParams = array_keys($this->request->post);
         natcasesort($postParams);
@@ -232,7 +232,7 @@ class ControllerExtensionPaymentCmi extends Controller
             }
         }
 
-        $storeKey = "X1CarbonPro200117";
+        $storeKey = "Qwerty1234";
         $escapedStoreKey = str_replace("|", "\\|", str_replace("\\", "\\\\", $storeKey));
         $hashval = $hashval . $escapedStoreKey;
 
