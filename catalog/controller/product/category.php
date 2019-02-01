@@ -143,7 +143,7 @@ class ControllerProductCategory extends Controller
                 $url .= '&price-max=' . $this->request->get['price-max'];
             }
             if (isset($this->request->get['special'])) {
-                $filter['special'] = $this->request->get['special'];
+                $url .= "&special=" . $this->request->get['special'];
             }
             $data['categories'] = array();
 
@@ -292,7 +292,7 @@ class ControllerProductCategory extends Controller
                 $url .= '&price-max=' . $this->request->get['price-max'];
             }
             if (isset($this->request->get['special'])) {
-                $filter['special'] = $this->request->get['special'];
+                $url .= "&special=" . $this->request->get['special'];
             }
 
             $data['sorts'] = array();
@@ -653,7 +653,7 @@ class ControllerProductCategory extends Controller
             }
 
             if (isset($this->request->get['special'])) {
-                $filter['special'] = $this->request->get['special'];
+                $url .= "&special=" . $this->request->get['special'];
             }
 
             if (isset($this->request->get['price-max'])) {
@@ -707,7 +707,7 @@ class ControllerProductCategory extends Controller
             }
 
             if (isset($this->request->get['special'])) {
-                $filter['special'] = $this->request->get['special'];
+                $url .= "&special=" . $this->request->get['special'];
             }
 
             if (isset($this->request->get['price-min'])) {
