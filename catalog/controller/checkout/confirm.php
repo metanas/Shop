@@ -506,14 +506,23 @@ class ControllerCheckoutConfirm extends Controller
             $data['discount'] = (int)$coupon_info['discount'] . "%";
             $data['total_discounted'] = $this->currency->format($total, $this->session->data['currency']);
         }
+        $this->load->model('extension/shipping/free');
+
+        $delivery_standard = $this->model_extension_shipping_free->getQuote();
+
+        $data['standard_price'] = $delivery_standard['quote']['free']['text'];
 
         $this->load->model('extension/shipping/item');
 
         $delivery_express = $this->model_extension_shipping_item->getQuote();
 
-        $this->session->data['delivery'] = 0;
+        $this->session->data['delivery'] = $delivery_standard['quote']['free']['cost'];
+        $this->session->data['delivery_method'] = 'Standard';
 
         $data['express_price'] = $delivery_express['quote']['item']['text'];
+
+        $data['total'] = $this->currency->format($this->cart->getTotal() + $delivery_standard['quote']['free']['cost'], $this->session->data['currency']);
+
         $data['products'] = array();
 
         foreach ($products as $product) {
@@ -639,14 +648,16 @@ class ControllerCheckoutConfirm extends Controller
             }
         }
 
-        if (isset($this->session->data['delivery']) && $this->session->data['delivery'] != "Standard") {
+        if (isset($this->session->data['delivery_method']) && $this->session->data['delivery_method'] != "Standard") {
             $this->load->model('extension/shipping/item');
 
             $order_data['shipping_method'] = "Express";
             $order_data['shipping_price'] = $this->model_extension_shipping_item->getQuote()['quote']['item']['cost'];
         } else {
+            $this->load->model('extension/shipping/free');
+
             $order_data['shipping_method'] = 'Standard';
-            $order_data['shipping_price'] = 0;
+            $order_data['shipping_price'] = $this->model_extension_shipping_free->getQuote()['quote']['free']['cost'];
         }
 
         $this->load->language('checkout/checkout');
@@ -864,7 +875,7 @@ class ControllerCheckoutConfirm extends Controller
             $quote = $this->model_extension_shipping_item->getQuote();
 
             $this->session->data['delivery'] = $quote['quote']['item']['cost'];
-
+            $this->session->data['delivery_method'] = 'Express';
 
             $json = array(
                 'coupon' => $coupon,
@@ -874,13 +885,18 @@ class ControllerCheckoutConfirm extends Controller
             );
 
         } else {
-            $this->session->data['delivery'] = 0;
+            $this->load->model('extension/shipping/free');
+
+            $quote = $this->model_extension_shipping_free->getQuote();
+
+            $this->session->data['delivery'] = $quote['quote']['free']['cost'];
+            $this->session->data['delivery_method'] = 'Standard';
 
             $json = array(
                 'coupon' => $coupon,
-                'total' => $this->currency->format($total, $this->session->data['currency']),
-                'delivery' => "0",
-                'text' => 'Gratuite'
+                'total' => $this->currency->format($total + $quote['quote']['free']['cost'], $this->session->data['currency']),
+                'delivery' => $quote['quote']['free']['cost'],
+                'text' => $quote['quote']['free']['text']
             );
 
         }

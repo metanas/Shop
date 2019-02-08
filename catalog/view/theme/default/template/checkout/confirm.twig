@@ -13,7 +13,7 @@
                     <span class="checkmark checkradio"></span>
                 </label>
             </div>
-            <div class="col-sm-2 col-xs-2">Gratuite</div>
+            <div class="col-sm-2 col-xs-2">{{ standard_price }}</div>
             <div class="col-sm-10 col-xs-10 form-group">
                 <label class="check_filter">De 2 à 3 jours ouvrables<h5>Livraison express</h5>
                     <input type="radio" class="checkbox" name="delivery" value="Express">
@@ -95,7 +95,7 @@
                             <div class="col-sm-6 col-xs-6 text-left checkout-text"><b style="font-size: 19px; ">Livraison</b>
                             </div>
                             <div class="col-sm-6 col-xs-6 text-right checkout-text"><b style="font-size: 19px; "
-                                                                                       id="delivery-total">gratuite</b>
+                                                                                       id="delivery-total">{{ standard_price }}</b>
                             </div>
                         </div>
                     </div>
