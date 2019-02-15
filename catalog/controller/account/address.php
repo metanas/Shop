@@ -348,10 +348,6 @@ class ControllerAccountAddress extends Controller
 
         $data['countries'] = $this->model_localisation_country->getCountries();
 
-        $this->load->model('localisation/zone');
-
-        $data['zones'] = $this->model_localisation_zone->getZonesByCountryId($data['countries'][0]['country_id']);
-
         if (isset($this->request->post['custom_field']['address'])) {
             $data['address_custom_field'] = $this->request->post['custom_field']['address'];
         } elseif (isset($address_info)) {
@@ -401,7 +397,7 @@ class ControllerAccountAddress extends Controller
             $this->error['telephone'] = $this->language->get('error_telephone');
         }
 
-        if ((utf8_strlen(trim($this->request->post['city'])) < 2) || (utf8_strlen(trim($this->request->post['city'])) > 30)) {
+        if ((utf8_strlen(trim($this->request->post['city'])) < 2) || (utf8_strlen(trim($this->request->post['city'])) > 80)) {
             $this->error['city'] = $this->language->get('error_city');
         }
 
