@@ -192,7 +192,7 @@ class ControllerProductCategory extends Controller
                 $sizes[] = $option['size'];
                 if (!empty($option['color']))
                     $colors[] = $option['color'] . "$" . $option['code'];
-                $price[] = $option['price'];
+                $price[] = is_null($option['special']) ? $option['price'] : $option['special'];
             }
 
             $data['products_manufacture'] = array_unique($manufactures);
@@ -204,8 +204,8 @@ class ControllerProductCategory extends Controller
 
 
             if (!empty($price)) {
-                $data['price_max'] = (int)max($price);
-                $data['price_min'] = (int)min($price);
+                $data['price_max'] = isset($filter['price']['max']) ? $filter['price']['max'] : (int)max($price);
+                $data['price_min'] = isset($filter['price']['min']) ? $filter['price']['min'] : (int)min($price);
             }
 
             $results = $this->model_catalog_product->getProducts($filter_data);
@@ -224,9 +224,14 @@ class ControllerProductCategory extends Controller
                 }
 
                 if ((float)$result['special']) {
+                    if($result['special'] >= $data['price_min'] AND $result['special'] <= $data['price_max'] )
+                        $continue = true;
+                    else
+                        $continue = false;
                     $special = $this->currency->format($this->tax->calculate($result['special'], $result['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
                     $discount = intval((($result['price'] - $result['special']) * 100) / $result['price']);
                 } else {
+                    $continue = false;
                     $special = false;
                     $discount = false;
                 }
@@ -251,19 +256,36 @@ class ControllerProductCategory extends Controller
                     $stock = '';
                 }
 
-                $data['products'][] = array(
-                    'product_id' => $result['product_id'],
-                    'thumb' => $image,
-                    'manufacturer' => $result['manufacturer'],
-                    'name' => $result['name'],
-                    'price' => $price,
-                    'discount' => $discount,
-                    'stock' => $stock,
-                    'special' => $special,
-                    'favorite' => $favorite,
-                    'minimum' => $result['minimum'] > 0 ? $result['minimum'] : 1,
-                    'href' => $this->url->link('product/product', 'language=' . $this->config->get('config_language') . '&path=' . $this->request->get['path'] . '&product_id=' . $result['product_id'] . $url)
-                );
+                if($continue){
+                    $data['products'][] = array(
+                        'product_id' => $result['product_id'],
+                        'thumb' => $image,
+                        'manufacturer' => $result['manufacturer'],
+                        'name' => $result['name'],
+                        'price' => $price,
+                        'discount' => $discount,
+                        'stock' => $stock,
+                        'special' => $special,
+                        'favorite' => $favorite,
+                        'minimum' => $result['minimum'] > 0 ? $result['minimum'] : 1,
+                        'href' => $this->url->link('product/product', 'language=' . $this->config->get('config_language') . '&path=' . $this->request->get['path'] . '&product_id=' . $result['product_id'] . $url)
+                    );
+                }
+                elseif (!$special AND $result['price'] >= $data['price_min'] AND $result['price'] <= $data['price_max']){
+                    $data['products'][] = array(
+                        'product_id' => $result['product_id'],
+                        'thumb' => $image,
+                        'manufacturer' => $result['manufacturer'],
+                        'name' => $result['name'],
+                        'price' => $price,
+                        'discount' => $discount,
+                        'stock' => $stock,
+                        'special' => $special,
+                        'favorite' => $favorite,
+                        'minimum' => $result['minimum'] > 0 ? $result['minimum'] : 1,
+                        'href' => $this->url->link('product/product', 'language=' . $this->config->get('config_language') . '&path=' . $this->request->get['path'] . '&product_id=' . $result['product_id'] . $url)
+                    );
+                }
             }
 
             $url = '';
@@ -557,7 +579,7 @@ class ControllerProductCategory extends Controller
                     $sizes[] = $option['size'];
                 if(!empty($option['color']))
                     $colors[] = $option['color'] . "$" . $option['code'];
-                $price[] = $option['price'];
+                $price[] = is_null($option['special']) ? $option['price'] : $option['special'];
             }
 
             $data['products_manufacture'] = array_unique($manufactures);
@@ -568,8 +590,8 @@ class ControllerProductCategory extends Controller
             sort($data['products_manufacture']);
 
             if (!empty($price)) {
-                $data['price_max'] = (int)max($price);
-                $data['price_min'] = (int)min($price);
+                $data['price_max'] = isset($filter['price']['max']) ? $filter['price']['max'] : (int)max($price);
+                $data['price_min'] = isset($filter['price']['min']) ? $filter['price']['min'] : (int)min($price);
             }
 
             $results = $this->model_catalog_product->getProducts($filter_data);
@@ -587,12 +609,18 @@ class ControllerProductCategory extends Controller
                 }
 
                 if ((float)$result['special']) {
+                    if($result['special'] >= $data['price_min'] AND $result['special'] <= $data['price_max'] )
+                        $continue = true;
+                    else
+                        $continue = false;
                     $special = $this->currency->format($this->tax->calculate($result['special'], $result['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
                     $discount = intval((($result['price'] - $result['special']) * 100) / $result['price']);
                 } else {
+                    $continue = false;
                     $special = false;
                     $discount = false;
                 }
+
 
                 if ($this->customer->isLogged()) {
                     if ((int)$this->model_account_wishlist->isExist($result['product_id']) == true) {
@@ -614,19 +642,36 @@ class ControllerProductCategory extends Controller
                     $stock = '';
                 }
 
-                $data['products'][] = array(
-                    'product_id' => $result['product_id'],
-                    'thumb' => $image,
-                    'manufacturer' => $result['manufacturer'],
-                    'name' => (strlen($result['name']) <= 12) ? $result['name'] : utf8_substr(trim(strip_tags(html_entity_decode($result['name'], ENT_QUOTES, 'UTF-8'))), 0, $this->config->get('theme_' . $this->config->get('config_theme') . '_product_description_length')) . '..',
-                    'price' => $price,
-                    'discount'=> $discount,
-                    'stock' => $stock,
-                    'special' => $special,
-                    'favorite' => $favorite,
-                    'minimum' => $result['minimum'] > 0 ? $result['minimum'] : 1,
-                    'href' => $this->url->link('product/product', 'language=' . $this->config->get('config_language') . '&path=' . $this->request->get['path'] . '&product_id=' . $result['product_id'] . $url)
-                );
+                if($continue){
+                    $data['products'][] = array(
+                        'product_id' => $result['product_id'],
+                        'thumb' => $image,
+                        'manufacturer' => $result['manufacturer'],
+                        'name' => $result['name'],
+                        'price' => $price,
+                        'discount' => $discount,
+                        'stock' => $stock,
+                        'special' => $special,
+                        'favorite' => $favorite,
+                        'minimum' => $result['minimum'] > 0 ? $result['minimum'] : 1,
+                        'href' => $this->url->link('product/product', 'language=' . $this->config->get('config_language') . '&path=' . $this->request->get['path'] . '&product_id=' . $result['product_id'] . $url)
+                    );
+                }
+                elseif (!$special AND $result['price'] >= $data['price_min'] AND $result['price'] <= $data['price_max']){
+                    $data['products'][] = array(
+                        'product_id' => $result['product_id'],
+                        'thumb' => $image,
+                        'manufacturer' => $result['manufacturer'],
+                        'name' => $result['name'],
+                        'price' => $price,
+                        'discount' => $discount,
+                        'stock' => $stock,
+                        'special' => $special,
+                        'favorite' => $favorite,
+                        'minimum' => $result['minimum'] > 0 ? $result['minimum'] : 1,
+                        'href' => $this->url->link('product/product', 'language=' . $this->config->get('config_language') . '&path=' . $this->request->get['path'] . '&product_id=' . $result['product_id'] . $url)
+                    );
+                }
             }
             $data['currency'] = $this->session->data['currency'];
 

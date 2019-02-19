@@ -92,14 +92,6 @@ class ModelCatalogProduct extends Model
                 if (isset($data['filter_filter']['price']['max'])) {
                     $sql .= " AND p.price <= '" . $data['filter_filter']['price']['max'] . "'";
                 }
-
-                if (isset($data['filter_filter']['price']['min'])) {
-                    $sql .= " AND p.price >= '" . $data['filter_filter']['price']['min'] . "'";
-                }
-
-                if (isset($data['filter_filter']['special'])) {
-                    $sql .= " AND p.product_id IN (SELECT product_id FROM " . DB_PREFIX . "product_special)";
-                }
             }
         }
 
@@ -548,7 +540,7 @@ class ModelCatalogProduct extends Model
 
     public function getFilterProducts($filter = array())
     {
-        $sql = "SELECT DISTINCT m.name as manufacture, c.name as color, c.code as code, p.price, ovd.name as size FROM " . DB_PREFIX . "product p LEFT JOIN " . DB_PREFIX . "product_to_category ptc on (ptc.product_id=p.product_id) LEFT JOIN " . DB_PREFIX . "manufacturer m on (p.manufacturer_id = m.manufacturer_id) LEFT JOIN " . DB_PREFIX . "product_option_value pov on(pov.product_id = p.product_id) LEFT JOIN " . DB_PREFIX . "option_value_description ovd on(ovd.option_value_id = pov.option_value_id and ovd.option_id = pov.option_id) LEFT JOIN " . DB_PREFIX . "product_color pc on(pc.product_id=p.product_id) left join " . DB_PREFIX . "color c on  (c.color_id=pc.color_id) WHERE (ptc.category_id='" . $filter['category'] . "')";
+        $sql = "SELECT DISTINCT m.name as manufacture, c.name as color, c.code as code, p.price, ovd.name as size, ps.price as special FROM " . DB_PREFIX . "product p LEFT JOIN " . DB_PREFIX . "product_to_category ptc on (ptc.product_id=p.product_id) LEFT JOIN " . DB_PREFIX . "manufacturer m on (p.manufacturer_id = m.manufacturer_id) LEFT JOIN " . DB_PREFIX . "product_option_value pov on(pov.product_id = p.product_id) LEFT JOIN " . DB_PREFIX . "option_value_description ovd on(ovd.option_value_id = pov.option_value_id and ovd.option_id = pov.option_id) LEFT JOIN " . DB_PREFIX . "product_color pc on(pc.product_id=p.product_id) left join " . DB_PREFIX . "product_special ps on (ps.product_id=p.product_id) left join " . DB_PREFIX . "color c on  (c.color_id=pc.color_id) WHERE (ptc.category_id='" . $filter['category'] . "')";
 
         if (isset($filter['manufacture'])) {
             $sql .= " AND m.name IN ('" . implode("','", $filter['manufacture']) . "') ";
