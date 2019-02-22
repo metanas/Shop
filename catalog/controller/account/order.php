@@ -124,7 +124,7 @@ class ControllerAccountOrder extends Controller
                 $data['invoice_no'] = '';
             }
 
-            if ($order_info['shipping_method'] != "Standard") {
+            if ($order_info['shipping_price'] != 0) {
                 $data['shipping_price'] = $this->currency->format($order_info['shipping_price'], $this->session->data['currency']);
             } else {
                 $data['shipping_price'] = 'Gratuite';
